@@ -36,6 +36,8 @@ the populations which recieve different types of visa, and we
 particularly are interested in region of origin as a way to identify
 populations that may be targeted by federal policy.
 
+## Section 2: Exploratory Data Analysis
+
 ## Section 2. Analysis plan
 
 ## Section 3. Regression Analysis Plan
