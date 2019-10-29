@@ -17,6 +17,7 @@ Our research project aims to determine the differences in characteristics betwee
 
 ```{r}
 library(readxl)
+tab1 <- readxl::read_xlsx(paste0("/cloud/project/02-data/newfy2017_immsuptable1d.xlsx"))
 tab1d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
 tab2d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable2d.xlsx"))
 tab3d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable3d.xlsx"))
@@ -25,6 +26,10 @@ tab4d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable4d.x
 
 
 ## Section 2. Analysis plan
+
+```{r}
+tab1d
+```
 
 ## Section 3. Regression Analysis Plan
 

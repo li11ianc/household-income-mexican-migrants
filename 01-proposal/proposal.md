@@ -40,6 +40,7 @@ populations that may be targeted by federal policy.
 
 ``` r
 library(readxl)
+tab1 <- readxl::read_xlsx(paste0("/cloud/project/02-data/newfy2017_immsuptable1d.xlsx"))
 tab1d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
 ```
 
@@ -88,6 +89,35 @@ tab4d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable4d.x
     ## * … and 2 more problems
 
 ## Section 2. Analysis plan
+
+``` r
+tab1d
+```
+
+    ## # A tibble: 236 x 58
+    ##    `Supplemental T… ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10
+    ##    <chr>            <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+    ##  1 PERSONS OBTAINI… <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
+    ##  2 <NA>             <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
+    ##  3 Region and coun… Total Alab… Alas… Ariz… Arka… Cali… Colo… Conn… Dela…
+    ##  4 REGION           <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
+    ##  5 Total            1127… 3801  1547  19344 3071  2142… 14520 11938 2244 
+    ##  6 Africa           1188… 395   198   1932  182   6938  2371  1077  431  
+    ##  7 Asia             4247… 1894  730   5178  1116  1105… 4834  3728  802  
+    ##  8 Europe           84335 268   203   854   134   13617 1192  1614  157  
+    ##  9 North America    4136… 1047  306   10786 1502  75427 5460  3649  731  
+    ## 10 Oceania          5071  15    40    82    8     1802  115   38    D    
+    ## # … with 226 more rows, and 48 more variables: ...11 <chr>, ...12 <chr>,
+    ## #   ...13 <chr>, ...14 <chr>, ...15 <chr>, ...16 <chr>, ...17 <chr>,
+    ## #   ...18 <chr>, ...19 <chr>, ...20 <chr>, ...21 <chr>, ...22 <chr>,
+    ## #   ...23 <chr>, ...24 <chr>, ...25 <chr>, ...26 <chr>, ...27 <chr>,
+    ## #   ...28 <chr>, ...29 <chr>, ...30 <chr>, ...31 <chr>, ...32 <chr>,
+    ## #   ...33 <chr>, ...34 <chr>, ...35 <chr>, ...36 <chr>, ...37 <chr>,
+    ## #   ...38 <chr>, ...39 <chr>, ...40 <chr>, ...41 <chr>, ...42 <chr>,
+    ## #   ...43 <chr>, ...44 <chr>, ...45 <chr>, ...46 <chr>, ...47 <chr>,
+    ## #   ...48 <chr>, ...49 <chr>, ...50 <chr>, ...51 <chr>, ...52 <chr>,
+    ## #   ...53 <chr>, ...54 <chr>, ...55 <chr>, ...56 <chr>, ...57 <chr>,
+    ## #   ...58 <chr>
 
 ## Section 3. Regression Analysis Plan
 
