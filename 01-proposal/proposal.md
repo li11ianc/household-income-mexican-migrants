@@ -3,6 +3,23 @@ Characteristics of Immigrants to the US by Type of Immigration Status
 Ben 10
 October 27, 2019
 
+``` r
+library(readr)
+library(knitr)
+library(tidyverse)
+```
+
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+
+    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
+    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+    ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
+    ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
+
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+
 ## Section 1. Introduction
 
 In recent years, immigration has been a topic of intense controversy.
@@ -38,86 +55,93 @@ populations that may be targeted by federal policy.
 
 ## Section 2: Exploratory Data Analysis
 
-``` r
-library(readxl)
-tab1 <- readxl::read_xlsx(paste0("/cloud/project/02-data/newfy2017_immsuptable1d.xlsx"))
-tab1d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
-```
-
-    ## New names:
-    ## * `` -> ...2
-    ## * `` -> ...3
-    ## * `` -> ...4
-    ## * `` -> ...5
-    ## * `` -> ...6
-    ## * … and 52 more problems
-
-``` r
-tab2d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable2d.xlsx"))
-```
-
-    ## New names:
-    ## * `` -> ...2
-    ## * `` -> ...3
-    ## * `` -> ...4
-    ## * `` -> ...5
-    ## * `` -> ...6
-    ## * … and 48 more problems
-
-``` r
-tab3d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable3d.xlsx"))
-```
-
-    ## New names:
-    ## * `` -> ...2
-    ## * `` -> ...3
-    ## * `` -> ...4
-    ## * `` -> ...5
-    ## * `` -> ...6
-    ## * … and 3 more problems
-
-``` r
-tab4d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable4d.xlsx"))
-```
-
-    ## New names:
-    ## * `` -> ...2
-    ## * `` -> ...3
-    ## * `` -> ...4
-    ## * `` -> ...5
-    ## * `` -> ...6
-    ## * … and 2 more problems
-
 ## Section 2. Analysis plan
 
 ``` r
-tab1d
+pers170 <- read_csv(paste0("/Users/qintianzhang/Downloads/pers170.csv"))
 ```
 
-    ## # A tibble: 236 x 58
-    ##    `Supplemental T… ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10
-    ##    <chr>            <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-    ##  1 PERSONS OBTAINI… <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
-    ##  2 <NA>             <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
-    ##  3 Region and coun… Total Alab… Alas… Ariz… Arka… Cali… Colo… Conn… Dela…
-    ##  4 REGION           <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA>  <NA> 
-    ##  5 Total            1127… 3801  1547  19344 3071  2142… 14520 11938 2244 
-    ##  6 Africa           1188… 395   198   1932  182   6938  2371  1077  431  
-    ##  7 Asia             4247… 1894  730   5178  1116  1105… 4834  3728  802  
-    ##  8 Europe           84335 268   203   854   134   13617 1192  1614  157  
-    ##  9 North America    4136… 1047  306   10786 1502  75427 5460  3649  731  
-    ## 10 Oceania          5071  15    40    82    8     1802  115   38    D    
-    ## # … with 226 more rows, and 48 more variables: ...11 <chr>, ...12 <chr>,
-    ## #   ...13 <chr>, ...14 <chr>, ...15 <chr>, ...16 <chr>, ...17 <chr>,
-    ## #   ...18 <chr>, ...19 <chr>, ...20 <chr>, ...21 <chr>, ...22 <chr>,
-    ## #   ...23 <chr>, ...24 <chr>, ...25 <chr>, ...26 <chr>, ...27 <chr>,
-    ## #   ...28 <chr>, ...29 <chr>, ...30 <chr>, ...31 <chr>, ...32 <chr>,
-    ## #   ...33 <chr>, ...34 <chr>, ...35 <chr>, ...36 <chr>, ...37 <chr>,
-    ## #   ...38 <chr>, ...39 <chr>, ...40 <chr>, ...41 <chr>, ...42 <chr>,
-    ## #   ...43 <chr>, ...44 <chr>, ...45 <chr>, ...46 <chr>, ...47 <chr>,
-    ## #   ...48 <chr>, ...49 <chr>, ...50 <chr>, ...51 <chr>, ...52 <chr>,
-    ## #   ...53 <chr>, ...54 <chr>, ...55 <chr>, ...56 <chr>, ...57 <chr>,
-    ## #   ...58 <chr>
+    ## Parsed with column specification:
+    ## cols(
+    ##   .default = col_logical(),
+    ##   country = col_double(),
+    ##   commun = col_double(),
+    ##   surveypl = col_double(),
+    ##   surveyyr = col_double(),
+    ##   hhnum = col_double(),
+    ##   persnum = col_double(),
+    ##   inform = col_double(),
+    ##   hhmemshp = col_double(),
+    ##   weight = col_double(),
+    ##   sex = col_double(),
+    ##   relhead = col_double(),
+    ##   yrborn = col_double(),
+    ##   yrdead = col_double(),
+    ##   age = col_double(),
+    ##   statebrn = col_double(),
+    ##   placebrn = col_double(),
+    ##   marstat = col_double(),
+    ##   edyrs = col_double(),
+    ##   occ = col_double(),
+    ##   hhincome = col_double()
+    ##   # ... with 37 more columns
+    ## )
+
+    ## See spec(...) for full column specifications.
+
+    ## Warning: 2830954 parsing failures.
+    ##  row      col           expected actual                                        file
+    ## 3363 legyrapp 1/0/T/F/TRUE/FALSE   1986 '/Users/qintianzhang/Downloads/pers170.csv'
+    ## 3363 legspon  1/0/T/F/TRUE/FALSE   5    '/Users/qintianzhang/Downloads/pers170.csv'
+    ## 3364 legyrapp 1/0/T/F/TRUE/FALSE   1964 '/Users/qintianzhang/Downloads/pers170.csv'
+    ## 3364 legspon  1/0/T/F/TRUE/FALSE   3    '/Users/qintianzhang/Downloads/pers170.csv'
+    ## 3365 legyrapp 1/0/T/F/TRUE/FALSE   8888 '/Users/qintianzhang/Downloads/pers170.csv'
+    ## .... ........ .................. ...... ...........................................
+    ## See problems(...) for more details.
+
+``` r
+imm <- pers170 %>%
+  select(sex, relhead, yrborn, age, statebrn, marstat, edyrs, occ, hhincome, ldowage, health, healthly, healthnw)
+imm %>%
+  filter(hhincome != 9999, hhincome != 8888)
+```
+
+    ## # A tibble: 7,351 x 13
+    ##      sex relhead yrborn   age statebrn marstat edyrs   occ hhincome ldowage
+    ##    <dbl>   <dbl>  <dbl> <dbl>    <dbl>   <dbl> <dbl> <dbl>    <dbl>   <dbl>
+    ##  1     1       1   1928    59       11       2     0    50        0      NA
+    ##  2     2       1   1932    55       11       4     0    20        0      NA
+    ##  3     1       1   1938    49       11       2     3   522   250000      NA
+    ##  4     2       1   1914    73       11       1     1   549   700000      NA
+    ##  5     1       1   1928    59       11       2     3   522   200000      NA
+    ##  6     1       1   1920    67       11       2     0   410   240000      NA
+    ##  7     1       1   1944    43       11       2     3   410   240000      NA
+    ##  8     1       1   1947    40       11       2     3   529   240000      NA
+    ##  9     1       1   1951    36       11       2     3   529   350000      NA
+    ## 10     1       1   1950    37       11       1     6   410  1440000      NA
+    ## # … with 7,341 more rows, and 3 more variables: health <lgl>,
+    ## #   healthly <lgl>, healthnw <lgl>
+
+``` r
+imm %>%
+  filter(!is.na(health))
+```
+
+    ## # A tibble: 46 x 13
+    ##      sex relhead yrborn   age statebrn marstat edyrs   occ hhincome ldowage
+    ##    <dbl>   <dbl>  <dbl> <dbl>    <dbl>   <dbl> <dbl> <dbl>    <dbl>   <dbl>
+    ##  1     2       1   1966    41       17       3    12   721       NA    1000
+    ##  2     2       2   1956    51       17       2     6    20       NA       0
+    ##  3     2       1   1952    55       17       4     6    20       NA     500
+    ##  4     1       1   1970    37       17       2     9   410       NA    9999
+    ##  5     1       1   1977    30       17       2    17   113       NA    3000
+    ##  6     2       2   1975    32       17       2    12    20       NA    4000
+    ##  7     1       1   1964    43       14       2     6   215       NA     200
+    ##  8     2       2   1982    25       14       2     4    20       NA    1300
+    ##  9     2       1   1953    54       14       6     6    20       NA    9999
+    ## 10     2       2   1955    52       14       2    12   710       NA    9999
+    ## # … with 36 more rows, and 3 more variables: health <lgl>, healthly <lgl>,
+    ## #   healthnw <lgl>
 
 ## Section 3. Regression Analysis Plan
 
