@@ -27,20 +27,11 @@ Our research project aims to determine the differences in characteristics betwee
 ## Section 2. Analysis plan
 
 ```{r}
-pers170 <- read_csv(paste0("/Users/qintianzhang/Downloads/pers170.csv"))
-imm <- pers170 %>%
-  select(sex, relhead, yrborn, age, statebrn, marstat, edyrs, occ, hhincome, usstate1, usstatel, usplace1, usplacel, usdur1, usdurl, usdur1)%>%
-  filter(hhincome != 9999 ,
-           usstate1 != 9999,
-         usstatel != 9999,
-         usdur1 != 9999,
-         usdurl != 9999)
-imm
-```
-
-```{r}
+data <- read_csv(paste0("/cloud/project/02-data/data.csv"))
 data
 ```
+
+
 
 ## Section 3. Regression Analysis Plan
 
