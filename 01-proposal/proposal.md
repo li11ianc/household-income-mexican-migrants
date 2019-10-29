@@ -29,11 +29,12 @@ Determining, for example, those paths to immigration which are most
 vital for at risk groups of people, may aid in future analysis of
 federal administrative policies.
 
-Our research aims to determine the differences in characteristics
-between different classes of legal immigration. We hypothesize that
-there do exist statistically significant differences in the populations
-which recieve different types of visa, and we particularly are
-interested in region of origin.
+Our research project aims to determine the differences in
+characteristics between different classes of legal immigration. We
+hypothesize that there exist statistically significant differences in
+the populations which recieve different types of visa, and we
+particularly are interested in region of origin as a way to identify
+populations that may be targeted by federal policy.
 
 ## Section 2. Analysis plan
 
