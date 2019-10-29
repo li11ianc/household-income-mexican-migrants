@@ -17,8 +17,10 @@ Our research project aims to determine the differences in characteristics betwee
 
 ```{r}
 library(readxl)
-dat <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
-dat
+tab1d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
+tab2d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable2d.xlsx"))
+tab3d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable3d.xlsx"))
+tab4d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable4d.xlsx"))
 ```
 
 
