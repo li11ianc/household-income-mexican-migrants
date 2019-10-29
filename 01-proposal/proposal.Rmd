@@ -6,6 +6,12 @@ date: "October 27, 2019"
 output: github_document
 ---
 
+```{r}
+library(readr)
+library(knitr)
+library(tidyverse)
+```
+
 ## Section 1. Introduction
 In recent years, immigration has been a topic of intense controversy. Given the complexity of immigration law, it is of interest to examine patterns in immigration since the beginning of the millenia. The US stance on immigration has grown increasingly strict, not only for "illegal" immigration, but for legal immigration, such as naturalization, visa use, lawful permanent residency (also referred to as green card use), refugee status, and asylum seekers. For example, the number of refugees accepted to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, it seems likely that selected policies against certain pathways will adversely affect specific groups of people as opposed to all immigrant groups equally.
 
@@ -28,7 +34,13 @@ tab4d <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable4d.x
 ## Section 2. Analysis plan
 
 ```{r}
-tab1d
+pers170 <- read_csv("/cloud/project/02-data/pers170.csv")
+imm <- pers170 %>%
+  select(sex, relhead, yrborn, age, statebrn, marstat, edyrs, occ, hhincome, ldowage, health, healthly, healthnw)
+imm %>%
+  filter(hhincome != 9999, hhincome != 8888)
+imm %>%
+  filter(!is.na(health))
 ```
 
 ## Section 3. Regression Analysis Plan
