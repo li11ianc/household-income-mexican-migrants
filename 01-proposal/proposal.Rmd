@@ -15,6 +15,11 @@ Our research project aims to determine the differences in characteristics betwee
 
 ## Section 2: Exploratory Data Analysis
 
+```{r}
+library(readxl)
+dat <- readxl::read_xlsx(paste0("/cloud/project/02-data/fy2017_immsuptable1d.xlsx"))
+dat
+```
 
 
 ## Section 2. Analysis plan
