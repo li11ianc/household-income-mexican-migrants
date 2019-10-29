@@ -42,4 +42,19 @@ populations that may be targeted by federal policy.
 
 ## Section 4. References
 
+Use the glimpse function print a summary of the data frame at the end of
+your proposal. Place your data in the /data folder, and add dimensions
+(number of observations and variables) and the data dictionary (a
+description of every variable in the dataset) to the README in the
+folder. Make sure the data dictionary is neatly formatted and easy to
+read.
+
+Sources:
+
+Statistic used in Introduction: RPC. (January 31, 2019). Number of
+refugee admissions in the U.S. from the fiscal year of 1990 to the
+fiscal year of 2018 \[Graph\]. In Statista. Retrieved October 29, 2019,
+from
+<https://www-statista-com.proxy.lib.duke.edu/statistics/200061/number-of-refugees-arriving-in-the-us/>
+
 ## The Data
