@@ -39,16 +39,7 @@ imm
 ```
 
 ```{r}
-imm %>%
-  filter(!is.na(health))
-imm %>%
-  filter(!is.na(hhincome))
-imm %>%
-  filter(!is.na(healthly))
-imm %>%
-  filter(!is.na(healthnw))
-imm %>%
-  filter(!is.na(ldowage))
+data
 ```
 
 ## Section 3. Regression Analysis Plan
