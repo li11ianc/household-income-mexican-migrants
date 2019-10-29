@@ -14,7 +14,11 @@ naturalization, visa use, lawful permanent residency (also referred to
 as green card use), refugee status, and asylum seekers. For example, the
 number of refugees accepted to the US fell to 22,491 in 2018 from 84,994
 in 2016 according to the Department of State, likely as a result of hard
-line policies against refugees coming to the US.
+line policies against refugees coming to the US. As immigration policies
+seem likely to tighten in the lead up to the 2020 elections, it seems
+likely that selected policies against certain pathways will adversely
+affect specific groups of people as opposed to all immigrant groups
+equally.
 
 Given the variety of ways to immigrate legally, and the varying
 processes and timelines for each, we would expect that the
