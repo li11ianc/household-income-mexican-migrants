@@ -22,13 +22,14 @@ characteristics of immigrants using each pathway to differ. By examining
 the demographics of each immigration pathway, we can determine the
 trends, if any, that exist in the current immigration infrastructure.
 Determining, for example, those paths to immigration which are most
-vital for at risk groups of people, may
+vital for at risk groups of people, may aid in future analysis of
+federal administrative policies.
 
-In the introduction, you will introduce the research question you wish
-to explore. This includes an introduction to the subject matter you’re
-investigating, the motivation for the for your research question (citing
-any relevant literature), and your hypotheses regarding the research
-question of interest.
+Our research aims to determine the differences in characteristics
+between different classes of legal immigration. We hypothesize that
+there do exist statistically significant differences in the populations
+which recieve different types of visa, and we particularly are
+interested in region of origin.
 
 ## Section 2. Analysis plan
 
