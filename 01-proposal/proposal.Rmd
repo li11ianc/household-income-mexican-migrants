@@ -38,12 +38,16 @@ The dataset is from The Mexican Migration Project (MMP). It was created in 1982 
 
 Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through this web-site.
 
-The MMP170 Database contains an initial file with general demographic and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations, hence is very large. Therefore, we selected 16 variables and filtered out rows that contain N/A's to create a new data table "data". These variables include:
+The MMP170 Database contains an initial file with general demographic and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations, hence is very large. Therefore, we selected 16 variables and filtered out rows that contain N/A's to create a new data table "data".
 
-"X1":
-"sex" : Sex
-  1= male
-  2= female
+### Variable Cleaning and Recoding
+
+`X1` Number of observation
+
+`sex` Sex
+
+  1 = male; 2 = female
+  
 "relhead": Relationship to household head
   1= Head 
   2= Husband/wife 
@@ -102,8 +106,8 @@ data <- data %>%
     statebrn == 31 ~ "Yucatán",
     statebrn == 32 ~ "Zacatecas",
     statebrn == 212 ~ "El Salvador",
-    statebrn == 9999 ~ "NA")
-  )
+    statebrn == 9999 ~ "NA"
+    ))
 ```
 
 "yrborn": Year of birth

@@ -12,11 +12,8 @@ mmp <- pers170 %>%
          usdur1 != 9999 & usdur1 !=8888,
          usdurl != 9999 & usdurl !=8888,
          usdoc1 != 9999 & 8888)
-<<<<<<< HEAD
 
 write.csv(mmp, file = "raw_data.csv")
 
-=======
 write.csv(imm,  "dat.csv")
 view()
->>>>>>> 30acbc8a510f990864c4c8d5dfffce61eb40511f
