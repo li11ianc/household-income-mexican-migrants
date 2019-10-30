@@ -353,36 +353,49 @@ glimpse(data)
 
 ```{r initial-spread-of-variables}
 ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Sex")
 ggplot(data = data, aes(x = age)) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Age")
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of State of Birth", x= "State of Birth")
 ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Marital Status", x= "Marital Status")
 ggplot(data = data, aes(x = edyrs)) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Years of Education", x= "Years of Education")
 ggplot(data = data, aes(x = log(hhincome))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)")
 ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence")
 ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence")
 ggplot(data = data, aes(x = log(usdur1))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)")
 ggplot(data = data, aes(x = log(usdurl))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)")
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used")
 ggplot(data = data, aes(x = occtype, fill = occtype)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Types of Occupation", x= "Occupation")
 ggplot(data = data, aes(x = uscity)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of City of Residence", x= "City of Residence")
 ```
 
 ```{r}

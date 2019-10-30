@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -439,14 +439,16 @@ glimpse(data)
 
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Sex")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = age)) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Age")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -456,21 +458,24 @@ ggplot(data = data, aes(x = age)) +
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of State of Birth", x= "State of Birth")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Marital Status", x= "Marital Status")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Years of Education", x= "Years of Education")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -479,7 +484,8 @@ ggplot(data = data, aes(x = edyrs)) +
 
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -489,7 +495,8 @@ ggplot(data = data, aes(x = log(hhincome))) +
 ``` r
 ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
@@ -497,14 +504,16 @@ ggplot(data = data, aes(x = usstate1, fill = usstate1)) +
 ``` r
 ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -513,7 +522,8 @@ ggplot(data = data, aes(x = log(usdur1))) +
 
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
-  geom_histogram()
+  geom_histogram()+
+  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -523,14 +533,16 @@ ggplot(data = data, aes(x = log(usdurl))) +
 ``` r
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, fill = occtype)) + 
-  geom_bar()
+  geom_bar()+
+  labs(title = "Distribution of Types of Occupation", x= "Occupation")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
@@ -538,7 +550,8 @@ ggplot(data = data, aes(x = occtype, fill = occtype)) +
 ``` r
 ggplot(data = data, aes(x = uscity)) + 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of City of Residence", x= "City of Residence")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
