@@ -406,7 +406,9 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 ## Section 4. References
 
-Use the glimpse function print a summary of the data frame at the end of your proposal.
+```{r glimpse of our data}
+glimpse(data)
+```
 Place your data in the /data folder, and add dimensions (number of observations and variables) and the data dictionary (a description of every variable in the dataset) to the README in the folder. Make sure the data dictionary is neatly formatted and easy to read.
 
 Sources:

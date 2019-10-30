@@ -5,7 +5,7 @@ Place data in this folder. Update this README in this folder with the dimensions
 
 # Data Dimensions
 
-`imm` has _____ obsevations and ______ variables. 
+`imm` has _____ observations and ______ variables. 
 
 # Data Dictionary
 
