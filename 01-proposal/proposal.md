@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -32,14 +32,14 @@ patterns in immigration since the beginning of the millenia. The U.S.
 stance on immigration has grown increasingly strict, not only for
 “illegal” immigration, but also for legal immigration: naturalization,
 visa use, lawful permanent residency, refugee status, and asylum
-seekers. For example, the number of refugees accepted to the US fell to
-22,491 in 2018 from 84,994 in 2016 according to the Department of State,
-likely as a result of hard line policies against refugees coming to the
-US. As immigration policies seem likely to tighten in the lead up to the
-2020 elections,\#\#\#logistic regression on whetehr they got citizenship
-or not of those who applied… (what prop applied compared to overall. It
-would be interesting to see what contributed to who applies
-(Tackett)\#\#\#
+seekers.
+
+For example, the number of refugees accepted to the US fell to 22,491 in
+2018 from 84,994 in 2016 according to the Department of State, likely as
+a result of hard line policies against refugees coming to the US. As
+immigration policies seem likely to tighten in the lead up to the 2020
+elections, we are examining immigration to the US from Mexico and the
+characteristics of these immigrants.
 
 Given the variety of ways to immigrate legally, and the varying
 processes and timelines for each, we would expect that the
@@ -47,14 +47,10 @@ characteristics of immigrants using each pathway to differ. By examining
 the demographics of each immigration pathway, we can determine the
 trends, if any, that exist in the current immigration infrastructure.
 
-Our research project aims to determine the differences in
-characteristics between different classes of legal immigration. We
-hypothesize that there exist statistically significant differences in
-the populations which recieve different types of visa, and we
-particularly are interested in region of origin as a way to identify
-populations that may be targeted by federal policy.
-
-## Section 2: Exploratory Data Analysis
+Our research project aims to determine the characteristics of Mexican
+immigration to the US. We hypothesize that there exist statistically
+significant differences in key areas such as income between immigrants
+with different types of documentation.
 
 ## Section 2. Exploratory Data Analysis
 
