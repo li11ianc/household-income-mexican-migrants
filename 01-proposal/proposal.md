@@ -586,6 +586,8 @@ issue.
 
 ## Section 4. References
 
+Below is a glimpse of our data:
+
 ``` r
 glimpse(data)
 ```
@@ -612,11 +614,6 @@ glimpse(data)
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
 
-Place your data in the /data folder, and add dimensions (number of
-observations and variables) and the data dictionary (a description of
-every variable in the dataset) to the README in the folder. Make sure
-the data dictionary is neatly formatted and easy to read.
-
 Sources:
 
 Statistic used in Introduction: RPC. (January 31, 2019). Number of
@@ -624,5 +621,3 @@ refugee admissions in the U.S. from the fiscal year of 1990 to the
 fiscal year of 2018 \[Graph\]. In Statista. Retrieved October 29, 2019,
 from
 <https://www-statista-com.proxy.lib.duke.edu/statistics/200061/number-of-refugees-arriving-in-the-us/>
-
-## The Data

@@ -3,9 +3,9 @@ Place data in this folder. Update this README in this folder with the dimensions
 
 (Remove the instructions when you update the README.)
 
-# Data Dimensions
+# Data Dimensions 
 
-`imm` has _____ observations and ______ variables. 
+`pers170` has 176701 observations and 132 variables. Our cleaned data has 16 variables and 2,824 observations.
 
 # Data Dictionary
 
