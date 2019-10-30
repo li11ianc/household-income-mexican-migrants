@@ -408,6 +408,33 @@ ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
   geom_point()
 ```
 
+```{r}
+ggplot(data = data, aes(x = statebrn, fill = occtype)) +
+  geom_bar() +
+  coord_flip()
+ggplot(data = data, aes(x = statebrn, fill = occtype)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
+
+```{r}
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar(position = "fill")
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar()
+```
+
+```{r}
+ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
 
 ## Section 3. Regression Analysis Plan
 

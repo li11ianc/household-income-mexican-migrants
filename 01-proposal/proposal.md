@@ -578,6 +578,60 @@ ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
 
 ![](proposal_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
 
+``` r
+ggplot(data = data, aes(x = statebrn, fill = occtype)) +
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = statebrn, fill = occtype)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar(position = "fill")
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
+
 ## Section 3. Regression Analysis Plan
 
 In an effort to determine which characteristics of candidates influence
