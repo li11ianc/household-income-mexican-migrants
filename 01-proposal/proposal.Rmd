@@ -28,7 +28,8 @@ Our research project aims to determine the differences in characteristics betwee
 ## Section 2. Analysis plan
 
 ```{r}
-dat 
+data <- read_csv("/cloud/project/02-data/dat.csv")
+
 ```
 
 

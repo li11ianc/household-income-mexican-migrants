@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -59,7 +59,7 @@ populations that may be targeted by federal policy.
 ## Section 2. Analysis plan
 
 ``` r
-data <- read_csv(paste0("/cloud/project/02-data/data.csv"))
+data <- read_csv("/cloud/project/02-data/dat.csv")
 ```
 
     ## Warning: Missing column names filled in: 'X1' [1]
@@ -81,29 +81,9 @@ data <- read_csv(paste0("/cloud/project/02-data/data.csv"))
     ##   usplace1 = col_double(),
     ##   usplacel = col_double(),
     ##   usdur1 = col_double(),
-    ##   usdurl = col_double()
+    ##   usdurl = col_double(),
+    ##   usdoc1 = col_double()
     ## )
-
-``` r
-data
-```
-
-    ## # A tibble: 2,840 x 16
-    ##       X1   sex relhead yrborn   age statebrn marstat edyrs   occ hhincome
-    ##    <dbl> <dbl>   <dbl>  <dbl> <dbl>    <dbl>   <dbl> <dbl> <dbl>    <dbl>
-    ##  1     1     1       1   1938    49       11       2     3   522   250000
-    ##  2     2     1       1   1928    59       11       2     3   522   200000
-    ##  3     3     1       1   1950    37       11       1     6   410  1440000
-    ##  4     4     1       1   1946    41       11       2     6   522   300000
-    ##  5     5     1       1   1956    31       11       2     6   142   300000
-    ##  6     6     1       1   1921    66       14       2     0   529   200000
-    ##  7     7     1       1   1914    73       11       2     0   830   240000
-    ##  8     8     1       1   1932    55       11       2     6   719    90000
-    ##  9     9     1       1   1945    42       11       3     6   559   200000
-    ## 10    10     1       1   1945    42       11       2     6   819   300000
-    ## # … with 2,830 more rows, and 6 more variables: usstate1 <dbl>,
-    ## #   usstatel <dbl>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
-    ## #   usdurl <dbl>
 
 The dataset is from The Mexican Migration Project (MMP). It was created
 in 1982 by an interdisciplinary team of researchers to further our
@@ -225,8 +205,8 @@ data %>%
     ## # Groups:   occtype [20]
     ##    occtype                                                            n
     ##    <chr>                                                          <int>
-    ##  1 Agriculture                                                      781
-    ##  2 Manufacturing (skilled)                                          484
+    ##  1 Agriculture                                                      779
+    ##  2 Manufacturing (skilled)                                          482
     ##  3 Manufacturing (unskilled)                                        384
     ##  4 Sales                                                            289
     ##  5 Services                                                         193
@@ -234,12 +214,12 @@ data %>%
     ##  7 Unemployed (seeking work)                                        117
     ##  8 Transportation                                                    97
     ##  9 Administrative support                                            74
-    ## 10 Homemaker                                                         74
-    ## 11 Educator                                                          60
+    ## 10 Homemaker                                                         72
+    ## 11 Educator                                                          59
     ## 12 Other, unspecified (disabled, incarcerated, tourist and other)    40
     ## 13 Protection                                                        26
     ## 14 Administrator                                                     23
-    ## 15 Professional                                                      23
+    ## 15 Professional                                                      21
     ## 16 NA                                                                19
     ## 17 Technical Worker                                                  15
     ## 18 Arts                                                               6
@@ -396,16 +376,16 @@ data %>%
     ## # Groups:   usstate1 [38]
     ##    usstate1       n
     ##    <chr>      <int>
-    ##  1 California  1757
-    ##  2 Texas        560
+    ##  1 California  1756
+    ##  2 Texas        557
     ##  3 Illinois     153
     ##  4 Arizona       73
-    ##  5 Florida       34
-    ##  6 Nevada        24
+    ##  5 Florida       33
+    ##  6 Nevada        23
     ##  7 Oregon        23
     ##  8 Arkansas      22
-    ##  9 Unknown       22
-    ## 10 Idaho         21
+    ##  9 Idaho         21
+    ## 10 Michigan      19
     ## # … with 28 more rows
 
 ``` r
@@ -476,14 +456,14 @@ data %>%
     ## # Groups:   usstatel [39]
     ##    usstatel       n
     ##    <chr>      <int>
-    ##  1 California  1795
-    ##  2 Texas        480
-    ##  3 Illinois     174
+    ##  1 California  1792
+    ##  2 Texas        478
+    ##  3 Illinois     173
     ##  4 Arizona       62
-    ##  5 Florida       57
+    ##  5 Florida       56
     ##  6 Nevada        38
-    ##  7 Unknown       27
-    ##  8 Idaho         25
+    ##  7 Idaho         25
+    ##  8 Unknown       25
     ##  9 Colorado      24
     ## 10 Washington    22
     ## # … with 29 more rows
@@ -514,7 +494,7 @@ data %>%
     ## # Groups:   usplace1 [28]
     ##    usplace1     n
     ##       <dbl> <int>
-    ##  1     9999   443
+    ##  1     9999   438
     ##  2     8735    54
     ##  3     8720    35
     ##  4     7777   185
@@ -570,12 +550,12 @@ data %>%
     ## # Groups:   uscity [29]
     ##    uscity                           n
     ##    <chr>                        <int>
-    ##  1 Los Angeles-Long Beach, CA     642
-    ##  2 NA                             443
+    ##  1 Los Angeles-Long Beach, CA     641
+    ##  2 NA                             438
     ##  3 Outside of city                185
     ##  4 San Diego, CA                  152
     ##  5 Chicago, IL                    151
-    ##  6 Houston, TX                    126
+    ##  6 Houston, TX                    125
     ##  7 Fresno, CA                     114
     ##  8 Riverside-San Bernardino, CA   111
     ##  9 Orange County, CA              104
@@ -625,8 +605,8 @@ data <- data %>%
 glimpse(data)
 ```
 
-    ## Observations: 2,840
-    ## Variables: 18
+    ## Observations: 2,831
+    ## Variables: 19
     ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
     ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
     ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
@@ -643,6 +623,7 @@ glimpse(data)
     ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
     ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
     ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
+    ## $ usdoc1   <dbl> 8, 2, 8, 8, 8, 2, 2, 2, 8, 8, 2, 8, 8, 2, 8, 8, 2, 8, 8…
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
 
@@ -657,8 +638,8 @@ data <- data %>%
 glimpse(data)
 ```
 
-    ## Observations: 2,833
-    ## Variables: 18
+    ## Observations: 2,825
+    ## Variables: 19
     ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
     ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
     ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
@@ -675,6 +656,7 @@ glimpse(data)
     ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
     ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
     ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
+    ## $ usdoc1   <dbl> 8, 2, 8, 8, 8, 2, 2, 2, 8, 8, 2, 8, 8, 2, 8, 8, 2, 8, 8…
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
 
