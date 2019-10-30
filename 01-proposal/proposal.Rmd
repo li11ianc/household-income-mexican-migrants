@@ -27,6 +27,10 @@ Our research project aims to determine the differences in characteristics betwee
 
 ## Section 2. Analysis plan
 
+```{r}
+dat 
+```
+
 
 
 The dataset is from The Mexican Migration Project (MMP). It was created in 1982 by an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (US).
