@@ -347,7 +347,7 @@ data <- data %>%
   mutate(hhincome = case_when(
     hhincome == 0 ~ .1,
     TRUE ~ hhincome
-  )) #so log transforming won't get rid of the zeros? Or should we get rid of the zeros and tke this out?
+  )) #so log transforming won't get rid of the zeros? Or should we get rid of the zeros and take this out?
 glimpse(data)
 ```
 
