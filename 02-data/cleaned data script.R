@@ -12,4 +12,5 @@ imm <- pers170 %>%
          usdur1 != 9999 & usdur1 !=8888,
          usdurl != 9999 & usdurl !=8888,
          usdoc1 != 9999 & 8888)
-write.csv(imm, file = "dat.csv")
+write.csv(imm,  "dat.csv")
+view()
