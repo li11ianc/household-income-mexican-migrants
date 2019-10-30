@@ -107,17 +107,22 @@ data
 
 ## Section 3. Regression Analysis Plan
 
-Description of the approach you will use to model the data. This
-includes
-
-Interactions you will consider Model selection procedure Regression
-modeling technique you will use and an explanation about why that method
-was chosen.
-
 In an effort to determine which characteristics of candidates influence
 their approval of a visa, we will be using a logistic regression model.
 Since our response variable is categorical (i.e., approved or denied),
 this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between occupation and
+household income, since those are generally interconnected.
+
+We will select our model using AIC criteria, because since we’re dealing
+with people, we want to build a model that accounts for volatile human
+nature and the ever-changing sociopolitical climate that could influence
+whether or not someone’s visa request is approved. AIC is used when we
+would rather say a variable is a relevant predictor, when in reality it
+might not be and so in this case, we would rather err on the side of a
+false positive because we are dealing with a constantly fluctuating
+issue.
 
 ## Section 4. References
 
