@@ -1,11 +1,6 @@
-# data
-Place data in this folder. Update this README in this folder with the dimensions and the data dictionary for the dataset(s). 
-
-(Remove the instructions when you update the README.)
-
 # Data Dimensions 
 
-`pers170` has 176701 observations and 132 variables. Our cleaned data has 16 variables and 2,824 observations.
+`pers170` has 176701 observations and 132 variables. Our cleaned data, labelled ____ has 16 variables and 2,824 observations.
 
 # Data Dictionary
 
