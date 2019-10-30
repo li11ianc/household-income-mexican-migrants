@@ -56,7 +56,7 @@ populations that may be targeted by federal policy.
 
 ## Section 2: Exploratory Data Analysis
 
-## Section 2. Analysis plan
+## Section 2. Exploratory Data Analysis
 
 ``` r
 data <- read_csv("/cloud/project/02-data/dat.csv")
@@ -104,18 +104,58 @@ The MMP170 Database contains an initial file with general demographic
 and migratory information for each member of a surveyed household
 (PERS). Pers170 has 132 variables and 176701 observations, hence is very
 large. Therefore, we selected 16 variables and filtered out rows that
-contain N/A’s to create a new data table “data”. These variables
-include:
+contain N/A’s to create a new data table “data”.
 
-“X1”: “sex” : Sex   1= male   2= female “relhead”: Relationship to
-household head   1= Head   2= Husband/wife   3= Son/daughter   4=
-Father/mother   5= Brother/sister   6= Niece/nephew   7= Uncle/aunt   8=
-Cousin   9= Grandfather/grandmother   10= Grands on/granddaughter   11=
-Stepson/stepdaughter   12= Stepbrother/stepsister   13=
-Stepmother/stepfather   14= Son-in-law/daughter-in-law   15=
-Brother-in-law/sister-in-law   16= Father-in-law/m other-in-law   17=
-Other blood relative   18= Other relative by marriage   19= Non-relative
-  20= Adopted/foster child
+### Variable Cleaning and Recoding
+
+“X1”: Number of observation
+
+“sex”: Sex
+
+“relhead”: Relationship to household head
+
+“yrborn”: Year of birth
+
+“age”: Age
+
+“statebrn”: State of birth
+
+“marstat”: Marital status
+
+“edyrs”: School years completed
+
+“occ”: Principal occupation
+
+“hhincome” : Household income
+
+“usstate1”: First US mig: State of residence
+
+“usstatel”: Latest US mig: State of residence
+
+“usplace1”: First US mig: City of residence (in place codes)
+
+“usplacel”: Latest US mig: City of residence (in place codes)
+
+“usdur1”: First US mig: Duration (in months)
+
+“usdurl”: Latest US mig: Duration (in months)
+
+“usdoc1”: Type of documentation
+
+“occtype”: Category of occupation
+
+“uscity”: City of residence during first US migration
+
+``` r
+data <- data %>%
+  mutate(relhead = factor(relhead))
+data <- data %>%
+  mutate(sex = case_when(
+    sex == 1 ~ "M",
+    sex == 2 ~ "F",
+    sex == 9999 ~ "NA"
+  ))
+```
 
 ``` r
 data <- data %>%
@@ -153,22 +193,21 @@ data <- data %>%
     statebrn == 31 ~ "Yucatán",
     statebrn == 32 ~ "Zacatecas",
     statebrn == 212 ~ "El Salvador",
-    statebrn == 9999 ~ "NA")
-  )
+    statebrn == 9999 ~ "NA"
+    ))
 ```
 
-“yrborn”: Year of birth “age”: Age “statebrn”: State of birth 1
-Aguascalientes 2 Baja California del Norte 3 Baja California del Sur 4
-Campeche 5 Coahuila 6 Colima 7 Chiapas 8 Chihuahua 9 Mexico City 10
-Durango 11 Guanajuato 12 Guerrero 13 Hidalgo 14 Jalisco 15 México 16
-Michoacán 17 Morelos 18 Nayarit 19 Nuevo Leon 20 Oaxaca 21 Puebla 22
-Querétaro 23 Quintana Roo 24 San Luis Potosí 25 Sinaloa 26 Sonora 27
-Tabasco 28 Tamaulipas 29 Tlaxcala 30 Veracruz 31 Yucatán 32 Zacatecas
-212 El Salvador
-
-“marstat”: Marital status   1= Never married   2= Married (civil or
-religious)   3= Consensual union   4= Widowed   5= Divorced   6=
-Separated “edyrs”: School years completed “occ”: Principal occupation
+``` r
+data <- data %>%
+  mutate(marstat = case_when(
+    marstat == 1 ~ "Never married",
+    marstat == 2 ~ "Married",
+    marstat == 3 ~ "Consensual union", 
+    marstat == 4 ~ "Widowed",
+    marstat == 5 ~ "Divorced",
+    marstat == 6 ~ "Separated"
+  ))
+```
 
 ``` r
 data <- data %>%
@@ -195,118 +234,7 @@ data <- data %>%
     occ %in% c(830, 831) ~ "Protection",
     occ == 9999 ~ "NA"
   ))
-data %>%
-  group_by(occtype) %>%
-  count() %>%
-  arrange(desc(n))
 ```
-
-    ## # A tibble: 20 x 2
-    ## # Groups:   occtype [20]
-    ##    occtype                                                            n
-    ##    <chr>                                                          <int>
-    ##  1 Agriculture                                                      779
-    ##  2 Manufacturing (skilled)                                          482
-    ##  3 Manufacturing (unskilled)                                        384
-    ##  4 Sales                                                            289
-    ##  5 Services                                                         193
-    ##  6 Retired                                                          130
-    ##  7 Unemployed (seeking work)                                        117
-    ##  8 Transportation                                                    97
-    ##  9 Administrative support                                            74
-    ## 10 Homemaker                                                         72
-    ## 11 Educator                                                          59
-    ## 12 Other, unspecified (disabled, incarcerated, tourist and other)    40
-    ## 13 Protection                                                        26
-    ## 14 Administrator                                                     23
-    ## 15 Professional                                                      21
-    ## 16 NA                                                                19
-    ## 17 Technical Worker                                                  15
-    ## 18 Arts                                                               6
-    ## 19 Idle                                                               4
-    ## 20 Student                                                            1
-
-Unemployed/Not in the labor force (10 - 99) 10 Unemployed (seeking work)
-20 Homemaker 30 Idle (adult not seeking work and not helping around the
-house) 42 Student 50 Retired, unspecified 60 Other, unspecified
-(disabled, incarcerated, tourist and other) Professionals (110-119) 110
-Architects; civil, chemical, industrial engineers; etc. 113 Physicians;
-dentists; optometrists; nutritionists; professional nurses, etc. 116
-Social scientists, lawyers, and psychologists 119 Other professionals
-Technical workers (120 - 129) 120 Draftsmen; equipment technicians;
-video and sound technicians; etc. 123 Lab technicians (chemical,
-biological, pharmacological, and ecological) 124 Technicians in
-agriculture, veterinary sciences, forestry, fisheries, etc. 129 Other
-technicians Educators (130 - 139) 130 Professors in universities and
-other institutions of higher learning Occupations in the arts,
-performances and sports (140 - 149) 142 Painters; sculptors;
-illustrators (fine artists); designers; choreographers; etc. 143
-Directors; producers; broadcasters; etc. 144 Athletes 145 Sports
-referees, umpires and coaches 146 Cartoonists; magicians; clowns; etc.
-149 Other artists Administrators and directors in both public and
-private sector (210 - 219) 210 Government administrators and legislators
-211 Presidents, directors, senior managers, large factory owners
-Agriculture, husbandry, forestry/fisheries workers (410 - 419) 410
-Agricultural workers 411 Husbandry workers 415 Fishery or marine workers
-417 Foremen, overseers and other control persons of agricultural,
-husbandry or fishery activities 419 Other agriculture, husbandry,
-forestry, fishery workers Manufacturing /repair supervisors (510 - 519)
-519 Other supervisors including those in unspecified industry
-Manufacturing /repair skilled workers (520 - 529). For helpers, aides,
-apprentices, and trainees see 540- 549. 520 Food, beverage and tobacco
-production workers, including cooks in establishments. 522 Textile and
-leather production workers. (Examples: tailors, upholsterers, cobblers,
-embroiderers, lithographers, seamstresses; for unskilled finishing work,
-see 542; for clothing designers, see 142.) 523 Wood and paper production
-or printing workers. (Examples: carpenter, cabinetmaker, linotypist,
-film developer, other skilled carpentry work) 524 Metal production and
-treatment workers; vehicle, machinery and equipment repair. (Examples:
-casters, lathe operators, boilermakers, welders, jewelers, goldsmiths,
-locksmiths, metal polishers, tool sharpeners, blacksmiths, metal
-forgers, refrigerator repair people, musical instrument repair people)
-526 Construction, installation, maintenance and finishing workers.
-(Examples: bricklayers, house painters, plasterers, roofers, floor
-polishers, plumbers, parts installers) 527 Electrical equipment,
-electronics and telecommunications installation and repair workers.
-(Examples: electricians, television/radio repair people). 529 Other
-craftsmen or manufacturing workers, including those in unspecified
-industry Manufacturing/repair heavy equipment operators (530 - 539) 539
-Other operators of heavy machinery and equipment, including those in
-unspecified industry Manufacturing/repair unskilled workers (540 - 549).
-541 Mine, quarry and well unskilled workers 547 Electrical equipment,
-electronics and telecommunications installation and repair unskilled
-workers 549 Other unskilled workers including those in unspecified
-industry (includes unspecified helpers or trainees) Transportation
-workers (550 - 559) 552 Truck drivers and land-transport drivers (see
-also 712) and passenger vehicle drivers 559 Other conductors, drivers,
-pilots Service and administration supervisors (610 - 619). Includes
-department chiefs, coordinators, and supervisors. Administrative and
-support workers (620 - 629) 620 Secretaries; typists; data entry,
-recorders; etc. 621 Cashiers; collectors; ticket sellers; etc. 625
-Postal and messenger workers 629 Other related workers, including
-generic office workers and public servants when no further specification
-was provided Sales workers (710 - 719) 711 Workers in retail
-establishments. (Examples: clerks, dispatchers) 713 Sales agents or
-representatives; brokers; insurance and real estate agents; auctioneers;
-etc. 719 Other retail workers, including sales people (unknown whether
-or not person works in an establishment). Ambulatory workers (720 - 729)
-(those who work in their own house are included in the previous group)
-720 Ambulatory salespeople: toys, lottery tickets, household goods,
-paper, other inedible items 721 Ambulatory service workers: food
-vendors, shoe shiners, car/windshield washers, street performers
-Personal services workers in establishments; (not in private households)
-(810 - 819) 810 Innkeepers; bartenders; waiters; flight attendants. 819
-Other personal service worker: e.g., parking lot attendants Domestic
-services workers (820) 820 Domestic services workers; caregivers,
-drivers, gardeners, butler, and other service workers in private
-households, e.g. baby sitter. Protection services workers (830 - 839)
-830 Security personnel; police officers; watchmen, firefighters. 831
-Armed forces personnel 9999 Other unspecified occupation; unknown
-
-“hhincome” :
-
-“usstate1”: First US mig: State of residence “usstatel”: Latest US mig:
-State of residence
 
 ``` r
 data <- data %>%
@@ -366,27 +294,7 @@ data <- data %>%
     usstate1 == 153 ~ "Puerto Rico",
     usstate1 == 199 ~ "Unknown"
   ))
-data %>%
-  group_by(usstate1) %>%
-  count() %>%
-  arrange(desc(n))
 ```
-
-    ## # A tibble: 38 x 2
-    ## # Groups:   usstate1 [38]
-    ##    usstate1       n
-    ##    <chr>      <int>
-    ##  1 California  1756
-    ##  2 Texas        557
-    ##  3 Illinois     153
-    ##  4 Arizona       73
-    ##  5 Florida       33
-    ##  6 Nevada        23
-    ##  7 Oregon        23
-    ##  8 Arkansas      22
-    ##  9 Idaho         21
-    ## 10 Michigan      19
-    ## # … with 28 more rows
 
 ``` r
 data <- data %>%
@@ -446,65 +354,7 @@ data <- data %>%
     usstatel == 153 ~ "Puerto Rico",
     usstatel == 199 ~ "Unknown"
   ))
-data %>%
-  group_by(usstatel) %>%
-  count() %>%
-  arrange(desc(n))
 ```
-
-    ## # A tibble: 39 x 2
-    ## # Groups:   usstatel [39]
-    ##    usstatel       n
-    ##    <chr>      <int>
-    ##  1 California  1792
-    ##  2 Texas        478
-    ##  3 Illinois     173
-    ##  4 Arizona       62
-    ##  5 Florida       56
-    ##  6 Nevada        38
-    ##  7 Idaho         25
-    ##  8 Unknown       25
-    ##  9 Colorado      24
-    ## 10 Washington    22
-    ## # … with 29 more rows
-
-100 Alabama 102 Alaska 103 Arizona 104 Arkansas 105 California 106
-Colorado 107 Connecticut 108 Delaware 109 District of Columbia 110
-Florida 111 Georgia 112 Hawaii 113 Idaho 114 Illinois 115 Indiana 116
-Iowa 117 Kansas 118 Kentucky 119 Louisiana 120 Maine 121 Maryland 122
-Massachusetts 123 Michigan 124 Minnesota 125 Mississippi 126 Missouri
-127 Montana 128 Nebraska 129 Nevada 130 New Hampshire 131 New Jersey 132
-New Mexico 133 New York 134 North Carolina 135 North Dakota 136 Ohio 137
-Oklahoma 138 Oregon 139 Pennsylvania 140 Rhode Island 141 South Carolina
-142 South Dakota 143 Tennessee 144 Texas 145 Utah 146 Vermont 147
-Virginia 148 Washington 149 West Virginia 150 Wisconsin 151 Wyoming 152
-Various States 153 Puerto Rico 199 US, State Unknown
-
-“usplace1”: First US mig: City of residence
-
-``` r
-data %>%
-  group_by(usplace1) %>%
-  count() %>%
-  filter(n > 5) %>%
-  arrange(desc(usplace1))
-```
-
-    ## # A tibble: 28 x 2
-    ## # Groups:   usplace1 [28]
-    ##    usplace1     n
-    ##       <dbl> <int>
-    ##  1     9999   438
-    ##  2     8735    54
-    ##  3     8720    35
-    ##  4     7777   185
-    ##  5     7485    73
-    ##  6     7480    37
-    ##  7     7400    55
-    ##  8     7360    40
-    ##  9     7320   152
-    ## 10     7240    32
-    ## # … with 18 more rows
 
 ``` r
 data <- data %>%
@@ -539,97 +389,28 @@ data <- data %>%
     usplace1 == 8735 ~ "Ventura, CA",
     TRUE ~ "Other"
   ))
-
-data %>%
-  group_by(uscity) %>%
-  count() %>%
-  arrange(desc(n))
 ```
-
-    ## # A tibble: 29 x 2
-    ## # Groups:   uscity [29]
-    ##    uscity                           n
-    ##    <chr>                        <int>
-    ##  1 Los Angeles-Long Beach, CA     641
-    ##  2 NA                             438
-    ##  3 Outside of city                185
-    ##  4 San Diego, CA                  152
-    ##  5 Chicago, IL                    151
-    ##  6 Houston, TX                    125
-    ##  7 Fresno, CA                     114
-    ##  8 Riverside-San Bernardino, CA   111
-    ##  9 Orange County, CA              104
-    ## 10 Merced, CA                      91
-    ## # … with 19 more rows
-
-640 Austin-San Marcos, TX MSA 680 Bakersfield, CA MSA 1240
-Brownsville-Harlingen-San Benito, TX MSA 1600 Chicago, IL PMSA 1920
-Dallas, TX PMSA 2080 Denver, CO PMSA 2320 El Paso, TX MSA 2840 Fresno,
-CA MSA 3360 Houston, TX PMSA 4120 Las Vegas, NV-AZ MSA 4480 Los
-Angeles-Long Beach, CA PMSA 4880 McAllen-Edinburg-Mission, TX MSA 4940
-Merced, CA MSA 5945 Orange County, CA PMSA 6200 Phoenix-Mesa, AZ MSA
-6720 Reno, NV MSA 6780 Riverside-San Bernardino, CA PMSA 6920
-Sacramento, CA PMSA 7240 San Antonio, TX MSA 7320 San Diego, CA MSA 7360
-San Francisco, CA PMSA 7400 San Jose, CA PMSA 7480 Santa Barbara-Santa
-Maria-Lompoc, CA MSA 7485 Santa Cruz-Watsonville, CA PMSA 7777 Outside
-of city 8720 Vallejo-Fairfield-Napa, CA PMSA 8735 Ventura, CA PMSA
-
-“usplacel”: Latest US mig: City of residence “usdur1”: First US mig:
-Duration (in months) “usdurl”: Latest US mig: Duration (in months)
 
 ``` r
 data <- data %>%
-  mutate(relhead = factor(relhead))
-data %>%
-  select(relhead) %>%
-  distinct() #after filtering, only responses of 1 (head of household) remain
-```
-
-    ## # A tibble: 1 x 1
-    ##   relhead
-    ##   <fct>  
-    ## 1 1
-
-``` r
-data <- data %>%
-  mutate(marstat = factor(marstat))
-data <- data %>%
-  mutate(sex = case_when(
-    sex == 1 ~ "M",
-    sex == 2 ~ "F",
-    sex == 9999 ~ "NA"
+  mutate(usdoc1 = case_when(
+    usdoc1 == 1 ~ "Legal resident",
+    usdoc1 == 2 ~ "Contract - Bracero",
+    usdoc1 == 3 ~ "Contract - H2A (agricultural)",
+    usdoc1 == 4 ~ "Temporary: Worker",
+    usdoc1 == 5 ~ "Temporary: Tourist/visitor",
+    usdoc1 == 6 ~ "Citizen",
+    usdoc1 == 7 ~ "Silva Letter",
+    usdoc1 == 8 ~ "Undocumented",
+    usdoc1 == 9 ~ "Refugee / asylum",
+    usdoc1 == 12 ~ "DACA (Deferred Action for Childhood Arrivals)",
+    usdoc1 %in% c(8888, 9999) ~ "NA"
   ))
 ```
 
 ``` r
-glimpse(data)
-```
-
-    ## Observations: 2,831
-    ## Variables: 19
-    ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
-    ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
-    ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-    ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
-    ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
-    ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
-    ## $ marstat  <fct> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
-    ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
-    ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
-    ## $ hhincome <dbl> 250000, 200000, 1440000, 300000, 300000, 200000, 240000…
-    ## $ usstate1 <chr> "Illinois", "California", "California", "Colorado", "Ca…
-    ## $ usstatel <chr> "Illinois", "California", "Illinois", "Unknown", "Calif…
-    ## $ usplace1 <dbl> 1600, 7360, 7320, 2080, 4480, 7360, 9999, 6920, 7320, 9…
-    ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
-    ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
-    ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
-    ## $ usdoc1   <dbl> 8, 2, 8, 8, 8, 2, 2, 2, 8, 8, 2, 8, 8, 2, 8, 8, 2, 8, 8…
-    ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
-    ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
-
-``` r
 data <- data %>%
-  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999)
+  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999, usdoc1 != "NA")
 data <- data %>%
   mutate(hhincome = case_when(
     hhincome == 0 ~ .1,
@@ -638,7 +419,7 @@ data <- data %>%
 glimpse(data)
 ```
 
-    ## Observations: 2,825
+    ## Observations: 2,824
     ## Variables: 19
     ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
     ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
@@ -646,7 +427,7 @@ glimpse(data)
     ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
     ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
     ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
-    ## $ marstat  <fct> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
+    ## $ marstat  <chr> "Married", "Married", "Never married", "Married", "Marr…
     ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
     ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
     ## $ hhincome <dbl> 2.50e+05, 2.00e+05, 1.44e+06, 3.00e+05, 3.00e+05, 2.00e…
@@ -656,9 +437,16 @@ glimpse(data)
     ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
     ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
     ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
-    ## $ usdoc1   <dbl> 8, 2, 8, 8, 8, 2, 2, 2, 8, 8, 2, 8, 8, 2, 8, 8, 2, 8, 8…
+    ## $ usdoc1   <chr> "Undocumented", "Contract - Bracero", "Undocumented", "…
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
+
+``` r
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = age)) +
@@ -667,7 +455,22 @@ ggplot(data = data, aes(x = age)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = marstat, fill = marstat)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
@@ -676,7 +479,7 @@ ggplot(data = data, aes(x = edyrs)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
@@ -685,21 +488,7 @@ ggplot(data = data, aes(x = log(hhincome))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()
-```
-
-![](proposal_files/figure-gfm/unnamed-chunk-4-4.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()
-```
-
-![](proposal_files/figure-gfm/unnamed-chunk-4-5.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
@@ -707,7 +496,7 @@ ggplot(data = data, aes(x = usstate1, fill = usstate1)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-6.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
@@ -715,22 +504,7 @@ ggplot(data = data, aes(x = usstatel, fill = usstatel)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-7.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = occtype, fill = occtype)) + 
-  geom_bar()
-```
-
-![](proposal_files/figure-gfm/unnamed-chunk-4-8.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = uscity)) + 
-  geom_bar() +
-  coord_flip()
-```
-
-![](proposal_files/figure-gfm/unnamed-chunk-4-9.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
@@ -739,14 +513,46 @@ ggplot(data = data, aes(x = log(usdur1))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-10.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = log(usdurl))) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-10.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = uscity)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
 
 ``` r
 pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
       lower.panel = NULL)
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
@@ -754,14 +560,14 @@ ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
   geom_point()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
 
 ## Section 3. Regression Analysis Plan
 
