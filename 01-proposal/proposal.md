@@ -604,7 +604,7 @@ pairs(log(hhincome) ~ age + edyrs + usdur1, data = data,
       lower.panel = NULL)
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
@@ -612,7 +612,7 @@ ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 From the boxplot, most of the occupations have similar IQR for
 log(household income), except for “Other”, “Homemaker”, and “Idle”,
@@ -631,7 +631,7 @@ ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
   geom_point()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 From the scatterplot, it seems that there are no obvious relationship
 between years of education and log(household income). This is
@@ -644,7 +644,7 @@ ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
@@ -652,21 +652,21 @@ ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar(position = "fill")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
@@ -674,7 +674,7 @@ ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
@@ -682,7 +682,7 @@ ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
@@ -690,7 +690,7 @@ ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
 
 ## Section 3. Regression Analysis Plan
 

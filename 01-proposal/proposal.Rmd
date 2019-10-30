@@ -24,9 +24,8 @@ Our research project aims to determine the characteristics of Mexican immigratio
 
 ## Section 2. Exploratory Data Analysis
 
-```{r}
+```{r load-data}
 data <- read_csv("/cloud/project/02-data/dat.csv")
-
 ```
 
 ### Data Collection Method and Description
@@ -341,7 +340,6 @@ data <- data %>%
     usdoc1 == 12 ~ "DACA (Deferred Action for Childhood Arrivals)",
     usdoc1 %in% c(8888, 9999) ~ "NA"
   ))
-    
 ```
 
 ```{r filter-na}
