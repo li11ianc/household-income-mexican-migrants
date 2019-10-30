@@ -9,14 +9,22 @@ library(knitr)
 library(tidyverse)
 ```
 
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 7eba95f904ca83302926ca8bea15fcde7d7a9569
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 7eba95f904ca83302926ca8bea15fcde7d7a9569
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -27,18 +35,17 @@ library(dplyr)
 ## Section 1. Introduction
 
 In recent years, immigration has been a topic of intense controversy.
-Given the complexity of immigration law, it is of interest to examine
-patterns in immigration since the beginning of the millenia. The US
+Given the complexity of immigration law, we are interested in examining
+patterns in immigration since the beginning of the millenia. The U.S.
 stance on immigration has grown increasingly strict, not only for
-“illegal” immigration, but for legal immigration, such as
-naturalization, visa use, lawful permanent residency (also referred to
-as green card use), refugee status, and asylum seekers. For example, the
-number of refugees accepted to the US fell to 22,491 in 2018 from 84,994
-in 2016 according to the Department of State, likely as a result of hard
-line policies against refugees coming to the US. As immigration policies
-seem likely to tighten in the lead up to the 2020
-elections,\#\#\#logistic regression on whetehr they got citizenship or
-not of those who applied… (what prop applied compared to overall. It
+“illegal” immigration, but also for legal immigration: naturalization,
+visa use, lawful permanent residency, refugee status, and asylum
+seekers. For example, the number of refugees accepted to the US fell to
+22,491 in 2018 from 84,994 in 2016 according to the Department of State,
+likely as a result of hard line policies against refugees coming to the
+US. As immigration policies seem likely to tighten in the lead up to the
+2020 elections,\#\#\#logistic regression on whetehr they got citizenship
+or not of those who applied… (what prop applied compared to overall. It
 would be interesting to see what contributed to who applies
 (Tackett)\#\#\#
 
@@ -47,9 +54,6 @@ processes and timelines for each, we would expect that the
 characteristics of immigrants using each pathway to differ. By examining
 the demographics of each immigration pathway, we can determine the
 trends, if any, that exist in the current immigration infrastructure.
-Determining, for example, those paths to immigration which are most
-vital for at risk groups of people, may aid in future analysis of
-federal administrative policies.
 
 Our research project aims to determine the differences in
 characteristics between different classes of legal immigration. We
@@ -334,6 +338,23 @@ US mig: Duration (in months) “usdurl”: Latest US mig: Duration (in
 months)
 
 ## Section 3. Regression Analysis Plan
+
+In an effort to determine which characteristics of candidates influence
+their approval of a visa, we will be using a logistic regression model.
+Since our response variable is categorical (i.e., approved or denied),
+this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between occupation and
+household income, since those are generally interconnected.
+
+We will select our model using AIC criteria, because since we’re dealing
+with people, we want to build a model that accounts for volatile human
+nature and the ever-changing sociopolitical climate that could influence
+whether or not someone’s visa request is approved. AIC is used when we
+would rather say a variable is a relevant predictor, when in reality it
+might not be and so in this case, we would rather err on the side of a
+false positive because we are dealing with a constantly fluctuating
+issue.
 
 ## Section 4. References
 
