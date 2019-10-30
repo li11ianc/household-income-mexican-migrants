@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -108,6 +108,286 @@ data
     ## # … with 2,830 more rows, and 6 more variables: usstate1 <dbl>,
     ## #   usstatel <dbl>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
     ## #   usdurl <dbl>
+
+The dataset is from The Mexican Migration Project (MMP). It was created
+in 1982 by an interdisciplinary team of researchers to further our
+understanding of the complex process of Mexican migration to the United
+States. The project is a binational research effort co-directed by Jorge
+Durand, professor of Social Anthropology at the University of
+Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and
+Public Affairs, with a joint appointment in the Woodrow Wilson School,
+at Princeton University (US).
+
+Since its inception, the MMP’s main focus has been to gather social as
+well as economic information on Mexican-US migration. The data collected
+has been compiled in a comprehensive database that is available to the
+public free of charge for research and educational purposes through this
+web-site.
+
+The MMP170 Database contains an initial file with general demographic
+and migratory information for each member of a surveyed household
+(PERS). Pers170 has 132 variables and 176701 observations, hence is very
+large. Therefore, we selected 16 variables and filtered out rows that
+contain N/A’s to create a new data table “data”. These variables
+include:
+
+“X1”: “sex” : Sex   1= male   2= female “relhead”: Relationship to
+household head   1= Head   2= Husband/wife   3= Son/daughter   4=
+Father/mother   5= Brother/sister   6= Niece/nephew   7= Uncle/aunt   8=
+Cousin   9= Grandfather/grandmother   10= Grands on/granddaughter   11=
+Stepson/stepdaughter   12= Stepbrother/stepsister   13=
+Stepmother/stepfather   14= Son-in-law/daughter-in-law   15=
+Brother-in-law/sister-in-law   16= Father-in-law/m other-in-law   17=
+Other blood relative   18= Other relative by marriage   19= Non-relative
+  20= Adopted/foster child
+
+``` r
+data <- data %>%
+  mutate(statebrn = case_when(
+    statebrn == 1 ~ "Aguascalientes", 
+    statebrn == 2 ~ "Baja California del Norte", 
+    statebrn == 3 ~ "Baja California del Sur",
+    statebrn == 4 ~ "Campeche",
+    statebrn == 5 ~ "Coahuila",
+    statebrn == 6 ~ "Colima",
+    statebrn == 7 ~ "Chiapas",
+    statebrn == 8 ~ "Chihuahua",
+    statebrn == 9 ~ "Mexico City",
+    statebrn == 10 ~ "Durango",
+    statebrn == 11 ~ "Guanajuato",
+    statebrn == 12 ~ "Guerrero",
+    statebrn == 13 ~ "Hidalgo",
+    statebrn == 14 ~ "Jalisco",
+    statebrn == 15 ~ "México",
+    statebrn == 16 ~ "Michoacán",
+    statebrn == 17 ~ "Morelos",
+    statebrn == 18 ~ "Nayarit",
+    statebrn == 19 ~ "Nuevo Leon",
+    statebrn == 20 ~ "Oaxaca",
+    statebrn == 21 ~ "Puebla",
+    statebrn == 22 ~ "Querétaro",
+    statebrn == 23 ~ "Quintana Roo",
+    statebrn == 24 ~ "San Luis Potosí",
+    statebrn == 25 ~ "Sinaloa",
+    statebrn == 26 ~ "Sonora",
+    statebrn == 27 ~ "Tabasco",
+    statebrn == 28 ~ "Tamaulipas",
+    statebrn == 29 ~ "Tlaxcala",
+    statebrn == 30 ~ "Veracruz",
+    statebrn == 31 ~ "Yucatán",
+    statebrn == 32 ~ "Zacatecas",
+    statebrn == 212 ~ "El Salvador",
+    statebrn == 9999 ~ "NA")
+  )
+```
+
+“yrborn”: Year of birth “age”: Age “statebrn”: State of birth 1
+Aguascalientes 2 Baja California del Norte 3 Baja California del Sur 4
+Campeche 5 Coahuila 6 Colima 7 Chiapas 8 Chihuahua 9 Mexico City 10
+Durango 11 Guanajuato 12 Guerrero 13 Hidalgo 14 Jalisco 15 México 16
+Michoacán 17 Morelos 18 Nayarit 19 Nuevo Leon 20 Oaxaca 21 Puebla 22
+Querétaro 23 Quintana Roo 24 San Luis Potosí 25 Sinaloa 26 Sonora 27
+Tabasco 28 Tamaulipas 29 Tlaxcala 30 Veracruz 31 Yucatán 32 Zacatecas
+212 El Salvador
+
+“marstat”: Marital status   1= Never married   2= Married (civil or
+religious)   3= Consensual union   4= Widowed   5= Divorced   6=
+Separated “edyrs”: School years completed “occ”: Principal occupation
+
+``` r
+data %>%
+  select(occ) %>%
+  distinct() %>%
+  arrange(desc(occ))
+```
+
+    ## # A tibble: 52 x 1
+    ##      occ
+    ##    <dbl>
+    ##  1  9999
+    ##  2   831
+    ##  3   830
+    ##  4   820
+    ##  5   819
+    ##  6   810
+    ##  7   721
+    ##  8   720
+    ##  9   719
+    ## 10   713
+    ## # … with 42 more rows
+
+Unemployed/Not in the labor force (10 - 99) 10 Unemployed (seeking work)
+20 Homemaker 21 Helps around the house 30 Idle (adult not seeking work
+and not helping around the house) 40 School-aged, unspecified 41
+School-aged or younger, not in school 42 Student 43 Student and worker
+50 Retired, unspecified 51 Retired w/o pension 52 Retired with pension
+53 Disability retirement 54 Pensioner who works 60 Other, unspecified
+(disabled, incarcerated, tourist and other) 61 Disabled, ill 62
+Incarcerated 63 Tourist 64 On welfare 99 Other, not in workforce
+Professionals (110 - 119) 110 Architects; civil, chemical, industrial
+engineers; etc. 111 Physicists; astronomers; mathematicians;
+statisticians; actuaries 112 Chemists and pharmacists 113 Physicians;
+dentists; optometrists; nutritionists; professional nurses, etc. 114
+Biologists; ecologists; marine biologists; etc. 115 Agriculturalists;
+veterinarians; and professionals in forestry and fisheries 116 Social
+scientists, lawyers, and psychologists 117 Economists; business
+administrators; CPAs; etc. 118 Religious professionals 119 Other
+professionals Technical workers (120 - 129) 120 Draftsmen; equipment
+technicians; video and sound technicians; etc. 121 Technicians in
+physics, mathematics, statistics and actuarial science 122 Medical
+technicians: nurse=s aides, dental technicians 123 Lab technicians
+(chemical, biological, pharmacological, and ecological) 124 Technicians
+in agriculture, veterinary sciences, forestry, fisheries, etc. 125
+Technicians in the social sciences, accounting, administration and
+tourism 126 Technicians in religious activities 129 Other technicians
+Educators (130 - 139) 130 Professors in universities and other
+institutions of higher learning 131 Professors/teachers in high school
+or the equivalent MMP Codebook (1-170) 132 Professors/teachers in junior
+high school or the equivalent 133 Professors/teachers in grammar school
+or the equivalent 134 Professors/teachers in preschool 135
+Professors/teachers in special education 136 Professors and instructors
+in arts, administration, vocational arts, technical education and sports
+139 Other educational workers Occupations in the arts, performances and
+sports (140 - 149) 140 Writers; critics; journalists; editors; etc. 141
+Composers; singers; musicians; actors; dancers; etc. 142 Painters;
+sculptors; illustrators (fine artists); designers; choreographers; etc.
+143 Directors; producers; broadcasters; etc. 144 Athletes 145 Sports
+referees, umpires and coaches 146 Cartoonists; magicians; clowns; etc.
+149 Other artists Administrators and directors in both public and
+private sector (210 - 219) 210 Government administrators and legislators
+211 Presidents, directors, senior managers, large factory owners 212
+Specialized directors, managers and administrators (for owners refer to
+214, 215, and 710). 213 Directors of political, union and civil
+organizations (non-profit). 214\* Small and medium-sized factory owners
+(for retail establishments see 710; for service establishments, see 215)
+215\* Owners of small and medium-sized service establishments (for
+retail establishments see 710; for factories, see 214) 219 Other
+administrators such as entrepreneurs, managers, and directors, when no
+further specification was provided Agriculture, husbandry,
+forestry/fisheries workers (410 - 419) 410 Agricultural workers 411
+Husbandry workers 412 Workers in both agriculture and husbandry 413
+Forestry workers 414 Hunters; games men; trappers; etc. 415 Fishery or
+marine workers 416 Workers in activities associated with agricultural or
+marine products 417 Foremen, overseers and other control persons of
+agricultural, husbandry or fishery activities 419 Other agriculture,
+husbandry, forestry, fishery workers - D1 - February 2019 Manufacturing
+/repair supervisors (510 - 519) 510 Food, beverage and tobacco
+production supervisors 511 Mine, quarry and well supervisors 512 Textile
+and leather production supervisors 513 Wood and paper production or
+printing supervisors 514 Electrical, electronic, or metallurgical
+production supervisors 515 Ceramic, tile, glass or other mineral
+production supervisors 516 Construction, installation, maintenance and
+finishing supervisors 517 Electrical generation, installation, repair
+and maintenance supervisors (including telecommunications equipment) 518
+Chemical, petroleum, oil, and plastics production supervisors 519 Other
+supervisors including those in unspecified industry Manufacturing
+/repair skilled workers (520 - 529). For helpers, aides, apprentices,
+and trainees see 540- 549. 520 Food, beverage and tobacco production
+workers, including cooks in establishments. 521 Mine, quarry and well
+workers 522 Textile and leather production workers. (Examples: tailors,
+upholsterers, cobblers, embroiderers, lithographers, seamstresses; for
+unskilled finishing work, see 542; for clothing designers, see 142.) 523
+Wood and paper production or printing workers. (Examples: carpenter,
+cabinetmaker, linotypist, film developer, other skilled carpentry work)
+524 Metal production and treatment workers; vehicle, machinery and
+equipment repair. (Examples: casters, lathe operators, boilermakers,
+welders, jewelers, goldsmiths, locksmiths, metal polishers, tool
+sharpeners, blacksmiths, metal forgers, refrigerator repair people,
+musical instrument repair people) 525 Ceramic, tile, glass or other
+mineral production workers. (Examples: potters, glasscutters) 526
+Construction, installation, maintenance and finishing workers.
+(Examples: bricklayers, house painters, plasterers, roofers, floor
+polishers, plumbers, parts installers) 527 Electrical equipment,
+electronics and telecommunications installation and repair workers.
+(Examples: electricians, television/radio repair people). 528 Chemical,
+petroleum, oil, and plastics production workers 529 Other craftsmen or
+manufacturing workers, including those in unspecified industry
+Manufacturing/repair heavy equipment operators (530 - 539) 530 Food,
+beverage and tobacco production equipment operators 531 Mine, quarry and
+well equipment operators 532 Textile and leather production equipment
+operators 533 Wood and paper production or printing equipment operators
+(includes furniture production). 534 Metallurgical or automotive
+production or repair equipment operators. (Examples: assembling machine
+operators, rollers, fitters) 535 Ceramic, tile, glass or other mineral
+production equipment operators 536 Construction equipment operators 537
+Energy, pump or refrigeration equipment operators 538 Chemical,
+petroleum, oil, and plastics production equipment operators 539 Other
+operators of heavy machinery and equipment, including those in
+unspecified industry Manufacturing/repair unskilled workers (540 - 549).
+540 Food, beverage and tobacco production unskilled workers 541 Mine,
+quarry and well unskilled workers 542 Textile and leather production
+unskilled workers. (Includes garment finishing work, e.g. sewing
+buttons.) 543 Wood and paper production or printing unskilled workers
+(includes furniture production) 544 Metallurgical or automotive
+production or repair unskilled workers 545 Ceramic, tile, glass or other
+mineral production unskilled workers 546 Construction unskilled workers
+547 Electrical equipment, electronics and telecommunications
+installation and repair unskilled workers 548 Chemical, petroleum, oil,
+and plastics production unskilled workers 549 Other unskilled workers
+including those in unspecified industry (includes unspecified helpers or
+trainees) Transportation workers (550 - 559) 550 Industrial vehicle
+operators/drivers. (Examples: crane operators, tractor drivers, reapers,
+lawn mowers) 551 Railroad conductors and workers 552 Truck drivers and
+land-transport drivers (see also 712) and passenger vehicle drivers 553
+Air-transport pilots 554 Maritime captains, pilots and workers 555
+Operator of animal driven cart 559 Other conductors, drivers, pilots
+Service and administration supervisors (610 - 619). Includes department
+chiefs, coordinators, and supervisors. 610 Health, social services,
+education and justice services supervisors 611 Accounting, finance,
+human resources, library services supervisors 612 Communications and
+transportation services supervisors 613 Statistics, information,
+publicity and research services supervisors 614 Public administration
+supervisors and infrastructure supervisors 615 Culture and recreation
+services supervisors 616 Restaurant, store, and hotel services
+supervisors 617 Agriculture, forestry and fisheries service supervisors
+MMP Codebook (1-170) - D2 - February 2019
+
+618 Other department supervisors 619 Other workers who perform similar
+activities, including those in unspecified industry Administrative and
+support workers (620 - 629) 620 Secretaries; typists; data entry,
+recorders; etc. 621 Cashiers; collectors; ticket sellers; etc. 622
+Record-keepers for stores and warehouses 623 Receptionists; travel
+agent; interviewers; etc. 624 Telephone and telegraph operators 625
+Postal and messenger workers 626 Dispatchers; transportation
+coordinators 627 Other administrative service workers who perform
+routinary or simple tasks. 629 Other related workers, including generic
+office workers and public servants when no further specification was
+provided Sales workers (710 - 719) 710 Merchants in retail
+establishments, retail business owners and owners of small businesses.
+(For factory owners, see 214; for owners of medium and large service
+establishments, see 215). 711 Workers in retail establishments.
+(Examples: clerks, dispatchers) 712 Distributors or demonstrators in
+retail establishments, including delivery workers who may or may not
+also be drivers (see also 552) 713 Sales agents or representatives;
+brokers; insurance and real estate agents; auctioneers; etc. 719 Other
+retail workers, including sales people (unknown whether or not person
+works in an establishment). Ambulatory workers (720 - 729) (those who
+work in their own house are included in the previous group) 720
+Ambulatory salespeople: toys, lottery tickets, household goods, paper,
+other inedible items 721 Ambulatory service workers: food vendors, shoe
+shiners, car/windshield washers, street performers 729 Other ambulatory
+workers, self-employed day laborers Personal services workers in
+establishments; (not in private households) (810 - 819) 810 Innkeepers;
+bartenders; waiters; flight attendants. 811 Launderers; pressers; and
+other clothes-cleaning service workers 812 Doormen; concierges; elevator
+operators; bellboys; cleaning workers; gardeners; movers; dishwashers
+813 Barbers; hair stylists; etc. 814 Workers in car rental, and other
+movable rental establishments 815 Party planners; tour guides; event
+organizers; caregivers in institutions (except nurses, see 113 and 122).
+816 Morticians; funeral home workers; etc. 819 Other personal service
+worker: e.g., parking lot attendants Domestic services workers (820) 820
+Domestic services workers; caregivers, drivers, gardeners, butler, and
+other service workers in private households, e.g. baby sitter.
+Protection services workers (830 - 839) 830 Security personnel; police
+officers; watchmen, firefighters. 831 Armed forces personnel 839 Other
+related workers Unspecified/unknown occupations MMP Codebook (1-170) -
+D3 - February 2019 9999 Other unspecified occupation; unknown
+
+“hhincome” : “usstate1”: First US mig: State of residence “usstatel”:
+Latest US mig: State of residence “usplace1”: First US mig: City of
+residence “usplacel”: Latest US mig: City of residence “usdur1”: First
+US mig: Duration (in months) “usdurl”: Latest US mig: Duration (in
+months)
 
 ## Section 3. Regression Analysis Plan
 
