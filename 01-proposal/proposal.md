@@ -9,22 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 7eba95f904ca83302926ca8bea15fcde7d7a9569
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 7eba95f904ca83302926ca8bea15fcde7d7a9569
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -331,11 +323,304 @@ households, e.g. baby sitter. Protection services workers (830 - 839)
 830 Security personnel; police officers; watchmen, firefighters. 831
 Armed forces personnel 9999 Other unspecified occupation; unknown
 
-“hhincome” : “usstate1”: First US mig: State of residence “usstatel”:
-Latest US mig: State of residence “usplace1”: First US mig: City of
-residence “usplacel”: Latest US mig: City of residence “usdur1”: First
-US mig: Duration (in months) “usdurl”: Latest US mig: Duration (in
-months)
+“hhincome” :
+
+“usstate1”: First US mig: State of residence “usstatel”: Latest US mig:
+State of residence
+
+``` r
+data <- data %>%
+  mutate(usstate1 = case_when(
+    usstate1 == 100 ~ "Alabama",
+    usstate1 == 102 ~ "Alaska",
+    usstate1 == 103 ~ "Arizona",
+    usstate1 == 104 ~ "Arkansas",
+    usstate1 == 105 ~ "California",
+    usstate1 == 106 ~ "Colorado",
+    usstate1 == 107 ~ "Connecticut",
+    usstate1 == 108 ~ "Delaware",
+    usstate1 == 109 ~ "District of Columbia",
+    usstate1 == 110 ~ "Florida",
+    usstate1 == 111 ~ "Georgia",
+    usstate1 == 112 ~ "Hawaii",
+    usstate1 == 113 ~ "Idaho",
+    usstate1 == 114 ~ "Illinois",
+    usstate1 == 115 ~ "Indiana",
+    usstate1 == 116 ~ "Iowa",
+    usstate1 == 117 ~ "Kansas",
+    usstate1 == 118 ~ "Kentucky",
+    usstate1 == 119 ~ "Louisiana",
+    usstate1 == 120 ~ "Maine",
+    usstate1 == 121 ~ "Maryland",
+    usstate1 == 122 ~ "Massachusetts",
+    usstate1 == 123 ~ "Michigan",
+    usstate1 == 124 ~ "Minnesota",
+    usstate1 == 125 ~ "Mississippi",
+    usstate1 == 126 ~ "Missouri",
+    usstate1 == 127 ~ "Montana",
+    usstate1 == 128 ~ "Nebraska",
+    usstate1 == 129 ~ "Nevada",
+    usstate1 == 130 ~ "New Hampshire",
+    usstate1 == 131 ~ "New Jersey", 
+    usstate1 == 132 ~ "New Mexico", 
+    usstate1 == 133 ~ "New York",
+    usstate1 == 134 ~ "North Carolina",
+    usstate1 == 135 ~ "North Dakota",
+    usstate1 == 136 ~ "Ohio",
+    usstate1 == 137 ~ "Oklahoma", 
+    usstate1 == 138 ~ "Oregon",
+    usstate1 == 139 ~ "Pennsylvania",
+    usstate1 == 140 ~ "Rhode Island",
+    usstate1 == 141 ~ "South Carolina",
+    usstate1 == 142 ~ "South Dakota",
+    usstate1 == 143 ~ "Tennessee",
+    usstate1 == 144 ~ "Texas",
+    usstate1 == 145 ~ "Utah",
+    usstate1 == 146 ~ "Vermont",
+    usstate1 == 147 ~ "Virginia",
+    usstate1 == 148 ~ "Washington",
+    usstate1 == 149 ~ "West Virginia",
+    usstate1 == 150 ~ "Wisconsin",
+    usstate1 == 151 ~ "Wyoming",
+    usstate1 == 152 ~ "Various States",
+    usstate1 == 153 ~ "Puerto Rico",
+    usstate1 == 199 ~ "Unknown"
+  ))
+data %>%
+  group_by(usstate1) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+    ## # A tibble: 38 x 2
+    ## # Groups:   usstate1 [38]
+    ##    usstate1       n
+    ##    <chr>      <int>
+    ##  1 California  1757
+    ##  2 Texas        560
+    ##  3 Illinois     153
+    ##  4 Arizona       73
+    ##  5 Florida       34
+    ##  6 Nevada        24
+    ##  7 Oregon        23
+    ##  8 Arkansas      22
+    ##  9 Unknown       22
+    ## 10 Idaho         21
+    ## # … with 28 more rows
+
+``` r
+data <- data %>%
+  mutate(usstatel = case_when(
+    usstatel == 100 ~ "Alabama",
+    usstatel == 102 ~ "Alaska",
+    usstatel == 103 ~ "Arizona",
+    usstatel == 104 ~ "Arkansas",
+    usstatel == 105 ~ "California",
+    usstatel == 106 ~ "Colorado",
+    usstatel == 107 ~ "Connecticut",
+    usstatel == 108 ~ "Delaware",
+    usstatel == 109 ~ "District of Columbia",
+    usstatel == 110 ~ "Florida",
+    usstatel == 111 ~ "Georgia",
+    usstatel == 112 ~ "Hawaii",
+    usstatel == 113 ~ "Idaho",
+    usstatel == 114 ~ "Illinois",
+    usstatel == 115 ~ "Indiana",
+    usstatel == 116 ~ "Iowa",
+    usstatel == 117 ~ "Kansas",
+    usstatel == 118 ~ "Kentucky",
+    usstatel == 119 ~ "Louisiana",
+    usstatel == 120 ~ "Maine",
+    usstatel == 121 ~ "Maryland",
+    usstatel == 122 ~ "Massachusetts",
+    usstatel == 123 ~ "Michigan",
+    usstatel == 124 ~ "Minnesota",
+    usstatel == 125 ~ "Mississippi",
+    usstatel == 126 ~ "Missouri",
+    usstatel == 127 ~ "Montana",
+    usstatel == 128 ~ "Nebraska",
+    usstatel == 129 ~ "Nevada",
+    usstatel == 130 ~ "New Hampshire",
+    usstatel == 131 ~ "New Jersey", 
+    usstatel == 132 ~ "New Mexico", 
+    usstatel == 133 ~ "New York",
+    usstatel == 134 ~ "North Carolina",
+    usstatel == 135 ~ "North Dakota",
+    usstatel == 136 ~ "Ohio",
+    usstatel == 137 ~ "Oklahoma", 
+    usstatel == 138 ~ "Oregon",
+    usstatel == 139 ~ "Pennsylvania",
+    usstatel == 140 ~ "Rhode Island",
+    usstatel == 141 ~ "South Carolina",
+    usstatel == 142 ~ "South Dakota",
+    usstatel == 143 ~ "Tennessee",
+    usstatel == 144 ~ "Texas",
+    usstatel == 145 ~ "Utah",
+    usstatel == 146 ~ "Vermont",
+    usstatel == 147 ~ "Virginia",
+    usstatel == 148 ~ "Washington",
+    usstatel == 149 ~ "West Virginia",
+    usstatel == 150 ~ "Wisconsin",
+    usstatel == 151 ~ "Wyoming",
+    usstatel == 152 ~ "Various States",
+    usstatel == 153 ~ "Puerto Rico",
+    usstatel == 199 ~ "Unknown"
+  ))
+data %>%
+  group_by(usstatel) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+    ## # A tibble: 39 x 2
+    ## # Groups:   usstatel [39]
+    ##    usstatel       n
+    ##    <chr>      <int>
+    ##  1 California  1795
+    ##  2 Texas        480
+    ##  3 Illinois     174
+    ##  4 Arizona       62
+    ##  5 Florida       57
+    ##  6 Nevada        38
+    ##  7 Unknown       27
+    ##  8 Idaho         25
+    ##  9 Colorado      24
+    ## 10 Washington    22
+    ## # … with 29 more rows
+
+100 Alabama 102 Alaska 103 Arizona 104 Arkansas 105 California 106
+Colorado 107 Connecticut 108 Delaware 109 District of Columbia 110
+Florida 111 Georgia 112 Hawaii 113 Idaho 114 Illinois 115 Indiana 116
+Iowa 117 Kansas 118 Kentucky 119 Louisiana 120 Maine 121 Maryland 122
+Massachusetts 123 Michigan 124 Minnesota 125 Mississippi 126 Missouri
+127 Montana 128 Nebraska 129 Nevada 130 New Hampshire 131 New Jersey 132
+New Mexico 133 New York 134 North Carolina 135 North Dakota 136 Ohio 137
+Oklahoma 138 Oregon 139 Pennsylvania 140 Rhode Island 141 South Carolina
+142 South Dakota 143 Tennessee 144 Texas 145 Utah 146 Vermont 147
+Virginia 148 Washington 149 West Virginia 150 Wisconsin 151 Wyoming 152
+Various States 153 Puerto Rico 199 US, State Unknown
+
+“usplace1”: First US mig: City of residence
+
+``` r
+data %>%
+  group_by(usplace1) %>%
+  count() %>%
+  filter(n > 5) %>%
+  arrange(desc(usplace1))
+```
+
+    ## # A tibble: 28 x 2
+    ## # Groups:   usplace1 [28]
+    ##    usplace1     n
+    ##       <dbl> <int>
+    ##  1     9999   443
+    ##  2     8735    54
+    ##  3     8720    35
+    ##  4     7777   185
+    ##  5     7485    73
+    ##  6     7480    37
+    ##  7     7400    55
+    ##  8     7360    40
+    ##  9     7320   152
+    ## 10     7240    32
+    ## # … with 18 more rows
+
+``` r
+data <- data %>%
+  mutate(uscity = case_when(
+    usplace1 == 9999 ~ "NA",
+    usplace1 == 640 ~ "Austin-San Marcos, TX",
+    usplace1 == 680 ~ "Bakersfield, CA",
+    usplace1 == 1240 ~ "Brownsville-Harlingen-San Benito, TX",
+    usplace1 == 1600 ~ "Chicago, IL",
+    usplace1 == 1920 ~ "Dallas, TX",
+    usplace1 == 2080 ~ "Denver, CO",
+    usplace1 == 2320 ~ "El Paso, TX",
+    usplace1 == 2840 ~ "Fresno, CA",
+    usplace1 == 3360 ~ "Houston, TX",
+    usplace1 == 4120 ~ "Las Vegas, NV",
+    usplace1 == 4480 ~ "Los Angeles-Long Beach, CA",
+    usplace1 == 4880 ~ "McAllen-Edinburg-Mission, TX",
+    usplace1 == 4940 ~ "Merced, CA",
+    usplace1 == 5945 ~ "Orange County, CA",
+    usplace1 == 6200 ~ "Phoenix-Mesa, AZ",
+    usplace1 == 6720 ~ "Reno, NV",
+    usplace1 == 6780 ~ "Riverside-San Bernardino, CA",
+    usplace1 == 6920 ~ "Sacramento, CA",
+    usplace1 == 7240 ~ "San Antonio, TX",
+    usplace1 == 7320 ~ "San Diego, CA",
+    usplace1 == 7360 ~ "San Francisco, CA",
+    usplace1 == 7400 ~ "San Jose, CA",
+    usplace1 == 7480 ~ "Santa Barbara-Santa Maria-Lompoc, CA",
+    usplace1 == 7485 ~ "Santa Cruz-Watsonville, CA",
+    usplace1 == 7777 ~ "Outside of city",
+    usplace1 == 8720 ~ "Vallejo-Fairfield-Napa, CA",
+    usplace1 == 8735 ~ "Ventura, CA",
+    TRUE ~ "Other"
+  ))
+
+data %>%
+  group_by(uscity) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+    ## # A tibble: 29 x 2
+    ## # Groups:   uscity [29]
+    ##    uscity                           n
+    ##    <chr>                        <int>
+    ##  1 Los Angeles-Long Beach, CA     642
+    ##  2 NA                             443
+    ##  3 Outside of city                185
+    ##  4 San Diego, CA                  152
+    ##  5 Chicago, IL                    151
+    ##  6 Houston, TX                    126
+    ##  7 Fresno, CA                     114
+    ##  8 Riverside-San Bernardino, CA   111
+    ##  9 Orange County, CA              104
+    ## 10 Merced, CA                      91
+    ## # … with 19 more rows
+
+640 Austin-San Marcos, TX MSA 680 Bakersfield, CA MSA 1240
+Brownsville-Harlingen-San Benito, TX MSA 1600 Chicago, IL PMSA 1920
+Dallas, TX PMSA 2080 Denver, CO PMSA 2320 El Paso, TX MSA 2840 Fresno,
+CA MSA 3360 Houston, TX PMSA 4120 Las Vegas, NV-AZ MSA 4480 Los
+Angeles-Long Beach, CA PMSA 4880 McAllen-Edinburg-Mission, TX MSA 4940
+Merced, CA MSA 5945 Orange County, CA PMSA 6200 Phoenix-Mesa, AZ MSA
+6720 Reno, NV MSA 6780 Riverside-San Bernardino, CA PMSA 6920
+Sacramento, CA PMSA 7240 San Antonio, TX MSA 7320 San Diego, CA MSA 7360
+San Francisco, CA PMSA 7400 San Jose, CA PMSA 7480 Santa Barbara-Santa
+Maria-Lompoc, CA MSA 7485 Santa Cruz-Watsonville, CA PMSA 7777 Outside
+of city 8720 Vallejo-Fairfield-Napa, CA PMSA 8735 Ventura, CA PMSA
+
+“usplacel”: Latest US mig: City of residence “usdur1”: First US mig:
+Duration (in months) “usdurl”: Latest US mig: Duration (in months)
+
+``` r
+glimpse(data)
+```
+
+    ## Observations: 2,840
+    ## Variables: 18
+    ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+    ## $ sex      <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1…
+    ## $ relhead  <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+    ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
+    ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
+    ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
+    ## $ marstat  <dbl> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
+    ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
+    ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
+    ## $ hhincome <dbl> 250000, 200000, 1440000, 300000, 300000, 200000, 240000…
+    ## $ usstate1 <chr> "Illinois", "California", "California", "Colorado", "Ca…
+    ## $ usstatel <chr> "Illinois", "California", "Illinois", "Unknown", "Calif…
+    ## $ usplace1 <dbl> 1600, 7360, 7320, 2080, 4480, 7360, 9999, 6920, 7320, 9…
+    ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
+    ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
+    ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
+    ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
+    ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
 
 ## Section 3. Regression Analysis Plan
 
