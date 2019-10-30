@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -82,6 +82,8 @@ data <- read_csv("/cloud/project/02-data/dat.csv")
     ##   usdoc1 = col_double()
     ## )
 
+### Data Collection Method and Description
+
 The dataset is from The Mexican Migration Project (MMP). It was created
 in 1982 by an interdisciplinary team of researchers to further our
 understanding of the complex process of Mexican migration to the United
@@ -95,13 +97,36 @@ Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
 has been compiled in a comprehensive database that is available to the
 public free of charge for research and educational purposes through this
-web-site.
+web-site. The MMP uses the ethnosurvey approach to gather data: in
+winter months, they randomly sample households in communities throughout
+Mexico, surveying household heads and members about their first and last
+trip to the US, as well as economic and demographic information. They
+then conduct the same survey in destination areas in the US, sampling
+migrants from the same communities they survey in Mexico but who have
+not returned to Mexico. Thus, the sample of migrants includes residents
+in both Mexico and the US.
 
-The MMP170 Database contains an initial file with general demographic
-and migratory information for each member of a surveyed household
-(PERS). Pers170 has 132 variables and 176701 observations, hence is very
-large. Therefore, we selected 16 variables and filtered out rows that
-contain N/A’s to create a new data table “data”.
+The MMP170 Database contains an initial file with general demographic,
+economic, and migratory information for each member of a surveyed
+household (PERS). Pers170 has 132 variables and 176701 observations,
+hence is very large. Therefore, we selected 17 variables and filtered
+out rows that contain N/A’s to create a new dataset labeled `data`.
+
+The response variable we will be examining is `hhincome`, or household
+income. It is a numeric variable.
+
+The predictors we will consider are sex (categorical), relhead
+(relationship to head of household, categorical), yrborn (year of birth,
+numeric), age (in years, numeric), statebrn (state of birth,
+categorical), marstat (marital status, categorical), edyrs (years of
+school completed, numeric), usstate1 (state of residence on first US
+migration, categorical), usstatel (state of residence on last US
+migration, categorical), uscity (city of residence on first US
+migration, categorical), usplacel (city of residence on last US
+migration, categorical), usdur1 (duration of first US migration in
+months, numeric), usdurl (duration of last US migration in months,
+numeric), usdoc1 (type of documentation used on first US migration,
+categorical), and occtype (category of occupation, categorical).
 
 ### Variable Cleaning and Recoding
 
@@ -407,36 +432,53 @@ data <- data %>%
 
 ``` r
 data <- data %>%
-  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999, usdoc1 != "NA")
+  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999, usdoc1 != "NA", occtype != "NA")
 data <- data %>%
   mutate(hhincome = case_when(
     hhincome == 0 ~ .1,
     TRUE ~ hhincome
-  )) #so log transforming won't get rid of the zeros? Or should we get rid of the zeros and take this out?
-glimpse(data)
+  )) #so log transforming hhincome will not remove incomes of zero
 ```
 
-    ## Observations: 2,824
-    ## Variables: 19
-    ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
-    ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
-    ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-    ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
-    ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
-    ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
-    ## $ marstat  <chr> "Married", "Married", "Never married", "Married", "Marr…
-    ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
-    ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
-    ## $ hhincome <dbl> 2.50e+05, 2.00e+05, 1.44e+06, 3.00e+05, 3.00e+05, 2.00e…
-    ## $ usstate1 <chr> "Illinois", "California", "California", "Colorado", "Ca…
-    ## $ usstatel <chr> "Illinois", "California", "Illinois", "Unknown", "Calif…
-    ## $ usplace1 <dbl> 1600, 7360, 7320, 2080, 4480, 7360, 9999, 6920, 7320, 9…
-    ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
-    ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
-    ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
-    ## $ usdoc1   <chr> "Undocumented", "Contract - Bracero", "Undocumented", "…
-    ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
-    ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
+### Summary Statistics
+
+``` r
+data %>%
+  select(hhincome) %>%
+  summary()
+```
+
+    ##     hhincome        
+    ##  Min.   :        0  
+    ##  1st Qu.:      560  
+    ##  Median :     4688  
+    ##  Mean   :   412647  
+    ##  3rd Qu.:   440000  
+    ##  Max.   :100000000
+
+The household incomes of migrants represented in the dataset range from
+0 dollars to 100 million dollars, with a median of 4,200 dollars and a
+mean of 410,185 dollars. Likely due to a few outliers with extremely
+high incomes, the distribution is right-skewed and the median offers a
+better measure of center.
+
+``` r
+data %>%
+  select(edyrs) %>%
+  summary()
+```
+
+    ##      edyrs       
+    ##  Min.   : 0.000  
+    ##  1st Qu.: 2.000  
+    ##  Median : 4.000  
+    ##  Mean   : 4.929  
+    ##  3rd Qu.: 6.000  
+    ##  Max.   :28.000
+
+The number of years of education completed ranges from 0 to 28, with a
+median of 4 and a mean of 4.933. On average, the migrants sampled were
+in school for four to five years.
 
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
@@ -562,7 +604,7 @@ pairs(log(hhincome) ~ age + edyrs + usdur1, data = data,
       lower.panel = NULL)
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
@@ -570,14 +612,31 @@ ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+
+From the boxplot, most of the occupations have similar IQR for
+log(household income), except for “Other”, “Homemaker”, and “Idle”,
+which are significantly lower. This makes sense because these types of
+job may not have a stable income. Among the rest of the occupations,
+educators seem to have the largest median log(household income),
+followed by transportation workers. It is possible that many of them
+became foreign language teachers or uber drivers. However, combining
+this graph with the distribution of occupations, there is a large class
+imbalance. An overwhelming majority of migrants work in the agricultural
+sector, which does not warrent high income. The second most common
+occupation is in manufacturing.
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
   geom_point()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+From the scatterplot, it seems that there are no obvious relationship
+between years of education and log(household income). This is
+discouraging because we can infer that many of the immigrants are
+underemployed.
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
@@ -660,7 +719,7 @@ Below is a glimpse of our data:
 glimpse(data)
 ```
 
-    ## Observations: 2,824
+    ## Observations: 2,805
     ## Variables: 19
     ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
     ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
