@@ -533,9 +533,74 @@ data %>%
 "usdur1": First US mig: Duration (in months)
 "usdurl": Latest US mig: Duration (in months)
 
+```{r factor-variables}
+data <- data %>%
+  mutate(relhead = factor(relhead))
+data %>%
+  select(relhead) %>%
+  distinct() #after filtering, only responses of 1 (head of household) remain
+data <- data %>%
+  mutate(marstat = factor(marstat))
+data <- data %>%
+  mutate(sex = case_when(
+    sex == 1 ~ "M",
+    sex == 2 ~ "F",
+    sex == 9999 ~ "NA"
+  ))
+```
+
 ```{r}
 glimpse(data)
 ```
+
+```{r filter-na}
+data <- data %>%
+  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999)
+data <- data %>%
+  mutate(hhincome = case_when(
+    hhincome == 0 ~ .1,
+    TRUE ~ hhincome
+  )) #so log transforming won't get rid of the zeros? Or should we get rid of the zeros and tke this out?
+glimpse(data)
+```
+
+```{r}
+ggplot(data = data, aes(x = age)) +
+  geom_histogram()
+ggplot(data = data, aes(x = edyrs)) +
+  geom_histogram()
+ggplot(data = data, aes(x = log(hhincome))) +
+  geom_histogram()
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()
+ggplot(data = data, aes(x = marstat, fill = marstat)) + 
+  geom_bar()
+ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
+  geom_bar() +
+  coord_flip()
+ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
+  geom_bar() +
+  coord_flip()
+ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+  geom_bar()
+ggplot(data = data, aes(x = uscity)) + 
+  geom_bar() +
+  coord_flip()
+ggplot(data = data, aes(x = log(usdur1))) +
+  geom_histogram()
+```
+
+```{r}
+pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
+      lower.panel = NULL)
+ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
+  geom_point()
+
+```
+
 
 ## Section 3. Regression Analysis Plan
 

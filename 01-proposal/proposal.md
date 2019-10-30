@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ───────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -598,18 +598,42 @@ of city 8720 Vallejo-Fairfield-Napa, CA PMSA 8735 Ventura, CA PMSA
 Duration (in months) “usdurl”: Latest US mig: Duration (in months)
 
 ``` r
+data <- data %>%
+  mutate(relhead = factor(relhead))
+data %>%
+  select(relhead) %>%
+  distinct() #after filtering, only responses of 1 (head of household) remain
+```
+
+    ## # A tibble: 1 x 1
+    ##   relhead
+    ##   <fct>  
+    ## 1 1
+
+``` r
+data <- data %>%
+  mutate(marstat = factor(marstat))
+data <- data %>%
+  mutate(sex = case_when(
+    sex == 1 ~ "M",
+    sex == 2 ~ "F",
+    sex == 9999 ~ "NA"
+  ))
+```
+
+``` r
 glimpse(data)
 ```
 
     ## Observations: 2,840
     ## Variables: 18
     ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
-    ## $ sex      <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1…
-    ## $ relhead  <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+    ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
+    ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
     ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
     ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
     ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
-    ## $ marstat  <dbl> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
+    ## $ marstat  <fct> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
     ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
     ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
     ## $ hhincome <dbl> 250000, 200000, 1440000, 300000, 300000, 200000, 240000…
@@ -621,6 +645,141 @@ glimpse(data)
     ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
+
+``` r
+data <- data %>%
+  filter(sex != "NA", relhead != 9999, yrborn != 9999, age != 9999, edyrs != 9999, hhincome != 9999)
+data <- data %>%
+  mutate(hhincome = case_when(
+    hhincome == 0 ~ .1,
+    TRUE ~ hhincome
+  )) #so log transforming won't get rid of the zeros? Or should we get rid of the zeros and tke this out?
+glimpse(data)
+```
+
+    ## Observations: 2,833
+    ## Variables: 18
+    ## $ X1       <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+    ## $ sex      <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", …
+    ## $ relhead  <fct> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+    ## $ yrborn   <dbl> 1938, 1928, 1950, 1946, 1956, 1921, 1914, 1932, 1945, 1…
+    ## $ age      <dbl> 49, 59, 37, 41, 31, 66, 73, 55, 42, 42, 51, 36, 41, 69,…
+    ## $ statebrn <chr> "Guanajuato", "Guanajuato", "Guanajuato", "Guanajuato",…
+    ## $ marstat  <fct> 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 4, 2, 2, 2, 1, 2, 2, 2, 2…
+    ## $ edyrs    <dbl> 3, 3, 6, 6, 6, 0, 0, 6, 6, 6, 3, 2, 6, 2, 0, 2, 3, 6, 3…
+    ## $ occ      <dbl> 522, 522, 410, 522, 142, 529, 830, 719, 559, 819, 522, …
+    ## $ hhincome <dbl> 2.50e+05, 2.00e+05, 1.44e+06, 3.00e+05, 3.00e+05, 2.00e…
+    ## $ usstate1 <chr> "Illinois", "California", "California", "Colorado", "Ca…
+    ## $ usstatel <chr> "Illinois", "California", "Illinois", "Unknown", "Calif…
+    ## $ usplace1 <dbl> 1600, 7360, 7320, 2080, 4480, 7360, 9999, 6920, 7320, 9…
+    ## $ usplacel <dbl> 1600, 4480, 1600, 9999, 4480, 7360, 9999, 2080, 7320, 9…
+    ## $ usdur1   <dbl> 12, 12, 36, 6, 12, 24, 6, 6, 6, 12, 8, 12, 12, 4, 24, 3…
+    ## $ usdurl   <dbl> 6, 12, 48, 6, 12, 24, 6, 6, 6, 12, 4, 8, 6, 14, 24, 24,…
+    ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
+    ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
+
+``` r
+ggplot(data = data, aes(x = age)) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = edyrs)) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = log(hhincome))) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-4.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = marstat, fill = marstat)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-5.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-6.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-7.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+  geom_bar()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-8.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = uscity)) + 
+  geom_bar() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-9.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = log(usdur1))) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/unnamed-chunk-4-10.png)<!-- -->
+
+``` r
+pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
+      lower.panel = NULL)
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+``` r
+ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
+  geom_point()
+```
+
+![](proposal_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
 
 ## Section 3. Regression Analysis Plan
 
