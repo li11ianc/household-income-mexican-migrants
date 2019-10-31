@@ -14,13 +14,13 @@ library(dplyr)
 ```
 
 ## Section 1. Introduction
-In recent years, immigration has been a topic of intense controversy. Given the complexity of immigration law, we are interested in examining patterns in immigration since the beginning of the millenia. The U.S. stance on immigration has grown increasingly strict, not only for "illegal" immigration, but also for legal immigration: naturalization, visa use, lawful permanent residency, refugee status, and asylum seekers. 
+In recent years, immigration has been a topic of intense controversy. Given the complexity of immigration law, we are interested in examining the experiences of immigrants since the beginning of the millenia. The U.S. stance on immigration has grown increasingly strict, not only for "illegal" immigration, but also for legal immigration: naturalization, visa use, lawful permanent residency, refugee status, and asylum seekers. 
 
 For example, the number of refugees accepted from all countries worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, we are examining immigration to the US from Mexico and the characteristics of these immigrants.
 
-Given the variety of ways to immigrate legally, and the varying processes and timelines for each, we would expect that the characteristics of immigrants using each pathway to differ. By examining the demographics of each immigration pathway, we can determine the trends, if any, that exist in the current immigration infrastructure.
+Given the variety of ways to immigrate legally,and the widely varying experiences of immigrants from different backgrounds, we expect that the success of immigrants, measured in the form of annual income, to stem from their demographic differences and experiences of immigration. 
 
-Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant differences in key areas such as income between immigrants with different types of documentation.
+Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant trends in Mexican immigrants to the US, and that we can determine where migrants are coming from, why and where they are going, as well as explore their experiences when they arrive. 
 
 ## Section 2. Exploratory Data Analysis
 
@@ -392,21 +392,9 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
   coord_flip()+
   labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
-Clearly, the most common states of birth by far are Zacatecas, San Luis Potosí, Michoacán, Jalisco, and Guanajuato. 
+Clearly, the most common states of birth by far are Zacatecas, San Luis Potosí, Michoacán, Jalisco, and Guanajuato. These states border one another and are in the west-central part of Mexico. 
 
 ```{r initial-spread-of-variables}
-ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()+
-  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
-ggplot(data = data, aes(x = age)) +
-  geom_histogram()+
-  labs(title = "Distribution of Age", x= "Age", y = "Count")
-ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
-  geom_bar() +
-  coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
-ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()+
   labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ggplot(data = data, aes(x = edyrs)) +
   geom_histogram()+

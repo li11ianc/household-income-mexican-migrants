@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -28,8 +28,8 @@ library(dplyr)
 
 In recent years, immigration has been a topic of intense controversy.
 Given the complexity of immigration law, we are interested in examining
-patterns in immigration since the beginning of the millenia. The U.S.
-stance on immigration has grown increasingly strict, not only for
+the experiences of immigrants since the beginning of the millenia. The
+U.S. stance on immigration has grown increasingly strict, not only for
 “illegal” immigration, but also for legal immigration: naturalization,
 visa use, lawful permanent residency, refugee status, and asylum
 seekers.
@@ -42,16 +42,16 @@ to tighten in the lead up to the 2020 elections, we are examining
 immigration to the US from Mexico and the characteristics of these
 immigrants.
 
-Given the variety of ways to immigrate legally, and the varying
-processes and timelines for each, we would expect that the
-characteristics of immigrants using each pathway to differ. By examining
-the demographics of each immigration pathway, we can determine the
-trends, if any, that exist in the current immigration infrastructure.
+Given the variety of ways to immigrate legally,and the widely varying
+experiences of immigrants from different backgrounds, we expect that the
+success of immigrants, measured in the form of annual income, to stem
+from their demographic differences and experiences of immigration.
 
 Our research project aims to determine the characteristics of Mexican
 immigration to the US. We hypothesize that there exist statistically
-significant differences in key areas such as income between immigrants
-with different types of documentation.
+significant trends in Mexican immigrants to the US, and that we can
+determine where migrants are coming from, why and where they are going,
+as well as explore their experiences when they arrive.
 
 ## Section 2. Exploratory Data Analysis
 
@@ -518,42 +518,25 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 
 ![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
 the most common states of birth by far are Zacatecas, San Luis Potosí,
-Michoacán, Jalisco, and Guanajuato.
+Michoacán, Jalisco, and Guanajuato. These states border one another and
+are in the west-central part of
+Mexico.
 
 ``` r
-ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()+
-  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = age)) +
-  geom_histogram()+
-  labs(title = "Distribution of Age", x= "Age", y = "Count")
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
-  geom_bar() +
-  coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()+
   labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
+    ## $x
+    ## [1] "Marital Status"
+    ## 
+    ## $y
+    ## [1] "Count"
+    ## 
+    ## $title
+    ## [1] "Distribution of Marital Status"
+    ## 
+    ## attr(,"class")
+    ## [1] "labels"
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
@@ -563,7 +546,7 @@ ggplot(data = data, aes(x = edyrs)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
@@ -573,7 +556,7 @@ ggplot(data = data, aes(x = log(hhincome))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1)) + 
@@ -582,7 +565,7 @@ ggplot(data = data, aes(x = usstate1)) +
   labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstatel)) + 
@@ -591,7 +574,7 @@ ggplot(data = data, aes(x = usstatel)) +
   labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
@@ -601,7 +584,7 @@ ggplot(data = data, aes(x = log(usdur1))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
@@ -611,7 +594,7 @@ ggplot(data = data, aes(x = log(usdurl))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-10.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
@@ -620,7 +603,7 @@ ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) +
   labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype)) + 
@@ -629,7 +612,7 @@ ggplot(data = data, aes(x = occtype)) +
   labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity)) + 
@@ -638,7 +621,7 @@ ggplot(data = data, aes(x = uscity)) +
   labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
 
 ``` r
 pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
