@@ -370,6 +370,28 @@ data %>%
 
 The number of years of education completed ranges from 0 to 28, with a median of 4 and a mean of 4.933. On average, the migrants sampled were in school for four to five years.
 
+```{r spread of sex}
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()+
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
+```
+We can see that there is far more data for male migrants than female. While it is possible, and resonable based on historic trends, that men are more likely to migrate, sending funds back home, it is also likely that men answered the survey as the heads of households which contained more equal numbers of women. 
+
+```{r age distribution}
+ggplot(data = data, aes(x = age)) +
+  geom_histogram()+
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
+```
+Age of survey respondants is clearly left skewed, with the highest number of  migrant respondants in their early adulthood. 
+
+```{r State of birth}
+ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
+```
+Clearly, the most common states of birth by far are Zacatecas, San Luis Potosí, Michoacán, Jalisco, and Guanajuato. 
+
 ```{r initial-spread-of-variables}
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+

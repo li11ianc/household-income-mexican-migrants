@@ -9,22 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -489,6 +481,42 @@ data %>%
 The number of years of education completed ranges from 0 to 28, with a
 median of 4 and a mean of 4.933. On average, the migrants sampled were
 in school for four to five years.
+
+``` r
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()+
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
+```
+
+![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- --> We can
+see that there is far more data for male migrants than female. While it
+is possible, and resonable based on historic trends, that men are more
+likely to migrate, sending funds back home, it is also likely that men
+answered the survey as the heads of households which contained more
+equal numbers of women.
+
+``` r
+ggplot(data = data, aes(x = age)) +
+  geom_histogram()+
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- --> Age of
+survey respondants is clearly left skewed, with the highest number of
+migrant respondants in their early adulthood.
+
+``` r
+ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
+```
+
+![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
+the most common states of birth by far are Zacatecas, San Luis Potosí,
+Michoacán, Jalisco, and Guanajuato.
 
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
