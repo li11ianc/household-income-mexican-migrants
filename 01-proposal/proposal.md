@@ -1,4 +1,4 @@
-Characteristics of Immigrants to the US by Type of Immigration Status
+Characteristics of recent Mexican Immigrantation to the US
 ================
 Ben 10
 October 27, 2019
@@ -9,14 +9,22 @@ library(knitr)
 library(tidyverse)
 ```
 
+<<<<<<< HEAD
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -34,12 +42,13 @@ stance on immigration has grown increasingly strict, not only for
 visa use, lawful permanent residency, refugee status, and asylum
 seekers.
 
-For example, the number of refugees accepted to the US fell to 22,491 in
-2018 from 84,994 in 2016 according to the Department of State, likely as
-a result of hard line policies against refugees coming to the US. As
-immigration policies seem likely to tighten in the lead up to the 2020
-elections, we are examining immigration to the US from Mexico and the
-characteristics of these immigrants.
+For example, the number of refugees accepted from all countries
+worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according
+to the Department of State, likely as a result of hard line policies
+against refugees coming to the US. As immigration policies seem likely
+to tighten in the lead up to the 2020 elections, we are examining
+immigration to the US from Mexico and the characteristics of these
+immigrants.
 
 Given the variety of ways to immigrate legally, and the varying
 processes and timelines for each, we would expect that the
@@ -96,7 +105,7 @@ at Princeton University (US).
 Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
 has been compiled in a comprehensive database that is available to the
-public free of charge for research and educational purposes through this
+public free of charge for research and educational purposes through its
 web-site. The MMP uses the ethnosurvey approach to gather data: in
 winter months, they randomly sample households in communities throughout
 Mexico, surveying household heads and members about their first and last
@@ -108,9 +117,10 @@ in both Mexico and the US.
 
 The MMP170 Database contains an initial file with general demographic,
 economic, and migratory information for each member of a surveyed
-household (PERS). Pers170 has 132 variables and 176701 observations,
-hence is very large. Therefore, we selected 17 variables and filtered
-out rows that contain N/A’s to create a new dataset labeled `data`.
+household (PERS). Pers170 has 132 variables and 176701 observations,and
+hence it is very large. Therefore, we selected 17 meaningful variables
+and filtered out rows that contain N/A’s to create a new dataset labeled
+`data`.
 
 The response variable we will be examining is `hhincome`, or household
 income. It is a numeric variable.
@@ -622,11 +632,11 @@ which are significantly lower. This makes sense because these types of
 job may not have a stable income. Among the rest of the occupations,
 educators seem to have the largest median log(household income),
 followed by transportation workers. It is possible that many of them
-became foreign language teachers or uber drivers. However, combining
-this graph with the distribution of occupations, there is a large class
-imbalance. An overwhelming majority of migrants work in the agricultural
-sector, which does not warrent high income. The second most common
-occupation is in manufacturing.
+became foreign language teachers or ride service drivers. However,
+combining this graph with the distribution of occupations, there is a
+large class imbalance. An overwhelming majority of migrants work in the
+agricultural sector, which does not warrant high income. The second most
+common occupation is in manufacturing.
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +

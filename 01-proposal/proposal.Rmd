@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of Immigrants to the US by Type of Immigration Status"
+title: "Characteristics of recent Mexican Immigrantation to the US"
 subtitle: "Project Proposal"
 author: "Ben 10"
 date: "October 27, 2019"
@@ -16,7 +16,7 @@ library(dplyr)
 ## Section 1. Introduction
 In recent years, immigration has been a topic of intense controversy. Given the complexity of immigration law, we are interested in examining patterns in immigration since the beginning of the millenia. The U.S. stance on immigration has grown increasingly strict, not only for "illegal" immigration, but also for legal immigration: naturalization, visa use, lawful permanent residency, refugee status, and asylum seekers. 
 
-For example, the number of refugees accepted to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, we are examining immigration to the US from Mexico and the characteristics of these immigrants.
+For example, the number of refugees accepted from all countries worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, we are examining immigration to the US from Mexico and the characteristics of these immigrants.
 
 Given the variety of ways to immigrate legally, and the varying processes and timelines for each, we would expect that the characteristics of immigrants using each pathway to differ. By examining the demographics of each immigration pathway, we can determine the trends, if any, that exist in the current immigration infrastructure.
 
@@ -32,9 +32,9 @@ data <- read_csv("/cloud/project/02-data/dat.csv")
 
 The dataset is from The Mexican Migration Project (MMP). It was created in 1982 by an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (US).
 
-Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through this web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they survey in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
+Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they survey in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
 
-The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations, hence is very large. Therefore, we selected 17 variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
+The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations,and hence it is very large. Therefore, we selected 17 meaningful variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
 
 The response variable we will be examining is `hhincome`, or household income. It is a numeric variable.
 
@@ -430,8 +430,8 @@ ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   labs(title = "Log(Income) by Occupation Type", x = "Occupation Type", y = "Log(Household Income) (dollars)")
 ```
 
-From the boxplot, most of the occupations have similar IQR for log(household income), except for "Other", "Homemaker", and "Idle", which are significantly lower. This makes sense because these types of job may not have a stable income. Among the rest of the occupations, educators seem to have the largest median log(household income), followed by transportation workers. It is possible that many of them became foreign language teachers or uber drivers. 
-However, combining this graph with the distribution of occupations, there is a large class imbalance. An overwhelming majority of migrants work in the agricultural sector, which does not warrent high income. The second most common occupation is in manufacturing.
+From the boxplot, most of the occupations have similar IQR for log(household income), except for "Other", "Homemaker", and "Idle", which are significantly lower. This makes sense because these types of job may not have a stable income. Among the rest of the occupations, educators seem to have the largest median log(household income), followed by transportation workers. It is possible that many of them became foreign language teachers or ride service drivers. 
+However, combining this graph with the distribution of occupations, there is a large class imbalance. An overwhelming majority of migrants work in the agricultural sector, which does not warrant high income. The second most common occupation is in manufacturing.
 
 ```{r edyrs-hhincome-plot}
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
