@@ -9,14 +9,22 @@ library(knitr)
 library(tidyverse)
 ```
 
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 90c6222873e0d150b6a42aaef36d8d20f3cce1e2
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -485,7 +493,7 @@ in school for four to five years.
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+
-  labs(title = "Distribution of Sex")
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
@@ -493,7 +501,7 @@ ggplot(data = data, aes(x = sex, fill = sex)) +
 ``` r
 ggplot(data = data, aes(x = age)) +
   geom_histogram()+
-  labs(title = "Distribution of Age")
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -504,7 +512,7 @@ ggplot(data = data, aes(x = age)) +
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth")
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
@@ -512,7 +520,7 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 ``` r
 ggplot(data = data, aes(x = marstat, fill = marstat)) + 
   geom_bar()+
-  labs(title = "Distribution of Marital Status", x= "Marital Status")
+  labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
@@ -520,7 +528,7 @@ ggplot(data = data, aes(x = marstat, fill = marstat)) +
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
   geom_histogram()+
-  labs(title = "Distribution of Years of Education", x= "Years of Education")
+  labs(title = "Distribution of Years of Education", x= "Years of Education", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -530,7 +538,7 @@ ggplot(data = data, aes(x = edyrs)) +
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
   geom_histogram()+
-  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)")
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -538,19 +546,19 @@ ggplot(data = data, aes(x = log(hhincome))) +
 ![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
+ggplot(data = data, aes(x = usstate1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence")
+  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
+ggplot(data = data, aes(x = usstatel)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence")
+  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
@@ -558,7 +566,7 @@ ggplot(data = data, aes(x = usstatel, fill = usstatel)) +
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
   geom_histogram()+
-  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)")
+  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -568,7 +576,7 @@ ggplot(data = data, aes(x = log(usdur1))) +
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
   geom_histogram()+
-  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)")
+  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -579,15 +587,16 @@ ggplot(data = data, aes(x = log(usdurl))) +
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used")
+  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+ggplot(data = data, aes(x = occtype)) + 
   geom_bar()+
-  labs(title = "Distribution of Types of Occupation", x= "Occupation")
+  coord_flip()+
+  labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
@@ -596,7 +605,7 @@ ggplot(data = data, aes(x = occtype, fill = occtype)) +
 ggplot(data = data, aes(x = uscity)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of City of Residence", x= "City of Residence")
+  labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
@@ -606,15 +615,16 @@ pairs(log(hhincome) ~ age + edyrs + usdur1, data = data,
       lower.panel = NULL)
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](proposal_files/figure-gfm/hhincome-pred-plot-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Income) by Occupation Type", x = "Occupation Type", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](proposal_files/figure-gfm/occtype-hhincome-plot-1.png)<!-- -->
 
 From the boxplot, most of the occupations have similar IQR for
 log(household income), except for “Other”, “Homemaker”, and “Idle”,
@@ -630,45 +640,67 @@ common occupation is in manufacturing.
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
-  geom_point()
+  geom_jitter() +
+  labs(title = "Log(Household Income) by Years Spent in School", x = "Years in Education (yr)", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](proposal_files/figure-gfm/edyrs-hhincome-plot-1.png)<!-- -->
 
-From the scatterplot, it seems that there are no obvious relationship
+From the scatterplot, it seems that there is no obvious relationship
 between years of education and log(household income). This is
 discouraging because we can infer that many of the immigrants are
-underemployed.
+underemployed, or are not paid according to their skill and professional
+experience level.
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](proposal_files/figure-gfm/statebrn-occtype-plots-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar(position = "fill") +
+  coord_flip()+
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
+```
+
+![](proposal_files/figure-gfm/statebrn-occtype-plots-2.png)<!-- -->
+
+It would seem possible that more migrants of a certain occupation would
+migrate to the US from a certain region (i.e., that the state a person
+is from has an effect on their occupation type, depending on the
+specialty types of their region, such as agriculture or manufacturing).
+However, no trends are immediately clear from either of these graphs-
+the few differences in the proportion graph (such as El Salvador as the
+origin of solely skilled manufacturers) are likely skewed by the fact
+that very few migrants in the dataset were born in those states.
+
+``` r
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar(position = "fill") +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-statebrn-plots-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar(position = "fill")
+  geom_bar()+
+  coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-statebrn-plots-2.png)<!-- -->
 
-``` r
-ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar()
-```
-
-![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+If migrants born in certain states in Mexico tend to migrate to the same
+places in the US as other migrants from their home state, we would
+expect to see an effect here. It does appear that San Diego and Houston
+have a disproportionately low number of migrants born in Zacatecas, and
+there may be a higher concentration of migrants born in Colima in
+LA-Long Beach. This interaction might be worth further investigation.
 
 ``` r
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
@@ -676,7 +708,7 @@ ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
@@ -684,7 +716,7 @@ ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
@@ -692,7 +724,7 @@ ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
   coord_flip()
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
+![](proposal_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
 
 ## Section 3. Regression Analysis Plan
 
@@ -703,7 +735,7 @@ predictors, this is the best model at our disposal for us to use.
 
 We will consider the potential interaction between principal occupation
 and number of years of school completed, since those are generally
-interconnected.
+interconnected. We may also consider the interactions between
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human

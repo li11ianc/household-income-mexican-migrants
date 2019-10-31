@@ -373,83 +373,98 @@ The number of years of education completed ranges from 0 to 28, with a median of
 ```{r initial-spread-of-variables}
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+
-  labs(title = "Distribution of Sex")
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ggplot(data = data, aes(x = age)) +
   geom_histogram()+
-  labs(title = "Distribution of Age")
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth")
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ggplot(data = data, aes(x = marstat, fill = marstat)) + 
   geom_bar()+
-  labs(title = "Distribution of Marital Status", x= "Marital Status")
+  labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ggplot(data = data, aes(x = edyrs)) +
   geom_histogram()+
-  labs(title = "Distribution of Years of Education", x= "Years of Education")
+  labs(title = "Distribution of Years of Education", x= "Years of Education", y = "Count")
 ggplot(data = data, aes(x = log(hhincome))) +
   geom_histogram()+
-  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)")
-ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
+ggplot(data = data, aes(x = usstate1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence")
-ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
+  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
+ggplot(data = data, aes(x = usstatel)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence")
+  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ggplot(data = data, aes(x = log(usdur1))) +
   geom_histogram()+
-  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)")
+  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)", y = "Count")
 ggplot(data = data, aes(x = log(usdurl))) +
   geom_histogram()+
-  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)")
+  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)", y = "Count")
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used")
-ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
+ggplot(data = data, aes(x = occtype)) + 
   geom_bar()+
-  labs(title = "Distribution of Types of Occupation", x= "Occupation")
+  coord_flip()+
+  labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ggplot(data = data, aes(x = uscity)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of City of Residence", x= "City of Residence")
+  labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
-```{r}
+```{r hhincome-pred-plot}
 pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
       lower.panel = NULL)
+```
+
+```{r occtype-hhincome-plot}
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Income) by Occupation Type", x = "Occupation Type", y = "Log(Household Income) (dollars)")
 ```
 
 From the boxplot, most of the occupations have similar IQR for log(household income), except for "Other", "Homemaker", and "Idle", which are significantly lower. This makes sense because these types of job may not have a stable income. Among the rest of the occupations, educators seem to have the largest median log(household income), followed by transportation workers. It is possible that many of them became foreign language teachers or ride service drivers. 
 However, combining this graph with the distribution of occupations, there is a large class imbalance. An overwhelming majority of migrants work in the agricultural sector, which does not warrant high income. The second most common occupation is in manufacturing.
 
-```{r}
+```{r edyrs-hhincome-plot}
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
-  geom_point()
+  geom_jitter() +
+  labs(title = "Log(Household Income) by Years Spent in School", x = "Years in Education (yr)", y = "Log(Household Income) (dollars)")
 ```
 
-From the scatterplot, it seems that there are no obvious relationship between years of education and log(household income). This is discouraging because we can infer that many of the immigrants are underemployed.
+From the scatterplot, it seems that there is no obvious relationship between years of education and log(household income). This is discouraging because we can infer that many of the immigrants are underemployed, or are not paid according to their skill and professional experience level.
 
-```{r}
+```{r statebrn-occtype-plots}
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
+  
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar(position = "fill") +
+  coord_flip()+
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
+```
+
+It would seem possible that more migrants of a certain occupation would migrate to the US from a certain region (i.e., that the state a person is from has an effect on their occupation type, depending on the specialty types of their region, such as agriculture or manufacturing). However, no trends are immediately clear from either of these graphs- the few differences in the proportion graph (such as El Salvador as the origin of solely skilled manufacturers) are likely skewed by the fact that very few migrants in the dataset were born in those states.
+
+```{r uscity-statebrn-plots}
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+ggplot(data = data, aes(x = uscity, fill = statebrn)) +
+  geom_bar()+
   coord_flip()
 ```
 
-```{r}
-ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar(position = "fill")
-ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar()
-```
+If migrants born in certain states in Mexico tend to migrate to the same places in the US as other migrants from their home state, we would expect to see an effect here. It does appear that San Diego and Houston have a disproportionately low number of migrants born in Zacatecas, and there may be a higher concentration of migrants born in Colima in LA-Long Beach. This interaction might be worth further investigation.
 
 ```{r}
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
@@ -467,7 +482,7 @@ ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
 
 In an effort to determine which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
 
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. 
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interactions between 
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
