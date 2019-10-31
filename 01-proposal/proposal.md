@@ -1,4 +1,4 @@
-Characteristics of recent Mexican Immigrants to the US
+Characteristics of Recent Mexican Immigrants to the US
 ================
 Ben 10
 October 27, 2019
@@ -84,14 +84,15 @@ data <- read_csv("/cloud/project/02-data/dat.csv")
 
 ### Data Collection Method and Description
 
-The dataset is from The Mexican Migration Project (MMP). It was created
-in 1982 by an interdisciplinary team of researchers to further our
-understanding of the complex process of Mexican migration to the United
-States. The project is a binational research effort co-directed by Jorge
-Durand, professor of Social Anthropology at the University of
-Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and
-Public Affairs, with a joint appointment in the Woodrow Wilson School,
-at Princeton University (US).
+The dataset is from The Mexican Migration Project (MMP, \*see References
+below for confidentiality terms). It was created in 1982 by an
+interdisciplinary team of researchers to further our understanding of
+the complex process of Mexican migration to the United States. The
+project is a binational research effort co-directed by Jorge Durand,
+professor of Social Anthropology at the University of Guadalajara
+(Mexico), and Douglas S. Massey, professor of Sociology and Public
+Affairs, with a joint appointment in the Woodrow Wilson School, at
+Princeton University (US).
 
 Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
@@ -481,6 +482,8 @@ The number of years of education completed ranges from 0 to 28, with a
 median of 4 and a mean of 4.933. On average, the migrants sampled were
 in school for four to five years.
 
+### Exploratory Visualizations
+
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+
@@ -814,3 +817,10 @@ refugee admissions in the U.S. from the fiscal year of 1990 to the
 fiscal year of 2018 \[Graph\]. In Statista. Retrieved October 29, 2019,
 from
 <https://www-statista-com.proxy.lib.duke.edu/statistics/200061/number-of-refugees-arriving-in-the-us/>
+
+Dataset obtained at <https://mmp.opr.princeton.edu/home-en.aspx> This
+data is under the following confidentiality terms: -Only for use for
+research and/or educational purposes -Do not try to identify any
+individual, household or migrant community -Do not give access to the
+MMP data to anyone who does not agree to respect these confidentiality
+terms.
