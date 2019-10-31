@@ -97,7 +97,7 @@ at Princeton University (US).
 Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
 has been compiled in a comprehensive database that is available to the
-public free of charge for research and educational purposes through this
+public free of charge for research and educational purposes through its
 web-site. The MMP uses the ethnosurvey approach to gather data: in
 winter months, they randomly sample households in communities throughout
 Mexico, surveying household heads and members about their first and last
@@ -109,9 +109,10 @@ in both Mexico and the US.
 
 The MMP170 Database contains an initial file with general demographic,
 economic, and migratory information for each member of a surveyed
-household (PERS). Pers170 has 132 variables and 176701 observations,
-hence is very large. Therefore, we selected 17 variables and filtered
-out rows that contain N/A’s to create a new dataset labeled `data`.
+household (PERS). Pers170 has 132 variables and 176701 observations,and
+hence it is very large. Therefore, we selected 17 meaningful variables
+and filtered out rows that contain N/A’s to create a new dataset labeled
+`data`.
 
 The response variable we will be examining is `hhincome`, or household
 income. It is a numeric variable.
@@ -621,11 +622,11 @@ which are significantly lower. This makes sense because these types of
 job may not have a stable income. Among the rest of the occupations,
 educators seem to have the largest median log(household income),
 followed by transportation workers. It is possible that many of them
-became foreign language teachers or uber drivers. However, combining
-this graph with the distribution of occupations, there is a large class
-imbalance. An overwhelming majority of migrants work in the agricultural
-sector, which does not warrent high income. The second most common
-occupation is in manufacturing.
+became foreign language teachers or ride service drivers. However,
+combining this graph with the distribution of occupations, there is a
+large class imbalance. An overwhelming majority of migrants work in the
+agricultural sector, which does not warrant high income. The second most
+common occupation is in manufacturing.
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
