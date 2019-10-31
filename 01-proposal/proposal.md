@@ -490,12 +490,13 @@ ggplot(data = data, aes(x = sex, fill = sex)) +
   labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- --> We can
-see that there is far more data for male migrants than female. While it
-is possible, and resonable based on historic trends, that men are more
-likely to migrate, sending funds back home, it is also likely that men
-answered the survey as the heads of households which contained more
-equal numbers of women.
+![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- -->
+
+We can see that there is far more data for male migrants than female.
+While it is possible, and reasonable based on historic trends, that men
+are more likely to migrate, sending funds back home, it is also likely
+that men answered the survey as the heads of households which contained
+more equal numbers of women.
 
 ``` r
 ggplot(data = data, aes(x = age)) +
@@ -505,9 +506,10 @@ ggplot(data = data, aes(x = age)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- --> Age of
-survey respondants is clearly left skewed, with the highest number of
-migrant respondants in their early adulthood.
+![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- -->
+
+Age of survey respondants is clearly left skewed, with the highest
+number of migrant respondants in their early adulthood.
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
@@ -516,18 +518,20 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
   labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
-the most common states of birth by far are Zacatecas, San Luis Potosí,
-Michoacán, Jalisco, and Guanajuato. These states border one another and
-are in the west-central part of Mexico.
+![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- -->
+
+Clearly, the most common states of birth by far are Zacatecas, San Luis
+Potosí, Michoacán, Jalisco, and Guanajuato. These states border one
+another and are in the west-central part of Mexico.
 
 ``` r
 ggplot(data = data, aes(x = marstat, fill = marstat)) +
   geom_bar()+ labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/marital%20status-1.png)<!-- --> The
-majority of those surveyed were married.
+![](proposal_files/figure-gfm/marital%20status-1.png)<!-- -->
+
+The majority of those surveyed were married.
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +

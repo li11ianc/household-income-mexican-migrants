@@ -377,13 +377,15 @@ ggplot(data = data, aes(x = sex, fill = sex)) +
   geom_bar()+
   labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ```
-We can see that there is far more data for male migrants than female. While it is possible, and resonable based on historic trends, that men are more likely to migrate, sending funds back home, it is also likely that men answered the survey as the heads of households which contained more equal numbers of women. 
+
+We can see that there is far more data for male migrants than female. While it is possible, and reasonable based on historic trends, that men are more likely to migrate, sending funds back home, it is also likely that men answered the survey as the heads of households which contained more equal numbers of women. 
 
 ```{r age distribution}
 ggplot(data = data, aes(x = age)) +
   geom_histogram()+
   labs(title = "Distribution of Age", x= "Age", y = "Count")
 ```
+
 Age of survey respondants is clearly left skewed, with the highest number of  migrant respondants in their early adulthood. 
 
 ```{r State of birth}
@@ -392,13 +394,16 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
   coord_flip()+
   labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
+
 Clearly, the most common states of birth by far are Zacatecas, San Luis Potosí, Michoacán, Jalisco, and Guanajuato. These states border one another and are in the west-central part of Mexico. 
 
 ```{r marital status}
 ggplot(data = data, aes(x = marstat, fill = marstat)) +
   geom_bar()+ labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
+
 The majority of those surveyed were married. 
+
 ```{r initial-spread-of-variables}
 ggplot(data = data, aes(x = edyrs)) +
   geom_histogram()+
