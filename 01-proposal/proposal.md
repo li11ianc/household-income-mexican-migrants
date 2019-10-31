@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -695,21 +695,21 @@ ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
 ## Section 3. Regression Analysis Plan
 
 In an effort to determine which characteristics of candidates influence
-their approval of a visa, we will be using a logistic regression model.
-Since our response variable is categorical (i.e., approved or denied),
-this is the best model at our disposal for us to use.
+their household income, we will be using a multiple linear regression
+model. Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal for us to use.
 
-We will consider the potential interaction between occupation and
-household income, since those are generally interconnected.
+We will consider the potential interaction between principal occupation
+and number of years of school completed, since those are generally
+interconnected.
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human
-nature and the ever-changing sociopolitical climate that could influence
-whether or not someone’s visa request is approved. AIC is used when we
-would rather say a variable is a relevant predictor, when in reality it
-might not be and so in this case, we would rather err on the side of a
-false positive because we are dealing with a constantly fluctuating
-issue.
+nature and the ever-changing socioeconomic and political climate that
+could influence someone’s household income. AIC is used when we would
+rather say a variable is a relevant predictor, when in reality it might
+not be and so in this case, we would rather err on the side of a false
+positive because we are dealing with a constantly fluctuating issue.
 
 ## Section 4. References
 
