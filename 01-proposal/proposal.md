@@ -1,4 +1,4 @@
-Characteristics of recent Mexican Immigrantation to the US
+Characteristics of Recent Mexican Immigrants to the US
 ================
 Ben 10
 October 27, 2019
@@ -9,14 +9,22 @@ library(knitr)
 library(tidyverse)
 ```
 
+<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────
+>>>>>>> cba6459035f989ca8e22e73d22dfaf6daa47a7e8
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ─────────────────────
+>>>>>>> cba6459035f989ca8e22e73d22dfaf6daa47a7e8
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -28,8 +36,8 @@ library(dplyr)
 
 In recent years, immigration has been a topic of intense controversy.
 Given the complexity of immigration law, we are interested in examining
-patterns in immigration since the beginning of the millenia. The U.S.
-stance on immigration has grown increasingly strict, not only for
+the experiences of immigrants since the beginning of the millenia. The
+U.S. stance on immigration has grown increasingly strict, not only for
 “illegal” immigration, but also for legal immigration: naturalization,
 visa use, lawful permanent residency, refugee status, and asylum
 seekers.
@@ -42,16 +50,16 @@ to tighten in the lead up to the 2020 elections, we are examining
 immigration to the US from Mexico and the characteristics of these
 immigrants.
 
-Given the variety of ways to immigrate legally, and the varying
-processes and timelines for each, we would expect that the
-characteristics of immigrants using each pathway to differ. By examining
-the demographics of each immigration pathway, we can determine the
-trends, if any, that exist in the current immigration infrastructure.
+Given the variety of ways to immigrate legally,and the widely varying
+experiences of immigrants from different backgrounds, we expect that the
+success of immigrants, measured in the form of annual income, to stem
+from their demographic differences and experiences of immigration.
 
 Our research project aims to determine the characteristics of Mexican
 immigration to the US. We hypothesize that there exist statistically
-significant differences in key areas such as income between immigrants
-with different types of documentation.
+significant trends in Mexican immigrants to the US, and that we can
+determine where migrants are coming from, why and where they are going,
+as well as explore their experiences when they arrive.
 
 ## Section 2. Exploratory Data Analysis
 
@@ -84,14 +92,15 @@ data <- read_csv("/cloud/project/02-data/dat.csv")
 
 ### Data Collection Method and Description
 
-The dataset is from The Mexican Migration Project (MMP). It was created
-in 1982 by an interdisciplinary team of researchers to further our
-understanding of the complex process of Mexican migration to the United
-States. The project is a binational research effort co-directed by Jorge
-Durand, professor of Social Anthropology at the University of
-Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and
-Public Affairs, with a joint appointment in the Woodrow Wilson School,
-at Princeton University (US).
+The dataset is from The Mexican Migration Project (MMP, \*see References
+below for confidentiality terms). It was created in 1982 by an
+interdisciplinary team of researchers to further our understanding of
+the complex process of Mexican migration to the United States. The
+project is a binational research effort co-directed by Jorge Durand,
+professor of Social Anthropology at the University of Guadalajara
+(Mexico), and Douglas S. Massey, professor of Sociology and Public
+Affairs, with a joint appointment in the Woodrow Wilson School, at
+Princeton University (US).
 
 Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
@@ -481,18 +490,21 @@ The number of years of education completed ranges from 0 to 28, with a
 median of 4 and a mean of 4.933. On average, the migrants sampled were
 in school for four to five years.
 
+### Exploratory Visualizations
+
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+
   labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- --> We can
-see that there is far more data for male migrants than female. While it
-is possible, and resonable based on historic trends, that men are more
-likely to migrate, sending funds back home, it is also likely that men
-answered the survey as the heads of households which contained more
-equal numbers of women.
+![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- -->
+
+We can see that there is far more data for male migrants than female.
+While it is possible, and reasonable based on historic trends, that men
+are more likely to migrate, sending funds back home, it is also likely
+that men answered the survey as the heads of households which contained
+more equal numbers of women.
 
 ``` r
 ggplot(data = data, aes(x = age)) +
@@ -502,9 +514,10 @@ ggplot(data = data, aes(x = age)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- --> Age of
-survey respondants is clearly left skewed, with the highest number of
-migrant respondants in their early adulthood.
+![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- -->
+
+Age of survey respondants is clearly left skewed, with the highest
+number of migrant respondants in their early adulthood.
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
@@ -513,44 +526,20 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
   labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
-the most common states of birth by far are Zacatecas, San Luis Potosí,
-Michoacán, Jalisco, and Guanajuato.
+![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- -->
+
+Clearly, the most common states of birth by far are Zacatecas, San Luis
+Potosí, Michoacán, Jalisco, and Guanajuato. These states border one
+another and are in the west-central part of Mexico.
 
 ``` r
-ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()+
-  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
+ggplot(data = data, aes(x = marstat, fill = marstat)) +
+  geom_bar()+ labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
+![](proposal_files/figure-gfm/marital%20status-1.png)<!-- -->
 
-``` r
-ggplot(data = data, aes(x = age)) +
-  geom_histogram()+
-  labs(title = "Distribution of Age", x= "Age", y = "Count")
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
-  geom_bar() +
-  coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()+
-  labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
+The majority of those surveyed were married.
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
@@ -560,7 +549,7 @@ ggplot(data = data, aes(x = edyrs)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
@@ -570,7 +559,7 @@ ggplot(data = data, aes(x = log(hhincome))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1)) + 
@@ -579,7 +568,7 @@ ggplot(data = data, aes(x = usstate1)) +
   labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstatel)) + 
@@ -588,7 +577,7 @@ ggplot(data = data, aes(x = usstatel)) +
   labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
@@ -598,7 +587,7 @@ ggplot(data = data, aes(x = log(usdur1))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
@@ -608,7 +597,7 @@ ggplot(data = data, aes(x = log(usdurl))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-10.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
@@ -617,7 +606,7 @@ ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) +
   labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype)) + 
@@ -626,7 +615,7 @@ ggplot(data = data, aes(x = occtype)) +
   labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity)) + 
@@ -635,7 +624,7 @@ ggplot(data = data, aes(x = uscity)) +
   labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
 
 ``` r
 pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
@@ -840,3 +829,10 @@ refugee admissions in the U.S. from the fiscal year of 1990 to the
 fiscal year of 2018 \[Graph\]. In Statista. Retrieved October 29, 2019,
 from
 <https://www-statista-com.proxy.lib.duke.edu/statistics/200061/number-of-refugees-arriving-in-the-us/>
+
+Dataset obtained at <https://mmp.opr.princeton.edu/home-en.aspx> This
+data is under the following confidentiality terms: -Only for use for
+research and/or educational purposes -Do not try to identify any
+individual, household or migrant community -Do not give access to the
+MMP data to anyone who does not agree to respect these confidentiality
+terms.
