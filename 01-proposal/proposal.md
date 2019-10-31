@@ -1,4 +1,4 @@
-Characteristics of Immigrants to the US by Type of Immigration Status
+Characteristics of recent Mexican Immigrantation to the US
 ================
 Ben 10
 October 27, 2019
@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -34,12 +34,13 @@ stance on immigration has grown increasingly strict, not only for
 visa use, lawful permanent residency, refugee status, and asylum
 seekers.
 
-For example, the number of refugees accepted to the US fell to 22,491 in
-2018 from 84,994 in 2016 according to the Department of State, likely as
-a result of hard line policies against refugees coming to the US. As
-immigration policies seem likely to tighten in the lead up to the 2020
-elections, we are examining immigration to the US from Mexico and the
-characteristics of these immigrants.
+For example, the number of refugees accepted from all countries
+worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according
+to the Department of State, likely as a result of hard line policies
+against refugees coming to the US. As immigration policies seem likely
+to tighten in the lead up to the 2020 elections, we are examining
+immigration to the US from Mexico and the characteristics of these
+immigrants.
 
 Given the variety of ways to immigrate legally, and the varying
 processes and timelines for each, we would expect that the
@@ -50,8 +51,7 @@ trends, if any, that exist in the current immigration infrastructure.
 Our research project aims to determine the characteristics of Mexican
 immigration to the US. We hypothesize that there exist statistically
 significant differences in key areas such as income between immigrants
-with different types of documentation and with approved versus denied
-visa applications.
+with different types of documentation.
 
 ## Section 2. Exploratory Data Analysis
 
@@ -96,7 +96,7 @@ at Princeton University (US).
 Since its inception, the MMP’s main focus has been to gather social as
 well as economic information on Mexican-US migration. The data collected
 has been compiled in a comprehensive database that is available to the
-public free of charge for research and educational purposes through this
+public free of charge for research and educational purposes through its
 web-site. The MMP uses the ethnosurvey approach to gather data: in
 winter months, they randomly sample households in communities throughout
 Mexico, surveying household heads and members about their first and last
@@ -108,9 +108,10 @@ in both Mexico and the US.
 
 The MMP170 Database contains an initial file with general demographic,
 economic, and migratory information for each member of a surveyed
-household (PERS). Pers170 has 132 variables and 176701 observations,
-hence is very large. Therefore, we selected 17 variables and filtered
-out rows that contain N/A’s to create a new dataset labeled `data`.
+household (PERS). Pers170 has 132 variables and 176701 observations,and
+hence it is very large. Therefore, we selected 17 meaningful variables
+and filtered out rows that contain N/A’s to create a new dataset labeled
+`data`.
 
 The response variable we will be examining is `hhincome`, or household
 income. It is a numeric variable.
@@ -483,7 +484,43 @@ in school for four to five years.
 ``` r
 ggplot(data = data, aes(x = sex, fill = sex)) + 
   geom_bar()+
-  labs(title = "Distribution of Sex")
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
+```
+
+![](proposal_files/figure-gfm/spread%20of%20sex-1.png)<!-- --> We can
+see that there is far more data for male migrants than female. While it
+is possible, and resonable based on historic trends, that men are more
+likely to migrate, sending funds back home, it is also likely that men
+answered the survey as the heads of households which contained more
+equal numbers of women.
+
+``` r
+ggplot(data = data, aes(x = age)) +
+  geom_histogram()+
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](proposal_files/figure-gfm/age%20distribution-1.png)<!-- --> Age of
+survey respondants is clearly left skewed, with the highest number of
+migrant respondants in their early adulthood.
+
+``` r
+ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
+```
+
+![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
+the most common states of birth by far are Zacatecas, San Luis Potosí,
+Michoacán, Jalisco, and Guanajuato.
+
+``` r
+ggplot(data = data, aes(x = sex, fill = sex)) + 
+  geom_bar()+
+  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
@@ -491,7 +528,7 @@ ggplot(data = data, aes(x = sex, fill = sex)) +
 ``` r
 ggplot(data = data, aes(x = age)) +
   geom_histogram()+
-  labs(title = "Distribution of Age")
+  labs(title = "Distribution of Age", x= "Age", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -502,7 +539,7 @@ ggplot(data = data, aes(x = age)) +
 ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth")
+  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
@@ -510,7 +547,7 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 ``` r
 ggplot(data = data, aes(x = marstat, fill = marstat)) + 
   geom_bar()+
-  labs(title = "Distribution of Marital Status", x= "Marital Status")
+  labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
@@ -518,7 +555,7 @@ ggplot(data = data, aes(x = marstat, fill = marstat)) +
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
   geom_histogram()+
-  labs(title = "Distribution of Years of Education", x= "Years of Education")
+  labs(title = "Distribution of Years of Education", x= "Years of Education", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -528,7 +565,7 @@ ggplot(data = data, aes(x = edyrs)) +
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
   geom_histogram()+
-  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)")
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -536,19 +573,19 @@ ggplot(data = data, aes(x = log(hhincome))) +
 ![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = usstate1, fill = usstate1)) + 
+ggplot(data = data, aes(x = usstate1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence")
+  labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = usstatel, fill = usstatel)) + 
+ggplot(data = data, aes(x = usstatel)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence")
+  labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
@@ -556,7 +593,7 @@ ggplot(data = data, aes(x = usstatel, fill = usstatel)) +
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
   geom_histogram()+
-  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)")
+  labs(title = "Distribution of First Duration (months)", x= "First Duration (months)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -566,7 +603,7 @@ ggplot(data = data, aes(x = log(usdur1))) +
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
   geom_histogram()+
-  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)")
+  labs(title = "Distribution of Last Duration (months)", x= "Last Duration (months)", y = "Count")
 ```
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
@@ -577,15 +614,16 @@ ggplot(data = data, aes(x = log(usdurl))) +
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used")
+  labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
 
 ``` r
-ggplot(data = data, aes(x = occtype, fill = occtype)) + 
+ggplot(data = data, aes(x = occtype)) + 
   geom_bar()+
-  labs(title = "Distribution of Types of Occupation", x= "Occupation")
+  coord_flip()+
+  labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
@@ -594,7 +632,7 @@ ggplot(data = data, aes(x = occtype, fill = occtype)) +
 ggplot(data = data, aes(x = uscity)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of City of Residence", x= "City of Residence")
+  labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
 ![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
@@ -604,15 +642,16 @@ pairs(log(hhincome) ~ age + edyrs + usdur1, data = data,
       lower.panel = NULL)
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](proposal_files/figure-gfm/hhincome-pred-plot-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Income) by Occupation Type", x = "Occupation Type", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](proposal_files/figure-gfm/occtype-hhincome-plot-1.png)<!-- -->
 
 From the boxplot, most of the occupations have similar IQR for
 log(household income), except for “Other”, “Homemaker”, and “Idle”,
@@ -620,96 +659,149 @@ which are significantly lower. This makes sense because these types of
 job may not have a stable income. Among the rest of the occupations,
 educators seem to have the largest median log(household income),
 followed by transportation workers. It is possible that many of them
-became foreign language teachers or uber drivers. However, combining
-this graph with the distribution of occupations, there is a large class
-imbalance. An overwhelming majority of migrants work in the agricultural
-sector, which does not warrent high income. The second most common
-occupation is in manufacturing.
+became foreign language teachers or ride service drivers. However,
+combining this graph with the distribution of occupations, there is a
+large class imbalance. An overwhelming majority of migrants work in the
+agricultural sector, which does not warrant high income. The second most
+common occupation is in manufacturing.
 
 ``` r
 ggplot(data = data, aes(x = edyrs, y = log(hhincome))) +
-  geom_point()
+  geom_jitter() +
+  labs(title = "Log(Household Income) by Years Spent in School", x = "Years in Education (yr)", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](proposal_files/figure-gfm/edyrs-hhincome-plot-1.png)<!-- -->
 
-From the scatterplot, it seems that there are no obvious relationship
+From the scatterplot, it seems that there is no obvious relationship
 between years of education and log(household income). This is
 discouraging because we can infer that many of the immigrants are
-underemployed.
+underemployed, or are not paid according to their skill and professional
+experience level.
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](proposal_files/figure-gfm/statebrn-occtype-plots-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = statebrn, fill = occtype)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Occupation by Birth State", x = "State of Birth", y = "Occupation Type")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](proposal_files/figure-gfm/statebrn-occtype-plots-2.png)<!-- -->
+
+It would seem possible that more migrants of a certain occupation would
+migrate to the US from a certain region (i.e., that the state a person
+is from has an effect on their occupation type, depending on the
+specialty types of their region, such as agriculture or manufacturing).
+However, no trends are immediately clear from either of these graphs-
+the few differences in the proportion graph (such as El Salvador as the
+origin of solely skilled manufacturers) are likely skewed by the fact
+that very few migrants in the dataset were born in those states.
 
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar(position = "fill")
+  geom_bar(position = "fill") +
+  coord_flip() +
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-statebrn-plots-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
-  geom_bar()
+  geom_bar()+
+  coord_flip()+
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-statebrn-plots-2.png)<!-- -->
+
+If migrants born in certain states in Mexico tend to migrate to the same
+places in the US as other migrants from their home state, we would
+expect to see an effect here. It does appear that San Diego and Houston
+have a disproportionately low number of migrants born in Zacatecas, and
+there may be a higher concentration of migrants born in Colima in
+LA-Long Beach. This interaction might be worth further investigation.
 
 ``` r
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by City of First US Migration", x = "US City", y = "Log(Household Income (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-hhincome-plot-1.png)<!-- -->
+
+The city in which a migrant lives and works in the US could also have an
+effect on their income- most IQRs for these cities appear very similar,
+but Las Vegas’s median log(income) is significantly lower, although the
+spread is greater. It is also interesting that the IQRs appear so even
+city-to-city despite the difference in minimum wage laws and living
+expenses in various states.
 
 ``` r
 ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by State of First US Migration", x = "State", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+![](proposal_files/figure-gfm/usstate1-hhincome-plot-1.png)<!-- -->
+
+The log(household income) appears to differ much more significantly by
+state than by city. With income in Puerto Rico and Pennsylvania
+noticeably lower than the other states, depending on skew due to
+different sample sizes in each state, this may prove an important
+interaction. Grouping states into regions of the US to create more
+evenly sized groups will aid in future analysis.
 
 ``` r
 ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation Type by Documentation on First Migration to US", x = "Occupation Type")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
+![](proposal_files/figure-gfm/occtype-usdoc1-plot-1.png)<!-- -->
+
+Undocumented immigrants are the most represented in this dataset
+overall, but there do appear to be some differences in documentation
+status in between occupation type groups. For example, most migrants in
+manufacturing jobs in the dataset are undocumented, whereas a signficant
+proportion of educators, homemakers, administrators, and professionals
+are legal residents or temporary residents. The students in the dataset
+are all temporary residents. There are a much higher number of contract
+workers in the unemployed category than any other occupation category.
+This would also be an interesting interaction to investigate.
 
 ## Section 3. Regression Analysis Plan
 
 In an effort to determine which characteristics of candidates influence
-their approval of a visa, we will be using a logistic regression model.
-Since our response variable is categorical (i.e., approved or denied),
-this is the best model at our disposal for us to use.
+their household income, we will be using a multiple linear regression
+model. Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal for us to use.
 
-We will consider the potential interaction between occupation and
-household income, since those are generally interconnected.
+We will consider the potential interaction between principal occupation
+and number of years of school completed, since those are generally
+interconnected. We may also consider the interaction between
+documentation type and occupation type, although the effect may be
+insignificant.
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human
-nature and the ever-changing sociopolitical climate that could influence
-whether or not someone’s visa request is approved. AIC is used when we
-would rather say a variable is a relevant predictor, when in reality it
-might not be and so in this case, we would rather err on the side of a
-false positive because we are dealing with a constantly fluctuating
-issue.
+nature and the ever-changing socioeconomic and political climate that
+could influence someone’s household income. AIC is used when we would
+rather say a variable is a relevant predictor, when in reality it might
+not be and so in this case, we would rather err on the side of a false
+positive because we are dealing with a constantly fluctuating issue.
 
 ## Section 4. References
 
