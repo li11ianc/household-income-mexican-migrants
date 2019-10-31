@@ -51,8 +51,7 @@ trends, if any, that exist in the current immigration infrastructure.
 Our research project aims to determine the characteristics of Mexican
 immigration to the US. We hypothesize that there exist statistically
 significant differences in key areas such as income between immigrants
-with different types of documentation and with approved versus denied
-visa applications.
+with different types of documentation.
 
 ## Section 2. Exploratory Data Analysis
 

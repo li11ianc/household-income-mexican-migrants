@@ -20,7 +20,7 @@ For example, the number of refugees accepted from all countries worldwide to the
 
 Given the variety of ways to immigrate legally, and the varying processes and timelines for each, we would expect that the characteristics of immigrants using each pathway to differ. By examining the demographics of each immigration pathway, we can determine the trends, if any, that exist in the current immigration infrastructure.
 
-Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant differences in key areas such as income between immigrants with different types of documentation and with approved versus denied visa applications. 
+Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant differences in key areas such as income between immigrants with different types of documentation.
 
 ## Section 2. Exploratory Data Analysis
 
