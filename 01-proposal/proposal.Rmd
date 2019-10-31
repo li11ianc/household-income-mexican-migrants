@@ -458,31 +458,48 @@ It would seem possible that more migrants of a certain occupation would migrate 
 ```{r uscity-statebrn-plots}
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar()+
-  coord_flip()
+  coord_flip()+
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ```
 
 If migrants born in certain states in Mexico tend to migrate to the same places in the US as other migrants from their home state, we would expect to see an effect here. It does appear that San Diego and Houston have a disproportionately low number of migrants born in Zacatecas, and there may be a higher concentration of migrants born in Colima in LA-Long Beach. This interaction might be worth further investigation.
 
-```{r}
+```{r uscity-hhincome-plot}
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by City of First US Migration", x = "US City", y = "Log(Household Income (dollars)")
+```
+
+The city in which a migrant lives and works in the US could also have an effect on their income- most IQRs for these cities appear very similar, but Las Vegas's median log(income) is significantly lower, although the spread is greater. It is also interesting that the IQRs appear so even city-to-city despite the difference in minimum wage laws and living expenses in various states.
+
+```{r usstate1-hhincome-plot}
 ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by State of First US Migration", x = "State", y = "Log(Household Income) (dollars)")
+```
+
+The log(household income) appears to differ much more significantly by state than by city. With income in Puerto Rico and Pennsylvania noticeably lower than the other states, depending on skew due to different sample sizes in each state, this may prove an important interaction. Grouping states into regions of the US to create more evenly sized groups will aid in future analysis.
+
+```{r occtype-usdoc1-plot}
 ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation Type by Documentation on First Migration to US", x = "Occupation Type")
 ```
+
+Undocumented immigrants are the most represented in this dataset overall, but there do appear to be some differences in documentation status in between occupation type groups. For example, most migrants in manufacturing jobs in the dataset are undocumented, whereas a signficant proportion of educators, homemakers, administrators, and professionals are legal residents or temporary residents. The students in the dataset are all temporary residents. There are a much higher number of contract workers in the unemployed category than any other occupation category. This would also be an interesting interaction to investigate.
 
 ## Section 3. Regression Analysis Plan
 
 In an effort to determine which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
 
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interactions between 
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant.
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 

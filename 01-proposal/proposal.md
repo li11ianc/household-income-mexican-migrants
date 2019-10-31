@@ -672,7 +672,8 @@ that very few migrants in the dataset were born in those states.
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ```
 
 ![](proposal_files/figure-gfm/uscity-statebrn-plots-1.png)<!-- -->
@@ -680,7 +681,8 @@ ggplot(data = data, aes(x = uscity, fill = statebrn)) +
 ``` r
 ggplot(data = data, aes(x = uscity, fill = statebrn)) +
   geom_bar()+
-  coord_flip()
+  coord_flip()+
+  labs(title = "Birth State by City of First US Migration", x = "US City", y = "Birth State")
 ```
 
 ![](proposal_files/figure-gfm/uscity-statebrn-plots-2.png)<!-- -->
@@ -695,26 +697,53 @@ LA-Long Beach. This interaction might be worth further investigation.
 ``` r
 ggplot(data = data, aes(x = uscity, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by City of First US Migration", x = "US City", y = "Log(Household Income (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](proposal_files/figure-gfm/uscity-hhincome-plot-1.png)<!-- -->
+
+The city in which a migrant lives and works in the US could also have an
+effect on their income- most IQRs for these cities appear very similar,
+but Las Vegas’s median log(income) is significantly lower, although the
+spread is greater. It is also interesting that the IQRs appear so even
+city-to-city despite the difference in minimum wage laws and living
+expenses in various states.
 
 ``` r
 ggplot(data = data, aes(x = usstate1, y = log(hhincome))) +
   geom_boxplot() +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Log(Household Income) by State of First US Migration", x = "State", y = "Log(Household Income) (dollars)")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](proposal_files/figure-gfm/usstate1-hhincome-plot-1.png)<!-- -->
+
+The log(household income) appears to differ much more significantly by
+state than by city. With income in Puerto Rico and Pennsylvania
+noticeably lower than the other states, depending on skew due to
+different sample sizes in each state, this may prove an important
+interaction. Grouping states into regions of the US to create more
+evenly sized groups will aid in future analysis.
 
 ``` r
 ggplot(data = data, aes(x = occtype, fill = usdoc1)) +
   geom_bar(position = "fill") +
-  coord_flip()
+  coord_flip() +
+  labs(title = "Occupation Type by Documentation on First Migration to US", x = "Occupation Type")
 ```
 
-![](proposal_files/figure-gfm/unnamed-chunk-2-3.png)<!-- -->
+![](proposal_files/figure-gfm/occtype-usdoc1-plot-1.png)<!-- -->
+
+Undocumented immigrants are the most represented in this dataset
+overall, but there do appear to be some differences in documentation
+status in between occupation type groups. For example, most migrants in
+manufacturing jobs in the dataset are undocumented, whereas a signficant
+proportion of educators, homemakers, administrators, and professionals
+are legal residents or temporary residents. The students in the dataset
+are all temporary residents. There are a much higher number of contract
+workers in the unemployed category than any other occupation category.
+This would also be an interesting interaction to investigate.
 
 ## Section 3. Regression Analysis Plan
 
@@ -725,7 +754,9 @@ predictors, this is the best model at our disposal for us to use.
 
 We will consider the potential interaction between principal occupation
 and number of years of school completed, since those are generally
-interconnected. We may also consider the interactions between
+interconnected. We may also consider the interaction between
+documentation type and occupation type, although the effect may be
+insignificant.
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human
