@@ -516,24 +516,15 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 ![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
 the most common states of birth by far are Zacatecas, San Luis Potosí,
 Michoacán, Jalisco, and Guanajuato. These states border one another and
-are in the west-central part of
-Mexico.
+are in the west-central part of Mexico.
 
 ``` r
-  labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
+ggplot(data = data, aes(x = marstat, fill = marstat)) +
+  geom_bar()+ labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
-    ## $x
-    ## [1] "Marital Status"
-    ## 
-    ## $y
-    ## [1] "Count"
-    ## 
-    ## $title
-    ## [1] "Distribution of Marital Status"
-    ## 
-    ## attr(,"class")
-    ## [1] "labels"
+![](proposal_files/figure-gfm/marital%20status-1.png)<!-- --> The
+majority of those surveyed were married.
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
