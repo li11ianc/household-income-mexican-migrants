@@ -9,22 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-<<<<<<< HEAD
     ## ── Attaching packages ────────────
-=======
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 260a8fd4c635461220ac3b257dfadade194ed060
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ─────────────────────
-=======
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 260a8fd4c635461220ac3b257dfadade194ed060
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -57,7 +49,9 @@ from their demographic differences and experiences of immigration.
 
 Our research project aims to determine the characteristics of Mexican
 immigration to the US. We hypothesize that there exist statistically
-significant trends in Mexican immigrants to the US.
+significant trends in Mexican immigrants to the US, and that we can
+determine where migrants are coming from, why and where they are going,
+as well as explore their experiences when they arrive.
 
 ## Section 2. Exploratory Data Analysis
 

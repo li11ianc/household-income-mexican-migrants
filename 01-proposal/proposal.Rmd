@@ -20,7 +20,7 @@ For example, the number of refugees accepted from all countries worldwide to the
 
 Given the variety of ways to immigrate legally,and the widely varying experiences of immigrants from different backgrounds, we expect that the success of immigrants, measured in the form of annual income, to stem from their demographic differences and experiences of immigration. 
 
-Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant trends in Mexican immigrants to the US. 
+Our research project aims to determine the characteristics of Mexican immigration to the US. We hypothesize that there exist statistically significant trends in Mexican immigrants to the US, and that we can determine where migrants are coming from, why and where they are going, as well as explore their experiences when they arrive. 
 
 ## Section 2. Exploratory Data Analysis
 
