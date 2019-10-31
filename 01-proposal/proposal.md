@@ -516,42 +516,24 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 ![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- --> Clearly,
 the most common states of birth by far are Zacatecas, San Luis Potosí,
 Michoacán, Jalisco, and Guanajuato. These states border one another and
-are in the west-central part of Mexico.
+are in the west-central part of
+Mexico.
 
 ``` r
-ggplot(data = data, aes(x = sex, fill = sex)) + 
-  geom_bar()+
-  labs(title = "Distribution of Sex", x = "Sex", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = age)) +
-  geom_histogram()+
-  labs(title = "Distribution of Age", x= "Age", y = "Count")
-```
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = statebrn, fill = statebrn)) + 
-  geom_bar() +
-  coord_flip()+
-  labs(title = "Distribution of State of Birth", x= "State of Birth", y = "Count")
-```
-
-![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
-
-``` r
-ggplot(data = data, aes(x = marstat, fill = marstat)) + 
-  geom_bar()+
   labs(title = "Distribution of Marital Status", x= "Marital Status", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
+    ## $x
+    ## [1] "Marital Status"
+    ## 
+    ## $y
+    ## [1] "Count"
+    ## 
+    ## $title
+    ## [1] "Distribution of Marital Status"
+    ## 
+    ## attr(,"class")
+    ## [1] "labels"
 
 ``` r
 ggplot(data = data, aes(x = edyrs)) +
@@ -561,7 +543,7 @@ ggplot(data = data, aes(x = edyrs)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-1.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(hhincome))) +
@@ -571,7 +553,7 @@ ggplot(data = data, aes(x = log(hhincome))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-2.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstate1)) + 
@@ -580,7 +562,7 @@ ggplot(data = data, aes(x = usstate1)) +
   labs(title = "Distribution of First US State of Residence", x= "First US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-3.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usstatel)) + 
@@ -589,7 +571,7 @@ ggplot(data = data, aes(x = usstatel)) +
   labs(title = "Distribution of Last US State of Residence", x= "Last US State of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-4.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdur1))) +
@@ -599,7 +581,7 @@ ggplot(data = data, aes(x = log(usdur1))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-5.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = log(usdurl))) +
@@ -609,7 +591,7 @@ ggplot(data = data, aes(x = log(usdurl))) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-10.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-6.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) + 
@@ -618,7 +600,7 @@ ggplot(data = data, aes(x = usdoc1, fill = usdoc1)) +
   labs(title = "Distribution of First Documentation Used", x= "First Documentation Used", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-11.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-7.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = occtype)) + 
@@ -627,7 +609,7 @@ ggplot(data = data, aes(x = occtype)) +
   labs(title = "Distribution of Types of Occupation", x= "Occupation", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-12.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-8.png)<!-- -->
 
 ``` r
 ggplot(data = data, aes(x = uscity)) + 
@@ -636,7 +618,7 @@ ggplot(data = data, aes(x = uscity)) +
   labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
 ```
 
-![](proposal_files/figure-gfm/initial-spread-of-variables-13.png)<!-- -->
+![](proposal_files/figure-gfm/initial-spread-of-variables-9.png)<!-- -->
 
 ``` r
 pairs(log(hhincome) ~ age + edyrs + usdur1, data = data, 
