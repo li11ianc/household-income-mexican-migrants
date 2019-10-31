@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of Immigrants to the US by Type of Immigration Status"
+title: "Characteristics of recent Mexican Immigrantation to the US"
 subtitle: "Project Proposal"
 author: "Ben 10"
 date: "October 27, 2019"
@@ -16,7 +16,7 @@ library(dplyr)
 ## Section 1. Introduction
 In recent years, immigration has been a topic of intense controversy. Given the complexity of immigration law, we are interested in examining patterns in immigration since the beginning of the millenia. The U.S. stance on immigration has grown increasingly strict, not only for "illegal" immigration, but also for legal immigration: naturalization, visa use, lawful permanent residency, refugee status, and asylum seekers. 
 
-For example, the number of refugees accepted to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, we are examining immigration to the US from Mexico and the characteristics of these immigrants.
+For example, the number of refugees accepted from all countries worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according to the Department of State, likely as a result of hard line policies against refugees coming to the US. As immigration policies seem likely to tighten in the lead up to the 2020 elections, we are examining immigration to the US from Mexico and the characteristics of these immigrants.
 
 Given the variety of ways to immigrate legally, and the varying processes and timelines for each, we would expect that the characteristics of immigrants using each pathway to differ. By examining the demographics of each immigration pathway, we can determine the trends, if any, that exist in the current immigration infrastructure.
 

@@ -1,4 +1,4 @@
-Characteristics of Immigrants to the US by Type of Immigration Status
+Characteristics of recent Mexican Immigrantation to the US
 ================
 Ben 10
 October 27, 2019
@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -34,12 +34,13 @@ stance on immigration has grown increasingly strict, not only for
 visa use, lawful permanent residency, refugee status, and asylum
 seekers.
 
-For example, the number of refugees accepted to the US fell to 22,491 in
-2018 from 84,994 in 2016 according to the Department of State, likely as
-a result of hard line policies against refugees coming to the US. As
-immigration policies seem likely to tighten in the lead up to the 2020
-elections, we are examining immigration to the US from Mexico and the
-characteristics of these immigrants.
+For example, the number of refugees accepted from all countries
+worldwide to the US fell to 22,491 in 2018 from 84,994 in 2016 according
+to the Department of State, likely as a result of hard line policies
+against refugees coming to the US. As immigration policies seem likely
+to tighten in the lead up to the 2020 elections, we are examining
+immigration to the US from Mexico and the characteristics of these
+immigrants.
 
 Given the variety of ways to immigrate legally, and the varying
 processes and timelines for each, we would expect that the

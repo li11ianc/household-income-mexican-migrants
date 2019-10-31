@@ -1,6 +1,6 @@
 # Data Dimensions 
 
-`pers170` has 176701 observations and 132 variables. Our cleaned data, labeled `data` has 19 variables and 2,824 observations.
+`pers170` has 176701 observations and 132 variables. Our cleaned data, labeled `data` has 19 variables and 2,824 observations. `dat` is a partially cleaned dataset with some of our early, rough cleaning. 
 
 # Data Dictionary
 
