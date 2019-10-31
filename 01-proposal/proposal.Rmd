@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of recent Mexican Immigrantation to the US"
+title: "Characteristics of recent Mexican Immigrants to the US"
 subtitle: "Project Proposal"
 author: "Ben 10"
 date: "October 27, 2019"
