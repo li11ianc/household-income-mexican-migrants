@@ -19,7 +19,7 @@ library(knitr)
 library(dplyr)
 ```
 
-```{r}
+```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 data
 ```
@@ -28,7 +28,7 @@ data
 
 #### Thea
 
-```{r}
+```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
 caldata
