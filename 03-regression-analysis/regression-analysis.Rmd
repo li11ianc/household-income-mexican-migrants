@@ -1,8 +1,8 @@
 ---
-title: "PROJECT TITLE"
+title: "Characteristics of Recent Mexican Immigrants to the US"
 subtitle: "Regression Analysis"
-author: "NAME HERE"
-date: "TODAY'S DATE"
+author: "Ben 10"
+date: "November 14, 2019"
 output: github_document
 ---
 
