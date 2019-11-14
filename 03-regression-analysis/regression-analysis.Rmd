@@ -28,7 +28,7 @@ data
 
 #### Thea
 
-<<<<<<< HEAD
+
 ```{r}
 caldata <- data %>%
   filter(usstatel == "California")
@@ -37,7 +37,7 @@ caldata <- data %>%
 caldata <- data %>%
   filter(usstatel == "California")
 caldata
->>>>>>> 9147988da55ea968346f37d4c85d78d5a45269b2
+
 ```
 
 
