@@ -85,7 +85,7 @@ Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
 Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small
 number of cases in which no city was reported, we deleted these
-instances. This leaves
+instances. This leaves 15 unique locations in California.
 
 #### Lilly
 
