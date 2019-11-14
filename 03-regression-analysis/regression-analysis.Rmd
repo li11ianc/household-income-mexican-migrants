@@ -10,9 +10,24 @@ output: github_document
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r load-packages}
+library(tidyverse)
+library(broom)
+library(leaps)
+library(knitr)
+library(dplyr)
+```
+
+
 #### Qintian
 
 #### Thea
+
+```{r}
+##caldata <- data %>%
+  ##filter(usstatel == "California")
+```
+
 
 #### Rachel
 
