@@ -3,14 +3,14 @@ Characteristics of Recent Mexican Immigrants to the US
 Ben 10
 November 14, 2019
 
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -76,6 +76,14 @@ November 14, 2019
     ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
 
 #### Rachel
+
+These immigrants to California arrived to the following cities: Los
+Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
+Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
+Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
+Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small
+number of cases in which no city was reported, we deleted these
+instances.
 
 #### Lilly
 

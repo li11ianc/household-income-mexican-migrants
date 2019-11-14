@@ -32,7 +32,8 @@ data
 ```{r}
 caldata <- data %>%
   filter(usstatel == "California")
-=======
+```
+
 ```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
