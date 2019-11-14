@@ -14,4 +14,4 @@ imm <- pers170 %>%
          usdoc1 != 9999 & 8888)
 
 write.csv(imm,  "dat.csv")
-view()
+
