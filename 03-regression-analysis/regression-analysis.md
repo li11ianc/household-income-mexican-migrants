@@ -77,13 +77,15 @@ November 14, 2019
 
 #### Rachel
 
+    ##  [1] 7360 4480 7320 5945 2840 7485 6780  680 8735 8720 6920 7480 4940 7400
+
 These immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
 Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
 Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small
 number of cases in which no city was reported, we deleted these
-instances.
+instances. This leaves
 
 #### Lilly
 
