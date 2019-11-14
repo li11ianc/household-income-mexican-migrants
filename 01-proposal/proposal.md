@@ -9,22 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
-=======
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 508364aa5d78aaf540fb698b0634445ad548bcaa
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-=======
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 508364aa5d78aaf540fb698b0634445ad548bcaa
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -821,6 +813,10 @@ glimpse(data)
     ## $ usdoc1   <chr> "Undocumented", "Contract - Bracero", "Undocumented", "…
     ## $ occtype  <chr> "Manufacturing (skilled)", "Manufacturing (skilled)", "…
     ## $ uscity   <chr> "Chicago, IL", "San Francisco, CA", "San Diego, CA", "D…
+
+``` r
+write_csv(data, "/cloud/project/03-regression-analysis/data.csv")
+```
 
 Sources:
 

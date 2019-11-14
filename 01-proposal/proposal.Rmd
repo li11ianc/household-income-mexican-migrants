@@ -531,6 +531,10 @@ Below is a glimpse of our data:
 glimpse(data)
 ```
 
+```{r}
+write_csv(data, "/cloud/project/03-regression-analysis/data.csv")
+```
+
 Sources:
 
 Statistic used in Introduction:

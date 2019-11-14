@@ -25,14 +25,19 @@ data
 ```
 
 #### Qintian
+```{r}
+caldata <- caldata %>%
+  mutate(hhincome = case_when(
+    hhincome > exp(11) ~ hhincome/19.44,
+    hhincome < exp(11) ~ hhincome
+  ))
+caldata
+```
 
 #### Thea
 
 
-```{r}
-caldata <- data %>%
-  filter(usstatel == "California")
-```
+
 
 ```{r caldata}
 caldata <- data %>%
