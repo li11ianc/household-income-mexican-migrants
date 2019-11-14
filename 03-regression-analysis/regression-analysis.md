@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+Characteristics of Recent Mexican Immigrants to the US
+================
+Ben 10
+November 14, 2019
+=======
 PROJECT TITLE
 ================
 NAME HERE
@@ -10,6 +16,7 @@ TODAY’S DATE
 #### Rachel
 
 #### Lilly
+>>>>>>> 508364aa5d78aaf540fb698b0634445ad548bcaa
 
 Your regression analysis results go here. At a minimum, the regression
 analysis should include the following:
