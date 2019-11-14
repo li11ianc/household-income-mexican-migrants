@@ -24,12 +24,20 @@ library(dplyr)
 #### Thea
 
 ```{r}
-##caldata <- data %>%
-  ##filter(usstatel == "California")
+caldata <- data %>%
+  filter(usstatel == "California")
 ```
 
 
 #### Rachel
+```{r cities}
+caldata <- caldata %>%
+  filter(usplace1 != 9999)
+caldata <- caldata %>%
+  filter(usplace1 != 7777)
+```
+These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. 
+
 
 #### Lilly
 
