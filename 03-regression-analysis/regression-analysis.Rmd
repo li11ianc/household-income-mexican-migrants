@@ -10,6 +10,15 @@ output: github_document
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+#### Qintian
+
+#### Thea
+
+#### Rachel
+
+#### Lilly
+
+
 Your regression analysis results go here. At a minimum, the regression analysis should include the following: 
 
 - Statement of the research question and modeling obejctive (prediction, inference, etc.)
