@@ -9,22 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ────────────
->>>>>>> cba6459035f989ca8e22e73d22dfaf6daa47a7e8
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ─────────────────────
->>>>>>> cba6459035f989ca8e22e73d22dfaf6daa47a7e8
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
