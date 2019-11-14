@@ -8,6 +8,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
 ```
 
 ```{r load-packages}
@@ -18,14 +19,19 @@ library(knitr)
 library(dplyr)
 ```
 
+```{r}
+data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
+data
+```
 
 #### Qintian
 
 #### Thea
 
 ```{r}
-##caldata <- data %>%
-  ##filter(usstatel == "California")
+caldata <- data %>%
+  filter(usstatel == "California")
+caldata
 ```
 
 
