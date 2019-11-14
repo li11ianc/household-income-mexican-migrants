@@ -37,8 +37,6 @@ caldata <- data %>%
 ```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
-caldata
-
 ```
 
 
@@ -47,7 +45,6 @@ caldata
 caldata <- caldata %>%
   filter(usplace1 %in% c(680, 2840, 4480, 4940, 5945, 6780, 
           6920,6920, 7320,7360,7400,7480,7485,8720,8735))
-unique(caldata$usplace1)
 ```
 These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. 
 

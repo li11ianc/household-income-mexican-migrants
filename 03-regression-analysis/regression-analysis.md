@@ -58,26 +58,7 @@ November 14, 2019
 
 #### Thea
 
-    ## # A tibble: 1,778 x 19
-    ##       X1 sex   relhead yrborn   age statebrn marstat edyrs   occ hhincome
-    ##    <dbl> <chr>   <dbl>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>
-    ##  1     2 M           1   1928    59 Guanaju… Married     3   522   200000
-    ##  2     5 M           1   1956    31 Guanaju… Married     6   142   300000
-    ##  3     6 M           1   1921    66 Jalisco  Married     0   529   200000
-    ##  4     9 M           1   1945    42 Guanaju… Consen…     6   559   200000
-    ##  5    10 M           1   1945    42 Guanaju… Married     6   819   300000
-    ##  6    11 M           1   1936    51 Guanaju… Widowed     3   522   240000
-    ##  7    12 M           1   1951    36 Guanaju… Married     2   529   180000
-    ##  8    13 M           1   1946    41 Guanaju… Married     6   419   240000
-    ##  9    18 M           1   1952    35 Guanaju… Married     6   559   400000
-    ## 10    19 M           1   1947    40 Guanaju… Married     3   410   180000
-    ## # … with 1,768 more rows, and 9 more variables: usstate1 <chr>,
-    ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
-    ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
-
 #### Rachel
-
-    ##  [1] 7360 4480 7320 5945 2840 7485 6780  680 8735 8720 6920 7480 4940 7400
 
 These immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
