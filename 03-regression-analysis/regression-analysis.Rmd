@@ -54,6 +54,10 @@ These immigrants to California arrived to the following cities: Los Angeles-Long
 #### Lilly
 
 ```{r}
+
+```
+
+```{r}
 caldata %>%
   filter(hhincome < exp(11)) %>%
   ggplot(aes(x = log(hhincome))) +
