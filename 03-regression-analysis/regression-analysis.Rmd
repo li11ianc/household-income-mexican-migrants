@@ -125,36 +125,21 @@ ggplot(data = caldata, aes(x = log(hhincome))) +
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
+Originally, the distribution of log(Household Income)- our response variable- was bimodal and had a mean of 412,647 dollars. We determined that this is an absurdly high median income for a survey of largely undocumented immigrants in the US and believe that a significant chunk of the high incomes were actually recorded in pesos. We will filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset.
 
-```{r filter-na}
-data <- data %>%
+```{r filter-hhincome}
+caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome == .1 ~ 0,
     TRUE ~ hhincome
   )) #undoing mutation from proposal to return 0 income variables to 0
+caldata <- caldata %>%
+  filter(hhincome > 5, log(hhincome) < 8)
 ```
 
 ```{r}
-caldata <- caldata %>%
-  filter(hhincome < 60000)
-```
-
-```{r}
-caldata %>%
-  filter(hhincome < exp(11)) %>%
-  ggplot(aes(x = log(hhincome))) +
+ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram()
-caldata <- caldata %>%
-  mutate(hhincome = case_when(
-    hhincome > exp(11) ~ hhincome/300,
-    hhincome < exp(11) ~ hhincome
-  ))
-caldata <- caldata %>%
-  filter(hhincome > 5)
-ggplot(data = caldata, aes(x = log(hhincome))) +
-  geom_histogram()
-
-
 ```
 
 Your regression analysis results go here. At a minimum, the regression analysis should include the following: 
