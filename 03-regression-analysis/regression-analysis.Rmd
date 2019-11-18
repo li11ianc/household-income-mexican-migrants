@@ -39,7 +39,7 @@ caldata <- data %>%
   filter(usstatel == "California")
 ```
 
-```{r}
+```{r mutate-income}
 caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome > exp(11) ~ hhincome/19.44,
@@ -59,7 +59,7 @@ These immigrants to California arrived to the following cities: Los Angeles-Long
 
 It turned out that all values from relhead in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity
 
-```{r remove relhead}
+```{r remove-relhead}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel) )
 ```
 

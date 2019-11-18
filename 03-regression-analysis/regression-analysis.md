@@ -140,15 +140,15 @@ positive because we are dealing with a constantly fluctuating
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
 Your regression analysis results go here. At a minimum, the regression
 analysis should include the following:
