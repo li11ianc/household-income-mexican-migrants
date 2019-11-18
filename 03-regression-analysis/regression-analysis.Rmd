@@ -120,7 +120,7 @@ Your regression analysis results go here. At a minimum, the regression analysis 
 
 - Statement of the research question and modeling obejctive (prediction, inference, etc.)
 
-We are aiming to uncover what characteristics of immmigrants to the United States, specifically California, influence their projected household income. We will be building a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occ`, `usdur1`, `usdurl`, `usdoc1`, `uscity`. 
+We are aiming to discover what characteristics of Mexican immmigrants to the United States, specifically California, influence their projected household income. We will be building a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occ`, `usdur1`, `usdurl`, `usdoc1`, `uscity`. 
 
 - Description of the response variable
 
