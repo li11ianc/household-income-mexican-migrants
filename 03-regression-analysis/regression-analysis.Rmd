@@ -110,13 +110,6 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 
 
-#### Qintian
-
-#### Thea
-
-
-#### Rachel
-
 #### Lilly
 
 ```{r}
