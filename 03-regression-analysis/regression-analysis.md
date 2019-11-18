@@ -4,14 +4,22 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> bdb3f08cf60b754cba0609592e1fa330cb38d60d
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> bdb3f08cf60b754cba0609592e1fa330cb38d60d
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2302,6 +2310,23 @@ uscityVentura, CA
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134034469 |  1 |  207174.7 |     0.376 |
+<<<<<<< HEAD
+=======
+
+| term                                   |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :------------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept)                            |   466.541 |   231.288 |     2.017 |   0.044 |    12.130 |   920.952 |
+| sexM                                   |   184.644 |   116.199 |     1.589 |   0.113 |  \-43.653 |   412.941 |
+| age                                    |     6.619 |     2.455 |     2.696 |   0.007 |     1.795 |    11.444 |
+| edyrs                                  |    24.698 |    44.653 |     0.553 |   0.580 |  \-63.032 |   112.429 |
+| usdurl                                 |     0.622 |     0.261 |     2.383 |   0.018 |     0.109 |     1.135 |
+| usdoc1Legal resident                   | \-216.083 |   270.578 |   \-0.799 |   0.425 | \-747.688 |   315.522 |
+| usdoc1Temporary: Tourist/visitor       | \-215.117 |   264.262 |   \-0.814 |   0.416 | \-734.312 |   304.078 |
+| usdoc1Undocumented                     |    80.942 |   196.494 |     0.412 |   0.681 | \-305.110 |   466.994 |
+| edyrs:usdoc1Legal resident             |    49.846 |    49.455 |     1.008 |   0.314 |  \-47.318 |   147.009 |
+| edyrs:usdoc1Temporary: Tourist/visitor |    18.464 |    48.431 |     0.381 |   0.703 |  \-76.688 |   113.616 |
+| edyrs:usdoc1Undocumented               |  \-11.537 |    45.141 |   \-0.256 |   0.798 | \-100.226 |    77.151 |
+>>>>>>> bdb3f08cf60b754cba0609592e1fa330cb38d60d
 
 We also wanted to consider the interaction between documentation status
 and number of years of education, because it is well known that people
@@ -2607,7 +2632,10 @@ assumptions.
 ### 3.1.1 Predicted vs. Factors
 
 ![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> bdb3f08cf60b754cba0609592e1fa330cb38d60d
 ![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->![](regression-analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 From the data exploratory section, observed a perfect negative linear
