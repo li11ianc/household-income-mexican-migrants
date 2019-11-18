@@ -3,14 +3,14 @@ Characteristics of Recent Mexican Immigrants to the US
 Ben 10
 November 14, 2019
 
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -54,6 +54,20 @@ November 14, 2019
     ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
     ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
 
+\<\<\<\<\<\<\< HEAD
+
+\======= WHAT WE NEED TO DO: -Statement of the research question and
+modeling obejctive (prediction, inference, etc.) -Description of the
+response variable -Updated exploratory data analysis, incorporating any
+feedback from the proposal -Explanation of the modeling process and why
+you chose those metohds, incorporating any feedback from the proposal
+-Output of the final model -Discussion of the assumptions for the final
+model -Interpretations / interesting findings from the model
+coefficients -Additional work of other models or analylsis not included
+in the final model.
+
+> > > > > > > fe26a176f04c0c73819d27193873cf996acff4c3
+
 #### Qintian
 
     ## # A tibble: 1,778 x 19
@@ -84,8 +98,14 @@ Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
 Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small
 number of cases in which no city was reported, we deleted these
-instances. This leaves 15 unique locations in
-    California.
+instances. This leaves 15 unique locations in California. The majority
+of immigrants went to LA-Long Beach area.
+
+It turned out that all values from relhead in our cleaned data were “1”
+or head. So we will remove this variable, as well as state variables
+since we are only using California data. We will also remove place data
+since we are using
+    uscity
 
 #### Lilly
 
