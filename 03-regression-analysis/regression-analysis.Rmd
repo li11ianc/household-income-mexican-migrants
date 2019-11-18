@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of Recent Mexican Immigrants to the United States"
+title: "Characteristics of Recent Mexican Immigrants to the United States that Influence Household Income"
 subtitle: "Regression Analysis"
 author: "Ben 10"
 date: "November 20, 2019"

@@ -1,4 +1,5 @@
-Characteristics of Recent Mexican Immigrants to the United States
+Characteristics of Recent Mexican Immigrants to the United States that
+Influence Household Income
 ================
 Ben 10
 November 20, 2019
