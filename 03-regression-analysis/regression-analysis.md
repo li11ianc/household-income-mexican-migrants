@@ -4,14 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2278,6 +2278,11 @@ uscityVentura, CA
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
+|    502 | 130461779 |  6 |   3779865 |     0.024 |
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134188199 |  1 |  53444.74 |     0.653 |
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
@@ -2304,20 +2309,6 @@ uscityVentura, CA
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134034469 |  1 |  207174.7 |     0.376 |
-
-| term                                   |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :------------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept)                            |   466.541 |   231.288 |     2.017 |   0.044 |    12.130 |   920.952 |
-| sexM                                   |   184.644 |   116.199 |     1.589 |   0.113 |  \-43.653 |   412.941 |
-| age                                    |     6.619 |     2.455 |     2.696 |   0.007 |     1.795 |    11.444 |
-| edyrs                                  |    24.698 |    44.653 |     0.553 |   0.580 |  \-63.032 |   112.429 |
-| usdurl                                 |     0.622 |     0.261 |     2.383 |   0.018 |     0.109 |     1.135 |
-| usdoc1Legal resident                   | \-216.083 |   270.578 |   \-0.799 |   0.425 | \-747.688 |   315.522 |
-| usdoc1Temporary: Tourist/visitor       | \-215.117 |   264.262 |   \-0.814 |   0.416 | \-734.312 |   304.078 |
-| usdoc1Undocumented                     |    80.942 |   196.494 |     0.412 |   0.681 | \-305.110 |   466.994 |
-| edyrs:usdoc1Legal resident             |    49.846 |    49.455 |     1.008 |   0.314 |  \-47.318 |   147.009 |
-| edyrs:usdoc1Temporary: Tourist/visitor |    18.464 |    48.431 |     0.381 |   0.703 |  \-76.688 |   113.616 |
-| edyrs:usdoc1Undocumented               |  \-11.537 |    45.141 |   \-0.256 |   0.798 | \-100.226 |    77.151 |
 
 We also wanted to consider the interaction between documentation status
 and number of years of education, because it is well known that people
@@ -2381,25 +2372,25 @@ p.value
 
 <td style="text-align:right;">
 
-597.033
+435.625
 
 </td>
 
 <td style="text-align:right;">
 
-215.040
+118.863
 
 </td>
 
 <td style="text-align:right;">
 
-2.776
+3.665
 
 </td>
 
 <td style="text-align:right;">
 
-0.006
+0.000
 
 </td>
 
@@ -2415,25 +2406,25 @@ sexM
 
 <td style="text-align:right;">
 
-369.447
+279.468
 
 </td>
 
 <td style="text-align:right;">
 
-125.876
+109.513
 
 </td>
 
 <td style="text-align:right;">
 
-2.935
+2.552
 
 </td>
 
 <td style="text-align:right;">
 
-0.003
+0.011
 
 </td>
 
@@ -2483,25 +2474,25 @@ edyrs
 
 <td style="text-align:right;">
 
-\-76.132
+25.408
 
 </td>
 
 <td style="text-align:right;">
 
-22.385
+6.641
 
 </td>
 
 <td style="text-align:right;">
 
-\-3.401
+3.826
 
 </td>
 
 <td style="text-align:right;">
 
-0.001
+0.000
 
 </td>
 
@@ -2683,14 +2674,11 @@ We can possibly create interaction terms between them.
 
 ## 4\. Interpretations
 
-Our final model is hhincome=466.5407726+184.6438202Msex + 6.6193307age +
-24.6983000edyrs + 0.6220198usdurl-216.0826709 usdoc1Legal
-resident-215.1165722usdoc1Temporary:
-Tourist/visitor+80.9419979usdoc1Undocumented+49.8455938edyrs:usdoc1Legal
-resident+18.4639273edyrs:usdoc1Temporary:
-Tourist/visitor-11.5374794edyrs:usdoc1Undocumented. Our baseline is an
-average aged women with no education who has spent an average amount of
-time in the US and is on a Bracero contract.
+Our final model is
+hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+
+Our baseline is an average aged women with no education who has spent an
+average amount of time in the US.
 
 ## 5\. Additional Work
 
