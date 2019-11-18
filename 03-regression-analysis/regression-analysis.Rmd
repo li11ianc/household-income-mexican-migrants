@@ -104,9 +104,9 @@ kable(tidy(full),format="html" ,digits=3)
 ### 2.2 Backward selection
 
 ```{r backward-selection}
-final <- step(full, direction = "backward")
-sel_summary <- summary(final)
-tidy(final, exponentiate = FALSE, conf.int = TRUE) %>%
+reduced <- step(full, direction = "backward")
+sel_summary <- summary(reduced)
+tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
@@ -114,7 +114,7 @@ kable(digits = 3, format = "markdown")
 
 ```{r int-model}
 int_model <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdoc1, data = caldata)
-anova(final, int_model, test = "Chisq") %>% 
+anova(reduced, int_model, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)
 ```
 We also wanted to consider the interaction between documentation status and number of years of education, because it is well known that people who have had higher education are more likely to be documented immigrants in the United States.
