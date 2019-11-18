@@ -5,7 +5,11 @@ Ben 10
 November 20, 2019
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
 =======
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 >>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
@@ -16,7 +20,11 @@ November 20, 2019
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
 =======
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 >>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
@@ -2680,6 +2688,20 @@ hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.5
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.
+
+We note that being male increases expected income. This may have to do
+with the gender wage gap, but more likely has to do with the type of
+labour immigrants tend to do: often, this is physical labour that men,
+who on average are larger, are more capable of performing. Similarly, we
+would expect elderly immigrants to struggle with hard labour, and we
+note that income falls as age increases.
+
+As anticipated, more years of education increased income significantly.
+
+The more time an immigrant had been in the US, the more income they
+could expect to earn – this may have to do with the advantages of having
+networks and stability, as well as overcoming language and cultural
+barriers.
 
 ## 5\. Additional Work
 
