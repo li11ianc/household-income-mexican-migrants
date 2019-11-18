@@ -49,11 +49,9 @@ the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`,
 
 Our response variable is household income: the total income for a single
 household, reported in
-    $USD.
+$USD.
 
 ## 2\. Exploratory Data Analysis
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ![](regression-analysis_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
 
@@ -65,9 +63,7 @@ of the high incomes were actually recorded in pesos. We will filter out
 the incomes above 60,000 to remove what appears to be a second
 distribution of incomes in pesos. We will also remove incomes of zero
 from our
-    dataset.
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+dataset.
 
 ![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
