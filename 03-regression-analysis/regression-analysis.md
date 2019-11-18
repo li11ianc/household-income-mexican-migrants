@@ -69,11 +69,7 @@ from our
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-<<<<<<< HEAD
-![](regression-analysis_files/figure-gfm/filt-hhincome-plot-1.png)<!-- -->
-=======
 ![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
->>>>>>> f8cd1e1658fa0e29ac2d7f4210de85d30404a78a
 
 <img src="regression-analysis_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
 These immigrants to California arrived to the following cities: Los
