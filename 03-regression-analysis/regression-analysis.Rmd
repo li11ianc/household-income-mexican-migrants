@@ -59,13 +59,8 @@ These immigrants to California arrived to the following cities: Los Angeles-Long
 
 It turned out that all values from relhead in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
-<<<<<<< HEAD
-```{r remove relhead}
-caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
-=======
 ```{r remove-relhead}
-caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel) )
->>>>>>> f28a2139151349a9ecb16e875a945218d63e47ad
+caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
 ## 2. Multiple Linear Regression Model
@@ -79,7 +74,7 @@ We will select our model using AIC criteria, because since we're dealing with pe
 ### 2.1 Full Model
 
 ```{r model}
-model1 <- lm(hhincome ~ sex+age+ statebrn+marstat+edyrs+occtype+usdur1+usdurl+usdoc1+uscity+yrborn,
+model1 <- lm(hhincome ~ .,
 data=caldata)
 kable(tidy(model1),format="html"
 ,digits=3)
