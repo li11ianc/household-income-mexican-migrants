@@ -105,11 +105,12 @@ nature and the ever-changing socioeconomic and political climate that
 could influence someone’s household income. AIC is used when we would
 rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
-positive because we are dealing with a constantly fluctuating issue.
+positive because we are dealing with a constantly fluctuating
+issue.
 
 ### 2.1 Full Model
 
-![](regression-analysis_files/figure-gfm/yrborn-age-1.png)<!-- -->
+<img src="regression-analysis_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
 `yrborn` and `age` provide the same information and are perfectly
 linear, therefore we decided to remove `yrborn` from consideration in
 the model.
