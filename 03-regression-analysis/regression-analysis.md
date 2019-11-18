@@ -4,30 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2685,6 +2669,26 @@ geographically close to each other.
 
 Our final model is
 hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+
+Our model expects an average household income of $435.63 for female
+Mexican migrants at age \_\_\_ with no years of education and a duration
+of \_\_\_\_ months for first US migration, all else held constant.
+
+For every increase of one year in age above \_\_\_, all else held
+constant, we expect to see a decrease of 6.97 dollars in average
+household income.
+
+For every increase of one year in education, all else held constant, we
+expect to see an increase of 25.41 dollars in average household income.
+
+For male immigrants, we expect to see an increase of 279.47 dollars in
+average household income over female immigrants, all else held constant.
+
+Interpret age:edyrs interaction???
+
+For every increase of one month in duration of last US migration, we
+expect to see an increase of around 1.88 dollars in income for women and
+a lesser increase of 0.34 dollars in income for men.
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.
