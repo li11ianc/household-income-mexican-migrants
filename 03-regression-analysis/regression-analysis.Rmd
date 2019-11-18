@@ -56,6 +56,23 @@ These immigrants to California arrived to the following cities: Los Angeles-Long
 
 #### Lilly
 
+```{r}
+caldata %>%
+  filter(hhincome < exp(11)) %>%
+  ggplot(aes(x = log(hhincome))) +
+  geom_histogram()
+caldata <- caldata %>%
+  mutate(hhincome = case_when(
+    hhincome > exp(11) ~ hhincome/300,
+    hhincome < exp(11) ~ hhincome
+  ))
+caldata <- caldata %>%
+  filter(hhincome > 5)
+ggplot(data = caldata, aes(x = log(hhincome))) +
+  geom_histogram()
+
+
+```
 
 Your regression analysis results go here. At a minimum, the regression analysis should include the following: 
 
