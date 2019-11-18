@@ -114,9 +114,9 @@ kable(tidy(regfit_backward, conf.int = TRUE, exponentiate = TRUE), format = "mar
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 2.1 Linearity
+### 3.1 Linearity
 
-#### 2.1.1 Predicted vs. Factors
+#### 3.1.1 Predicted vs. Factors
 ```{r scatter_pairs}
 pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
