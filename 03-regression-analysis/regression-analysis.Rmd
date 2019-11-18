@@ -85,14 +85,6 @@ We will consider the potential interaction between principal occupation and numb
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
-## 2. Multiple Linear Regression Model
-
-In an effort to determine which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
-
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant.
-
-We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
-
 ### 2.1 Full Model
 
 ```{r model}
