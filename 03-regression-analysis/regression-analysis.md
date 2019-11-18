@@ -2272,6 +2272,19 @@ uscityVentura, CA
 
 ### 2.3 Interactions
 
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    502 | 130461779 |  6 |   3779865 |     0.024 |
+
+We also wanted to consider the interaction between documentation status
+and number of years of education, because it is well known that people
+who have had higher education are more likely to be documented
+immigrants in the United States.
+
+The p-value for this test is 0.024 \< 0.05, therefore we should keep the
+interaction term for `edyrs` and `usdoc1` in the model.
+
 ### 2.4 F-test
 
 ## 3\. Check Assumtpions
