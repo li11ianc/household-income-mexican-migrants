@@ -123,9 +123,9 @@ kable(digits = 3, format = "markdown")
 ### 2.3 Interactions
 
 ```{r int-model}
-int_model <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdoc1, data = caldata)
-anova(reduced, int_model, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)
+##int_model <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdoc1, data = caldata)
+##anova(reduced, int_model, test = "Chisq") %>% 
+  ##kable(format = "markdown", digits = 3)
 int_model_1 <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdurl, data = caldata)
 anova(reduced, int_model_1, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.653
