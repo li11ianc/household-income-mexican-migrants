@@ -109,6 +109,11 @@ positive because we are dealing with a constantly fluctuating issue.
 
 ### 2.1 Full Model
 
+![](regression-analysis_files/figure-gfm/yrborn-age-1.png)<!-- -->
+`yrborn` and `age` provide the same information and are perfectly
+linear, therefore we decided to remove `yrborn` from consideration in
+the model.
+
 <table>
 
 <thead>

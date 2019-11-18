@@ -89,6 +89,12 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 ### 2.1 Full Model
 
+```{r yrborn-age}
+ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
+  geom_point()
+```
+`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
+
 ```{r model}
 full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
 kable(tidy(full),format="html" ,digits=3)
