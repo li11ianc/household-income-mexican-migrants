@@ -38,23 +38,6 @@ November 20, 2019
     ##   uscity = col_character()
     ## )
 
-    ## # A tibble: 2,805 x 19
-    ##       X1 sex   relhead yrborn   age statebrn marstat edyrs   occ hhincome
-    ##    <dbl> <chr>   <dbl>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>
-    ##  1     1 M           1   1938    49 Guanaju… Married     3   522   250000
-    ##  2     2 M           1   1928    59 Guanaju… Married     3   522   200000
-    ##  3     3 M           1   1950    37 Guanaju… Never …     6   410  1440000
-    ##  4     4 M           1   1946    41 Guanaju… Married     6   522   300000
-    ##  5     5 M           1   1956    31 Guanaju… Married     6   142   300000
-    ##  6     6 M           1   1921    66 Jalisco  Married     0   529   200000
-    ##  7     7 M           1   1914    73 Guanaju… Married     0   830   240000
-    ##  8     8 M           1   1932    55 Guanaju… Married     6   719    90000
-    ##  9     9 M           1   1945    42 Guanaju… Consen…     6   559   200000
-    ## 10    10 M           1   1945    42 Guanaju… Married     6   819   300000
-    ## # … with 2,795 more rows, and 9 more variables: usstate1 <chr>,
-    ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
-    ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
-
 ## 1\. Introduction
 
 We are aiming to discover what characteristics of Mexican immmigrants to
@@ -72,7 +55,7 @@ household, reported in
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
 
 Originally, the distribution of log(Household Income)- our response
 variable- was bimodal and had a mean of 412,647 dollars. We determined
@@ -86,10 +69,10 @@ from our
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/cities-1.png)<!-- --> These
-immigrants to California arrived to the following cities: Los
+<img src="regression-analysis_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
+These immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
 Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
@@ -125,6 +108,11 @@ not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating issue.
 
 ### 2.1 Full Model
+
+![](regression-analysis_files/figure-gfm/yrborn-age-1.png)<!-- -->
+`yrborn` and `age` provide the same information and are perfectly
+linear, therefore we decided to remove `yrborn` from consideration in
+the model.
 
 <table>
 
@@ -2284,6 +2272,19 @@ uscityVentura, CA
 
 ### 2.3 Interactions
 
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    502 | 130461779 |  6 |   3779865 |     0.024 |
+
+We also wanted to consider the interaction between documentation status
+and number of years of education, because it is well known that people
+who have had higher education are more likely to be documented
+immigrants in the United States.
+
+The p-value for this test is 0.024 \< 0.05, therefore we should keep the
+interaction term for `edyrs` and `usdoc1` in the model.
+
 ### 2.4 F-test
 
 ## 3\. Check Assumtpions
@@ -2294,7 +2295,7 @@ Before interpreting the model, it is essential to check the assumptions.
 
 ### 3.1.1 Predicted vs. Factors
 
-![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/scatter-pairs-1.png)<!-- -->
 
 From the data exploratory section, observed a perfect negative linear
 correlation between year-born and age, which makes sense. There is also

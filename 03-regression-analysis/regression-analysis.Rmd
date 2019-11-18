@@ -8,7 +8,6 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-
 ```
 
 ```{r load-packages}
@@ -21,7 +20,6 @@ library(dplyr)
 
 ```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
-data
 ```
 
 ## 1. Introduction
@@ -42,7 +40,7 @@ caldata <- caldata%>%
   na.omit()
 ```
 
-```{r}
+```{r nonfilt-income-plot}
 ggplot(data = caldata, aes(x = log(hhincome))) +
   geom_histogram()+
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
@@ -60,12 +58,14 @@ caldata <- caldata %>%
   filter(hhincome > 5, log(hhincome) < 8)
 ```
 
-```{r}
+
+```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
-  geom_histogram()
+  geom_histogram() +
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
-```{r cities}
+```{r cities, fig.align="center"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 ggplot(data = caldata, aes(x = uscity))+ 
@@ -90,6 +90,12 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 ### 2.1 Full Model
 
+```{r yrborn-age}
+ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
+  geom_point()
+```
+`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
+
 ```{r model}
 full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
 kable(tidy(full),format="html" ,digits=3)
@@ -97,7 +103,7 @@ kable(tidy(full),format="html" ,digits=3)
 
 ### 2.2 Backward selection
 
-```{r backward}
+```{r backward-selection}
 final <- step(full, direction = "backward")
 sel_summary <- summary(final)
 tidy(final, exponentiate = FALSE, conf.int = TRUE) %>%
@@ -105,6 +111,15 @@ kable(digits = 3, format = "markdown")
 ```
 
 ### 2.3 Interactions
+
+```{r int-model}
+int_model <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdoc1, data = caldata)
+anova(final, int_model, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)
+```
+We also wanted to consider the interaction between documentation status and number of years of education, because it is well known that people who have had higher education are more likely to be documented immigrants in the United States.
+
+The p-value for this test is 0.024 < 0.05, therefore we should keep the interaction term for `edyrs` and `usdoc1` in the model.
 
 ### 2.4 F-test
 
@@ -115,7 +130,7 @@ Before interpreting the model, it is essential to check the assumptions.
 ### 3.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
-```{r scatter_pairs}
+```{r scatter-pairs}
 pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
 ```
