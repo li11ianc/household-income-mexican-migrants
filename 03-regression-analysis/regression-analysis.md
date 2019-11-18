@@ -86,6 +86,8 @@ or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
 
+We must center age and usdurl in order to interpret them.
+
 ## 2\. Multiple Linear Regression Model
 
 In an effort to determine which characteristics of candidates influence
@@ -167,25 +169,25 @@ p.value
 
 <td style="text-align:right;">
 
-253.553
+549.969
 
 </td>
 
 <td style="text-align:right;">
 
-593.848
+566.730
 
 </td>
 
 <td style="text-align:right;">
 
-0.427
+0.970
 
 </td>
 
 <td style="text-align:right;">
 
-0.670
+0.332
 
 </td>
 
@@ -2263,13 +2265,13 @@ uscityVentura, CA
     ## - age     1   2491615 136733260 6417.0
     ## - edyrs   1   3203237 137444881 6419.7
 
-| term        | estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :---------- | -------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept) |  130.900 |   166.753 |     0.785 |   0.433 | \-196.710 |   458.511 |
-| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |    23.307 |   460.559 |
-| age         |    6.725 |     2.190 |     3.071 |   0.002 |     2.422 |    11.028 |
-| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |    10.301 |    36.982 |
-| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |     0.154 |     1.169 |
+| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
+| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
 
 ### 2.3 Interactions
 
@@ -2361,25 +2363,25 @@ p.value
 
 <td style="text-align:right;">
 
-597.033
+435.625
 
 </td>
 
 <td style="text-align:right;">
 
-215.040
+118.863
 
 </td>
 
 <td style="text-align:right;">
 
-2.776
+3.665
 
 </td>
 
 <td style="text-align:right;">
 
-0.006
+0.000
 
 </td>
 
@@ -2395,25 +2397,25 @@ sexM
 
 <td style="text-align:right;">
 
-369.447
+279.468
 
 </td>
 
 <td style="text-align:right;">
 
-125.876
+109.513
 
 </td>
 
 <td style="text-align:right;">
 
-2.935
+2.552
 
 </td>
 
 <td style="text-align:right;">
 
-0.003
+0.011
 
 </td>
 
@@ -2463,25 +2465,25 @@ edyrs
 
 <td style="text-align:right;">
 
-\-76.132
+25.408
 
 </td>
 
 <td style="text-align:right;">
 
-22.385
+6.641
 
 </td>
 
 <td style="text-align:right;">
 
-\-3.401
+3.826
 
 </td>
 
 <td style="text-align:right;">
 
-0.001
+0.000
 
 </td>
 
@@ -2595,8 +2597,7 @@ sexM:usdurl
 
 ## 3\. Check Assumtpions
 
-Before interpreting the model, it is essential to check the
-assumptions.
+Before interpreting the model, it is essential to check the assumptions.
 
 ### 3.1 Linearity
 
@@ -2604,14 +2605,10 @@ assumptions.
 
 ![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->![](regression-analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
-From the data exploratory section, observed a perfect negative linear
-correlation between year-born and age, which makes sense. There is also
-a linear correlation between usdur1 and usdurl.
-
-Hence, this is confirmed by backward selection, because it also decided
-to drop yrborn and usdur1.
+From the above plots, there seems to be a weak linear relationship
+between the response and predictor variables
 
 ### 3.2 Constant Variance
 
@@ -2634,7 +2631,9 @@ skewed.
 ![](regression-analysis_files/figure-gfm/residuel_predicted_scatterplot-1.png)<!-- -->
 
 The residual vs. predicted values scatterplot shows no discernible
-patterns.
+patterns. There is a clustering of predictions between $500 and $1000,
+which makes sense because our input data does not have a lot of rich
+households.
 
 Overall, the graphs confirm the constant variance assumption is
 satisfied.
@@ -2668,7 +2667,15 @@ geographically close to each other.
 ## 4\. Interpretations
 
 Our final model is
-hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+hhincome=435.9118185+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+
+interpretation of coefficient: All else constant, as compared to a
+female, a male’s household income increases by $279.468261; All else
+constant, with each year of increase in age, the household income
+decrease by $6.969323; All else constant, with each year of increase in
+years of education, the household income increases by $25.408001; All
+else constant, with each month of increase in duration in the US, the
+household income increases by $2.575527.
 
 Our model expects an average household income of $435.63 for female
 Mexican migrants at age \_\_\_ with no years of education and a duration
