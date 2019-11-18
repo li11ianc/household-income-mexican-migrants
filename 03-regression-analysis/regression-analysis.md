@@ -4,14 +4,22 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2303,9 +2311,19 @@ uscityVentura, CA
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134034469 |  1 |  207174.7 |     0.376 |
 
+<<<<<<< HEAD
 Through nested F-test, we observed significant interactions between age
 & edyrs and between sex & usdurl, with respective p-values of 0 and
 0.034.
+=======
+We also wanted to consider the interaction between documentation status
+and number of years of education, because it is well known that people
+who have had higher education are more likely to be documented
+immigrants in the United States.
+
+The p-value for this test is 0.024 \< 0.05, therefore we should keep the
+interaction term for `edyrs` and `usdoc1` in the model.
+>>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
 
 ### 2.4 Final Model with Interaction
 
@@ -2664,6 +2682,12 @@ the US at the same time, and were from the same country of origin, etc.
 We can possibly create interaction terms between them.
 
 ## 4\. Interpretations
+
+Our final model is
+hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+
+Our baseline is an average aged women with no education who has spent an
+average amount of time in the US.
 
 ## 5\. Additional Work
 
