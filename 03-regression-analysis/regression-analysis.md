@@ -2285,8 +2285,6 @@ immigrants in the United States.
 The p-value for this test is 0.024 \< 0.05, therefore we should keep the
 interaction term for `edyrs` and `usdoc1` in the model.
 
-### 2.4 F-test
-
 ## 3\. Check Assumtpions
 
 Before interpreting the model, it is essential to check the assumptions.
