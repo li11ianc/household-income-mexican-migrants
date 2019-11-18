@@ -56,6 +56,23 @@ November 14, 2019
 
 #### Qintian
 
+    ## # A tibble: 2,805 x 19
+    ##       X1 sex   relhead yrborn   age statebrn marstat edyrs   occ hhincome
+    ##    <dbl> <chr>   <dbl>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>
+    ##  1     1 M           1   1938    49 Guanaju… Married     3   522   12860.
+    ##  2     2 M           1   1928    59 Guanaju… Married     3   522   10288.
+    ##  3     3 M           1   1950    37 Guanaju… Never …     6   410   74074.
+    ##  4     4 M           1   1946    41 Guanaju… Married     6   522   15432.
+    ##  5     5 M           1   1956    31 Guanaju… Married     6   142   15432.
+    ##  6     6 M           1   1921    66 Jalisco  Married     0   529   10288.
+    ##  7     7 M           1   1914    73 Guanaju… Married     0   830   12346.
+    ##  8     8 M           1   1932    55 Guanaju… Married     6   719    4630.
+    ##  9     9 M           1   1945    42 Guanaju… Consen…     6   559   10288.
+    ## 10    10 M           1   1945    42 Guanaju… Married     6   819   15432.
+    ## # … with 2,795 more rows, and 9 more variables: usstate1 <chr>,
+    ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
+    ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
+
 #### Thea
 
 #### Rachel
@@ -78,7 +95,11 @@ instances. This leaves 15 unique locations in
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](regression-analysis_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
 Your regression analysis results go here. At a minimum, the regression
 analysis should include the following:
