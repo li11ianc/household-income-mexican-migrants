@@ -80,6 +80,16 @@ It turned out that all values from relhead in our cleaned data were "1" or head.
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
+We also want to mean center age and usdurl to make them interpretable.
+
+```{r mean-cent-age}
+caldata <- caldata %>%
+  mutate(age=age-mean(age))
+caldata <- caldata %>%
+  mutate(usdurl=usdurl-mean(usdurl))
+
+```
+
 ## 2. Multiple Linear Regression Model
 
 In an effort to determine which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
@@ -113,6 +123,9 @@ kable(digits = 3, format = "markdown")
 ### 2.3 Interactions
 
 ```{r int-model}
+int_model <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdoc1, data = caldata)
+anova(reduced, int_model, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)
 int_model_1 <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdurl, data = caldata)
 anova(reduced, int_model_1, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.653
@@ -137,6 +150,7 @@ int_model_6 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*sex, data = caldat
 anova(reduced, int_model_6, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.376
 
+>>>>>>> 0f0d47bf1e8016b1baec4f4bfde4c8d80a0b6bd2
 ```
 We also wanted to consider the interaction between documentation status and number of years of education, because it is well known that people who have had higher education are more likely to be documented immigrants in the United States.
 
@@ -245,6 +259,8 @@ There might be some interdependence between family members who came to the US at
 
 
 ## 4. Interpretations
+
+Our final model is hhincome=466.5407726+184.6438202Msex + 6.6193307age + 24.6983000edyrs + 0.6220198usdurl-216.0826709 usdoc1Legal resident-215.1165722usdoc1Temporary: Tourist/visitor+80.9419979usdoc1Undocumented+49.8455938edyrs:usdoc1Legal resident+18.4639273edyrs:usdoc1Temporary: Tourist/visitor-11.5374794edyrs:usdoc1Undocumented. Our baseline is an average aged women with no education who has spent an average amount of time in the US and is on a Bracero contract.
 
 ## 5. Additional Work
 
