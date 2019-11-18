@@ -1,8 +1,8 @@
 ---
-title: "Characteristics of Recent Mexican Immigrants to the US"
+title: "Characteristics of Recent Mexican Immigrants to the United States that Influence Household Income"
 subtitle: "Regression Analysis"
 author: "Ben 10"
-date: "November 14, 2019"
+date: "November 20, 2019"
 output: github_document
 ---
 
@@ -39,7 +39,7 @@ caldata <- data %>%
   filter(usstatel == "California")
 ```
 
-```{r}
+```{r mutate-income}
 caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome > exp(11) ~ hhincome/19.44,
@@ -59,8 +59,13 @@ These immigrants to California arrived to the following cities: Los Angeles-Long
 
 It turned out that all values from relhead in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
+<<<<<<< HEAD
 ```{r remove relhead}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
+=======
+```{r remove-relhead}
+caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel) )
+>>>>>>> f28a2139151349a9ecb16e875a945218d63e47ad
 ```
 
 ## 2. Multiple Linear Regression Model
@@ -91,23 +96,16 @@ kable(tidy(model1),format="html"
  
 
 
-## 2. Check Assumtpions
+## 3. Check Assumtpions
 
 
 
 
 
 
-## 3. Interpretations
+## 4. Interpretations
 
-## 4. Additional Work
-
-
-
-
-
-
-
+## 5. Additional Work
 
 
 
@@ -117,12 +115,12 @@ kable(tidy(model1),format="html"
 
 
 
-#### Qintian
-
-#### Thea
 
 
-#### Rachel
+
+
+
+
 
 #### Lilly
 
