@@ -3,14 +3,46 @@ Characteristics of Recent Mexican Immigrants to the US
 Ben 10
 November 14, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+<<<<<<< HEAD
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+<<<<<<< HEAD
+    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
+=======
+<<<<<<< HEAD
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
+>>>>>>> 050968dc00d5a1191de17205c3316d8180e4a1b5
+>>>>>>> 5c803465bdf0ca40db5618ba8fbd9b3669caad65
+>>>>>>> 52265d476de2265b41dfab86668f9b733fee55d8
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+<<<<<<< HEAD
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+<<<<<<< HEAD
+    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
+=======
+<<<<<<< HEAD
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
+>>>>>>> 050968dc00d5a1191de17205c3316d8180e4a1b5
+>>>>>>> 5c803465bdf0ca40db5618ba8fbd9b3669caad65
+>>>>>>> 52265d476de2265b41dfab86668f9b733fee55d8
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -63,6 +95,7 @@ the final model -Discussion of the assumptions for the final model
 -Interpretations / interesting findings from the model coefficients
 -Additional work of other models or analylsis not included in the final
 model.
+<<<<<<< HEAD
 
 ## 1\. Multiple Linear Regression Model
 
@@ -79,6 +112,8 @@ model.
 ## 3\. Interpretations
 
 ## 4\. Additional Work
+=======
+>>>>>>> 52265d476de2265b41dfab86668f9b733fee55d8
 
 #### Qintian
 
@@ -116,8 +151,35 @@ of immigrants went to LA-Long Beach area.
 It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
+<<<<<<< HEAD
 since we are using
     uscity
+=======
+since we are using uscity
+
+  - Explanation of the modeling process and why you chose those metohds,
+    incorporating any feedback from the proposal
+
+In an effort to determine which characteristics of candidates influence
+their household income, we will be using a multiple linear regression
+model. Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between principal occupation
+and number of years of school completed, since those are generally
+interconnected. We may also consider the interaction between
+documentation type and occupation type, although the effect may be
+insignificant.
+
+We will select our model using AIC criteria, because since we’re dealing
+with people, we want to build a model that accounts for volatile human
+nature and the ever-changing socioeconomic and political climate that
+could influence someone’s household income. AIC is used when we would
+rather say a variable is a relevant predictor, when in reality it might
+not be and so in this case, we would rather err on the side of a false
+positive because we are dealing with a constantly fluctuating
+    issue.
+>>>>>>> 52265d476de2265b41dfab86668f9b733fee55d8
 
 #### Lilly
 
