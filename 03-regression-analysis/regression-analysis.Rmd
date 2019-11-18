@@ -145,7 +145,7 @@ The p-value for this test is 0.024 < 0.05, therefore we should keep the interact
 ### 2.4 Final Model with Interaction
 ```{r}
 final_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
-kable(tidy(full),format="html" ,digits=3)
+kable(tidy(final_int),format="html" ,digits=3)
 ```
 
 
@@ -180,7 +180,7 @@ Hence, this is confirmed by backward selection, because it also decided to drop 
 
 ```{r}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final), residuals = resid(final))
+  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
 ```
 
 Below is the plots of residuals against each quantitative predictor:
@@ -204,7 +204,7 @@ From the pairs scatterplot, I cannot observe any clear patterns; and from the bo
 #### 3.2.2 Residual vs. Predicted
 ```{r residuel_predicted_scatterplot}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final), residuals = resid(final))
+  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
 ggplot(data=caldata,aes(x=predicted, y=residuals)) + 
   geom_point() + 
   geom_hline(yintercept=0,color="red") +
