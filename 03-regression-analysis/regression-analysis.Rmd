@@ -247,13 +247,10 @@ There might be some interdependence between family members who came to the US at
 
 ## 4. Interpretations
 
-<<<<<<< HEAD
 Our final model is hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
 
 Our baseline is an average aged women with no education who has spent an average amount of time in the US.
 
-=======
->>>>>>> de15bbe6261f7f669df7f1e5602b04a1616c214e
 ## 5. Additional Work
 
 
