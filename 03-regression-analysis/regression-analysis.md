@@ -4,30 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
+    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
+    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
