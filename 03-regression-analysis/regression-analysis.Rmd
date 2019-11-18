@@ -40,6 +40,126 @@ WHAT WE NEED TO DO:
 -Additional work of other models or analylsis not included in the final model.
 
 
+## 1. Multiple Linear Regression Model
+
+### 1.1 Full Model
+
+### 1.2 Backward selection
+
+### 1.3 Interactions
+
+### 1.4 F-test
+
+
+
+
+
+
+## 2. Check Assumtpions
+
+Before interpreting the model, it is essential to check the assumptions.
+
+### 2.1 Linearity
+```{r}
+names(data)
+```
+
+#### 2.1.1 Predicted vs. Factors
+```{r scatter_pairs}
+pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = data,
+      lower.panel = NULL)
+```
+
+From the data exploratory section, we have observed a linear pattern in graph of each predictor against log(price). Hence, the linearity assumption is met.
+
+### 2.2 Constant Variance
+
+#### 2.2.1 Residuals vs. Factors
+
+```{r}
+houses <- houses %>% 
+  mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
+```
+
+Below is the plots of residuals against each quantitative predictor:
+```{r factor_residual_scatterplot}
+pairs(residuals ~ floorsCat + sqftCent + bedroomsCent + bathroomsCent + waterfront, data = houses,
+      lower.panel = NULL) 
+```
+
+Below is the graph of residuals against categorical predictor:
+```{r floorCat_residual}
+ggplot(data=houses,aes(x=floorsCat,y=residuals)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(x = "Number of Floors", 
+       y="Residuals",
+       title= "Boxplot of Residuals vs. Number of Floors")
+```
+
+From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be close to 0, expect for a slight positive deviation in the 1.5 Floor category, and all categories are relatively symmetrical. 
+
+#### 2.2.2 Residual vs. Predicted
+```{r residuel_predicted_scatterplot}
+houses <- houses %>% 
+  mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
+ggplot(data=houses,aes(x=predicted, y=residuals)) + 
+  geom_point() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(title="Residuals vs. Predicted Log(price)")
+```
+
+The residual vs. predicted values scatterplot shows a large concentration of data points in the 12 to 14 units range of the x-axis. However, there are alarming outliers around 17 units. There are no discernible patterns. 
+
+Overall, the graphs confirm the constant variance assumption is satisfied.
+
+
+### 2.3 Normality
+
+#### 2.3.1 Histogram of Residuals
+```{r histogram_residuals}
+ggplot(data=houses, mapping=aes(x=residuals)) + 
+  geom_histogram() +
+  labs(title="Distribution of Residuals", x="Residual")
+```
+
+#### 2.3.2 Normal-QQ Plot of Residuals
+
+```{r}
+ggplot(data=houses,mapping=aes(sample=residuals)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title="Normal QQ Plot of Residuals")
+```
+
+From the histogram, the shape of distribution of residuals resembles a normal distribution. The Normal-QQ plot supports this finding as the sample line adheres closely to the theoretical line.So the normality assumption is met.
+
+
+### 2.4 Independence
+Since the houses independent owners, we can assume that each data entry is independent from the rest. However, there may be some dependence/interaction between houses in the same neighborhood. If we have access to the geographic location of the houses, we can possibly add that as a predictor in the model.
+
+
+
+
+## 3. Interpretations
+
+## 4. Additional Work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### Qintian
 ```{r}
 caldata <- caldata %>%
