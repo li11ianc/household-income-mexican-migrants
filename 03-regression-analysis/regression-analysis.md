@@ -4,30 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 3dcbb3e55d1020e536d01dd3c822e2bda8278302
-=======
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -101,6 +85,8 @@ It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
+
+We must center age and usdurl in order to interpret them.
 
 ## 2\. Multiple Linear Regression Model
 
@@ -183,25 +169,25 @@ p.value
 
 <td style="text-align:right;">
 
-253.553
+549.969
 
 </td>
 
 <td style="text-align:right;">
 
-593.848
+566.730
 
 </td>
 
 <td style="text-align:right;">
 
-0.427
+0.970
 
 </td>
 
 <td style="text-align:right;">
 
-0.670
+0.332
 
 </td>
 
@@ -2279,13 +2265,13 @@ uscityVentura, CA
     ## - age     1   2491615 136733260 6417.0
     ## - edyrs   1   3203237 137444881 6419.7
 
-| term        | estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :---------- | -------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept) |  130.900 |   166.753 |     0.785 |   0.433 | \-196.710 |   458.511 |
-| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |    23.307 |   460.559 |
-| age         |    6.725 |     2.190 |     3.071 |   0.002 |     2.422 |    11.028 |
-| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |    10.301 |    36.982 |
-| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |     0.154 |     1.169 |
+| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
+| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
 
 ### 2.3 Interactions
 
@@ -2377,25 +2363,25 @@ p.value
 
 <td style="text-align:right;">
 
-597.033
+435.625
 
 </td>
 
 <td style="text-align:right;">
 
-215.040
+118.863
 
 </td>
 
 <td style="text-align:right;">
 
-2.776
+3.665
 
 </td>
 
 <td style="text-align:right;">
 
-0.006
+0.000
 
 </td>
 
@@ -2411,25 +2397,25 @@ sexM
 
 <td style="text-align:right;">
 
-369.447
+279.468
 
 </td>
 
 <td style="text-align:right;">
 
-125.876
+109.513
 
 </td>
 
 <td style="text-align:right;">
 
-2.935
+2.552
 
 </td>
 
 <td style="text-align:right;">
 
-0.003
+0.011
 
 </td>
 
@@ -2479,25 +2465,25 @@ edyrs
 
 <td style="text-align:right;">
 
-\-76.132
+25.408
 
 </td>
 
 <td style="text-align:right;">
 
-22.385
+6.641
 
 </td>
 
 <td style="text-align:right;">
 
-\-3.401
+3.826
 
 </td>
 
 <td style="text-align:right;">
 
-0.001
+0.000
 
 </td>
 
