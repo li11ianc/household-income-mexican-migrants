@@ -38,6 +38,7 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
+
 ```
 
 ```{r nonfilt-income-plot}
@@ -236,6 +237,23 @@ ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
 ```
 
 We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. Roughly a quarter of the migrants in the dataset fall into this category.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Below is the graph of residuals against categorical predictor:
