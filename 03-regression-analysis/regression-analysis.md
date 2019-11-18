@@ -2688,7 +2688,7 @@ household income increases by $2.575527.
 
 Our model expects an average household income of $435.63 for female
 Mexican migrants at age 39 with no years of education and a duration of
-60.27 months for first US migration, all else held constant.
+60.27 months for last US migration, all else held constant.
 
 For every increase of one year in age above 39.4, all else held
 constant, we expect to see a decrease of 6.97 dollars in average
