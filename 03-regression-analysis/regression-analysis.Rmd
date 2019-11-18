@@ -138,9 +138,9 @@ anova(reduced, int_model_6, test = "Chisq") %>%
   kable(format = "markdown", digits = 3)  # p = 0.376
 
 ```
-We also wanted to consider the interaction between documentation status and number of years of education, because it is well known that people who have had higher education are more likely to be documented immigrants in the United States.
 
-The p-value for this test is 0.024 < 0.05, therefore we should keep the interaction term for `edyrs` and `usdoc1` in the model.
+Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
+
 
 ### 2.4 Final Model with Interaction
 ```{r}
