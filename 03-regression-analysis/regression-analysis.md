@@ -68,6 +68,7 @@ dataset.
 ![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
 <img src="regression-analysis_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
+
 These immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
 Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
@@ -88,9 +89,12 @@ We must center age and usdurl in order to interpret them.
 
     ## [1] 60.27096
 
+The mean age in the dataset is 39.43 years and the mean duration of last
+US migration is 60.27 months (about 5 years).
+
 ## 2\. Multiple Linear Regression Model
 
-In an effort to determine which characteristics of candidates influence
+In an effort to explain which characteristics of candidates influence
 their household income, we will be using a multiple linear regression
 model. Since our response variable is numerical with mulitple potential
 predictors, this is the best model at our disposal for us to use.
@@ -113,6 +117,7 @@ issue.
 ### 2.1 Full Model
 
 <img src="regression-analysis_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
+
 `yrborn` and `age` provide the same information and are perfectly
 linear, therefore we decided to remove `yrborn` from consideration in
 the model.
@@ -2603,24 +2608,28 @@ Before interpreting the model, it is essential to check the assumptions.
 
 ### 3.1.1 Predicted vs. Factors
 
-![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/scatter-pairs-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/income-sex-plot-1.png)<!-- -->
 
 From the above plots, there seems to be a weak linear relationship
-between the response and predictor variables
+between the response and predictor variables.
 
 ### 3.2 Constant Variance
 
 ### 3.2.1 Residuals vs. Factors
 
-Below is the plots of residuals against each quantitative predictor:
+Below is the plots of residuals against each quantitative
+predictor:
+
 ![](regression-analysis_files/figure-gfm/factor_residual_scatterplot-1.png)<!-- -->
 
-Below is the graph of residuals against categorical predictor:
+Below is the graph of residuals against categorical
+predictor:
+
 ![](regression-analysis_files/figure-gfm/floorCat_residual-1.png)<!-- -->
 
-From the pairs scatterplot, I cannot observe any clear patterns; and
+From the pairs scatterplot, we cannot observe any clear patterns; and
 from the boxplot, the median of each category seems to be slightly less
 than 0. While the plot of male is relatively symmetrical, that of female
 is right
@@ -2628,7 +2637,7 @@ skewed.
 
 #### 3.2.2 Residual vs. Predicted
 
-![](regression-analysis_files/figure-gfm/residuel_predicted_scatterplot-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/residuel-predicted-scatterplot-1.png)<!-- -->
 
 The residual vs. predicted values scatterplot shows no discernible
 patterns. There is a clustering of predictions between $500 and $1000,
@@ -2644,11 +2653,11 @@ satisfied.
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/histogram_residuals-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/histogram-residuals-1.png)<!-- -->
 
 #### 3.3.2 Normal-QQ Plot of Residuals
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/qqplot-1.png)<!-- -->
 
 From the histogram, the shape of distribution of residuals has a right
 skew. The Normal-QQ plot supports this finding, as the left half of the
