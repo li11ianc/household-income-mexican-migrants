@@ -24,7 +24,7 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 
 ## 1. Introduction
 
-We are aiming to discover what characteristics of Mexican immmigrants to the United States, specifically California, influence their projected household income. We will be building a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`.
+We are aiming to build a model to determine which characteristics of Mexican immmigrants to the United States, specifically California, well-explain variation in household income. We will be building a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`.
 
 Our response variable is household income: the total income for a single household, reported in $USD. 
 
