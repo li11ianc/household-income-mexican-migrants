@@ -3,30 +3,14 @@ Characteristics of Recent Mexican Immigrants to the US
 Ben 10
 November 14, 2019
 
-<<<<<<< HEAD
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
-=======
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
->>>>>>> 050968dc00d5a1191de17205c3316d8180e4a1b5
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
-=======
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
->>>>>>> 050968dc00d5a1191de17205c3316d8180e4a1b5
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -70,21 +54,6 @@ November 14, 2019
     ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
     ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
 
-<<<<<<< HEAD
-\<\<\<\<\<\<\< HEAD
-
-\======= WHAT WE NEED TO DO: -Statement of the research question and
-modeling obejctive (prediction, inference, etc.) -Description of the
-response variable -Updated exploratory data analysis, incorporating any
-feedback from the proposal -Explanation of the modeling process and why
-you chose those metohds, incorporating any feedback from the proposal
--Output of the final model -Discussion of the assumptions for the final
-model -Interpretations / interesting findings from the model
-coefficients -Additional work of other models or analylsis not included
-in the final model.
-
-> > > > > > > fe26a176f04c0c73819d27193873cf996acff4c3
-=======
 WHAT WE NEED TO DO: -Statement of the research question and modeling
 obejctive (prediction, inference, etc.) -Description of the response
 variable -Updated exploratory data analysis, incorporating any feedback
@@ -94,7 +63,22 @@ the final model -Discussion of the assumptions for the final model
 -Interpretations / interesting findings from the model coefficients
 -Additional work of other models or analylsis not included in the final
 model.
->>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
+
+## 1\. Multiple Linear Regression Model
+
+### 1.1 Full Model
+
+### 1.2 Backward selection
+
+### 1.3 Interactions
+
+### 1.4 F-test
+
+## 2\. Check Assumtpions
+
+## 3\. Interpretations
+
+## 4\. Additional Work
 
 #### Qintian
 
@@ -131,29 +115,9 @@ of immigrants went to LA-Long Beach area.
 
 It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
-<<<<<<< HEAD
 since we are only using California data. We will also remove place data
 since we are using
     uscity
-=======
-since we are only using California data.
-
-    ## # A tibble: 1,420 x 16
-    ##       X1 sex   yrborn   age statebrn marstat edyrs   occ hhincome usplace1
-    ##    <dbl> <chr>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>    <dbl>
-    ##  1     2 M       1928    59 Guanaju… Married     3   522   10288.     7360
-    ##  2     5 M       1956    31 Guanaju… Married     6   142   15432.     4480
-    ##  3     6 M       1921    66 Jalisco  Married     0   529   10288.     7360
-    ##  4     9 M       1945    42 Guanaju… Consen…     6   559   10288.     7320
-    ##  5    11 M       1936    51 Guanaju… Widowed     3   522   12346.     5945
-    ##  6    12 M       1951    36 Guanaju… Married     2   529    9259.     7320
-    ##  7    13 M       1946    41 Guanaju… Married     6   419   12346.     7320
-    ##  8    18 M       1952    35 Guanaju… Married     6   559   20576.     7320
-    ##  9    19 M       1947    40 Guanaju… Married     3   410    9259.     2840
-    ## 10    20 M       1944    43 Guanaju… Married     3   410   12346.     4480
-    ## # … with 1,410 more rows, and 6 more variables: usplacel <dbl>,
-    ## #   usdur1 <dbl>, usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
->>>>>>> 6be751d2d9574016917a0948133dc9df10315ef1
 
 #### Lilly
 
