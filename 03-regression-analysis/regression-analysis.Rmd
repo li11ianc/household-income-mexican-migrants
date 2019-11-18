@@ -116,9 +116,9 @@ kable(digits = 3, format = "markdown")
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 2.1 Linearity
+### 3.1 Linearity
 
-#### 2.1.1 Predicted vs. Factors
+### 3.1.1 Predicted vs. Factors
 ```{r scatter_pairs}
 pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
@@ -130,7 +130,7 @@ Hence, we decide to drop either yrborn or age, and either usdur1 or usdurl.
 
 ### 3.2 Constant Variance
 
-#### 3.2.1 Residuals vs. Factors
+### 3.2.1 Residuals vs. Factors
 
 ```{r}
 ##caldata <- caldata %>% 
