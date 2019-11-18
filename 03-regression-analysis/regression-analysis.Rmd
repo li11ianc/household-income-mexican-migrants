@@ -21,7 +21,6 @@ library(dplyr)
 
 ```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
-data
 ```
 
 ## 1. Introduction
@@ -60,12 +59,12 @@ caldata <- caldata %>%
   filter(hhincome > 5, log(hhincome) < 8)
 ```
 
-```{r}
+```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram()
 ```
 
-```{r cities}
+```{r cities, fig.align="center"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 ggplot(data = caldata, aes(x = uscity))+ 
@@ -97,7 +96,7 @@ kable(tidy(full),format="html" ,digits=3)
 
 ### 2.2 Backward selection
 
-```{r backward}
+```{r backward-selection}
 final <- step(full, direction = "backward")
 sel_summary <- summary(final)
 tidy(final, exponentiate = FALSE, conf.int = TRUE) %>%
@@ -119,7 +118,7 @@ Before interpreting the model, it is essential to check the assumptions.
 ### 3.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
-```{r scatter_pairs}
+```{r scatter-pairs}
 pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
 ```

@@ -38,23 +38,6 @@ November 20, 2019
     ##   uscity = col_character()
     ## )
 
-    ## # A tibble: 2,805 x 19
-    ##       X1 sex   relhead yrborn   age statebrn marstat edyrs   occ hhincome
-    ##    <dbl> <chr>   <dbl>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>
-    ##  1     1 M           1   1938    49 Guanaju… Married     3   522   250000
-    ##  2     2 M           1   1928    59 Guanaju… Married     3   522   200000
-    ##  3     3 M           1   1950    37 Guanaju… Never …     6   410  1440000
-    ##  4     4 M           1   1946    41 Guanaju… Married     6   522   300000
-    ##  5     5 M           1   1956    31 Guanaju… Married     6   142   300000
-    ##  6     6 M           1   1921    66 Jalisco  Married     0   529   200000
-    ##  7     7 M           1   1914    73 Guanaju… Married     0   830   240000
-    ##  8     8 M           1   1932    55 Guanaju… Married     6   719    90000
-    ##  9     9 M           1   1945    42 Guanaju… Consen…     6   559   200000
-    ## 10    10 M           1   1945    42 Guanaju… Married     6   819   300000
-    ## # … with 2,795 more rows, and 9 more variables: usstate1 <chr>,
-    ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
-    ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
-
 ## 1\. Introduction
 
 We are aiming to discover what characteristics of Mexican immmigrants to
@@ -86,10 +69,10 @@ from our
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/cities-1.png)<!-- --> These
-immigrants to California arrived to the following cities: Los
+<img src="regression-analysis_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
+These immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
 Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
@@ -2290,11 +2273,11 @@ uscityVentura, CA
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 2.1 Linearity
+### 3.1 Linearity
 
-#### 2.1.1 Predicted vs. Factors
+### 3.1.1 Predicted vs. Factors
 
-![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/scatter-pairs-1.png)<!-- -->
 
 From the data exploratory section, observed a perfect negative linear
 correlation between year-born and age, which makes sense. There is also
@@ -2305,7 +2288,7 @@ usdurl.
 
 ### 3.2 Constant Variance
 
-#### 3.2.1 Residuals vs. Factors
+### 3.2.1 Residuals vs. Factors
 
 Below is the plots of residuals against each quantitative predictor:
 
