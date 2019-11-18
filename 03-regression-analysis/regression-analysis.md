@@ -4,14 +4,22 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2625,8 +2633,9 @@ Below is the graph of residuals against categorical predictor:
 
 From the pairs scatterplot, I cannot observe any clear patterns; and
 from the boxplot, the median of each category seems to be slightly less
-than 0, and all categories are relatively
-symmetrical.
+than 0. While the plot of male is relatively symmetrical, that of female
+is right
+skewed.
 
 #### 3.2.2 Residual vs. Predicted
 
@@ -2659,9 +2668,10 @@ from normal.
 
 ### 3.4 Independence
 
-There might be some interdependence between family members who came to
-the US at the same time, and were from the same country of origin, etc.
-We can possibly create interaction terms between them.
+Since we only included observations of heads of household, there will
+not be dependence caused by similar demographics between family members.
+However, some interdependence may arise since all observations are
+geographically close to each other.
 
 ## 4\. Interpretations
 

@@ -200,7 +200,7 @@ ggplot(data=caldata,aes(x=as.factor(sex),y=residuals)) +
        title= "Boxplot of Residuals vs. Sex")
 ```
 
-From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be slightly less than 0, and all categories are relatively symmetrical. 
+From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be slightly less than 0. While the plot of male is relatively symmetrical, that of female is right skewed.
 
 #### 3.2.2 Residual vs. Predicted
 ```{r residuel_predicted_scatterplot}
@@ -239,8 +239,7 @@ From the histogram, the shape of distribution of residuals has a right skew. The
 
 
 ### 3.4 Independence
-There might be some interdependence between family members who came to the US at the same time, and were from the same country of origin, etc. We can possibly create interaction terms between them.
-
+Since we only included observations of heads of household, there will not be dependence caused by similar demographics between family members. However, some interdependence may arise since all observations are geographically close to each other. 
 
 
 
