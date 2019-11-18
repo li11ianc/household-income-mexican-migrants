@@ -4,14 +4,22 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> 829458e154b884136664db079f25ff51d950de74
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> 829458e154b884136664db079f25ff51d950de74
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -40,12 +48,12 @@ November 20, 2019
 
 ## 1\. Introduction
 
-We are aiming to discover what characteristics of Mexican immmigrants to
-the United States, specifically California, influence their projected
-household income. We will be building a multiple linear regression model
-to predict household income considering the following variables: `sex`,
-`relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`,
-`usdurl`, `usdoc1`, `uscity`, `yrborn`.
+We are aiming to build a model to determine which characteristics of
+Mexican immmigrants to the United States, specifically California,
+well-explain variation in household income. We will be building a
+multiple linear regression model to predict household income considering
+the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`,
+`edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`.
 
 Our response variable is household income: the total income for a single
 household, reported in
