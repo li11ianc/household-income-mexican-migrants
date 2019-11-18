@@ -90,7 +90,7 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 ### 2.1 Full Model
 
-```{r yrborn-age}
+```{r yrborn-age, fig.align = "center"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
   geom_point()
 ```
