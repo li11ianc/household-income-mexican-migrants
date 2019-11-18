@@ -4,14 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -72,7 +72,7 @@ household, reported in
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
 
 Originally, the distribution of log(Household Income)- our response
 variable- was bimodal and had a mean of 412,647 dollars. We determined
@@ -86,7 +86,7 @@ from our
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/filt-hhincome-plot-1.png)<!-- -->
 
 ![](regression-analysis_files/figure-gfm/cities-1.png)<!-- --> These
 immigrants to California arrived to the following cities: Los
@@ -102,27 +102,6 @@ It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
-
-## 2\. Multiple Linear Regression Model
-
-In an effort to determine which characteristics of candidates influence
-their household income, we will be using a multiple linear regression
-model. Since our response variable is numerical with mulitple potential
-predictors, this is the best model at our disposal for us to use.
-
-We will consider the potential interaction between principal occupation
-and number of years of school completed, since those are generally
-interconnected. We may also consider the interaction between
-documentation type and occupation type, although the effect may be
-insignificant.
-
-We will select our model using AIC criteria, because since we’re dealing
-with people, we want to build a model that accounts for volatile human
-nature and the ever-changing socioeconomic and political climate that
-could influence someone’s household income. AIC is used when we would
-rather say a variable is a relevant predictor, when in reality it might
-not be and so in this case, we would rather err on the side of a false
-positive because we are dealing with a constantly fluctuating issue.
 
 ## 2\. Multiple Linear Regression Model
 
@@ -2209,9 +2188,9 @@ uscityVentura, CA
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 2.1 Linearity
+### 3.1 Linearity
 
-#### 2.1.1 Predicted vs. Factors
+### 3.1.1 Predicted vs. Factors
 
 ![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
 
@@ -2224,7 +2203,7 @@ usdurl.
 
 ### 3.2 Constant Variance
 
-#### 3.2.1 Residuals vs. Factors
+### 3.2.1 Residuals vs. Factors
 
 Below is the plots of residuals against each quantitative predictor:
 
