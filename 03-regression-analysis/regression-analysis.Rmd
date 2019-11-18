@@ -70,7 +70,8 @@ caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 ggplot(data = caldata, aes(x = uscity))+ 
   geom_bar() +
-  coord_flip()
+  coord_flip()+
+  labs(title = "Distribution of Cities in California", x = "City", y = "Count")
 ```
 These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. The majority of immigrants went to LA-Long Beach area. 
 
@@ -106,7 +107,8 @@ We will select our model using AIC criteria, because since we're dealing with pe
 
 ```{r yrborn-age, fig.align = "center"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
-  geom_point()
+  geom_point()+
+  labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
 ```
 `yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
 
@@ -198,6 +200,10 @@ Below is the plots of residuals against each quantitative predictor:
 pairs(residuals ~ age + usdurl + edyrs, data = caldata,
       lower.panel = NULL) 
 ```
+
+From the pairs plot above, there is a possibility that the constant variance for 'usdurl' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
+- the short-term workers have more varied wages, maybe they belong to a diff population/dist. --> solution: change to categorical variable
+
 
 Below is the graph of residuals against categorical predictor:
 ```{r floorCat_residual}
