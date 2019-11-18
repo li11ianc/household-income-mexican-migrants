@@ -1,8 +1,8 @@
 ---
-title: "Characteristics of Recent Mexican Immigrants to the US"
+title: "Characteristics of Recent Mexican Immigrants to the United States"
 subtitle: "Regression Analysis"
 author: "Ben 10"
-date: "November 14, 2019"
+date: "November 20, 2019"
 output: github_document
 ---
 
@@ -78,16 +78,16 @@ caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usp
  
 
 
-## 2. Check Assumtpions
+## 3. Check Assumtpions
 
 
 
 
 
 
-## 3. Interpretations
+## 4. Interpretations
 
-## 4. Additional Work
+## 5. Additional Work
 
 
 

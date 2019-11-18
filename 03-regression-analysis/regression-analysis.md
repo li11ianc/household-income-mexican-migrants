@@ -1,7 +1,7 @@
-Characteristics of Recent Mexican Immigrants to the US
+Characteristics of Recent Mexican Immigrants to the United States
 ================
 Ben 10
-November 14, 2019
+November 20, 2019
 
     ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
 
@@ -110,11 +110,11 @@ since we are using uscity
 
 ### 2.4 F-test
 
-## 2\. Check Assumtpions
+## 3\. Check Assumtpions
 
-## 3\. Interpretations
+## 4\. Interpretations
 
-## 4\. Additional Work
+## 5\. Additional Work
 
 #### Qintian
 
