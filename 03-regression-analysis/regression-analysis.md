@@ -88,6 +88,10 @@ since we are using uscity, and occ since we are using occtype.
 
 We must center age and usdurl in order to interpret them.
 
+    ## [1] 39.42495
+
+    ## [1] 60.27096
+
 ## 2\. Multiple Linear Regression Model
 
 In an effort to determine which characteristics of candidates influence
@@ -2605,7 +2609,7 @@ Before interpreting the model, it is essential to check the assumptions.
 
 ![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 From the above plots, there seems to be a weak linear relationship
 between the response and predictor variables
@@ -2648,7 +2652,7 @@ satisfied.
 
 #### 3.3.2 Normal-QQ Plot of Residuals
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 From the histogram, the shape of distribution of residuals has a right
 skew. The Normal-QQ plot supports this finding, as the left half of the
@@ -2678,24 +2682,26 @@ else constant, with each month of increase in duration in the US, the
 household income increases by $2.575527.
 
 Our model expects an average household income of $435.63 for female
-Mexican migrants at age \_\_\_ with no years of education and a duration
-of \_\_\_\_ months for first US migration, all else held constant.
+Mexican migrants at age 39 with no years of education and a duration of
+60.27 months for first US migration, all else held constant.
 
-For every increase of one year in age above \_\_\_, all else held
+For every increase of one year in age above 39.4, all else held
 constant, we expect to see a decrease of 6.97 dollars in average
 household income.
 
 For every increase of one year in education, all else held constant, we
 expect to see an increase of 25.41 dollars in average household income.
 
-For male immigrants, we expect to see an increase of 279.47 dollars in
-average household income over female immigrants, all else held constant.
+For male immigrants as compared to female immigrants, we expect to see
+an increase of 279.47 dollars in average household income, all else held
+constant.
 
 Interpret age:edyrs interaction???
 
-For every increase of one month in duration of last US migration, we
-expect to see an increase of around 1.88 dollars in income for women and
-a lesser increase of 0.34 dollars in income for men.
+For every increase of one month in duration of last US migration above
+60.27 months, we expect to see an increase of around 1.88 dollars in
+income for women and a (lesser) increase of 0.34 dollars in income for
+men.
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.

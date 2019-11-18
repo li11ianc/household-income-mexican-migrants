@@ -82,6 +82,11 @@ caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usp
 
 We must center age and usdurl in order to interpret them.
 
+```{r}
+mean(caldata$age)
+mean(caldata$usdurl)
+```
+
 ```{r age-usdurl-cent}
 caldata <- caldata %>%
   mutate(age=age-mean(age))
@@ -259,19 +264,17 @@ All else constant, with each year of increase in years of education, the househo
 All else constant, with each month of increase in duration in the US, the household income increases by $2.575527.
 
 
-Our model expects an average household income of $435.63 for female Mexican migrants at age ___ with no years of education and a duration of ____ months for first US migration, all else held constant.
+Our model expects an average household income of $435.63 for female Mexican migrants at age 39 with no years of education and a duration of 60.27 months for first US migration, all else held constant.
 
-
-For every increase of one year in age above ___, all else held constant, we expect to see a decrease of 6.97 dollars in average household income.
+For every increase of one year in age above 39.4, all else held constant, we expect to see a decrease of 6.97 dollars in average household income.
 
 For every increase of one year in education, all else held constant, we expect to see an increase of 25.41 dollars in average household income.
 
-For male immigrants, we expect to see an increase of 279.47 dollars in average household income over female immigrants, all else held constant.
+For male immigrants as compared to female immigrants, we expect to see an increase of 279.47 dollars in average household income, all else held constant.
 
 Interpret age:edyrs interaction???
 
-
-For every increase of one month in duration of last US migration, we expect to see an increase of around 1.88 dollars in income for women and a lesser increase of 0.34 dollars in income for men.
+For every increase of one month in duration of last US migration above 60.27 months, we expect to see an increase of around 1.88 dollars in income for women and a (lesser) increase of 0.34 dollars in income for men.
 
 Our baseline is an average aged women with no education who has spent an average amount of time in the US.
 
