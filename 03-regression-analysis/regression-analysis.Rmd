@@ -41,7 +41,7 @@ caldata <- caldata%>%
   na.omit()
 ```
 
-```{r}
+```{r nonfilt-income-plot}
 ggplot(data = caldata, aes(x = log(hhincome))) +
   geom_histogram()+
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
@@ -59,9 +59,11 @@ caldata <- caldata %>%
   filter(hhincome > 5, log(hhincome) < 8)
 ```
 
+
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
-  geom_histogram()
+  geom_histogram() +
+  labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
 ```{r cities, fig.align="center"}
