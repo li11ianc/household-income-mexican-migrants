@@ -85,14 +85,30 @@ We will consider the potential interaction between principal occupation and numb
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
+## 2. Multiple Linear Regression Model
+
+In an effort to determine which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant.
+
+We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
+
 ### 2.1 Full Model
 
-```{r full-model}
-full <- lm(hhincome ~ ., data=caldata)
-kable(tidy(full),format="html", digits=3)
+```{r model}
+model1 <- lm(hhincome ~ sex+age+ statebrn+marstat+edyrs+occtype+usdur1+usdurl+usdoc1+uscity+yrborn,
+data=caldata)
+kable(tidy(model1),format="html"
+,digits=3)
 ```
 
 ### 2.2 Backward selection
+
+```{r}
+regfit_backward <- step(model1, direction = "backward")
+sel_summary <- summary(regfit_backward)
+kable(tidy(regfit_backward, conf.int = TRUE, exponentiate = TRUE), format = "markdown", digits = 8)
+```
 
 ### 2.3 Interactions
 
@@ -102,9 +118,89 @@ kable(tidy(full),format="html", digits=3)
 
  
 
-
 ## 3. Check Assumtpions
 
+Before interpreting the model, it is essential to check the assumptions.
+
+### 2.1 Linearity
+
+#### 2.1.1 Predicted vs. Factors
+```{r scatter_pairs}
+pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
+      lower.panel = NULL)
+```
+
+From the data exploratory section, observed a perfect negative linear correlation between year-born and age, which makes sense. There is also a linear correlation between usdur1 and usdurl. 
+
+Hence, we decide to drop either yrborn or age, and either usdur1 or usdurl.
+
+### 3.2 Constant Variance
+
+#### 3.2.1 Residuals vs. Factors
+
+```{r}
+caldata <- caldata %>% 
+  mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
+caldata <- caldata%>%
+  na.omit()
+```
+
+Below is the plots of residuals against each quantitative predictor:
+```{r factor_residual_scatterplot}
+pairs(residuals ~ floorsCat + sqftCent + bedroomsCent + bathroomsCent + waterfront, data = houses,
+      lower.panel = NULL) 
+```
+
+Below is the graph of residuals against categorical predictor:
+```{r floorCat_residual}
+ggplot(data=houses,aes(x=floorsCat,y=residuals)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(x = "Number of Floors", 
+       y="Residuals",
+       title= "Boxplot of Residuals vs. Number of Floors")
+```
+
+From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be close to 0, expect for a slight positive deviation in the 1.5 Floor category, and all categories are relatively symmetrical. 
+
+#### 3.2.2 Residual vs. Predicted
+```{r residuel_predicted_scatterplot}
+houses <- houses %>% 
+  mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
+ggplot(data=houses,aes(x=predicted, y=residuals)) + 
+  geom_point() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(title="Residuals vs. Predicted Log(price)")
+```
+
+The residual vs. predicted values scatterplot shows a large concentration of data points in the 12 to 14 units range of the x-axis. However, there are alarming outliers around 17 units. There are no discernible patterns. 
+
+Overall, the graphs confirm the constant variance assumption is satisfied.
+
+
+### 3.3 Normality
+
+#### 3.3.1 Histogram of Residuals
+```{r histogram_residuals}
+ggplot(data=houses, mapping=aes(x=residuals)) + 
+  geom_histogram() +
+  labs(title="Distribution of Residuals", x="Residual")
+```
+
+#### 3.3.2 Normal-QQ Plot of Residuals
+
+```{r}
+ggplot(data=houses,mapping=aes(sample=residuals)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title="Normal QQ Plot of Residuals")
+```
+
+From the histogram, the shape of distribution of residuals resembles a normal distribution. The Normal-QQ plot supports this finding as the sample line adheres closely to the theoretical line.So the normality assumption is met.
+
+
+### 3.4 Independence
+There might be some interdependence between family members who came to the US at the same time, and were from the same country of origin, etc. We can possibly create interaction terms between them.
 
 
 
