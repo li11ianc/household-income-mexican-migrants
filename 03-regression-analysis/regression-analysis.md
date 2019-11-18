@@ -86,6 +86,8 @@ or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
 
+We also want to mean center age and usdurl to make them interpretable.
+
 ## 2\. Multiple Linear Regression Model
 
 In an effort to determine which characteristics of candidates influence
@@ -167,25 +169,25 @@ p.value
 
 <td style="text-align:right;">
 
-253.553
+549.969
 
 </td>
 
 <td style="text-align:right;">
 
-593.848
+566.730
 
 </td>
 
 <td style="text-align:right;">
 
-0.427
+0.970
 
 </td>
 
 <td style="text-align:right;">
 
-0.670
+0.332
 
 </td>
 
@@ -2263,13 +2265,13 @@ uscityVentura, CA
     ## - age     1   2491615 136733260 6417.0
     ## - edyrs   1   3203237 137444881 6419.7
 
-| term        | estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :---------- | -------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept) |  130.900 |   166.753 |     0.785 |   0.433 | \-196.710 |   458.511 |
-| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |    23.307 |   460.559 |
-| age         |    6.725 |     2.190 |     3.071 |   0.002 |     2.422 |    11.028 |
-| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |    10.301 |    36.982 |
-| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |     0.154 |     1.169 |
+| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
+| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
 
 ### 2.3 Interactions
 
@@ -2277,6 +2279,20 @@ uscityVentura, CA
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    502 | 130461779 |  6 |   3779865 |     0.024 |
+
+| term                                   |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :------------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept)                            |   466.541 |   231.288 |     2.017 |   0.044 |    12.130 |   920.952 |
+| sexM                                   |   184.644 |   116.199 |     1.589 |   0.113 |  \-43.653 |   412.941 |
+| age                                    |     6.619 |     2.455 |     2.696 |   0.007 |     1.795 |    11.444 |
+| edyrs                                  |    24.698 |    44.653 |     0.553 |   0.580 |  \-63.032 |   112.429 |
+| usdurl                                 |     0.622 |     0.261 |     2.383 |   0.018 |     0.109 |     1.135 |
+| usdoc1Legal resident                   | \-216.083 |   270.578 |   \-0.799 |   0.425 | \-747.688 |   315.522 |
+| usdoc1Temporary: Tourist/visitor       | \-215.117 |   264.262 |   \-0.814 |   0.416 | \-734.312 |   304.078 |
+| usdoc1Undocumented                     |    80.942 |   196.494 |     0.412 |   0.681 | \-305.110 |   466.994 |
+| edyrs:usdoc1Legal resident             |    49.846 |    49.455 |     1.008 |   0.314 |  \-47.318 |   147.009 |
+| edyrs:usdoc1Temporary: Tourist/visitor |    18.464 |    48.431 |     0.381 |   0.703 |  \-76.688 |   113.616 |
+| edyrs:usdoc1Undocumented               |  \-11.537 |    45.141 |   \-0.256 |   0.798 | \-100.226 |    77.151 |
 
 We also wanted to consider the interaction between documentation status
 and number of years of education, because it is well known that people
@@ -2344,6 +2360,15 @@ the US at the same time, and were from the same country of origin, etc.
 We can possibly create interaction terms between them.
 
 ## 4\. Interpretations
+
+Our final model is hhincome=466.5407726+184.6438202Msex + 6.6193307age +
+24.6983000edyrs + 0.6220198usdurl-216.0826709 usdoc1Legal
+resident-215.1165722usdoc1Temporary:
+Tourist/visitor+80.9419979usdoc1Undocumented+49.8455938edyrs:usdoc1Legal
+resident+18.4639273edyrs:usdoc1Temporary:
+Tourist/visitor-11.5374794edyrs:usdoc1Undocumented. Our baseline is an
+average aged women with no education who has spent an average amount of
+time in the US and is on a Bracero contract.
 
 ## 5\. Additional Work
 
