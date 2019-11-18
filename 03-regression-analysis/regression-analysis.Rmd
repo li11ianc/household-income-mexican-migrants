@@ -128,53 +128,62 @@ Before interpreting the model, it is essential to check the assumptions.
 ### 3.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
-```{r scatter-pairs}
-pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
+```{r scatter_pairs}
+pairs(hhincome ~ yrborn + age + edyrs + usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
+```
+```{r}
+ggplot(data = caldata, aes(x = as.factor(sex), y = hhincome))+
+         geom_boxplot()+
+  labs(title = "Boxplot of Household Income against Sex", x = "Sex", y = "Household income")
+
+ggplot(data = caldata, aes(x = as.factor(sex), y = hhincome))+
+         geom_boxplot()+
+  labs(title = "Boxplot of Household Income against Sex", x = "Sex", y = "Household income")
 ```
 
 From the data exploratory section, observed a perfect negative linear correlation between year-born and age, which makes sense. There is also a linear correlation between usdur1 and usdurl. 
 
-Hence, we decide to drop either yrborn or age, and either usdur1 or usdurl.
+Hence, this is confirmed by backward selection, because it also decided to drop yrborn and usdur1.
 
 ### 3.2 Constant Variance
 
 ### 3.2.1 Residuals vs. Factors
 
 ```{r}
-##caldata <- caldata %>% 
-  ##mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
+caldata <- caldata %>% 
+  mutate(predicted = predict.lm(final), residuals = resid(final))
 ```
 
 Below is the plots of residuals against each quantitative predictor:
 ```{r factor_residual_scatterplot}
-##pairs(residuals ~ floorsCat + sqftCent + bedroomsCent + bathroomsCent + waterfront, data = houses,
-      ##lower.panel = NULL) 
+pairs(residuals ~ age + usdurl + edyrs, data = caldata,
+      lower.panel = NULL) 
 ```
 
 Below is the graph of residuals against categorical predictor:
 ```{r floorCat_residual}
-##ggplot(data=houses,aes(x=floorsCat,y=residuals)) + 
- ## geom_boxplot() + 
-  ##geom_hline(yintercept=0,color="red") +
-  ##labs(x = "Number of Floors", 
-      ## y="Residuals",
-      ## title= "Boxplot of Residuals vs. Number of Floors")
+ggplot(data=caldata,aes(x=as.factor(sex),y=residuals)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(x = "Sex", 
+       y="Residuals",
+       title= "Boxplot of Residuals vs. Sex")
 ```
 
-From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be close to 0, expect for a slight positive deviation in the 1.5 Floor category, and all categories are relatively symmetrical. 
+From the pairs scatterplot, I cannot observe any clear patterns; and from the boxplot, the median of each category seems to be slightly less than 0, and all categories are relatively symmetrical. 
 
 #### 3.2.2 Residual vs. Predicted
 ```{r residuel_predicted_scatterplot}
-##houses <- houses %>% 
- ## mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
-##ggplot(data=houses,aes(x=predicted, y=residuals)) + 
- ## geom_point() + 
- ## geom_hline(yintercept=0,color="red") +
- ## labs(title="Residuals vs. Predicted Log(price)")
+caldata <- caldata %>% 
+  mutate(predicted = predict.lm(final), residuals = resid(final))
+ggplot(data=caldata,aes(x=predicted, y=residuals)) + 
+  geom_point() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(title="Residuals vs. Predicted Household Income")
 ```
 
-The residual vs. predicted values scatterplot shows a large concentration of data points in the 12 to 14 units range of the x-axis. However, there are alarming outliers around 17 units. There are no discernible patterns. 
+The residual vs. predicted values scatterplot shows no discernible patterns. 
 
 Overall, the graphs confirm the constant variance assumption is satisfied.
 
@@ -183,21 +192,21 @@ Overall, the graphs confirm the constant variance assumption is satisfied.
 
 #### 3.3.1 Histogram of Residuals
 ```{r histogram_residuals}
-##ggplot(data=houses, mapping=aes(x=residuals)) + 
- ## geom_histogram() +
-  ##labs(title="Distribution of Residuals", x="Residual")
+ggplot(data=caldata, mapping=aes(x=residuals)) + 
+  geom_histogram() +
+  labs(title="Distribution of Residuals", x="Residual")
 ```
 
 #### 3.3.2 Normal-QQ Plot of Residuals
 
 ```{r}
-##ggplot(data=houses,mapping=aes(sample=residuals)) +
- ## stat_qq() +
-##  stat_qq_line() +
- ## labs(title="Normal QQ Plot of Residuals")
+ggplot(data=caldata,mapping=aes(sample=residuals)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(title="Normal QQ Plot of Residuals")
 ```
 
-From the histogram, the shape of distribution of residuals resembles a normal distribution. The Normal-QQ plot supports this finding as the sample line adheres closely to the theoretical line.So the normality assumption is met.
+From the histogram, the shape of distribution of residuals has a right skew. The Normal-QQ plot supports this finding, as the left half of the line follows closely the theoretical diagonal, yet the right half deviates from diagonal, showing that the right tail is skewed. Since we have 513 observations, the model is robust enough to tolerate deviation from normal.
 
 
 ### 3.4 Independence
