@@ -54,6 +54,16 @@ November 14, 2019
     ## #   usstatel <chr>, usplace1 <dbl>, usplacel <dbl>, usdur1 <dbl>,
     ## #   usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
 
+WHAT WE NEED TO DO: -Statement of the research question and modeling
+obejctive (prediction, inference, etc.) -Description of the response
+variable -Updated exploratory data analysis, incorporating any feedback
+from the proposal -Explanation of the modeling process and why you chose
+those metohds, incorporating any feedback from the proposal -Output of
+the final model -Discussion of the assumptions for the final model
+-Interpretations / interesting findings from the model coefficients
+-Additional work of other models or analylsis not included in the final
+model.
+
 #### Qintian
 
     ## # A tibble: 2,805 x 19
@@ -84,8 +94,28 @@ Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
 Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small
 number of cases in which no city was reported, we deleted these
-instances. This leaves 15 unique locations in
-    California.
+instances. This leaves 15 unique locations in California. The majority
+of immigrants went to LA-Long Beach area.
+
+It turned out that all values from relhead in our cleaned data were “1”
+or head. So we will remove this variable, as well as state variables
+since we are only using California data.
+
+    ## # A tibble: 1,420 x 16
+    ##       X1 sex   yrborn   age statebrn marstat edyrs   occ hhincome usplace1
+    ##    <dbl> <chr>  <dbl> <dbl> <chr>    <chr>   <dbl> <dbl>    <dbl>    <dbl>
+    ##  1     2 M       1928    59 Guanaju… Married     3   522   200000     7360
+    ##  2     5 M       1956    31 Guanaju… Married     6   142   300000     4480
+    ##  3     6 M       1921    66 Jalisco  Married     0   529   200000     7360
+    ##  4     9 M       1945    42 Guanaju… Consen…     6   559   200000     7320
+    ##  5    11 M       1936    51 Guanaju… Widowed     3   522   240000     5945
+    ##  6    12 M       1951    36 Guanaju… Married     2   529   180000     7320
+    ##  7    13 M       1946    41 Guanaju… Married     6   419   240000     7320
+    ##  8    18 M       1952    35 Guanaju… Married     6   559   400000     7320
+    ##  9    19 M       1947    40 Guanaju… Married     3   410   180000     2840
+    ## 10    20 M       1944    43 Guanaju… Married     3   410   240000     4480
+    ## # … with 1,410 more rows, and 6 more variables: usplacel <dbl>,
+    ## #   usdur1 <dbl>, usdurl <dbl>, usdoc1 <chr>, occtype <chr>, uscity <chr>
 
 #### Lilly
 
