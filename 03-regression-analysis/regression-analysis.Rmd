@@ -21,7 +21,6 @@ library(dplyr)
 
 ```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
-data
 ```
 
 ## 1. Introduction
@@ -37,6 +36,9 @@ Our response variable is household income: the total income for a single househo
 ```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
+
+caldata <- caldata%>%
+  na.omit()
 ```
 
 ```{r nonfilt-income-plot}
@@ -57,13 +59,17 @@ caldata <- caldata %>%
   filter(hhincome > 5, log(hhincome) < 8)
 ```
 
+<<<<<<< HEAD
 ```{r filt-hhincome-plot}
+=======
+```{r hhincome-distribution}
+>>>>>>> f8cd1e1658fa0e29ac2d7f4210de85d30404a78a
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram() +
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
-```{r cities}
+```{r cities, fig.align="center"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 ggplot(data = caldata, aes(x = uscity))+ 
@@ -95,10 +101,11 @@ kable(tidy(full),format="html" ,digits=3)
 
 ### 2.2 Backward selection
 
-```{r backward}
-##regfit_backward <- step(full, direction = "backward")
-##sel_summary <- summary(regfit_backward)
-##kable(tidy(regfit_backward, conf.int = TRUE, exponentiate = TRUE), format = "markdown", digits = 8)
+```{r backward-selection}
+final <- step(full, direction = "backward")
+sel_summary <- summary(final)
+tidy(final, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
 ```
 
 ### 2.3 Interactions
@@ -116,7 +123,7 @@ Before interpreting the model, it is essential to check the assumptions.
 ### 3.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
-```{r scatter_pairs}
+```{r scatter-pairs}
 pairs(log(hhincome) ~ yrborn + age +  usdur1 + usdurl, data = caldata,
       lower.panel = NULL)
 ```
@@ -132,8 +139,6 @@ Hence, we decide to drop either yrborn or age, and either usdur1 or usdurl.
 ```{r}
 ##caldata <- caldata %>% 
   ##mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
-##caldata <- caldata%>%
-  ##na.omit()
 ```
 
 Below is the plots of residuals against each quantitative predictor:
