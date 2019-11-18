@@ -24,10 +24,25 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 data
 ```
 
+<<<<<<< HEAD
 ```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
 ```
+=======
+WHAT WE NEED TO DO:
+-Statement of the research question and modeling obejctive (prediction, inference, etc.)
+-Description of the response variable
+-Updated exploratory data analysis, incorporating any feedback from the proposal
+-Explanation of the modeling process and why you chose those metohds, incorporating any feedback from the proposal
+-Output of the final model
+-Discussion of the assumptions for the final model
+-Interpretations / interesting findings from the model coefficients
+-Additional work of other models or analylsis not included in the final model.
+
+
+
+>>>>>>> fe26a176f04c0c73819d27193873cf996acff4c3
 
 #### Qintian
 ```{r}
@@ -46,13 +61,18 @@ caldata
 ```{r cities}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
-view(caldata$uscity)
 ggplot(data = caldata, aes(x = uscity))+ 
   geom_bar() +
   coord_flip()
 ```
-These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. 
+These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. The majority of immigrants went to LA-Long Beach area. 
 
+It turned out that all values from relhead in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. 
+
+```{r remove relhead}
+caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1) )
+caldata
+```
 
 #### Lilly
 
