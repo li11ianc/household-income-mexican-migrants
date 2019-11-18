@@ -4,22 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
->>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2311,19 +2303,9 @@ uscityVentura, CA
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134034469 |  1 |  207174.7 |     0.376 |
 
-<<<<<<< HEAD
 Through nested F-test, we observed significant interactions between age
 & edyrs and between sex & usdurl, with respective p-values of 0 and
 0.034.
-=======
-We also wanted to consider the interaction between documentation status
-and number of years of education, because it is well known that people
-who have had higher education are more likely to be documented
-immigrants in the United States.
-
-The p-value for this test is 0.024 \< 0.05, therefore we should keep the
-interaction term for `edyrs` and `usdoc1` in the model.
->>>>>>> abcbe5b0a0be975221fce523202b969ec23ce653
 
 ### 2.4 Final Model with Interaction
 
@@ -2688,6 +2670,20 @@ hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.5
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.
+
+We note that being male increases expected income. This may have to do
+with the gender wage gap, but more likely has to do with the type of
+labour immigrants tend to do: often, this is physical labour that men,
+who on average are larger, are more capable of performing. Similarly, we
+would expect elderly immigrants to struggle with hard labour, and we
+note that income falls as age increases.
+
+As anticipated, more years of education increased income significantly.
+
+The more time an immigrant had been in the US, the more income they
+could expect to earn – this may have to do with the advantages of having
+networks and stability, as well as overcoming language and cultural
+barriers.
 
 ## 5\. Additional Work
 
