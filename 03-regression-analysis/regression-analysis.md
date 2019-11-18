@@ -4,30 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
     ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
-=======
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ───────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> bf340854b3317a590baadf142556c012628451b7
->>>>>>> 699df3444e3d6384750461b0874c4bece9095c07
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
-=======
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> bf340854b3317a590baadf142556c012628451b7
->>>>>>> 699df3444e3d6384750461b0874c4bece9095c07
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -140,6 +124,27 @@ rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating issue.
 
+## 2\. Multiple Linear Regression Model
+
+In an effort to determine which characteristics of candidates influence
+their household income, we will be using a multiple linear regression
+model. Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between principal occupation
+and number of years of school completed, since those are generally
+interconnected. We may also consider the interaction between
+documentation type and occupation type, although the effect may be
+insignificant.
+
+We will select our model using AIC criteria, because since we’re dealing
+with people, we want to build a model that accounts for volatile human
+nature and the ever-changing socioeconomic and political climate that
+could influence someone’s household income. AIC is used when we would
+rather say a variable is a relevant predictor, when in reality it might
+not be and so in this case, we would rather err on the side of a false
+positive because we are dealing with a constantly fluctuating issue.
+
 ### 2.1 Full Model
 
 <table>
@@ -194,59 +199,25 @@ p.value
 
 <td style="text-align:right;">
 
-52154.401
+253.553
 
 </td>
 
 <td style="text-align:right;">
 
-28709.846
+593.848
 
 </td>
 
 <td style="text-align:right;">
 
-1.817
+0.427
 
 </td>
 
 <td style="text-align:right;">
 
-0.070
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-X1
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.143
-
-</td>
-
-<td style="text-align:right;">
-
-0.064
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.239
-
-</td>
-
-<td style="text-align:right;">
-
-0.026
+0.670
 
 </td>
 
@@ -262,59 +233,25 @@ sexM
 
 <td style="text-align:right;">
 
-311.825
+376.588
 
 </td>
 
 <td style="text-align:right;">
 
-185.401
+187.385
 
 </td>
 
 <td style="text-align:right;">
 
-1.682
+2.010
 
 </td>
 
 <td style="text-align:right;">
 
-0.093
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-yrborn
-
-</td>
-
-<td style="text-align:right;">
-
-\-25.954
-
-</td>
-
-<td style="text-align:right;">
-
-14.446
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.797
-
-</td>
-
-<td style="text-align:right;">
-
-0.073
+0.045
 
 </td>
 
@@ -330,25 +267,25 @@ age
 
 <td style="text-align:right;">
 
-\-18.359
+6.675
 
 </td>
 
 <td style="text-align:right;">
 
-14.809
+2.904
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.240
+2.298
 
 </td>
 
 <td style="text-align:right;">
 
-0.216
+0.022
 
 </td>
 
@@ -364,25 +301,25 @@ statebrnChihuahua
 
 <td style="text-align:right;">
 
-\-147.000
+134.111
 
 </td>
 
 <td style="text-align:right;">
 
-626.866
+631.661
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.234
+0.212
 
 </td>
 
 <td style="text-align:right;">
 
-0.815
+0.832
 
 </td>
 
@@ -398,25 +335,25 @@ statebrnCoahuila
 
 <td style="text-align:right;">
 
-1527.583
+1752.485
 
 </td>
 
 <td style="text-align:right;">
 
-812.616
+822.587
 
 </td>
 
 <td style="text-align:right;">
 
-1.880
+2.130
 
 </td>
 
 <td style="text-align:right;">
 
-0.061
+0.034
 
 </td>
 
@@ -432,25 +369,25 @@ statebrnColima
 
 <td style="text-align:right;">
 
-75.450
+1.565
 
 </td>
 
 <td style="text-align:right;">
 
-375.507
+380.356
 
 </td>
 
 <td style="text-align:right;">
 
-0.201
+0.004
 
 </td>
 
 <td style="text-align:right;">
 
-0.841
+0.997
 
 </td>
 
@@ -466,25 +403,25 @@ statebrnGuanajuato
 
 <td style="text-align:right;">
 
-\-44.063
+175.475
 
 </td>
 
 <td style="text-align:right;">
 
-381.527
+381.494
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.115
+0.460
 
 </td>
 
 <td style="text-align:right;">
 
-0.908
+0.646
 
 </td>
 
@@ -500,25 +437,25 @@ statebrnGuerrero
 
 <td style="text-align:right;">
 
-528.551
+382.830
 
 </td>
 
 <td style="text-align:right;">
 
-393.076
+397.108
 
 </td>
 
 <td style="text-align:right;">
 
-1.345
+0.964
 
 </td>
 
 <td style="text-align:right;">
 
-0.179
+0.336
 
 </td>
 
@@ -534,25 +471,25 @@ statebrnJalisco
 
 <td style="text-align:right;">
 
-61.352
+206.635
 
 </td>
 
 <td style="text-align:right;">
 
-374.920
+378.413
 
 </td>
 
 <td style="text-align:right;">
 
-0.164
+0.546
 
 </td>
 
 <td style="text-align:right;">
 
-0.870
+0.585
 
 </td>
 
@@ -568,25 +505,25 @@ statebrnMexico City
 
 <td style="text-align:right;">
 
-379.421
+563.499
 
 </td>
 
 <td style="text-align:right;">
 
-441.742
+443.766
 
 </td>
 
 <td style="text-align:right;">
 
-0.859
+1.270
 
 </td>
 
 <td style="text-align:right;">
 
-0.391
+0.205
 
 </td>
 
@@ -602,25 +539,25 @@ statebrnMichoacán
 
 <td style="text-align:right;">
 
-21.365
+179.532
 
 </td>
 
 <td style="text-align:right;">
 
-373.902
+377.053
 
 </td>
 
 <td style="text-align:right;">
 
-0.057
+0.476
 
 </td>
 
 <td style="text-align:right;">
 
-0.954
+0.634
 
 </td>
 
@@ -636,25 +573,25 @@ statebrnNayarit
 
 <td style="text-align:right;">
 
-162.949
+361.040
 
 </td>
 
 <td style="text-align:right;">
 
-380.642
+381.550
 
 </td>
 
 <td style="text-align:right;">
 
-0.428
+0.946
 
 </td>
 
 <td style="text-align:right;">
 
-0.669
+0.345
 
 </td>
 
@@ -670,25 +607,25 @@ statebrnOaxaca
 
 <td style="text-align:right;">
 
-616.645
+383.588
 
 </td>
 
 <td style="text-align:right;">
 
-389.246
+390.390
 
 </td>
 
 <td style="text-align:right;">
 
-1.584
+0.983
 
 </td>
 
 <td style="text-align:right;">
 
-0.114
+0.326
 
 </td>
 
@@ -704,25 +641,25 @@ statebrnPuebla
 
 <td style="text-align:right;">
 
-400.104
+430.374
 
 </td>
 
 <td style="text-align:right;">
 
-620.948
+630.097
 
 </td>
 
 <td style="text-align:right;">
 
-0.644
+0.683
 
 </td>
 
 <td style="text-align:right;">
 
-0.520
+0.495
 
 </td>
 
@@ -738,25 +675,25 @@ statebrnSan Luis Potosí
 
 <td style="text-align:right;">
 
-369.232
+214.682
 
 </td>
 
 <td style="text-align:right;">
 
-380.919
+384.490
 
 </td>
 
 <td style="text-align:right;">
 
-0.969
+0.558
 
 </td>
 
 <td style="text-align:right;">
 
-0.333
+0.577
 
 </td>
 
@@ -772,25 +709,25 @@ statebrnTamaulipas
 
 <td style="text-align:right;">
 
-\-1.552
+\-161.674
 
 </td>
 
 <td style="text-align:right;">
 
-622.034
+629.901
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.002
+\-0.257
 
 </td>
 
 <td style="text-align:right;">
 
-0.998
+0.798
 
 </td>
 
@@ -806,25 +743,25 @@ statebrnVeracruz
 
 <td style="text-align:right;">
 
-548.069
+411.163
 
 </td>
 
 <td style="text-align:right;">
 
-525.278
+531.769
 
 </td>
 
 <td style="text-align:right;">
 
-1.043
+0.773
 
 </td>
 
 <td style="text-align:right;">
 
-0.297
+0.440
 
 </td>
 
@@ -840,25 +777,25 @@ statebrnZacatecas
 
 <td style="text-align:right;">
 
-476.895
+348.941
 
 </td>
 
 <td style="text-align:right;">
 
-371.658
+375.679
 
 </td>
 
 <td style="text-align:right;">
 
-1.283
+0.929
 
 </td>
 
 <td style="text-align:right;">
 
-0.200
+0.353
 
 </td>
 
@@ -874,25 +811,25 @@ marstatDivorced
 
 <td style="text-align:right;">
 
-92.603
+171.792
 
 </td>
 
 <td style="text-align:right;">
 
-217.609
+219.802
 
 </td>
 
 <td style="text-align:right;">
 
-0.426
+0.782
 
 </td>
 
 <td style="text-align:right;">
 
-0.671
+0.435
 
 </td>
 
@@ -908,25 +845,25 @@ marstatMarried
 
 <td style="text-align:right;">
 
-41.287
+43.241
 
 </td>
 
 <td style="text-align:right;">
 
-116.258
+117.730
 
 </td>
 
 <td style="text-align:right;">
 
-0.355
+0.367
 
 </td>
 
 <td style="text-align:right;">
 
-0.723
+0.714
 
 </td>
 
@@ -942,25 +879,25 @@ marstatNever married
 
 <td style="text-align:right;">
 
-\-184.547
+\-151.650
 
 </td>
 
 <td style="text-align:right;">
 
-161.941
+164.118
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.140
+\-0.924
 
 </td>
 
 <td style="text-align:right;">
 
-0.255
+0.356
 
 </td>
 
@@ -976,25 +913,25 @@ marstatSeparated
 
 <td style="text-align:right;">
 
-49.557
+97.680
 
 </td>
 
 <td style="text-align:right;">
 
-231.409
+234.443
 
 </td>
 
 <td style="text-align:right;">
 
-0.214
+0.417
 
 </td>
 
 <td style="text-align:right;">
 
-0.831
+0.677
 
 </td>
 
@@ -1010,25 +947,25 @@ marstatWidowed
 
 <td style="text-align:right;">
 
-84.934
+117.059
 
 </td>
 
 <td style="text-align:right;">
 
-242.984
+245.574
 
 </td>
 
 <td style="text-align:right;">
 
-0.350
+0.477
 
 </td>
 
 <td style="text-align:right;">
 
-0.727
+0.634
 
 </td>
 
@@ -1044,195 +981,25 @@ edyrs
 
 <td style="text-align:right;">
 
-16.118
+11.795
 
 </td>
 
 <td style="text-align:right;">
 
-8.050
+8.093
 
 </td>
 
 <td style="text-align:right;">
 
-2.002
+1.457
 
 </td>
 
 <td style="text-align:right;">
 
-0.046
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdur1
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.074
-
-</td>
-
-<td style="text-align:right;">
-
-0.425
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.175
-
-</td>
-
-<td style="text-align:right;">
-
-0.861
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-0.535
-
-</td>
-
-<td style="text-align:right;">
-
-0.377
-
-</td>
-
-<td style="text-align:right;">
-
-1.421
-
-</td>
-
-<td style="text-align:right;">
-
-0.156
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Legal resident
-
-</td>
-
-<td style="text-align:right;">
-
-87.121
-
-</td>
-
-<td style="text-align:right;">
-
-152.863
-
-</td>
-
-<td style="text-align:right;">
-
-0.570
-
-</td>
-
-<td style="text-align:right;">
-
-0.569
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Temporary: Tourist/visitor
-
-</td>
-
-<td style="text-align:right;">
-
-13.013
-
-</td>
-
-<td style="text-align:right;">
-
-156.097
-
-</td>
-
-<td style="text-align:right;">
-
-0.083
-
-</td>
-
-<td style="text-align:right;">
-
-0.934
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Undocumented
-
-</td>
-
-<td style="text-align:right;">
-
-11.711
-
-</td>
-
-<td style="text-align:right;">
-
-125.106
-
-</td>
-
-<td style="text-align:right;">
-
-0.094
-
-</td>
-
-<td style="text-align:right;">
-
-0.925
+0.146
 
 </td>
 
@@ -1248,25 +1015,25 @@ occtypeAdministrator
 
 <td style="text-align:right;">
 
-57.419
+41.773
 
 </td>
 
 <td style="text-align:right;">
 
-264.926
+268.820
 
 </td>
 
 <td style="text-align:right;">
 
-0.217
+0.155
 
 </td>
 
 <td style="text-align:right;">
 
-0.829
+0.877
 
 </td>
 
@@ -1282,25 +1049,25 @@ occtypeAgriculture
 
 <td style="text-align:right;">
 
-\-366.419
+\-338.593
 
 </td>
 
 <td style="text-align:right;">
 
-137.630
+139.252
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.662
+\-2.432
 
 </td>
 
 <td style="text-align:right;">
 
-0.008
+0.015
 
 </td>
 
@@ -1316,25 +1083,25 @@ occtypeArts
 
 <td style="text-align:right;">
 
-\-708.181
+\-734.762
 
 </td>
 
 <td style="text-align:right;">
 
-518.805
+526.443
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.365
+\-1.396
 
 </td>
 
 <td style="text-align:right;">
 
-0.173
+0.163
 
 </td>
 
@@ -1350,25 +1117,25 @@ occtypeEducator
 
 <td style="text-align:right;">
 
-247.890
+330.280
 
 </td>
 
 <td style="text-align:right;">
 
-327.488
+331.637
 
 </td>
 
 <td style="text-align:right;">
 
-0.757
+0.996
 
 </td>
 
 <td style="text-align:right;">
 
-0.449
+0.320
 
 </td>
 
@@ -1384,25 +1151,25 @@ occtypeHomemaker
 
 <td style="text-align:right;">
 
-\-558.092
+\-293.640
 
 </td>
 
 <td style="text-align:right;">
 
-561.399
+562.972
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.994
+\-0.522
 
 </td>
 
 <td style="text-align:right;">
 
-0.321
+0.602
 
 </td>
 
@@ -1418,25 +1185,25 @@ occtypeManufacturing (skilled)
 
 <td style="text-align:right;">
 
-\-173.914
+\-155.087
 
 </td>
 
 <td style="text-align:right;">
 
-133.455
+135.147
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.303
+\-1.148
 
 </td>
 
 <td style="text-align:right;">
 
-0.193
+0.252
 
 </td>
 
@@ -1452,25 +1219,25 @@ occtypeManufacturing (unskilled)
 
 <td style="text-align:right;">
 
-\-265.703
+\-228.939
 
 </td>
 
 <td style="text-align:right;">
 
-136.773
+137.949
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.943
+\-1.660
 
 </td>
 
 <td style="text-align:right;">
 
-0.053
+0.098
 
 </td>
 
@@ -1486,25 +1253,25 @@ occtypeOther, unspecified (disabled, incarcerated, tourist and other)
 
 <td style="text-align:right;">
 
-\-755.847
+\-842.711
 
 </td>
 
 <td style="text-align:right;">
 
-428.824
+434.370
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.763
+\-1.940
 
 </td>
 
 <td style="text-align:right;">
 
-0.079
+0.053
 
 </td>
 
@@ -1520,25 +1287,25 @@ occtypeProfessional
 
 <td style="text-align:right;">
 
-\-427.945
+\-693.183
 
 </td>
 
 <td style="text-align:right;">
 
-532.229
+535.468
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.804
+\-1.295
 
 </td>
 
 <td style="text-align:right;">
 
-0.422
+0.196
 
 </td>
 
@@ -1554,25 +1321,25 @@ occtypeProtection
 
 <td style="text-align:right;">
 
-\-317.194
+\-333.922
 
 </td>
 
 <td style="text-align:right;">
 
-390.563
+395.800
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.812
+\-0.844
 
 </td>
 
 <td style="text-align:right;">
 
-0.417
+0.399
 
 </td>
 
@@ -1588,19 +1355,19 @@ occtypeRetired
 
 <td style="text-align:right;">
 
-\-662.447
+\-672.350
 
 </td>
 
 <td style="text-align:right;">
 
-235.006
+238.185
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.819
+\-2.823
 
 </td>
 
@@ -1622,25 +1389,25 @@ occtypeSales
 
 <td style="text-align:right;">
 
-\-147.864
+\-147.089
 
 </td>
 
 <td style="text-align:right;">
 
-144.311
+146.366
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.025
+\-1.005
 
 </td>
 
 <td style="text-align:right;">
 
-0.306
+0.315
 
 </td>
 
@@ -1656,25 +1423,25 @@ occtypeServices
 
 <td style="text-align:right;">
 
-\-206.414
+\-160.247
 
 </td>
 
 <td style="text-align:right;">
 
-140.739
+142.047
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.467
+\-1.128
 
 </td>
 
 <td style="text-align:right;">
 
-0.143
+0.260
 
 </td>
 
@@ -1690,25 +1457,25 @@ occtypeStudent
 
 <td style="text-align:right;">
 
-\-212.484
+\-104.454
 
 </td>
 
 <td style="text-align:right;">
 
-542.759
+550.065
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.391
+\-0.190
 
 </td>
 
 <td style="text-align:right;">
 
-0.696
+0.849
 
 </td>
 
@@ -1724,25 +1491,25 @@ occtypeTechnical Worker
 
 <td style="text-align:right;">
 
-\-213.915
+\-227.092
 
 </td>
 
 <td style="text-align:right;">
 
-242.488
+246.055
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.882
+\-0.923
 
 </td>
 
 <td style="text-align:right;">
 
-0.378
+0.357
 
 </td>
 
@@ -1758,25 +1525,25 @@ occtypeTransportation
 
 <td style="text-align:right;">
 
-\-182.782
+\-173.407
 
 </td>
 
 <td style="text-align:right;">
 
-162.258
+164.617
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.126
+\-1.053
 
 </td>
 
 <td style="text-align:right;">
 
-0.261
+0.293
 
 </td>
 
@@ -1792,25 +1559,195 @@ occtypeUnemployed (seeking work)
 
 <td style="text-align:right;">
 
-\-605.647
+\-584.815
 
 </td>
 
 <td style="text-align:right;">
 
-328.755
+333.223
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.842
+\-1.755
 
 </td>
 
 <td style="text-align:right;">
 
-0.066
+0.080
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.091
+
+</td>
+
+<td style="text-align:right;">
+
+0.432
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.211
+
+</td>
+
+<td style="text-align:right;">
+
+0.833
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+0.552
+
+</td>
+
+<td style="text-align:right;">
+
+0.377
+
+</td>
+
+<td style="text-align:right;">
+
+1.464
+
+</td>
+
+<td style="text-align:right;">
+
+0.144
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Legal resident
+
+</td>
+
+<td style="text-align:right;">
+
+132.060
+
+</td>
+
+<td style="text-align:right;">
+
+154.369
+
+</td>
+
+<td style="text-align:right;">
+
+0.855
+
+</td>
+
+<td style="text-align:right;">
+
+0.393
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Temporary: Tourist/visitor
+
+</td>
+
+<td style="text-align:right;">
+
+\-29.045
+
+</td>
+
+<td style="text-align:right;">
+
+158.039
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.184
+
+</td>
+
+<td style="text-align:right;">
+
+0.854
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Undocumented
+
+</td>
+
+<td style="text-align:right;">
+
+2.133
+
+</td>
+
+<td style="text-align:right;">
+
+126.931
+
+</td>
+
+<td style="text-align:right;">
+
+0.017
+
+</td>
+
+<td style="text-align:right;">
+
+0.987
 
 </td>
 
@@ -1826,25 +1763,25 @@ uscityFresno, CA
 
 <td style="text-align:right;">
 
-\-78.681
+\-163.479
 
 </td>
 
 <td style="text-align:right;">
 
-318.447
+322.090
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.247
+\-0.508
 
 </td>
 
 <td style="text-align:right;">
 
-0.805
+0.612
 
 </td>
 
@@ -1860,25 +1797,25 @@ uscityLos Angeles-Long Beach, CA
 
 <td style="text-align:right;">
 
-\-170.806
+\-259.508
 
 </td>
 
 <td style="text-align:right;">
 
-305.408
+308.021
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.559
+\-0.843
 
 </td>
 
 <td style="text-align:right;">
 
-0.576
+0.400
 
 </td>
 
@@ -1894,25 +1831,25 @@ uscityMerced, CA
 
 <td style="text-align:right;">
 
-\-219.558
+\-287.166
 
 </td>
 
 <td style="text-align:right;">
 
-322.971
+326.559
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.680
+\-0.879
 
 </td>
 
 <td style="text-align:right;">
 
-0.497
+0.380
 
 </td>
 
@@ -1928,25 +1865,25 @@ uscityOrange County, CA
 
 <td style="text-align:right;">
 
-2.366
+\-125.722
 
 </td>
 
 <td style="text-align:right;">
 
-312.689
+314.562
 
 </td>
 
 <td style="text-align:right;">
 
-0.008
+\-0.400
 
 </td>
 
 <td style="text-align:right;">
 
-0.994
+0.690
 
 </td>
 
@@ -1962,25 +1899,25 @@ uscityRiverside-San Bernardino, CA
 
 <td style="text-align:right;">
 
-\-145.056
+\-263.118
 
 </td>
 
 <td style="text-align:right;">
 
-318.477
+321.640
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.455
+\-0.818
 
 </td>
 
 <td style="text-align:right;">
 
-0.649
+0.414
 
 </td>
 
@@ -1996,25 +1933,25 @@ uscitySacramento, CA
 
 <td style="text-align:right;">
 
-\-152.713
+\-200.982
 
 </td>
 
 <td style="text-align:right;">
 
-362.406
+367.300
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.421
+\-0.547
 
 </td>
 
 <td style="text-align:right;">
 
-0.674
+0.585
 
 </td>
 
@@ -2030,25 +1967,25 @@ uscitySan Diego, CA
 
 <td style="text-align:right;">
 
-\-24.051
+\-125.923
 
 </td>
 
 <td style="text-align:right;">
 
-316.365
+318.718
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.076
+\-0.395
 
 </td>
 
 <td style="text-align:right;">
 
-0.939
+0.693
 
 </td>
 
@@ -2064,25 +2001,25 @@ uscitySan Francisco, CA
 
 <td style="text-align:right;">
 
-\-449.331
+\-495.832
 
 </td>
 
 <td style="text-align:right;">
 
-353.496
+358.362
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.271
+\-1.384
 
 </td>
 
 <td style="text-align:right;">
 
-0.204
+0.167
 
 </td>
 
@@ -2098,25 +2035,25 @@ uscitySan Jose, CA
 
 <td style="text-align:right;">
 
-\-238.464
+\-369.569
 
 </td>
 
 <td style="text-align:right;">
 
-329.335
+331.701
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.724
+\-1.114
 
 </td>
 
 <td style="text-align:right;">
 
-0.469
+0.266
 
 </td>
 
@@ -2132,25 +2069,25 @@ uscitySanta Barbara-Santa Maria-Lompoc, CA
 
 <td style="text-align:right;">
 
-\-192.518
+\-252.569
 
 </td>
 
 <td style="text-align:right;">
 
-338.536
+341.026
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.569
+\-0.741
 
 </td>
 
 <td style="text-align:right;">
 
-0.570
+0.459
 
 </td>
 
@@ -2166,25 +2103,25 @@ uscitySanta Cruz-Watsonville, CA
 
 <td style="text-align:right;">
 
-\-260.454
+\-372.233
 
 </td>
 
 <td style="text-align:right;">
 
-357.194
+361.301
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.729
+\-1.030
 
 </td>
 
 <td style="text-align:right;">
 
-0.466
+0.303
 
 </td>
 
@@ -2200,25 +2137,25 @@ uscityVallejo-Fairfield-Napa, CA
 
 <td style="text-align:right;">
 
-255.279
+77.491
 
 </td>
 
 <td style="text-align:right;">
 
-354.951
+357.028
 
 </td>
 
 <td style="text-align:right;">
 
-0.719
+0.217
 
 </td>
 
 <td style="text-align:right;">
 
-0.472
+0.828
 
 </td>
 
@@ -2234,25 +2171,25 @@ uscityVentura, CA
 
 <td style="text-align:right;">
 
-\-91.718
+\-154.193
 
 </td>
 
 <td style="text-align:right;">
 
-338.861
+341.941
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.271
+\-0.451
 
 </td>
 
 <td style="text-align:right;">
 
-0.787
+0.652
 
 </td>
 
@@ -2269,6 +2206,61 @@ uscityVentura, CA
 ### 2.4 F-test
 
 ## 3\. Check Assumtpions
+
+Before interpreting the model, it is essential to check the assumptions.
+
+### 2.1 Linearity
+
+#### 2.1.1 Predicted vs. Factors
+
+![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+
+From the data exploratory section, observed a perfect negative linear
+correlation between year-born and age, which makes sense. There is also
+a linear correlation between usdur1 and usdurl.
+
+Hence, we decide to drop either yrborn or age, and either usdur1 or
+usdurl.
+
+### 3.2 Constant Variance
+
+#### 3.2.1 Residuals vs. Factors
+
+Below is the plots of residuals against each quantitative predictor:
+
+Below is the graph of residuals against categorical predictor:
+
+From the pairs scatterplot, I cannot observe any clear patterns; and
+from the boxplot, the median of each category seems to be close to 0,
+expect for a slight positive deviation in the 1.5 Floor category, and
+all categories are relatively symmetrical.
+
+#### 3.2.2 Residual vs. Predicted
+
+The residual vs. predicted values scatterplot shows a large
+concentration of data points in the 12 to 14 units range of the x-axis.
+However, there are alarming outliers around 17 units. There are no
+discernible patterns.
+
+Overall, the graphs confirm the constant variance assumption is
+satisfied.
+
+### 3.3 Normality
+
+#### 3.3.1 Histogram of Residuals
+
+#### 3.3.2 Normal-QQ Plot of Residuals
+
+From the histogram, the shape of distribution of residuals resembles a
+normal distribution. The Normal-QQ plot supports this finding as the
+sample line adheres closely to the theoretical line.So the normality
+assumption is met.
+
+### 3.4 Independence
+
+There might be some interdependence between family members who came to
+the US at the same time, and were from the same country of origin, etc.
+We can possibly create interaction terms between them.
 
 ## 4\. Interpretations
 
