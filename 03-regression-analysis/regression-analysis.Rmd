@@ -206,7 +206,36 @@ pairs(residuals ~ age + usdurl + edyrs, data = caldata,
 ```
 
 From the pairs plot above, there is a possibility that the constant variance for 'usdurl' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
-- the short-term workers have more varied wages, maybe they belong to a diff population/dist. --> solution: change to categorical variable
+
+We believe that this violation of constant variance may result from certain migration patterns- seasonal workers which come to the US for a short period of time would expect to see different household incomes than long-term migrants. We can examine the distribution of duration of last US migration.
+
+```{r usdurl-plot}
+ggplot(data = caldata, aes(x = usdurl)) +
+  geom_histogram() +
+  labs(title = "Distribution of Last Migration to US (Mean-Centered)", x = "Duration - 60.27 months (months)")
+```
+
+```{r create-seasonal-var}
+caldata <- caldata %>%
+  mutate(seasonal = case_when(
+    usdurl < 6 - 60.27 ~ "Y", #Workers with duration of migration < 6 months will be considered seasonal
+    TRUE ~ "N"
+  ))
+
+caldata %>%
+  count(seasonal)
+
+ggplot(data = caldata, aes(x = seasonal, y = usdurl)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Duration of Last US Migration", x = "Seasonal Worker?", y = 
+         "Duration of Last US Migration (Mean-Centered) (months)")
+ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Household Income", x = "Seasonal Worker?", y = 
+         "Household Income (dollars)")
+```
+
+We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. Roughly a quarter of the migrants in the dataset fall into this category.
 
 
 Below is the graph of residuals against categorical predictor:
