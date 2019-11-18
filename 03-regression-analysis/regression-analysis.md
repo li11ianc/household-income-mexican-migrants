@@ -4,14 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -85,8 +85,6 @@ It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
-
-We also want to mean center age and usdurl to make them interpretable.
 
 ## 2\. Multiple Linear Regression Model
 
@@ -169,25 +167,25 @@ p.value
 
 <td style="text-align:right;">
 
-549.969
+253.553
 
 </td>
 
 <td style="text-align:right;">
 
-566.730
+593.848
 
 </td>
 
 <td style="text-align:right;">
 
-0.970
+0.427
 
 </td>
 
 <td style="text-align:right;">
 
-0.332
+0.670
 
 </td>
 
@@ -2265,34 +2263,45 @@ uscityVentura, CA
     ## - age     1   2491615 136733260 6417.0
     ## - edyrs   1   3203237 137444881 6419.7
 
-| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
-| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
-| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
-| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
-| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
-| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
-| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
+| term        | estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept) |  130.900 |   166.753 |     0.785 |   0.433 | \-196.710 |   458.511 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |    23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |     2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |    10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |     0.154 |     1.169 |
 
 ### 2.3 Interactions
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
-|    502 | 130461779 |  6 |   3779865 |     0.024 |
+|    507 | 134188199 |  1 |  53444.74 |     0.653 |
 
-| term                                   |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :------------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept)                            |   466.541 |   231.288 |     2.017 |   0.044 |    12.130 |   920.952 |
-| sexM                                   |   184.644 |   116.199 |     1.589 |   0.113 |  \-43.653 |   412.941 |
-| age                                    |     6.619 |     2.455 |     2.696 |   0.007 |     1.795 |    11.444 |
-| edyrs                                  |    24.698 |    44.653 |     0.553 |   0.580 |  \-63.032 |   112.429 |
-| usdurl                                 |     0.622 |     0.261 |     2.383 |   0.018 |     0.109 |     1.135 |
-| usdoc1Legal resident                   | \-216.083 |   270.578 |   \-0.799 |   0.425 | \-747.688 |   315.522 |
-| usdoc1Temporary: Tourist/visitor       | \-215.117 |   264.262 |   \-0.814 |   0.416 | \-734.312 |   304.078 |
-| usdoc1Undocumented                     |    80.942 |   196.494 |     0.412 |   0.681 | \-305.110 |   466.994 |
-| edyrs:usdoc1Legal resident             |    49.846 |    49.455 |     1.008 |   0.314 |  \-47.318 |   147.009 |
-| edyrs:usdoc1Temporary: Tourist/visitor |    18.464 |    48.431 |     0.381 |   0.703 |  \-76.688 |   113.616 |
-| edyrs:usdoc1Undocumented               |  \-11.537 |    45.141 |   \-0.256 |   0.798 | \-100.226 |    77.151 |
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133063129 |  1 |   1178515 |     0.034 |
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133809343 |  1 |  432301.3 |     0.201 |
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133986215 |  1 |  255429.1 |     0.326 |
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 128320533 |  1 |   5921111 |         0 |
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 134034469 |  1 |  207174.7 |     0.376 |
 
 We also wanted to consider the interaction between documentation status
 and number of years of education, because it is well known that people
@@ -2302,42 +2311,333 @@ immigrants in the United States.
 The p-value for this test is 0.024 \< 0.05, therefore we should keep the
 interaction term for `edyrs` and `usdoc1` in the model.
 
+### 2.4 Final Model with Interaction
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+term
+
+</th>
+
+<th style="text-align:right;">
+
+estimate
+
+</th>
+
+<th style="text-align:right;">
+
+std.error
+
+</th>
+
+<th style="text-align:right;">
+
+statistic
+
+</th>
+
+<th style="text-align:right;">
+
+p.value
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+(Intercept)
+
+</td>
+
+<td style="text-align:right;">
+
+597.033
+
+</td>
+
+<td style="text-align:right;">
+
+215.040
+
+</td>
+
+<td style="text-align:right;">
+
+2.776
+
+</td>
+
+<td style="text-align:right;">
+
+0.006
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM
+
+</td>
+
+<td style="text-align:right;">
+
+369.447
+
+</td>
+
+<td style="text-align:right;">
+
+125.876
+
+</td>
+
+<td style="text-align:right;">
+
+2.935
+
+</td>
+
+<td style="text-align:right;">
+
+0.003
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age
+
+</td>
+
+<td style="text-align:right;">
+
+\-6.969
+
+</td>
+
+<td style="text-align:right;">
+
+3.614
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.928
+
+</td>
+
+<td style="text-align:right;">
+
+0.054
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-76.132
+
+</td>
+
+<td style="text-align:right;">
+
+22.385
+
+</td>
+
+<td style="text-align:right;">
+
+\-3.401
+
+</td>
+
+<td style="text-align:right;">
+
+0.001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+1.881
+
+</td>
+
+<td style="text-align:right;">
+
+0.795
+
+</td>
+
+<td style="text-align:right;">
+
+2.366
+
+</td>
+
+<td style="text-align:right;">
+
+0.018
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+2.576
+
+</td>
+
+<td style="text-align:right;">
+
+0.549
+
+</td>
+
+<td style="text-align:right;">
+
+4.694
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.493
+
+</td>
+
+<td style="text-align:right;">
+
+0.833
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.793
+
+</td>
+
+<td style="text-align:right;">
+
+0.074
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 ## 3\. Check Assumtpions
 
-Before interpreting the model, it is essential to check the assumptions.
+Before interpreting the model, it is essential to check the
+assumptions.
 
 ### 3.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
 
-![](regression-analysis_files/figure-gfm/scatter-pairs-1.png)<!-- -->
+![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
+
+![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->![](regression-analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 From the data exploratory section, observed a perfect negative linear
 correlation between year-born and age, which makes sense. There is also
 a linear correlation between usdur1 and usdurl.
 
-Hence, we decide to drop either yrborn or age, and either usdur1 or
-usdurl.
+Hence, this is confirmed by backward selection, because it also decided
+to drop yrborn and usdur1.
 
 ### 3.2 Constant Variance
 
 ### 3.2.1 Residuals vs. Factors
 
 Below is the plots of residuals against each quantitative predictor:
+![](regression-analysis_files/figure-gfm/factor_residual_scatterplot-1.png)<!-- -->
 
 Below is the graph of residuals against categorical predictor:
+![](regression-analysis_files/figure-gfm/floorCat_residual-1.png)<!-- -->
 
 From the pairs scatterplot, I cannot observe any clear patterns; and
-from the boxplot, the median of each category seems to be close to 0,
-expect for a slight positive deviation in the 1.5 Floor category, and
-all categories are relatively symmetrical.
+from the boxplot, the median of each category seems to be slightly less
+than 0, and all categories are relatively
+symmetrical.
 
 #### 3.2.2 Residual vs. Predicted
 
-The residual vs. predicted values scatterplot shows a large
-concentration of data points in the 12 to 14 units range of the x-axis.
-However, there are alarming outliers around 17 units. There are no
-discernible patterns.
+![](regression-analysis_files/figure-gfm/residuel_predicted_scatterplot-1.png)<!-- -->
+
+The residual vs. predicted values scatterplot shows no discernible
+patterns.
 
 Overall, the graphs confirm the constant variance assumption is
 satisfied.
@@ -2346,12 +2646,20 @@ satisfied.
 
 #### 3.3.1 Histogram of Residuals
 
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](regression-analysis_files/figure-gfm/histogram_residuals-1.png)<!-- -->
+
 #### 3.3.2 Normal-QQ Plot of Residuals
 
-From the histogram, the shape of distribution of residuals resembles a
-normal distribution. The Normal-QQ plot supports this finding as the
-sample line adheres closely to the theoretical line.So the normality
-assumption is met.
+![](regression-analysis_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+From the histogram, the shape of distribution of residuals has a right
+skew. The Normal-QQ plot supports this finding, as the left half of the
+line follows closely the theoretical diagonal, yet the right half
+deviates from diagonal, showing that the right tail is skewed. Since we
+have 513 observations, the model is robust enough to tolerate deviation
+from normal.
 
 ### 3.4 Independence
 
@@ -2360,15 +2668,6 @@ the US at the same time, and were from the same country of origin, etc.
 We can possibly create interaction terms between them.
 
 ## 4\. Interpretations
-
-Our final model is hhincome=466.5407726+184.6438202Msex + 6.6193307age +
-24.6983000edyrs + 0.6220198usdurl-216.0826709 usdoc1Legal
-resident-215.1165722usdoc1Temporary:
-Tourist/visitor+80.9419979usdoc1Undocumented+49.8455938edyrs:usdoc1Legal
-resident+18.4639273edyrs:usdoc1Temporary:
-Tourist/visitor-11.5374794edyrs:usdoc1Undocumented. Our baseline is an
-average aged women with no education who has spent an average amount of
-time in the US and is on a Bracero contract.
 
 ## 5\. Additional Work
 
