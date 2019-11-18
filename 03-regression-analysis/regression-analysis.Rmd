@@ -37,6 +37,9 @@ Our response variable is household income: the total income for a single househo
 ```{r caldata}
 caldata <- data %>%
   filter(usstatel == "California")
+
+caldata <- caldata%>%
+  na.omit()
 ```
 
 ```{r}
@@ -95,9 +98,10 @@ kable(tidy(full),format="html" ,digits=3)
 ### 2.2 Backward selection
 
 ```{r backward}
-##regfit_backward <- step(full, direction = "backward")
-##sel_summary <- summary(regfit_backward)
-##kable(tidy(regfit_backward, conf.int = TRUE, exponentiate = TRUE), format = "markdown", digits = 8)
+final <- step(full, direction = "backward")
+sel_summary <- summary(final)
+tidy(final, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
 ```
 
 ### 2.3 Interactions
@@ -131,8 +135,6 @@ Hence, we decide to drop either yrborn or age, and either usdur1 or usdurl.
 ```{r}
 ##caldata <- caldata %>% 
   ##mutate(predicted = predict.lm(logprice_model), residuals = resid(logprice_model))
-##caldata <- caldata%>%
-  ##na.omit()
 ```
 
 Below is the plots of residuals against each quantitative predictor:

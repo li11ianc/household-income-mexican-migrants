@@ -124,27 +124,6 @@ rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating issue.
 
-## 2\. Multiple Linear Regression Model
-
-In an effort to determine which characteristics of candidates influence
-their household income, we will be using a multiple linear regression
-model. Since our response variable is numerical with mulitple potential
-predictors, this is the best model at our disposal for us to use.
-
-We will consider the potential interaction between principal occupation
-and number of years of school completed, since those are generally
-interconnected. We may also consider the interaction between
-documentation type and occupation type, although the effect may be
-insignificant.
-
-We will select our model using AIC criteria, because since we’re dealing
-with people, we want to build a model that accounts for volatile human
-nature and the ever-changing socioeconomic and political climate that
-could influence someone’s household income. AIC is used when we would
-rather say a variable is a relevant predictor, when in reality it might
-not be and so in this case, we would rather err on the side of a false
-positive because we are dealing with a constantly fluctuating issue.
-
 ### 2.1 Full Model
 
 <table>
@@ -2200,6 +2179,108 @@ uscityVentura, CA
 </table>
 
 ### 2.2 Backward selection
+
+    ## Start:  AIC=6442.92
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdurl + usdoc1 + uscity
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - uscity   13   3071711 119125190 6430.3
+    ## - occtype  17   6282840 122336319 6436.0
+    ## - marstat   5    831232 116884711 6436.6
+    ## - usdoc1    3    505808 116559287 6439.2
+    ## - statebrn 15   6094016 122147495 6439.2
+    ## - usdur1    1     11365 116064844 6441.0
+    ## <none>                  116053479 6442.9
+    ## - edyrs     1    542908 116596387 6443.3
+    ## - usdurl    1    547562 116601041 6443.3
+    ## - sex       1   1032440 117085919 6445.5
+    ## - age       1   1350282 117403761 6446.9
+    ## 
+    ## Step:  AIC=6430.33
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - occtype  17   5845224 124970414 6420.9
+    ## - marstat   5   1083209 120208399 6425.0
+    ## - statebrn 15   6724549 125849739 6428.5
+    ## - usdoc1    3    975015 120100205 6428.5
+    ## - usdur1    1     81050 119206241 6428.7
+    ## <none>                  119125190 6430.3
+    ## - edyrs     1    471056 119596246 6430.3
+    ## - usdurl    1    898034 120023224 6432.2
+    ## - sex       1    900647 120025837 6432.2
+    ## - age       1    931697 120056887 6432.3
+    ## 
+    ## Step:  AIC=6420.9
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ##     usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - marstat   5    777612 125748026 6414.1
+    ## - statebrn 15   6347181 131317596 6416.3
+    ## - usdoc1    3    830148 125800562 6418.3
+    ## - usdur1    1    155180 125125594 6419.5
+    ## <none>                  124970414 6420.9
+    ## - sex       1    570931 125541345 6421.2
+    ## - age       1    602177 125572591 6421.4
+    ## - usdurl    1   1428461 126398876 6424.7
+    ## - edyrs     1   1682731 126653145 6425.8
+    ## 
+    ## Step:  AIC=6414.08
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - statebrn 15   6699887 132447914 6410.7
+    ## - usdoc1    3    868576 126616602 6411.6
+    ## - usdur1    1    147884 125895910 6412.7
+    ## <none>                  125748026 6414.1
+    ## - age       1    849920 126597946 6415.5
+    ## - sex       1   1355291 127103317 6417.6
+    ## - usdurl    1   1442401 127190427 6417.9
+    ## - edyrs     1   1576632 127324658 6418.5
+    ## 
+    ## Step:  AIC=6410.71
+    ## hhincome ~ sex + age + edyrs + usdur1 + usdurl + usdoc1
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## - usdur1  1    299052 132746966 6409.9
+    ## <none>                132447914 6410.7
+    ## - usdoc1  3   1634456 134082370 6411.0
+    ## - sex     1    790805 133238718 6411.8
+    ## - usdurl  1   1541739 133989652 6414.6
+    ## - age     1   1835768 134283682 6415.8
+    ## - edyrs   1   2538651 134986564 6418.5
+    ## 
+    ## Step:  AIC=6409.87
+    ## hhincome ~ sex + age + edyrs + usdurl + usdoc1
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## - usdoc1  3   1494678 134241644 6409.6
+    ## <none>                132746966 6409.9
+    ## - sex     1   1016294 133763260 6411.8
+    ## - usdurl  1   1375595 134122561 6413.2
+    ## - age     1   1956939 134703904 6415.4
+    ## - edyrs   1   2620424 135367390 6417.9
+    ## 
+    ## Step:  AIC=6409.61
+    ## hhincome ~ sex + age + edyrs + usdurl
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## <none>                134241644 6409.6
+    ## - sex     1   1249042 135490686 6412.4
+    ## - usdurl  1   1733473 135975117 6414.2
+    ## - age     1   2491615 136733260 6417.0
+    ## - edyrs   1   3203237 137444881 6419.7
+
+| term        | estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept) |  130.900 |   166.753 |     0.785 |   0.433 | \-196.710 |   458.511 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |    23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |     2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |    10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |     0.154 |     1.169 |
 
 ### 2.3 Interactions
 
