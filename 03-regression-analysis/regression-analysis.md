@@ -68,7 +68,8 @@ November 14, 2019
 
 #### Rachel
 
-These immigrants to California arrived to the following cities: Los
+![](regression-analysis_files/figure-gfm/cities-1.png)<!-- --> These
+immigrants to California arrived to the following cities: Los
 Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville,
 Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino,
 Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc,
