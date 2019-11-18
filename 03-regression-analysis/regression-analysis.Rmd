@@ -49,7 +49,6 @@ caldata <- data %>%
 ```{r cities}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
-view(caldata$uscity)
 ggplot(data = caldata, aes(x = uscity))+ 
   geom_bar() +
   coord_flip()
