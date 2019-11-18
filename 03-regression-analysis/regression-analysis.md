@@ -4,22 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
-=======
-    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 829458e154b884136664db079f25ff51d950de74
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-=======
-    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 829458e154b884136664db079f25ff51d950de74
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2637,7 +2629,9 @@ skewed.
 ![](regression-analysis_files/figure-gfm/residuel_predicted_scatterplot-1.png)<!-- -->
 
 The residual vs. predicted values scatterplot shows no discernible
-patterns.
+patterns. There is a clustering of predictions between $500 and $1000,
+which makes sense because our input data does not have a lot of rich
+households.
 
 Overall, the graphs confirm the constant variance assumption is
 satisfied.
@@ -2673,7 +2667,8 @@ geographically close to each other.
 Our final model is
 hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
 
-interpretation of coefficient:
+interpretation of coefficient: All else constant, with each year of
+increase in age, the household income decrease by $6.969323
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.
