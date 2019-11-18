@@ -411,6 +411,7 @@ ggplot(data = data, aes(x = edyrs)) +
 ggplot(data = data, aes(x = log(hhincome))) +
   geom_histogram()+
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
+
 ggplot(data = data, aes(x = usstate1)) + 
   geom_bar() +
   coord_flip()+
