@@ -4,22 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-<<<<<<< HEAD
-    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
-=======
     ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-<<<<<<< HEAD
-    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-=======
     ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
->>>>>>> 1fe730e21c9a259697b3c8a5459e32d34f10ba5e
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -2603,8 +2595,7 @@ sexM:usdurl
 
 ## 3\. Check Assumtpions
 
-Before interpreting the model, it is essential to check the
-assumptions.
+Before interpreting the model, it is essential to check the assumptions.
 
 ### 3.1 Linearity
 
@@ -2612,14 +2603,10 @@ assumptions.
 
 ![](regression-analysis_files/figure-gfm/scatter_pairs-1.png)<!-- -->
 
-![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->![](regression-analysis_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](regression-analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
-From the data exploratory section, observed a perfect negative linear
-correlation between year-born and age, which makes sense. There is also
-a linear correlation between usdur1 and usdurl.
-
-Hence, this is confirmed by backward selection, because it also decided
-to drop yrborn and usdur1.
+From the above plots, there seems to be a weak linear relationship
+between the response and predictor variables
 
 ### 3.2 Constant Variance
 
@@ -2677,6 +2664,8 @@ geographically close to each other.
 
 Our final model is
 hhincome=435.625325+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+
+interpretation of coefficient:
 
 Our baseline is an average aged women with no education who has spent an
 average amount of time in the US.
