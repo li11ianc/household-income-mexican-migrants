@@ -16,6 +16,7 @@ library(broom)
 library(leaps)
 library(knitr)
 library(dplyr)
+library(rms)
 ```
 
 ```{r data}
@@ -161,12 +162,34 @@ anova(reduced, int_model_6, test = "Chisq") %>%
 
 Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
 
-### 2.4 Final Model with Interaction
+### 2.4 Model with Interaction
 
 ```{r final-model}
-final_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
-kable(tidy(final_int),format="html" ,digits=3)
+reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
+kable(tidy(reduced_int),format="html" ,digits=3)
 ```
+
+### 2.5 Backward Selection with Interaction
+
+Since we observed 2 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
+
+```{r}
+full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs , data=caldata)
+kable(tidy(full_int),format="html" ,digits=3)
+```
+
+```{r}
+reduced_int_new <- step(full_int, direction = "backward")
+sel_summary <- summary(reduced_int_new)
+tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables identified previously.
+
+
+
+
 
 ## 3. Check Assumtpions
 
@@ -177,7 +200,7 @@ Before interpreting the model, it is essential to check the assumptions.
 ### 3.1.1 Predicted vs. Factors
 
 ```{r scatter-pairs}
-pairs(hhincome ~ age + edyrs + usdurl, data = caldata,
+pairs(hhincome ~ age + edyrs + usdurl + usdur1 , data = caldata,
       lower.panel = NULL)
 ```
 
@@ -190,13 +213,26 @@ ggplot(data = caldata, aes(x = as.factor(sex), y = hhincome))+
 
 From the above plots, there seems to be a weak linear relationship between the response and predictor variables.
 
+We also observe that there is a distinct linear relationship between usdurl and usdur1, which makes sense, because many people's first migration is their last migration. (they have only migrated to the US once.)
+
+Hence, it is worth looking at VIF of the variables:
+
+#### 3.1.2 Multicollinearity
+```{r}
+vif(reduced_int_new)
+vif(reduced_int)
+```
+
+The VIF of usdurl and sex:usdurl are greater than 10, which is alarming. The high VIF of usdurl is likely due to its collinearity with usdur1. However, looking at the VIF for reduced_int model, the VIF for usdurl is still high, meaning that it actually have something to do with the interaction term "sex*usdurl".
+
+
 ### 3.2 Constant Variance
 
 ### 3.2.1 Residuals vs. Factors
 
 ```{r add-residuals}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
+  mutate(predicted = predict.lm(reduced_int_new), residuals = resid(reduced_int_new))
 ```
 
 Below is the plots of residuals against each quantitative predictor:
@@ -236,24 +272,29 @@ ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
          "Household Income (dollars)")
 ```
 
+
 We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. Roughly a quarter of the migrants in the dataset fall into this category.
 
 
+Hence we fit our new full model:
 
+```{r}
+full_seasonal <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs + seasonal , data=caldata)
+kable(tidy(full_seasonal),format="html" ,digits=3)
+```
 
+backward selection:
 
+```{r}
+reduced_seasonal <- step(full_seasonal, direction = "backward")
+sel_summary <- summary(reduced_seasonal)
+tidy(reduced_seasonal, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
 
+The backward selection gave the same output as before, indicating that the indicator "seasonal" is not significant enough for us to include it in the final model.
 
-
-
-
-
-
-
-
-
-
-
+Hence, we proceed with the rest of our assumption checking.
 
 
 Below is the graph of residuals against categorical predictor:
@@ -273,7 +314,7 @@ From the pairs scatterplot, we cannot observe any clear patterns; and from the b
 
 ```{r residuel-predicted-scatterplot}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
+  mutate(predicted = predict.lm(reduced_int_new), residuals = resid(reduced_int_new))
 ggplot(data=caldata,aes(x=predicted, y=residuals)) + 
   geom_point() + 
   geom_hline(yintercept=0,color="red") +
