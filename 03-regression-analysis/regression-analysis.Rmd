@@ -292,7 +292,7 @@ Before interpreting the model, it is essential to check the assumptions.
 
 ### 4.1 Linearity
 
-### 3.1.1 Predicted vs. Factors
+### 4.1.1 Predicted vs. Factors
 
 ```{r scatter-pairs}
 pairs(hhincome ~ age + edyrs + usdurl + usdur1 , data = caldata,
@@ -312,55 +312,98 @@ We also observe that there is a distinct linear relationship between usdurl and 
 
 Hence, it is worth looking at VIF of the variables:
 
-#### 3.1.2 Multicollinearity
+#### 4.1.2 Multicollinearity
 ```{r}
 vif(reduced_int_new)
 vif(reduced_int)
 ```
 
-The VIF of usdurl and sex:usdurl are greater than 10, which is alarming. The high VIF of usdurl is likely due to its collinearity with usdur1. However, looking at the VIF for reduced_int model, the VIF for usdurl is still high, meaning that it actually have something to do with the interaction term "sex*usdurl".
+The VIF of usdurl and sex:usdurl are greater than 10, which is alarming. The high VIF of usdurl is likely due to its collinearity with usdur1. However, looking at the VIF for reduced_int model, the VIF for usdurl is still high, meaning that it actually have something to do with the interaction term "sex*usdurl". 
+
+Hence, we should possibly consider dropping either usdurl or sex*usdurl.
+
+#### 4.1.2.1 Drop sex*usdurl
+```{r}
+full_int_new_1 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + age*edyrs , data=caldata)
+kable(tidy(full_int_new_1),format="html" ,digits=3)
+
+reduced_int_new_1 <- step(full_int_new_1, direction = "backward")
+sel_summary <- summary(reduced_int_new_1)
+tidy(reduced_int_new_1, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+```{r}
+vif(reduced_int_new_1)
+```
+#### 4.1.2.2 Drop usdurl and Change usdurl*sex to usdur1*sex
+
+```{r}
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1 , data=caldata)
+kable(tidy(full_int_new_2),format="html" ,digits=3)
+
+reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+sel_summary <- summary(reduced_int_new_2)
+tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+```{r}
+vif(reduced_int_new_2)
+```
+
+We observed that neither new models have large VIF, which is good. To choose between the two we need to see if the interaction term sex*usdur1 is significant enough:
+
+```{r}
+int_model_7 <- lm(hhincome ~ sex + age + edyrs + usdur1 + age*sex, data = caldata)
+anova(int_model_7, reduced_int_new_2, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0
+```
+
+Since the p-value is 0, we have confidence that the interaction sex*usdur1 is significant. Also, we agreed to err on the side of false positive. Hence, we will include more variables, and choose the reduced_int_new_2 model to proceed.
 
 
-### 3.2 Constant Variance
 
-### 3.2.1 Residuals vs. Factors
+### 4.2 Constant Variance
+
+### 4.2.1 Residuals vs. Factors
 
 ```{r add-residuals}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(reduced_int_new), residuals = resid(reduced_int_new))
+  mutate(predicted = predict.lm(reduced_int_new_2), residuals = resid(reduced_int_new))
 ```
 
 Below is the plots of residuals against each quantitative predictor:
 
 ```{r factor_residual_scatterplot}
-pairs(residuals ~ age + usdurl + edyrs, data = caldata,
+pairs(residuals ~ age + usdur1 + edyrs, data = caldata,
       lower.panel = NULL) 
 ```
 
-From the pairs plot above, there is a possibility that the constant variance for 'usdurl' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
+From the pairs plot above, there is a possibility that the constant variance for 'usdur1' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
 
-We believe that this violation of constant variance may result from certain migration patterns- seasonal workers which come to the US for a short period of time would expect to see different household incomes than long-term migrants. We can examine the distribution of duration of last US migration.
+We believe that this violation of constant variance may result from certain migration patterns- seasonal workers which come to the US for a short period of time would expect to see different household incomes than long-term migrants. We can examine the distribution of duration of first US migration.
 
 ```{r usdurl-plot}
-ggplot(data = caldata, aes(x = usdurl)) +
+ggplot(data = caldata, aes(x = usdur1)) +
   geom_histogram() +
-  labs(title = "Distribution of Last Migration to US (Mean-Centered)", x = "Duration - 60.27 months (months)")
+  labs(title = "Distribution of First Migration to US (Mean-Centered)", x = "Duration - 43.99 months (months)")
 ```
 
 ```{r create-seasonal-var}
 caldata <- caldata %>%
   mutate(seasonal = case_when(
-    usdurl < 6 - 60.27 ~ "Y", #Workers with duration of migration < 6 months will be considered seasonal
+    usdur1 < 6 - 43.99 ~ "Y", #Workers with duration of migration < 6 months will be considered seasonal
     TRUE ~ "N"
   ))
 
 caldata %>%
   count(seasonal)
 
-ggplot(data = caldata, aes(x = seasonal, y = usdurl)) +
+ggplot(data = caldata, aes(x = seasonal, y = usdur1)) +
   geom_boxplot() +
-  labs(title = "Distribution of Duration of Last US Migration", x = "Seasonal Worker?", y = 
-         "Duration of Last US Migration (Mean-Centered) (months)")
+  labs(title = "Distribution of Duration of First US Migration", x = "Seasonal Worker?", y = 
+         "Duration of First US Migration (Mean-Centered) (months)")
 ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
   geom_boxplot() +
   labs(title = "Distribution of Household Income", x = "Seasonal Worker?", y = 
@@ -368,13 +411,13 @@ ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
 ```
 
 
-We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. Roughly a quarter of the migrants in the dataset fall into this category.
+We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. We chose 6 months because anything longer than that should not be considered seasonal, and roughly a quarter of the migrants in the dataset fall into this category.
 
 
 Hence we fit our new full model:
 
 ```{r}
-full_seasonal <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs + seasonal , data=caldata)
+full_seasonal <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + sex*usdur1 + age*edyrs + seasonal , data=caldata)
 kable(tidy(full_seasonal),format="html" ,digits=3)
 ```
 
@@ -401,29 +444,36 @@ ggplot(data=caldata,aes(x=as.factor(sex),y=residuals)) +
   labs(x = "Sex", 
        y="Residuals",
        title= "Boxplot of Residuals vs. Sex")
+
+ggplot(data=caldata,aes(x=as.factor(usdoc1),y=residuals)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(x = "First US Documentation", 
+       y="Residuals",
+       title= "Boxplot of Residuals vs. First US Documentation")
 ```
 
-From the pairs scatterplot, we cannot observe any clear patterns; and from the boxplot, the median of each category seems to be slightly less than 0. While the plot of male is relatively symmetrical, that of female is right skewed.
+From the boxplot, the median of each category floats around 0. While the plot of male is relatively symmetrical, that of female is right skewed. There isn't any major concerns
 
-#### 3.2.2 Residual vs. Predicted
+#### 4.2.2 Residual vs. Predicted
 
 ```{r residuel-predicted-scatterplot}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(reduced_int_new), residuals = resid(reduced_int_new))
+  mutate(predicted = predict.lm(reduced_int_new_2), residuals = resid(reduced_int_new_2))
 ggplot(data=caldata,aes(x=predicted, y=residuals)) + 
   geom_point() + 
   geom_hline(yintercept=0,color="red") +
   labs(title="Residuals vs. Predicted Household Income")
 ```
 
-The residual vs. predicted values scatterplot shows no discernible patterns. There is a clustering of predictions between $500 and $1000, which makes sense because our input data does not have a lot of rich households.
+The residual vs. predicted values scatterplot shows no discernible patterns. There is a clustering of predictions between USD 500 and USD 1000, which makes sense because our input data does not have a lot of rich households.
 
 Overall, the graphs confirm the constant variance assumption is satisfied.
 
 
-### 3.3 Normality
+### 4.3 Normality
 
-#### 3.3.1 Histogram of Residuals
+#### 4.3.1 Histogram of Residuals
 
 ```{r histogram-residuals}
 ggplot(data=caldata, mapping=aes(x=residuals)) + 
@@ -431,7 +481,7 @@ ggplot(data=caldata, mapping=aes(x=residuals)) +
   labs(title="Distribution of Residuals", x="Residual")
 ```
 
-#### 3.3.2 Normal-QQ Plot of Residuals
+#### 4.3.2 Normal-QQ Plot of Residuals
 
 ```{r qqplot}
 ggplot(data=caldata,mapping=aes(sample=residuals)) +
@@ -442,11 +492,12 @@ ggplot(data=caldata,mapping=aes(sample=residuals)) +
 
 From the histogram, the shape of distribution of residuals has a right skew. The Normal-QQ plot supports this finding, as the left half of the line follows closely the theoretical diagonal, yet the right half deviates from diagonal, showing that the right tail is skewed. Since we have 513 observations, the model is robust enough to tolerate deviation from normal.
 
-### 3.4 Independence
+### 4.4 Independence
 
 Since we only included observations of heads of household, there will not be dependence caused by similar demographics between family members. However, some interdependence may arise since all observations are geographically close to each other. 
 
-## 4. Interpretations
+
+## 5. Interpretations
 
 Our final model is hhincome=435.9118185+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
 
@@ -477,4 +528,4 @@ As anticipated, more years of education increased income significantly.
 
 The more time an immigrant had been in the US, the more income they could expect to earn -- this may have to do with the advantages of having networks and stability, as well as overcoming language and cultural barriers. 
 
-## 5. Additional Work
+## 6. Additional Work
