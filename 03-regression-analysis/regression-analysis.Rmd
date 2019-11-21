@@ -496,31 +496,30 @@ From the histogram, the shape of distribution of residuals has a right skew. The
 
 Since we only included observations of heads of household, there will not be dependence caused by similar demographics between family members. However, some interdependence may arise since all observations are geographically close to each other. 
 
-
+ 
 ## 5. Interpretations
 
-Our final model is hhincome=435.9118185+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+Our final model is 
+hhincome = 456.946 + 289.409 sexM - 7.630 age + 24.947 edyrs + 1.122 usdur1 + 166.464 usdoc1Legal resident - 94.505 usdoc1Temporary: Tourist/visitor - 41.715 usdoc1Undocumented +  2.712 age:edyrs - 1.184 sexM:usdur1
 
-interpretation of coefficient:
-All else constant, as compared to a female, a male's household income increases by $279.468261;
-All else constant, with each year of increase in age, the household income decrease by $6.969323;
-All else constant, with each year of increase in years of education, the household income increases by $25.408001;
-All else constant, with each month of increase in duration in the US, the household income increases by $2.575527.
+Intercept:
+Our model expects an average household income of $456.946 for female Mexican migrants who has contract Bracero, at age 39 with no years of education and a duration of 43.99 months for first US migration, all else held constant.
+
+Coefficient:
+All else constant, as compared to a female, a male's household income increases by $289.409;
+All else constant, with each year of increase in age, the household income decrease by $7.630;
+All else constant, with each year of increase in years of education, the household income increases by $24.947;
+All else constant, with each month of increase in duration in the US during first migration, the household income increases by $1.122;
+All else constant, as compared to contract Bracero, the household income of a legal resident increases by $166.464;
+All else constant, as compared to contract Bracero, the household income of a temporary visitor decreases by $94.505;
+All else constant, as compared to contract Bracero, the household income of an undocumented person decreases by $41.715.
 
 
-Our model expects an average household income of $435.63 for female Mexican migrants at age 39 with no years of education and a duration of 60.27 months for last US migration, all else held constant.
+Interaction:
 
-For every increase of one year in age above 39.4, all else held constant, we expect to see a decrease of 6.97 dollars in average household income.
+For every increase of one month in duration of first US migration above 43.99 months, we expect to see an increase of around 1.18 dollars in household income for women and a (lesser) increase of 1.12 dollars in income for men.
 
-For every increase of one year in education, all else held constant, we expect to see an increase of 25.41 dollars in average household income.
-
-For male immigrants as compared to female immigrants, we expect to see an increase of 279.47 dollars in average household income, all else held constant.
-
-Interpret age:edyrs interaction???
-
-For every increase of one month in duration of last US migration above 60.27 months, we expect to see an increase of around 1.88 dollars in income for women and a (lesser) increase of 0.34 dollars in income for men.
-
-Our baseline is an average aged women with no education who has spent an average amount of time in the US.
+For every increase of one year of age, we expect to see an increase of around 2.712+24.947= 27.66 dollars in household income for each year of increase in education.
 
 We note that being male increases expected income. This may have to do with the gender wage gap, but more likely has to do with the type of labour immigrants tend to do: often, this is physical labour that men, who on average are larger, are more capable of performing. Similarly, we would expect elderly immigrants to struggle with hard labour, and we note that income falls as age increases. 
 
