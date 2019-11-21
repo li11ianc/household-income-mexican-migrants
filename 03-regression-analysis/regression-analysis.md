@@ -243,7 +243,16 @@ We must center age and usdurl in order to interpret them.
 
 The mean age in the dataset is 39.43 years ; the mean duration of last
 US migration is 60.27 months (about 5 years); and the mean duration of
-first US migration is 43.99 months (less than 3.5 years).
+first US migration is 43.99 months (less than 3.5
+years).
+
+#### 2.2.5 Remove Obvious Collinear Variable
+
+<img src="regression-analysis_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
+
+`yrborn` and `age` provide the same information and are perfectly
+linear, therefore we decided to remove `yrborn` from consideration in
+the model.
 
 ## 3\. Multiple Linear Regression Model
 
@@ -264,16 +273,9 @@ nature and the ever-changing socioeconomic and political climate that
 could influence someone’s household income. AIC is used when we would
 rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
-positive because we are dealing with a constantly fluctuating
-issue.
+positive because we are dealing with a constantly fluctuating issue.
 
-### 2.1 Full Model
-
-<img src="regression-analysis_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
-
-`yrborn` and `age` provide the same information and are perfectly
-linear, therefore we decided to remove `yrborn` from consideration in
-the model.
+### 3.1 Full Model
 
 <table>
 
@@ -2327,7 +2329,7 @@ uscityVentura, CA
 
 </table>
 
-### 2.2 Backward selection
+### 3.2 Backward selection
 
     ## Start:  AIC=6442.92
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
@@ -2431,7 +2433,13 @@ uscityVentura, CA
 | edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
 | usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
 
-### 2.3 Interactions
+Using backward selection based on AIC, we narrowed down to 4 variables:
+sex, edyrs, usdurl and age.
+
+### 3.3 Interactions
+
+To find potential interactions between the 4 variables, we used nested-F
+test for each of the possible interactions:
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
@@ -2467,7 +2475,7 @@ Through nested F-test, we observed significant interactions between age
 & edyrs and between sex & usdurl, with respective p-values of 0 and
 0.034.
 
-### 2.4 Model with Interaction
+### 3.4 Model with Interaction
 
 <table>
 
@@ -2753,7 +2761,7 @@ sexM:usdurl
 
 </table>
 
-### 2.5 Backward Selection with Interaction
+### 3.5 Backward Selection with Interaction
 
 Since we observed 2 pairs of significant interactions, we will do the
 backward selection again with the new interaction terms.
@@ -4959,14 +4967,14 @@ age:edyrs
 | age:edyrs                        |     2.616 |     0.554 |     4.724 |   0.000 |     1.528 |     3.704 |
 
 We observed that the variable selection changed. Specifically, usdur1
-and usdoc1 are significant, besides the 4 variables identified
-previously.
+and usdoc1 are significant, besides the 4 variables and the 2
+interaction terms identified previously.
 
-## 3\. Check Assumtpions
+## 4\. Check Assumtpions
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 3.1 Linearity
+### 4.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
 

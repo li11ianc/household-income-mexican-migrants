@@ -187,7 +187,15 @@ caldata <- caldata %>%
   mutate(usdur1=usdur1-mean(usdur1))
 ```
 
+#### 2.2.5 Remove Obvious Collinear Variable
 
+```{r yrborn-age, fig.align = "center"}
+ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
+  geom_point()+
+  labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
+```
+
+`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
 
 
 ## 3. Multiple Linear Regression Model
@@ -198,22 +206,14 @@ We will consider the potential interaction between principal occupation and numb
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
-### 2.1 Full Model
-
-```{r yrborn-age, fig.align = "center"}
-ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
-  geom_point()+
-  labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
-```
-
-`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
+### 3.1 Full Model
 
 ```{r model}
 full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
 kable(tidy(full),format="html" ,digits=3)
 ```
 
-### 2.2 Backward selection
+### 3.2 Backward selection
 
 ```{r backward-selection}
 reduced <- step(full, direction = "backward")
@@ -222,7 +222,12 @@ tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
-### 2.3 Interactions
+Using backward selection based on AIC, we narrowed down to 4 variables: sex, edyrs, usdurl and age.
+
+
+### 3.3 Interactions
+
+To find potential interactions between the 4 variables, we used nested-F test for each of the possible interactions:
 
 ```{r int-model}
 int_model_1 <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdurl, data = caldata)
@@ -252,14 +257,14 @@ anova(reduced, int_model_6, test = "Chisq") %>%
 
 Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
 
-### 2.4 Model with Interaction
+### 3.4 Model with Interaction
 
 ```{r final-model}
 reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
 kable(tidy(reduced_int),format="html" ,digits=3)
 ```
 
-### 2.5 Backward Selection with Interaction
+### 3.5 Backward Selection with Interaction
 
 Since we observed 2 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
 
@@ -275,17 +280,17 @@ tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
-We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables identified previously.
+We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables and the 2 interaction terms identified previously.
 
 
 
 
 
-## 3. Check Assumtpions
+## 4. Check Assumtpions
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 3.1 Linearity
+### 4.1 Linearity
 
 ### 3.1.1 Predicted vs. Factors
 
