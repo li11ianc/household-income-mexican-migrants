@@ -59,11 +59,17 @@ Originally, the distribution of log(Household Income)- our response
 variable- was bimodal and had a mean of 412,647 dollars. We determined
 that this is an absurdly high median income for a survey of largely
 undocumented immigrants in the US and believe that a significant chunk
-of the high incomes were actually recorded in pesos. We will filter out
-the incomes above 60,000 to remove what appears to be a second
-distribution of incomes in pesos. We will also remove incomes of zero
-from our
-dataset.
+of the high incomes were actually recorded in pesos. The documentation
+for the data from the Mexican Migration Project does not specify unit of
+hhincome; however, the project site details that researchers surveyed
+communities in Mexico, then traveled to the US to survey communities
+there. It seems likely that the communities surveyed in Mexico would
+report income in pesos and those surveyed in the US would report income
+in USD. We will filter out the incomes above 60,000 to remove what
+appears to be a second distribution of incomes in pesos. We will also
+remove incomes of zero from our dataset, restricting our analysis to
+migrants who likely have
+jobs.
 
 ![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
@@ -78,12 +84,14 @@ number of cases in which no city was reported, we deleted these
 instances. This leaves 15 unique locations in California. The majority
 of immigrants went to LA-Long Beach area.
 
-It turned out that all values from relhead in our cleaned data were “1”
-or head. So we will remove this variable, as well as state variables
-since we are only using California data. We will also remove place data
-since we are using uscity, and occ since we are using occtype.
+It turned out that all values from relhead (relationship to head of
+household) in our cleaned data were “1” (= head). So we will remove this
+variable, as well as state variables since we are only using California
+data. We will also remove place data since we are using uscity, and occ
+since we are using occtype.
 
-We must center age and usdurl in order to interpret them.
+We must center age and usdurl in order to have a useful model intercept
+interpretation.
 
     ## [1] 39.42495
 
@@ -94,16 +102,18 @@ US migration is 60.27 months (about 5 years).
 
 ## 2\. Multiple Linear Regression Model
 
-In an effort to explain which characteristics of candidates influence
-their household income, we will be using a multiple linear regression
-model. Since our response variable is numerical with mulitple potential
-predictors, this is the best model at our disposal for us to use.
+In an effort to explain which characteristics of migrants influence
+their household income, we will use a multiple linear regression model.
+Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal.
 
 We will consider the potential interaction between principal occupation
 and number of years of school completed, since those are generally
 interconnected. We may also consider the interaction between
 documentation type and occupation type, although the effect may be
-insignificant.
+insignificant. However, if the variables occtype, edyrs, or usdoc1 don’t
+make it through the process of inital model selection, we will not
+include these interactions in the model as that would not be prudent.
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human
@@ -2280,6 +2290,10 @@ uscityVentura, CA
 
 ### 2.3 Interactions
 
+After inital backwards selection, we will explore the possible
+interactions between remaining variables- edyrs, usdurl, sex, and age-
+to determine if any are significant.
+
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
@@ -2613,7 +2627,8 @@ Before interpreting the model, it is essential to check the assumptions.
 ![](regression-analysis_files/figure-gfm/income-sex-plot-1.png)<!-- -->
 
 From the above plots, there seems to be a weak linear relationship
-between the response and predictor variables.
+between the response and predictor variables. No non-linear patterns
+(i.e. quadratic relationships) appear.
 
 ### 3.2 Constant Variance
 
@@ -2635,10 +2650,7 @@ We believe that this violation of constant variance may result from
 certain migration patterns- seasonal workers which come to the US for a
 short period of time would expect to see different household incomes
 than long-term migrants. We can examine the distribution of duration of
-last US
-    migration.
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+last US migration.
 
 ![](regression-analysis_files/figure-gfm/usdurl-plot-1.png)<!-- -->
 
