@@ -11712,8 +11712,6 @@ satisfied.
 
 #### 4.3.1 Histogram of Residuals
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
 ![](regression-analysis_files/figure-gfm/histogram-residuals-1.png)<!-- -->
 
 #### 4.3.2 Normal-QQ Plot of Residuals

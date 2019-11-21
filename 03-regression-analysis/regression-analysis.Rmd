@@ -489,7 +489,7 @@ Overall, the graphs confirm the constant variance assumption is satisfied.
 
 ```{r histogram-residuals}
 ggplot(data=caldata, mapping=aes(x=residuals)) + 
-  geom_histogram() +
+  geom_histogram(binwidth = 70) +
   labs(title="Distribution of Residuals", x="Residual")
 ```
 
