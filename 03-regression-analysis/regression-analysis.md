@@ -4,14 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-    ## ── Attaching packages ───────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -68,32 +68,150 @@ November 20, 2019
 
 ## 1\. Introduction
 
+### 1.1 Objective
+
 We are aiming to build a model to determine which characteristics of
 Mexican immmigrants to the United States, specifically California,
-well-explain variation in household income. We will be building a
-multiple linear regression model to predict household income considering
-the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`,
-`edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`.
+well-explain variation in household income.
+
+### 1.2 Description of Dataset
+
+The dataset is from The Mexican Migration Project (MMP, \*see References
+below for confidentiality terms). It was created in 1982 by an
+interdisciplinary team of researchers to further our understanding of
+the complex process of Mexican migration to the United States. The
+project is a binational research effort co-directed by Jorge Durand,
+professor of Social Anthropology at the University of Guadalajara
+(Mexico), and Douglas S. Massey, professor of Sociology and Public
+Affairs, with a joint appointment in the Woodrow Wilson School, at
+Princeton University (US).
+
+Since its inception, the MMP’s main focus has been to gather social as
+well as economic information on Mexican-US migration. The data collected
+has been compiled in a comprehensive database that is available to the
+public free of charge for research and educational purposes through its
+web-site. The MMP uses the ethnosurvey approach to gather data: in
+winter months, they randomly sample households in communities throughout
+Mexico, surveying household heads and members about their first and last
+trip to the US, as well as economic and demographic information. They
+then conduct the same survey in destination areas in the US, sampling
+migrants from the same communities they survey in Mexico but who have
+not returned to Mexico. Thus, the sample of migrants includes residents
+in both Mexico and the US.
+
+The MMP170 Database contains an initial file with general demographic,
+economic, and migratory information for each member of a surveyed
+household (PERS). Pers170 has 132 variables and 176701 observations,and
+hence it is very large. Therefore, we selected 17 meaningful variables
+and filtered out rows that contain N/A’s to create a new dataset labeled
+`data`.
+
+### 1.3 Method
+
+We will build a multiple linear regression model to predict household
+income considering the following variables: `sex`, `relhead`, `age`,
+`statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`,
+`uscity`, `yrborn`.
+
+“X1”: Number of observation
+
+“sex”: Sex
+
+“relhead”: Relationship to household head
+
+“yrborn”: Year of birth
+
+“age”: Age
+
+“statebrn”: State of birth
+
+“marstat”: Marital status
+
+“edyrs”: School years completed
+
+“occ”: Principal occupation
+
+“hhincome” : Household income
+
+“usstate1”: First US mig: State of residence
+
+“usstatel”: Latest US mig: State of residence
+
+“usplace1”: First US mig: City of residence (in place codes)
+
+“usplacel”: Latest US mig: City of residence (in place codes)
+
+“usdur1”: First US mig: Duration (in months)
+
+“usdurl”: Latest US mig: Duration (in months)
+
+“usdoc1”: Type of documentation
+
+“occtype”: Category of occupation
+
+“uscity”: City of residence during first US migration
 
 Our response variable is household income: the total income for a single
-household, reported in
-$USD.
+household, reported in $USD. We chose to use the multiple linear
+regression because our response variable is numeric, and there are
+multiple predictor variables.
 
 ## 2\. Exploratory Data Analysis
 
-![](regression-analysis_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
+### 2.1 Data Cleaning
+
+Due to the complexity of our original data, we did not include data
+cleaning in the analysis. For more information, please see our proposal,
+where all the data cleaning happens.
+
+However, we did make some adjustment according to the feedback that
+there is large imbalance of the amount of data between regions, and that
+the distribution of the response variable is not normal. Below is the
+update on our data cleaning:
+
+### 2.2 Updated Data Exploration
+
+#### 2.2.1 Filter Only Immigrants in California
+
+Accoridng to our previous data exploration, we found that the
+overwhelming majority of immigrants settled in California, as shown in
+the graph below:
+
+![](regression-analysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+Hence, we decided to concentrate on California alone. Since the
+originial dataset is large, we have enough data left in California alone
+to produce meaningful analysis.
+
+#### 2.2.2 Cut Household Income Groups
 
 Originally, the distribution of log(Household Income)- our response
-variable- was bimodal and had a mean of 412,647 dollars. We determined
-that this is an absurdly high median income for a survey of largely
-undocumented immigrants in the US and believe that a significant chunk
-of the high incomes were actually recorded in pesos. We will filter out
-the incomes above 60,000 to remove what appears to be a second
-distribution of incomes in pesos. We will also remove incomes of zero
-from our
-dataset.
+variable- was bimodal and had a median of 412,647 dollars. It almost
+looks like 3 separate
+distributions:
+
+![](regression-analysis_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
+
+We determined that 412,647 dollars is an absurdly high median income for
+a survey of largely undocumented immigrants in the US and believe that a
+significant chunk of the high incomes were actually recorded in pesos.
+However, since the data is taken across a period of 10 years, the
+exchange rate between pesos and USD had increased significantly. Hence,
+we cannot simply convert all the data that are larger into USD.
+
+Therefore, we decided to filter out the incomes above 60,000 to remove
+what appears to be a second distribution of incomes in pesos. We will
+also remove incomes of zero from our dataset, because it will interfere
+with our model accuracy. However, this compromises our model’s
+predicative range: our model will only be able to predict the household
+income of those who already have jobs
+(income).
 
 ![](regression-analysis_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
+
+Now the distribution of response variable (hhincome) looks like a right
+skewed normal
+distribution.
 
 <img src="regression-analysis_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
 
@@ -106,10 +224,14 @@ number of cases in which no city was reported, we deleted these
 instances. This leaves 15 unique locations in California. The majority
 of immigrants went to LA-Long Beach area.
 
+#### 2.2.3 Remove Variable “relhead”
+
 It turned out that all values from relhead in our cleaned data were “1”
 or head. So we will remove this variable, as well as state variables
 since we are only using California data. We will also remove place data
 since we are using uscity, and occ since we are using occtype.
+
+#### 2.2.4 Mean-center “age” , “usdur1” and “usdurl”
 
 We must center age and usdurl in order to interpret them.
 
@@ -117,10 +239,13 @@ We must center age and usdurl in order to interpret them.
 
     ## [1] 60.27096
 
-The mean age in the dataset is 39.43 years and the mean duration of last
-US migration is 60.27 months (about 5 years).
+    ## [1] 43.98635
 
-## 2\. Multiple Linear Regression Model
+The mean age in the dataset is 39.43 years ; the mean duration of last
+US migration is 60.27 months (about 5 years); and the mean duration of
+first US migration is 43.99 months (less than 3.5 years).
+
+## 3\. Multiple Linear Regression Model
 
 In an effort to explain which characteristics of candidates influence
 their household income, we will be using a multiple linear regression
@@ -202,25 +327,25 @@ p.value
 
 <td style="text-align:right;">
 
-549.969
+545.964
 
 </td>
 
 <td style="text-align:right;">
 
-566.730
+564.845
 
 </td>
 
 <td style="text-align:right;">
 
-0.970
+0.967
 
 </td>
 
 <td style="text-align:right;">
 
-0.332
+0.334
 
 </td>
 
@@ -2685,25 +2810,25 @@ p.value
 
 <td style="text-align:right;">
 
-892.327
+878.026
 
 </td>
 
 <td style="text-align:right;">
 
-559.358
+557.482
 
 </td>
 
 <td style="text-align:right;">
 
-1.595
+1.575
 
 </td>
 
 <td style="text-align:right;">
 
-0.111
+0.116
 
 </td>
 
@@ -4821,7 +4946,7 @@ age:edyrs
 
 | term                             |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
 | :------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept)                      |   569.770 |   174.180 |     3.271 |   0.001 |   227.559 |   911.981 |
+| (Intercept)                      |   543.131 |   171.838 |     3.161 |   0.002 |   205.521 |   880.741 |
 | sexM                             |   229.279 |   114.478 |     2.003 |   0.046 |     4.364 |   454.195 |
 | age                              |   \-8.312 |     3.922 |   \-2.119 |   0.035 |  \-16.017 |   \-0.606 |
 | edyrs                            |    22.975 |     6.806 |     3.376 |   0.001 |     9.604 |    36.345 |
@@ -4976,25 +5101,25 @@ p.value
 
 <td style="text-align:right;">
 
-916.810
+903.008
 
 </td>
 
 <td style="text-align:right;">
 
-561.456
+559.654
 
 </td>
 
 <td style="text-align:right;">
 
-1.633
+1.614
 
 </td>
 
 <td style="text-align:right;">
 
-0.103
+0.107
 
 </td>
 
@@ -7164,7 +7289,7 @@ backward selection:
 
 | term                             |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
 | :------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept)                      |   569.770 |   174.180 |     3.271 |   0.001 |   227.559 |   911.981 |
+| (Intercept)                      |   543.131 |   171.838 |     3.161 |   0.002 |   205.521 |   880.741 |
 | sexM                             |   229.279 |   114.478 |     2.003 |   0.046 |     4.364 |   454.195 |
 | age                              |   \-8.312 |     3.922 |   \-2.119 |   0.035 |  \-16.017 |   \-0.606 |
 | edyrs                            |    22.975 |     6.806 |     3.376 |   0.001 |     9.604 |    36.345 |
