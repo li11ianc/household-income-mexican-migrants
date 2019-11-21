@@ -16,6 +16,7 @@ library(broom)
 library(leaps)
 library(knitr)
 library(dplyr)
+library(rms)
 ```
 
 ```{r data}
@@ -24,13 +25,85 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 
 ## 1. Introduction
 
-We are aiming to build a model to determine which characteristics of Mexican immmigrants to the United States, specifically California, well-explain variation in household income. We will be building a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`.
+### 1.1 Objective
 
-Our response variable is household income: the total income for a single household, reported in $USD. 
+We are aiming to build a model to determine which characteristics of Mexican immmigrants to the United States, specifically California, well-explain variation in household income. 
+
+### 1.2 Description of Dataset
+
+The dataset is from The Mexican Migration Project (MMP, *see References below for confidentiality terms). It was created in 1982 by an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (US).
+
+Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they survey in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
+
+The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations,and hence it is very large. Therefore, we selected 17 meaningful variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
+
+### 1.3 Method
+
+We will build a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`. 
+
+"X1": Number of observation
+
+"sex": Sex
+  
+"relhead": Relationship to household head
+
+"yrborn": Year of birth
+
+"age": Age
+
+"statebrn": State of birth
+
+"marstat": Marital status
+
+"edyrs": School years completed
+
+"occ": Principal occupation
+
+"hhincome" : Household income
+
+"usstate1": First US mig: State of residence
+
+"usstatel": Latest US mig: State of residence
+
+"usplace1": First US mig: City of residence (in place codes)
+
+"usplacel": Latest US mig: City of residence (in place codes)
+
+"usdur1": First US mig: Duration (in months)
+
+"usdurl": Latest US mig: Duration (in months)
+
+"usdoc1": Type of documentation 
+
+"occtype": Category of occupation
+
+"uscity": City of residence during first US migration
+
+Our response variable is household income: the total income for a single household, reported in $USD. We chose to use the multiple linear regression because our response variable is numeric, and there are multiple predictor variables.
 
 
 ## 2. Exploratory Data Analysis
 
+### 2.1 Data Cleaning
+
+Due to the complexity of our original data, we did not include data cleaning in the analysis. For more information, please see our proposal, where all the data cleaning happens.
+
+However, we did make some adjustment according to the feedback that there is large imbalance of the amount of data between regions, and that the distribution of the response variable is not normal. Below is the update on our data cleaning:
+
+### 2.2 Updated Data Exploration
+
+#### 2.2.1 Filter Only Immigrants in California
+
+Accoridng to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
+
+```{r}
+ggplot(data = data, aes(x = uscity)) + 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
+```
+
+Hence, we decided to concentrate on California alone. Since the originial dataset is large, we have enough data left in California alone to produce meaningful analysis.
 
 ```{r caldata}
 caldata <- data %>%
@@ -38,7 +111,12 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
+
 ```
+
+#### 2.2.2 Cut Household Income Groups
+
+Originally, the distribution of log(Household Income)- our response variable- was bimodal and had a median of 412,647 dollars. It almost looks like 3 separate distributions:
 
 ```{r nonfilt-income-plot}
 ggplot(data = caldata, aes(x = log(hhincome))) +
@@ -46,7 +124,9 @@ ggplot(data = caldata, aes(x = log(hhincome))) +
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
 ```
 
-Originally, the distribution of log(Household Income)- our response variable- was bimodal and had a mean of 412,647 dollars. We determined that this is an absurdly high median income for a survey of largely undocumented immigrants in the US and believe that a significant chunk of the high incomes were actually recorded in pesos. The documentation for the data from the Mexican Migration Project does not specify unit of hhincome; however, the project site details that researchers surveyed communities in Mexico, then traveled to the US to survey communities there. It seems likely that the communities surveyed in Mexico would report income in pesos and those surveyed in the US would report income in USD. We will filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, restricting our analysis to migrants who likely have jobs.
+We determined that 412,647 dollars is an absurdly high median income for a survey of largely undocumented immigrants in the US and believe that a significant chunk of the high incomes were actually recorded in pesos. The documentation for the data from the Mexican Migration Project does not specify unit of hhincome; however, the project site details that researchers surveyed communities in Mexico, then traveled to the US to survey communities there. It seems likely that the communities surveyed in Mexico would report income in pesos and those surveyed in the US would report income in USD. However, the data was collected over a period of 10 years, during which the exchange rate between pesos and USD changed significantly. Hence, we cannot simply convert all the incomes that appear to be recorded in pesos into USD. 
+
+Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predicative range: our model will only be able to predict the household income of those who already have jobs (income).
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
@@ -65,6 +145,8 @@ ggplot(data = caldata, aes(x = hhincome)) +
   labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
 ```
 
+Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
+
 ```{r cities, fig.align="center"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
@@ -76,26 +158,33 @@ ggplot(data = caldata, aes(x = uscity))+
 
 These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. The majority of immigrants went to LA-Long Beach area. 
 
-It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" (= head). So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
+#### 2.2.3 Remove Variable "relhead"
+
+It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
 ```{r remove-relhead}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
+
+#### 2.2.4 Mean-center "age" , "usdur1" and "usdurl"
 
 We must center age and usdurl in order to have a useful model intercept interpretation.
 
 ```{r mean-age-usdurl}
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
+mean(caldata$usdur1) #mean usdur1
 ```
 
-The mean age in the dataset is 39.43 years and the mean duration of last US migration is 60.27 months (about 5 years).
+The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
 
 ```{r age-usdurl-cent}
 caldata <- caldata %>%
   mutate(age=age-mean(age))
 caldata <- caldata %>%
   mutate(usdurl=usdurl-mean(usdurl))
+caldata <- caldata %>%
+  mutate(usdur1=usdur1-mean(usdur1))
 ```
 
 ## 2. Multiple Linear Regression Model
@@ -107,6 +196,8 @@ We will consider the potential interaction between principal occupation and numb
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
 ### 2.1 Full Model
+=======
+#### 2.2.5 Remove Obvious Collinear Variable
 
 ```{r yrborn-age, fig.align = "center"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
@@ -116,12 +207,23 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 
 `yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
 
+
+## 3. Multiple Linear Regression Model
+
+In an effort to explain which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
+
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant.
+
+We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
+
+### 3.1 Full Model
+
 ```{r model}
 full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
 kable(tidy(full),format="html" ,digits=3)
 ```
 
-### 2.2 Backward selection
+### 3.2 Backward selection
 
 ```{r backward-selection}
 reduced <- step(full, direction = "backward")
@@ -130,7 +232,12 @@ tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
-### 2.3 Interactions
+Using backward selection based on AIC, we narrowed down to 4 variables: sex, edyrs, usdurl and age.
+
+
+### 3.3 Interactions
+
+To find potential interactions between the 4 variables, we used nested-F test for each of the possible interactions:
 
 After inital backwards selection, we will explore the possible interactions between remaining variables- edyrs, usdurl, sex, and age- to determine if any are significant.
 
@@ -162,23 +269,45 @@ anova(reduced, int_model_6, test = "Chisq") %>%
 
 Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
 
-### 2.4 Final Model with Interaction
+### 3.4 Model with Interaction
 
 ```{r final-model}
-final_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
-kable(tidy(final_int),format="html" ,digits=3)
+reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl, data=caldata)
+kable(tidy(reduced_int),format="html" ,digits=3)
 ```
 
-## 3. Check Assumtpions
+### 3.5 Backward Selection with Interaction
+
+Since we observed 2 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
+
+```{r}
+full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs , data=caldata)
+kable(tidy(full_int),format="html" ,digits=3)
+```
+
+```{r}
+reduced_int_new <- step(full_int, direction = "backward")
+sel_summary <- summary(reduced_int_new)
+tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables and the 2 interaction terms identified previously.
+
+
+
+
+
+## 4. Check Assumtpions
 
 Before interpreting the model, it is essential to check the assumptions.
 
-### 3.1 Linearity
+### 4.1 Linearity
 
-### 3.1.1 Predicted vs. Factors
+### 4.1.1 Predicted vs. Factors
 
 ```{r scatter-pairs}
-pairs(hhincome ~ age + edyrs + usdurl, data = caldata,
+pairs(hhincome ~ age + edyrs + usdurl + usdur1 , data = caldata,
       lower.panel = NULL)
 ```
 
@@ -191,53 +320,131 @@ ggplot(data = caldata, aes(x = as.factor(sex), y = hhincome))+
 
 From the above plots, there seems to be a weak linear relationship between the response and predictor variables. No non-linear patterns (i.e. quadratic relationships) appear.
 
-### 3.2 Constant Variance
+We also observe that there is a distinct linear relationship between usdurl and usdur1, which makes sense, because many people's first migration is their last migration. (they have only migrated to the US once.)
 
-### 3.2.1 Residuals vs. Factors
+Hence, it is worth looking at VIF of the variables:
+
+#### 4.1.2 Multicollinearity
+```{r}
+vif(reduced_int_new)
+vif(reduced_int)
+```
+
+The VIF of usdurl and sex:usdurl are greater than 10, which is alarming. The high VIF of usdurl is likely due to its collinearity with usdur1. However, looking at the VIF for reduced_int model, the VIF for usdurl is still high, meaning that it actually have something to do with the interaction term "sex*usdurl". 
+
+Hence, we should possibly consider dropping either usdurl or sex*usdurl.
+
+#### 4.1.2.1 Drop sex*usdurl
+```{r}
+full_int_new_1 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + age*edyrs , data=caldata)
+kable(tidy(full_int_new_1),format="html" ,digits=3)
+
+reduced_int_new_1 <- step(full_int_new_1, direction = "backward")
+sel_summary <- summary(reduced_int_new_1)
+tidy(reduced_int_new_1, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+```{r}
+vif(reduced_int_new_1)
+```
+#### 4.1.2.2 Drop usdurl and Change usdurl*sex to usdur1*sex
+
+```{r}
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1 , data=caldata)
+kable(tidy(full_int_new_2),format="html" ,digits=3)
+
+reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+sel_summary <- summary(reduced_int_new_2)
+tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+```{r}
+vif(reduced_int_new_2)
+```
+
+We observed that neither new models have large VIF, which is good. To choose between the two we need to see if the interaction term sex*usdur1 is significant enough:
+
+```{r}
+int_model_7 <- lm(hhincome ~ sex + age + edyrs + usdur1 + age*sex, data = caldata)
+anova(int_model_7, reduced_int_new_2, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0
+```
+
+Since the p-value is 0, we have confidence that the interaction sex*usdur1 is significant. Also, we agreed to err on the side of false positive. Hence, we will include more variables, and choose the reduced_int_new_2 model to proceed.
+
+
+
+### 4.2 Constant Variance
+
+### 4.2.1 Residuals vs. Factors
 
 ```{r add-residuals}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
+  mutate(predicted = predict.lm(reduced_int_new_2), residuals = resid(reduced_int_new))
 ```
 
 Below is the plots of residuals against each quantitative predictor:
 
 ```{r factor_residual_scatterplot}
-pairs(residuals ~ age + usdurl + edyrs, data = caldata,
+pairs(residuals ~ age + usdur1 + edyrs, data = caldata,
       lower.panel = NULL) 
 ```
 
-From the pairs plot above, there is a possibility that the constant variance for 'usdurl' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
+From the pairs plot above, there is a possibility that the constant variance for 'usdur1' is violated, because the scatterplot shows a reserved-fan shape. However, this could also be due to the fact that we have more data points on the lower range as compared to the upper range. Even though, the data looks sparser on the right, the spread is still large.
 
-We believe that this violation of constant variance may result from certain migration patterns- seasonal workers which come to the US for a short period of time would expect to see different household incomes than long-term migrants. We can examine the distribution of duration of last US migration.
+We believe that this violation of constant variance may result from certain migration patterns- seasonal workers which come to the US for a short period of time would expect to see different household incomes than long-term migrants. We can examine the distribution of duration of first US migration.
 
 ```{r usdurl-plot}
-ggplot(data = caldata, aes(x = usdurl)) +
+ggplot(data = caldata, aes(x = usdur1)) +
   geom_histogram(binwidth = 20) +
-  labs(title = "Distribution of Last Migration to US (Mean-Centered)", x = "Duration - 60.27 months (months)")
+  labs(title = "Distribution of First Migration to US (Mean-Centered)", x = "Duration - 43.99 months (months)")
 ```
 
 ```{r create-seasonal-var}
 caldata <- caldata %>%
   mutate(seasonal = case_when(
-    usdurl < 6 - 60.27 ~ "Y", #Workers with duration of migration < 6 months will be considered seasonal
+    usdur1 < 6 - 43.99 ~ "Y", #Workers with duration of migration < 6 months will be considered seasonal
     TRUE ~ "N"
   ))
 
 caldata %>%
   count(seasonal)
 
-ggplot(data = caldata, aes(x = seasonal, y = usdurl)) +
+ggplot(data = caldata, aes(x = seasonal, y = usdur1)) +
   geom_boxplot() +
-  labs(title = "Distribution of Duration of Last US Migration", x = "Seasonal Worker?", y = 
-         "Duration of Last US Migration (Mean-Centered) (months)")
+  labs(title = "Distribution of Duration of First US Migration", x = "Seasonal Worker?", y = 
+         "Duration of First US Migration (Mean-Centered) (months)")
 ggplot(data = caldata, aes(x = seasonal, y = hhincome)) +
   geom_boxplot() +
   labs(title = "Distribution of Household Income", x = "Seasonal Worker?", y = 
          "Household Income (dollars)")
 ```
 
-We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. Roughly a quarter of the migrants in the dataset fall into this category.
+
+We create a new categorical variable called `seasonal` to classify migrants with a last US migration shorter than 6 months as seasonal workers. We chose 6 months because anything longer than that should not be considered seasonal, and roughly a quarter of the migrants in the dataset fall into this category.
+
+
+Hence we fit our new full model:
+
+```{r}
+full_seasonal <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + sex*usdur1 + age*edyrs + seasonal , data=caldata)
+kable(tidy(full_seasonal),format="html" ,digits=3)
+```
+
+backward selection:
+
+```{r}
+reduced_seasonal <- step(full_seasonal, direction = "backward")
+sel_summary <- summary(reduced_seasonal)
+tidy(reduced_seasonal, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+The backward selection gave the same output as before, indicating that the indicator "seasonal" is not significant enough for us to include it in the final model.
+
+Hence, we proceed with the rest of our assumption checking.
 
 
 Below is the graph of residuals against categorical predictor:
@@ -249,29 +456,36 @@ ggplot(data=caldata,aes(x=as.factor(sex),y=residuals)) +
   labs(x = "Sex", 
        y="Residuals",
        title= "Boxplot of Residuals vs. Sex")
+
+ggplot(data=caldata,aes(x=as.factor(usdoc1),y=residuals)) + 
+  geom_boxplot() + 
+  geom_hline(yintercept=0,color="red") +
+  labs(x = "First US Documentation", 
+       y="Residuals",
+       title= "Boxplot of Residuals vs. First US Documentation")
 ```
 
-From the pairs scatterplot, we cannot observe any clear patterns; and from the boxplot, the median of each category seems to be slightly less than 0. While the plot of male is relatively symmetrical, that of female is right skewed.
+From the boxplot, the median of each category floats around 0. While the plot of male is relatively symmetrical, that of female is right skewed. There isn't any major concerns
 
-#### 3.2.2 Residual vs. Predicted
+#### 4.2.2 Residual vs. Predicted
 
 ```{r residuel-predicted-scatterplot}
 caldata <- caldata %>% 
-  mutate(predicted = predict.lm(final_int), residuals = resid(final_int))
+  mutate(predicted = predict.lm(reduced_int_new_2), residuals = resid(reduced_int_new_2))
 ggplot(data=caldata,aes(x=predicted, y=residuals)) + 
   geom_point() + 
   geom_hline(yintercept=0,color="red") +
   labs(title="Residuals vs. Predicted Household Income")
 ```
 
-The residual vs. predicted values scatterplot shows no discernible patterns. There is a clustering of predictions between $500 and $1000, which makes sense because our input data does not have a lot of rich households.
+The residual vs. predicted values scatterplot shows no discernible patterns. There is a clustering of predictions between USD 500 and USD 1000, which makes sense because our input data does not have a lot of rich households.
 
 Overall, the graphs confirm the constant variance assumption is satisfied.
 
 
-### 3.3 Normality
+### 4.3 Normality
 
-#### 3.3.1 Histogram of Residuals
+#### 4.3.1 Histogram of Residuals
 
 ```{r histogram-residuals}
 ggplot(data=caldata, mapping=aes(x=residuals)) + 
@@ -279,7 +493,7 @@ ggplot(data=caldata, mapping=aes(x=residuals)) +
   labs(title="Distribution of Residuals", x="Residual")
 ```
 
-#### 3.3.2 Normal-QQ Plot of Residuals
+#### 4.3.2 Normal-QQ Plot of Residuals
 
 ```{r qqplot}
 ggplot(data=caldata,mapping=aes(sample=residuals)) +
@@ -290,34 +504,34 @@ ggplot(data=caldata,mapping=aes(sample=residuals)) +
 
 From the histogram, the shape of distribution of residuals has a right skew. The Normal-QQ plot supports this finding, as the left half of the line follows closely the theoretical diagonal, yet the right half deviates from diagonal, showing that the right tail is skewed. Since we have 513 observations, the model is robust enough to tolerate deviation from normal.
 
-### 3.4 Independence
+### 4.4 Independence
 
 Since we only included observations of heads of household, there will not be dependence caused by similar demographics between family members. However, some interdependence may arise since all observations are geographically close to each other. 
 
-## 4. Interpretations
+ 
+## 5. Interpretations
 
-Our final model is hhincome=435.9118185+279.468261sexM-6.969323age+25.408001edyrs+1.880793usdurl+2.575527age:edyrs-1.492899sexM:usdurl
+Our final model is 
+hhincome = 456.946 + 289.409 sexM - 7.630 age + 24.947 edyrs + 1.122 usdur1 + 166.464 usdoc1Legal resident - 94.505 usdoc1Temporary: Tourist/visitor - 41.715 usdoc1Undocumented +  2.712 age:edyrs - 1.184 sexM:usdur1
 
-interpretation of coefficient:
-All else constant, as compared to a female, a male's household income increases by $279.468261;
-All else constant, with each year of increase in age, the household income decrease by $6.969323;
-All else constant, with each year of increase in years of education, the household income increases by $25.408001;
-All else constant, with each month of increase in duration in the US, the household income increases by $2.575527.
+Intercept:
+Our model expects an average household income of $456.946 for female Mexican migrants who has contract Bracero, at age 39 with no years of education and a duration of 43.99 months for first US migration, all else held constant.
 
+Coefficient:
+All else constant, as compared to a female, a male's household income increases by $289.409;
+All else constant, with each year of increase in age, the household income decrease by $7.630;
+All else constant, with each year of increase in years of education, the household income increases by $24.947;
+All else constant, with each month of increase in duration in the US during first migration, the household income increases by $1.122;
+All else constant, as compared to contract Bracero, the household income of a legal resident increases by $166.464;
+All else constant, as compared to contract Bracero, the household income of a temporary visitor decreases by $94.505;
+All else constant, as compared to contract Bracero, the household income of an undocumented person decreases by $41.715.
+ 
 
-Our model expects an average household income of $435.63 for female Mexican migrants at age 39 with no years of education and a duration of 60.27 months for last US migration, all else held constant.
+Interaction:
 
-For every increase of one year in age above 39.4, all else held constant, we expect to see a decrease of 6.97 dollars in average household income.
+For every increase of one month in duration of first US migration above 43.99 months, we expect to see an increase of around 1.18 dollars in household income for women and a (lesser) increase of 1.12 dollars in income for men.
 
-For every increase of one year in education, all else held constant, we expect to see an increase of 25.41 dollars in average household income.
-
-For male immigrants as compared to female immigrants, we expect to see an increase of 279.47 dollars in average household income, all else held constant.
-
-Interpret age:edyrs interaction???
-
-For every increase of one month in duration of last US migration above 60.27 months, we expect to see an increase of around 1.88 dollars in income for women and a (lesser) increase of 0.34 dollars in income for men.
-
-Our baseline is an average aged women with no education who has spent an average amount of time in the US.
+For every increase of one year of age, we expect to see an increase of around 2.712+24.947= 27.66 dollars in household income for each year of increase in education.
 
 We note that being male increases expected income. This may have to do with the gender wage gap, but more likely has to do with the type of labour immigrants tend to do: often, this is physical labour that men, who on average are larger, are more capable of performing. Similarly, we would expect elderly immigrants to struggle with hard labour, and we note that income falls as age increases. 
 
@@ -325,36 +539,4 @@ As anticipated, more years of education increased income significantly.
 
 The more time an immigrant had been in the US, the more income they could expect to earn -- this may have to do with the advantages of having networks and stability, as well as overcoming language and cultural barriers. 
 
-## 5. Additional Work
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Your regression analysis results go here. At a minimum, the regression analysis should include the following: 
-
-- Statement of the research question and modeling obejctive (prediction, inference, etc.)
-
-- Description of the response variable
-
-- Updated exploratory data analysis, incorporating any feedback from the proposal
-- Explanation of the modeling process and why you chose those metohds, incorporating any feedback from the proposal
-- Output of the final model
-- Discussion of the assumptions for the final model
-- Interpretations / interesting findings from the model coefficients
-- Additional work of other models or analylsis not included in the final model.
-
-*Use proper headings as needed.*
+## 6. Additional Work
