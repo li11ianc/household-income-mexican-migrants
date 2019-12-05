@@ -120,7 +120,6 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
-
 ```
 
 #### 2.2.2 Cut Household Income Groups
@@ -139,19 +138,16 @@ Therefore, we decided to filter out the incomes above 60,000 to remove what appe
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
-  mutate(hhincome = case_when(
-    hhincome == .1 ~ 0,
-    TRUE ~ hhincome
-  )) #undoing mutation from proposal to return 0 income variables to 0
+mutate(hhincome = case_when(hhincome == .1 ~ 0,TRUE ~ hhincome)) #undoing mutation from proposal to return 0 income variables to 0
 caldata <- caldata %>%
-  filter(hhincome > 5, log(hhincome) < 8)
+ filter(hhincome > 5, log(hhincome) < 8)
 ```
 
 
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
-  geom_histogram(binwidth = 100) +
-  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+ geom_histogram(binwidth = 100) +
+labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
