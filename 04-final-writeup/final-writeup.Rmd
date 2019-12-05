@@ -20,12 +20,15 @@ library(dplyr)
 library(rms)
 ```
 
+<<<<<<< HEAD
+=======
 
 
 Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`. 
 
 You can add sections as you see fit. At a minimum, you should have the following sections: 
 
+>>>>>>> 84c0b5415d0e29f76350b248d5d32f6c9c88fd67
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 ## 1. Introduction
 
@@ -114,7 +117,6 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
-
 ```
 
 #### 2.2.2 Cut Household Income Groups
@@ -133,19 +135,16 @@ Therefore, we decided to filter out the incomes above 60,000 to remove what appe
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
-  mutate(hhincome = case_when(
-    hhincome == .1 ~ 0,
-    TRUE ~ hhincome
-  )) #undoing mutation from proposal to return 0 income variables to 0
+mutate(hhincome = case_when(hhincome == .1 ~ 0,TRUE ~ hhincome)) #undoing mutation from proposal to return 0 income variables to 0
 caldata <- caldata %>%
-  filter(hhincome > 5, log(hhincome) < 8)
+ filter(hhincome > 5, log(hhincome) < 8)
 ```
 
 
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
-  geom_histogram(binwidth = 100) +
-  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+ geom_histogram(binwidth = 100) +
+labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
