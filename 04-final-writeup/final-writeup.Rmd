@@ -374,11 +374,13 @@ This section should include any relevant predictions and/or conclusions drawn fr
 
 ### 3.1 Prediction
 
+
+
 ```{r}
 x0 <- data.frame(sex = "M" , age = 40, edyrs = 5, usdur1 = 12, usdurl = 12, usdoc1 = "Undocumented")
 predict.lm(reduced_int_new, x0, interval = "confidence")
 ```
-
+For a male who is 40 years old, has 5 years of education, first immigrated to the US for 1 year, and last immigrated to the US for 1 year, and has a documentation type of "undocumented", his predicted salary is $1018.55.
 
 ## Section 4: Conclusion
 ## Section 5: Additional Work
