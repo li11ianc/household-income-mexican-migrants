@@ -432,23 +432,25 @@ We can see from the prediction that there is a large gender wage gap, since a ma
 
 ```{r}
 x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Temporary: Tourist/visitor")
-predict.lm(reduced_int_new_2, x0, interval = "confidence")
+predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Temporary: Tourist/visitor", his predicted wage is $854.32 We are 95% confident that the actual salary falls in the interval of [801.25, 907.40].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Temporary: Tourist/visitor", his predicted wage is $801.53 We are 95% confident that the actual salary falls in the interval of [609.88, 993.18].
+
 
 ```{r}
-x1 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident")
-predict.lm(reduced_int_new_2, x1, interval = "confidence")
-```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Legal resident", his predicted salary is $1062.50 We are 95% confident that the actual salary falls in the interval of [898.52, 1226.48].
-
-```{r}
-x1 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero")
-predict.lm(reduced_int_new_2, x1, interval = "confidence")
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero")
+predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Contract - Bracero", his predicted salary is $896.04 We are 95% confident that the actual salary falls in the interval of [676.52, 1115.55].
 
+```{r}
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident")
+predict.lm(reduced_int_new_2, x5, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Legal resident", his predicted salary is $1062.50 We are 95% confident that the actual salary falls in the interval of [898.52, 1226.48].
 
+
+The prediction suggest a hierarchy in wage discrimination based on documentation: temporary visa holders  males makes the least wage, followed by undocumented people, followed by contract visa holders, and legal residents earn the most wage.
 
 
 ## Section 4: Conclusion
