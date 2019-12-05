@@ -4,17 +4,9 @@ Influence Household Income
 Ben 10
 12/05/2019
 
-# \<\<\<\<\<\<\< HEAD
+## Section 1: Introduction (includes introduction and exploratory data analysis)
 
-Your project goes here\! Before you submit, make sure your chunks are
-turned off with `echo = FALSE`.
-
-You can add sections as you see fit. At a minimum, you should have the
-following sections:
-
-> > > > > > > 84c0b5415d0e29f76350b248d5d32f6c9c88fd67 \#\# Section 1:
-> > > > > > > Introduction (includes introduction and exploratory data
-> > > > > > > analysis) \#\# 1. Introduction
+## 1\. Introduction
 
 ### 1.1 Objective
 
@@ -225,6 +217,8 @@ rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating
 issue.
+
+### 2.1 Full Model
 
 #### 2.2.5 Remove Obvious Collinear Variable
 
@@ -4950,40 +4944,64 @@ age:edyrs
 | sexM:usdurl                      |   \-1.850 |     0.852 |   \-2.173 |   0.030 |   \-3.523 |   \-0.177 |
 | age:edyrs                        |     2.616 |     0.554 |     4.724 |   0.000 |     1.528 |     3.704 |
 
-<<<<<<< HEAD
-## Section 5: Additional Work
+We observed that the variable selection changed. Specifically, usdur1
+and usdoc1 are significant, besides the 4 variables and the 2
+interaction terms identified previously.
 
-augment mig\_output \<- augment(model1) %\>% mutate(obs\_num =
-row\_number()) .hat: leverage .cooksd: Cook’s distance .std.resid:
-standardized residuals
+### 3.6 High Leverage Points
 
-leverage\_threshold \<- 2\*(5+1)/nrow(tips) ggplot(data = tips\_output,
-aes(x = obs\_num,y = .hat)) + geom\_point(alpha = 0.7) +
-geom\_hline(yintercept = leverage\_threshold,color = “red”)+ labs(x =
-“Observation Number”,y = “Leverage”,title = “Leverage”) +
-geom\_text(aes(label=ifelse(.hat \> leverage\_threshold,
-as.character(obs\_num), "")), nudge\_x = 4)
+.hat: leverage .cooksd: Cook’s distance .std.resid: standardized
+residuals
 
-tips\_output %\>% filter(.hat \> leverage\_threshold) %\>% select(Party,
-Meal, Age)
+![](final-writeup_files/figure-gfm/leverage-1.png)<!-- -->
 
-ggplot(data = tips\_output, aes(x = .fitted,y = .std.resid)) +
-geom\_point(alpha = 0.7) + geom\_hline(yintercept = 0,color = “red”) +
-geom\_hline(yintercept = -2,color = “red”,linetype = “dotted”) +
-geom\_hline(yintercept = 2,color = “red”,linetype = “dotted”) + labs(x
-=“Predicted Value”,y =“Standardized Residuals”,title = “Standardized
-Residuals vs. Predicted”) + geom\_text(aes(label =
-ifelse(abs(.std.resid) \>2,as.character(obs\_num),"")), nudge\_x = 0.3)
+    ## # A tibble: 145 x 15
+    ##    hhincome sex      age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
+    ##       <dbl> <chr>  <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
+    ##  1     1050 M     -15.4     12 -14.0  -30.3  Legal…    846.    99.3  204. 
+    ##  2      475 F      10.6      9   4.01 -36.3  Undoc…    757.   128.  -282. 
+    ##  3     1500 M      -1.42     3 220.   204.   Legal…   1008.   108.   492. 
+    ##  4      900 M      -4.42     5 -40.0   23.7  Legal…   1071.    91.4 -171. 
+    ##  5      213 M      14.6      1 -41.0  162.   Undoc…    783.    85.2 -570. 
+    ##  6     2500 M       8.58    11 -36.0  171.   Tempo…   1216.   116.  1284. 
+    ##  7      500 F      -8.42     9  28.0   29.7  Undoc…    619.   116.  -119. 
+    ##  8     1750 M     -10.4      8  28.0    5.73 Legal…    977.    84.9  773. 
+    ##  9     1250 M       6.58    16   4.01 -54.3  Tempo…   1203.   126.    46.8
+    ## 10      630 M      10.6      0 -38.0  -54.3  Tempo…    553.   112.    77.4
+    ## # … with 135 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
+    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+
+![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
+
+    ## # A tibble: 35 x 15
+    ##    hhincome sex     age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
+    ##       <dbl> <chr> <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
+    ##  1     1900 M     -5.42     6 -26.0   29.7  Undoc…    845.    34.1  1055.
+    ##  2     2500 M      8.58    11 -36.0  171.   Tempo…   1216.   116.   1284.
+    ##  3     1777 M     -9.42     4   4.01 -36.3  Undoc…    758.    42.0  1019.
+    ##  4     2100 M     -4.42     5  52.0   57.7  Undoc…    813.    36.1  1287.
+    ##  5     2025 M     -7.42    11   4.01   5.73 Undoc…    814.    39.4  1211.
+    ##  6     2250 M      3.58     1   4.01 -54.3  Undoc…    677.    44.6  1573.
+    ##  7     2421 M      6.58     5 -41.0   41.7  Undoc…    911.    40.3  1510.
+    ##  8     2063 M     -1.42     9 -38.0  150.   Undoc…   1019.    67.5  1044.
+    ##  9     2500 M     -9.42    16 -38.0   17.7  Legal…   1024.   106.   1476.
+    ## 10     2000 M     25.6      4 514.   498.   Undoc…    875.   176.   1125.
+    ## # … with 25 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
+    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
 Standardized residuals vs. predictors\!\!\! make plots
 
-tips\_output %\>% filter(abs(.std.resid) \> 2) %\>% select(Party, Meal,
-Age, Tip)
-
 Estimate of regression standard deviation, σ̂, using all observations
 
-glance(model1)$sigma Estimate of σ̂ without points with large magnitude
-standardized residuals
+    ## [1] 499.4409
+
+    ## # A tibble: 1 x 1
+    ##   sigma_est
+    ##       <dbl>
+    ## 1      388.
+
+Estimate of σ̂ without points with large magnitude standardized
+residuals
 
 tips\_output %\>% filter(abs(.std.resid) \<= 2) %\>%
 summarise(sigma\_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
@@ -4992,10 +5010,22 @@ Recall that we use σ̂ to calculate the standard errors for all
 confidence intervals and p-values, so outliers can affect conclusions
 drawn from model
 
-library(rms) tidy(vif(model1))
-=======
-We observed that the variable selection changed. Specifically, usdur1
-and usdoc1 are significant, besides the 4 variables and the 2
-interaction terms identified previously. \#\# Section 3: Discussion and
-Limitations \#\# Section 4: Conclusion \#\# Section 5: Additional Work
->>>>>>> 84c0b5415d0e29f76350b248d5d32f6c9c88fd67
+    ## # A tibble: 10 x 2
+    ##    names                                x
+    ##    <chr>                            <dbl>
+    ##  1 sexM                              1.15
+    ##  2 age                               4.46
+    ##  3 edyrs                             1.33
+    ##  4 usdur1                            1.98
+    ##  5 usdurl                           13.0 
+    ##  6 usdoc1Legal resident              2.73
+    ##  7 usdoc1Temporary: Tourist/visitor  2.40
+    ##  8 usdoc1Undocumented                4.09
+    ##  9 sexM:usdurl                      10.9 
+    ## 10 age:edyrs                         3.70
+
+## Section 3: Discussion and Limitations
+
+## Section 4: Conclusion
+
+## Section 5: Additional Work
