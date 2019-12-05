@@ -2418,42 +2418,65 @@ To find potential interactions between the 4 variables, we used nested-F
 test for each of the possible interactions:
 
 After inital backwards selection, we will explore the possible
-interactions between remaining variables- edyrs, usdurl, sex, and age-
-to determine if any are significant.
+interactions between remaining variables: `edyrs`, `usdurl`, `sex`, and
+`age`, to determine if any are significant.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134188199 |  1 |  53444.74 |     0.653 |
 
+First, we tested the interaction between `edyrs` and `usdurl`. The
+p-value for this test was 0.653 \> 0.05, therefore we will not include
+it in the model.
+
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 133063129 |  1 |   1178515 |     0.034 |
+
+Then, we tested the interaction between `sex` and `usdurl`. The p-value
+for this test was 0.034 \< 0.05, therefore we will include it in the
+model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 133809343 |  1 |  432301.3 |     0.201 |
 
+Then, we tested the interaction between `age` and `usdurl`. The p-value
+for this test was 0.201 \> 0.05, therefore we will not include it in the
+model.
+
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 133986215 |  1 |  255429.1 |     0.326 |
+
+Then, we tested the interaction between `sex` and `edyrs`. The p-value
+for this test was 0.326 \> 0.05, therefore we will not include it in the
+model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 128320533 |  1 |   5921111 |         0 |
 
+Then, we tested the interaction between `age` and `edyrs`. The p-value
+for this test was 0 \< 0.05, therefore we will include it in the model.
+
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    508 | 134241644 | NA |        NA |        NA |
 |    507 | 134034469 |  1 |  207174.7 |     0.376 |
 
+Then, we tested the interaction between `age` and `sex`. The p-value for
+this test was 0.376 \> 0.05, therefore we will not include it in the
+model.
+
 Through nested F-test, we observed significant interactions between age
 & edyrs and between sex & usdurl, with respective p-values of 0 and
-0.034.
+0.034 and will be including them in our model.
 
 ### 3.4 Model with Interaction
 
