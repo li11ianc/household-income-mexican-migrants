@@ -61,17 +61,17 @@ We will build a multiple linear regression model to predict household income con
 
 "hhincome" : Household income
 
-"usstate1": First US mig: State of residence
+"usstate1": First US migration: State of residence
 
-"usstatel": Latest US mig: State of residence
+"usstatel": Latest US migration: State of residence
 
-"usplace1": First US mig: City of residence (in place codes)
+"usplace1": First US migration: City of residence (in place codes)
 
-"usplacel": Latest US mig: City of residence (in place codes)
+"usplacel": Latest US migration: City of residence (in place codes)
 
-"usdur1": First US mig: Duration (in months)
+"usdur1": First US migration: Duration (in months)
 
-"usdurl": Latest US mig: Duration (in months)
+"usdurl": Latest US migration: Duration (in months)
 
 "usdoc1": Type of documentation 
 

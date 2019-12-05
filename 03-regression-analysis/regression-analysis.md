@@ -4,14 +4,14 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -133,17 +133,17 @@ income considering the following variables: `sex`, `relhead`, `age`,
 
 “hhincome” : Household income
 
-“usstate1”: First US mig: State of residence
+“usstate1”: First US migration: State of residence
 
-“usstatel”: Latest US mig: State of residence
+“usstatel”: Latest US migration: State of residence
 
-“usplace1”: First US mig: City of residence (in place codes)
+“usplace1”: First US migration: City of residence (in place codes)
 
-“usplacel”: Latest US mig: City of residence (in place codes)
+“usplacel”: Latest US migration: City of residence (in place codes)
 
-“usdur1”: First US mig: Duration (in months)
+“usdur1”: First US migration: Duration (in months)
 
-“usdurl”: Latest US mig: Duration (in months)
+“usdurl”: Latest US migration: Duration (in months)
 
 “usdoc1”: Type of documentation
 
