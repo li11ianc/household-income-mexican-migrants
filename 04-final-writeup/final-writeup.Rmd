@@ -243,35 +243,51 @@ Using backward selection based on AIC, we narrowed down to 4 variables: sex, edy
 
 To find potential interactions between the 4 variables, we used nested-F test for each of the possible interactions:
 
-After inital backwards selection, we will explore the possible interactions between remaining variables- edyrs, usdurl, sex, and age- to determine if any are significant.
+After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, and `age`, to determine if any are significant.
 
 ```{r int-model}
 int_model_1 <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdurl, data = caldata)
 anova(reduced, int_model_1, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.653
+```
+First, we tested the interaction between `edyrs` and `usdurl`. The p-value for this test was 0.653 > 0.05, therefore we will not include it in the model.
 
+```{r int-model2}
 int_model_2 <- lm(hhincome ~ sex + age + edyrs + usdurl + sex*usdurl, data = caldata)
 anova(reduced, int_model_2, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3) # p = 0.034
+```
+Then, we tested the interaction between `sex` and `usdurl`. The p-value for this test was 0.034 < 0.05, therefore we will include it in the model.
 
+```{r int-model3}
 int_model_3 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*usdurl, data = caldata)
 anova(reduced, int_model_3, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.201
+```
+Then, we tested the interaction between `age` and `usdurl`. The p-value for this test was 0.201 > 0.05, therefore we will not include it in the model.
 
+```{r int-model4}
 int_model_4 <- lm(hhincome ~ sex + age + edyrs + usdurl + sex*edyrs, data = caldata)
 anova(reduced, int_model_4, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.326
+```
+Then, we tested the interaction between `sex` and `edyrs`. The p-value for this test was 0.326 > 0.05, therefore we will not include it in the model.
 
+```{r int-model5}
 int_model_5 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs, data = caldata)
 anova(reduced, int_model_5, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0
+```
+Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
 
+```{r int-model 6}
 int_model_6 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*sex, data = caldata)
 anova(reduced, int_model_6, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.376
 ```
+Then, we tested the interaction between `age` and `sex`. The p-value for this test was 0.376 > 0.05, therefore we will not include it in the model.
 
-Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
+Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034 and will be including them in our model.
 
 ### 3.4 Model with Interaction
 
