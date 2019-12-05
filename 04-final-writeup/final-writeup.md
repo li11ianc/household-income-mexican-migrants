@@ -4978,6 +4978,8 @@ residuals
     ## # … with 135 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
     ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
+    ## [1] 0.2826511
+
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
     ## # A tibble: 35 x 15
@@ -5017,6 +5019,8 @@ Recall that we use σ̂ to calculate the standard errors for all
 confidence intervals and p-values, so outliers can affect conclusions
 drawn from model
 
+![](final-writeup_files/figure-gfm/cooks-distance-1.png)<!-- -->
+
     ## # A tibble: 10 x 2
     ##    names                                x
     ##    <chr>                            <dbl>
@@ -5046,6 +5050,11 @@ project should also be included.
 
     ##        fit      lwr      upr
     ## 1 1018.552 821.1766 1215.928
+
+For a male who is 40 years old, has 5 years of education, first
+immigrated to the US for 1 year, and last immigrated to the US for 1
+year, and has a documentation type of “undocumented”, his predicted
+salary is $1018.55.
 
 ## Section 4: Conclusion
 

@@ -320,12 +320,13 @@ leverage_threshold <- 2*(5+1)/nrow(caldata)
 
 ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
   geom_point(alpha = 0.7) + 
-  geom_hline(yintercept = leverage_threshold,color = "red")+
-  labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
-  geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
+  geom_hline(yintercept = leverage_threshold,color = "red")
+ ## labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
+ ## geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
 
 mig_output %>% 
   filter(.hat > leverage_threshold)
+145/nrow(caldata)
 ```
 
 ```{r standardized-residuals}
@@ -361,6 +362,14 @@ tips_output %>%
   summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
   
 Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
+
+```{r cooks-distance}
+ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept=1,color = "red")+
+  labs(x= "Observation Number",y = "Cook's Distance",title = "Cook's Distance") +
+  geom_text(aes(label = ifelse(.hat>1,as.character(obs_num),"")))
+```
 
 ```{r vif}
 tidy(vif(reduced_int_new))
