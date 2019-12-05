@@ -4966,7 +4966,7 @@ project should also be included.
 ### 3.1 Prediction
 
     ##        fit      lwr      upr
-    ## 1 1018.552 17.64654 2019.458
+    ## 1 1018.552 821.1766 1215.928
 
 ## Section 4: Conclusion
 
