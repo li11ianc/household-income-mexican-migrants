@@ -4,13 +4,6 @@ Influence Household Income
 Ben 10
 12/05/2019
 
-Your project goes here\! Before you submit, make sure your chunks are
-turned off with `echo = FALSE`.
-
-You can add sections as you see fit. At a minimum, you should have the
-following
-sections:
-
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 
 ## 1\. Introduction
@@ -193,6 +186,8 @@ interpretation.
     ## [1] 60.27096
 
     ## [1] 43.98635
+
+    ## [1] 6.440546
 
 The mean age in the dataset is 39.43 years ; the mean duration of last
 US migration is 60.27 months (about 5 years); and the mean duration of
@@ -5037,24 +5032,50 @@ drawn from model
 
 ## Section 3: Discussion and Limitations
 
-This section should include any relevant predictions and/or conclusions
-drawn from the model. Also critique your own methods and provide
-suggestions for improving your analysis. Issues pertaining to the
-reliability and validity of your data and appropriateness of the
-regression analysis should also be discussed here. A paragraph on what
-you would do differently if you were able to start over with the project
-or what you would do next if you were going to continue work on the
-project should also be included.
+In order to complete an effective analysis in the time given, we greatly
+simplified our raw data to predict our response variable, household
+income. We ended up only analyzing a subgroup of the immigrants and
+focused on those who migrated to California because they made up a large
+majority of our dataset, anyway. If we were given more time, we would’ve
+analyzed the entirety of the set. Additionally, we cut a chunk of the
+data out because it appeared that some of the income was reported in
+pesos and USD, though we are not definitely sure. Further analysis could
+investigate why it appeared that some income was reported in a
+potentially different currency and adjust for it so we can include all
+observations in our analysis.
+
+If we could continue to work on the project, we would operate under the
+assumption that the household income that is unusual was reported in
+pesos and potentially recorded in the Mexico and split the data set into
+two and investigate that. I think our model could be stronger if we were
+able to include this very valuable data and inform our predictions with
+this information.
 
 ### 3.1 Prediction
 
-    ##        fit      lwr      upr
-    ## 1 1018.552 821.1766 1215.928
+### 3.1.1 Effect of “Gender” on Wage
 
-For a male who is 40 years old, has 5 years of education, first
-immigrated to the US for 1 year, and last immigrated to the US for 1
-year, and has a documentation type of “undocumented”, his predicted
-salary is $1018.55.
+    ##        fit      lwr     upr
+    ## 1 850.1124 797.2718 902.953
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “undocumented”, his
+predicted wage is $850.11 We are 95% confident that the actual salary
+falls in the interval of \[797.27, 902.95\].
+
+    ##       fit     lwr     upr
+    ## 1 620.833 397.379 844.287
+
+For a female who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “undocumented”, his
+predicted salary is $620.83 We are 95% confident that the actual salary
+falls in the interval of \[397.38, 844.29\].
+
+### 3.1.2 Effect of “Type of Documentation” on Wage
 
 ## Section 4: Conclusion
 
