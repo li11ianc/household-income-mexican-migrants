@@ -20,9 +20,14 @@ library(dplyr)
 library(rms)
 ```
 
+
 ```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 ```
+
+Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`. 
+
+You can add sections as you see fit. At a minimum, you should have the following sections: 
 
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 ## 1. Introduction
@@ -112,6 +117,7 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
+
 ```
 
 #### 2.2.2 Cut Household Income Groups
@@ -130,16 +136,19 @@ Therefore, we decided to filter out the incomes above 60,000 to remove what appe
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
-mutate(hhincome = case_when(hhincome == .1 ~ 0,TRUE ~ hhincome)) #undoing mutation from proposal to return 0 income variables to 0
+  mutate(hhincome = case_when(
+    hhincome == .1 ~ 0,
+    TRUE ~ hhincome
+  )) #undoing mutation from proposal to return 0 income variables to 0
 caldata <- caldata %>%
- filter(hhincome > 5, log(hhincome) < 8)
+  filter(hhincome > 5, log(hhincome) < 8)
 ```
 
 
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
- geom_histogram(binwidth = 100) +
-labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+  geom_histogram(binwidth = 100) +
+  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
@@ -290,11 +299,17 @@ kable(digits = 3, format = "markdown")
 ```
 
 We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables and the 2 interaction terms identified previously.
-
 ## Section 3: Discussion and Limitations 
 
+This section should include any relevant predictions and/or conclusions drawn from the model. Also critique your own methods and provide suggestions for improving your analysis. Issues pertaining to the reliability and validity of your data and appropriateness of the regression analysis should also be discussed here. A paragraph on what you would do differently if you were able to start over with the project or what you would do next if you were going to continue work on the project should also be included.
 
 
+### 3.1 Prediction
+
+```{r}
+x0 <- data.frame(sex = "M" , age = 40, edyrs = 5, usdur1 = 12, usdurl = 12, usdoc1 = "Undocumented")
+predict.lm(reduced_int_new, x0, interval = "prediction")
+```
 
 
 ## Section 4: Conclusion

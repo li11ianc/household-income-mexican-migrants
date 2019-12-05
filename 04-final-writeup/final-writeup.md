@@ -4,6 +4,13 @@ Influence Household Income
 Ben 10
 12/05/2019
 
+Your project goes here\! Before you submit, make sure your chunks are
+turned off with `echo = FALSE`.
+
+You can add sections as you see fit. At a minimum, you should have the
+following
+sections:
+
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 
 ## 1\. Introduction
@@ -4944,9 +4951,22 @@ age:edyrs
 
 We observed that the variable selection changed. Specifically, usdur1
 and usdoc1 are significant, besides the 4 variables and the 2
-interaction terms identified previously.
+interaction terms identified previously. \#\# Section 3: Discussion and
+Limitations
 
-## Section 3: Discussion and Limitations
+This section should include any relevant predictions and/or conclusions
+drawn from the model. Also critique your own methods and provide
+suggestions for improving your analysis. Issues pertaining to the
+reliability and validity of your data and appropriateness of the
+regression analysis should also be discussed here. A paragraph on what
+you would do differently if you were able to start over with the project
+or what you would do next if you were going to continue work on the
+project should also be included.
+
+### 3.1 Prediction
+
+    ##        fit      lwr      upr
+    ## 1 1018.552 17.64654 2019.458
 
 ## Section 4: Conclusion
 
