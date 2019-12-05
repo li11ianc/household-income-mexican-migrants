@@ -4,16 +4,17 @@ Influence Household Income
 Ben 10
 12/05/2019
 
+# \<\<\<\<\<\<\< HEAD
+
 Your project goes here\! Before you submit, make sure your chunks are
 turned off with `echo = FALSE`.
 
 You can add sections as you see fit. At a minimum, you should have the
-following
-sections:
+following sections:
 
-## Section 1: Introduction (includes introduction and exploratory data analysis)
-
-## 1\. Introduction
+> > > > > > > 84c0b5415d0e29f76350b248d5d32f6c9c88fd67 \#\# Section 1:
+> > > > > > > Introduction (includes introduction and exploratory data
+> > > > > > > analysis) \#\# 1. Introduction
 
 ### 1.1 Objective
 
