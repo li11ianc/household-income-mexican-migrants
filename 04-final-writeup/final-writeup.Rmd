@@ -1,12 +1,14 @@
 ---
-title: "PROJECT TITLE"
-author: "NAME HERE"
-date: "TODAY'S DATE"
+title: "Characteristics of Recent Mexican Immigrants to the United States that Influence Household Income"
+author: "Ben 10"
+date: "12/05/2019"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE)
 ```
 
 Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`. 
