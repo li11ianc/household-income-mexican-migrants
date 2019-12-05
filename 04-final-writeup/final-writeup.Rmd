@@ -296,27 +296,32 @@ kable(digits = 3, format = "markdown")
 ```
 
 We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables and the 2 interaction terms identified previously.
-## Section 3: Discussion and Limitations 
-## Section 4: Conclusion
-## Section 5: Additional Work
 
-augment
+### 3.6 High Leverage Points 
+
+```{r augment}
 mig_output <- augment(reduced_int_new) %>%
   mutate(obs_num = row_number())
+```
+
 .hat: leverage
 .cooksd: Cook's distance
 .std.resid: standardized residuals
 
-leverage_threshold <- 2*(5+1)/nrow(tips)
-ggplot(data = tips_output, aes(x = obs_num,y = .hat)) + 
+```{r leverage}
+leverage_threshold <- 2*(5+1)/nrow(reduced_int_new)
+
+ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = leverage_threshold,color = "red")+
   labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
   geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
-  
-tips_output %>% filter(.hat > leverage_threshold) %>% 
-  select(Party, Meal, Age)
-  
+
+mig_output %>% 
+  filter(.hat > leverage_threshold)
+```
+
+```{r standardized-residuals}
 ggplot(data = tips_output, aes(x = .fitted,y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
@@ -324,15 +329,24 @@ ggplot(data = tips_output, aes(x = .fitted,y = .std.resid)) +
   geom_hline(yintercept = 2,color = "red",linetype = "dotted") +
   labs(x ="Predicted Value",y ="Standardized Residuals",title = "Standardized Residuals vs. Predicted") +
   geom_text(aes(label = ifelse(abs(.std.resid) >2,as.character(obs_num),"")), nudge_x = 0.3)
+
+tips_output %>% 
+  filter(abs(.std.resid) > 2)
+```
   
 Standardized residuals vs. predictors!!! make plots
 
-tips_output %>% filter(abs(.std.resid) > 2) %>% 
-  select(Party, Meal, Age, Tip)
   
 Estimate of regression standard deviation, σ̂,  using all observations
 
-glance(model1)$sigma
+```{r regression-standard-deviation}
+glance(reduced_int_new)$sigma
+
+mig_output %>%
+  filter(abs(.std.resid) <= 2) %>%
+  summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
+```
+
 Estimate of σ̂ without points with large magnitude standardized residuals
 
 tips_output %>%
@@ -341,6 +355,13 @@ tips_output %>%
   
 Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
 
+```{r vif}
 tidy(vif(model1))
+```
+
+## Section 3: Discussion and Limitations 
+## Section 4: Conclusion
+## Section 5: Additional Work
+
 
 
