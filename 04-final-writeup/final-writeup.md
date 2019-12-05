@@ -4944,5 +4944,10 @@ age:edyrs
 
 We observed that the variable selection changed. Specifically, usdur1
 and usdoc1 are significant, besides the 4 variables and the 2
-interaction terms identified previously. \#\# Section 3: Discussion and
-Limitations \#\# Section 4: Conclusion \#\# Section 5: Additional Work
+interaction terms identified previously.
+
+## Section 3: Discussion and Limitations
+
+## Section 4: Conclusion
+
+## Section 5: Additional Work
