@@ -21,9 +21,6 @@ library(rms)
 ```
 
 
-```{r data}
-data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
-```
 
 Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`. 
 
@@ -202,6 +199,7 @@ We will consider the potential interaction between principal occupation and numb
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
+### 2.1 Full Model
 
 #### 2.2.5 Remove Obvious Collinear Variable
 
@@ -304,7 +302,7 @@ We observed that the variable selection changed. Specifically, usdur1 and usdoc1
 ## Section 5: Additional Work
 
 augment
-mig_output <- augment(model1) %>%
+mig_output <- augment(reduced_int_new) %>%
   mutate(obs_num = row_number())
 .hat: leverage
 .cooksd: Cook's distance
@@ -344,7 +342,6 @@ tips_output %>%
   
 Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
 
-library(rms)
 tidy(vif(model1))
 
 
