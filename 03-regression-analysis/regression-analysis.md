@@ -5,10 +5,14 @@ Ben 10
 November 20, 2019
 
 <<<<<<< HEAD
+    ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
 =======
     ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 >>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
+>>>>>>> c09bfafedb82829412eec59f48c8104d9d5c5f97
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
@@ -16,10 +20,14 @@ November 20, 2019
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
 <<<<<<< HEAD
+    ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
 =======
     ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 >>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
+>>>>>>> c09bfafedb82829412eec59f48c8104d9d5c5f97
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
