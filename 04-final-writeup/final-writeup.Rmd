@@ -20,3 +20,49 @@ You can add sections as you see fit. At a minimum, you should have the following
 ## Section 3: Discussion and Limitations 
 ## Section 4: Conclusion
 ## Section 5: Additional Work
+
+augment
+mig_output <- augment(model1) %>%
+  mutate(obs_num = row_number())
+.hat: leverage
+.cooksd: Cook's distance
+.std.resid: standardized residuals
+
+leverage_threshold <- 2*(5+1)/nrow(tips)
+ggplot(data = tips_output, aes(x = obs_num,y = .hat)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = leverage_threshold,color = "red")+
+  labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
+  geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
+  
+tips_output %>% filter(.hat > leverage_threshold) %>% 
+  select(Party, Meal, Age)
+  
+ggplot(data = tips_output, aes(x = .fitted,y = .std.resid)) +
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0,color = "red") +
+  geom_hline(yintercept = -2,color = "red",linetype = "dotted") +
+  geom_hline(yintercept = 2,color = "red",linetype = "dotted") +
+  labs(x ="Predicted Value",y ="Standardized Residuals",title = "Standardized Residuals vs. Predicted") +
+  geom_text(aes(label = ifelse(abs(.std.resid) >2,as.character(obs_num),"")), nudge_x = 0.3)
+  
+Standardized residuals vs. predictors!!! make plots
+
+tips_output %>% filter(abs(.std.resid) > 2) %>% 
+  select(Party, Meal, Age, Tip)
+  
+Estimate of regression standard deviation, σ̂,  using all observations
+
+glance(model1)$sigma
+Estimate of σ̂ without points with large magnitude standardized residuals
+
+tips_output %>%
+  filter(abs(.std.resid) <= 2) %>%
+  summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
+  
+Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
+
+library(rms)
+tidy(vif(model1))
+
+
