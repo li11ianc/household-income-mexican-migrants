@@ -182,6 +182,7 @@ We must center age and usdurl in order to have a useful model intercept interpre
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
 mean(caldata$usdur1) #mean usdur1
+mean(caldata$edyrs) #mean edyrs
 ```
 
 The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
@@ -374,13 +375,21 @@ This section should include any relevant predictions and/or conclusions drawn fr
 
 ### 3.1 Prediction
 
-
+### 3.1.1 Effect of "Gender" on Wage 
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 40, edyrs = 5, usdur1 = 12, usdurl = 12, usdoc1 = "Undocumented")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented")
 predict.lm(reduced_int_new, x0, interval = "confidence")
 ```
-For a male who is 40 years old, has 5 years of education, first immigrated to the US for 1 year, and last immigrated to the US for 1 year, and has a documentation type of "undocumented", his predicted salary is $1018.55.
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted wage is $850.11 We are 95% confident that the actual salary falls in the interval of [797.27, 902.95].
+
+```{r}
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented")
+predict.lm(reduced_int_new, x1, interval = "confidence")
+```
+For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted salary is $620.83 We are 95% confident that the actual salary falls in the interval of [397.38, 844.29].
+
+### 3.1.2 Effect of "Type of Documentation" on Wage
 
 ## Section 4: Conclusion
 ## Section 5: Additional Work
