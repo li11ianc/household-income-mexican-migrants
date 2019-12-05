@@ -4,14 +4,30 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────── tidyverse 1.2.1 ──
+=======
+<<<<<<< HEAD
+    ## ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
+>>>>>>> c09bfafedb82829412eec59f48c8104d9d5c5f97
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
+=======
+<<<<<<< HEAD
+    ## ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
+>>>>>>> c09bfafedb82829412eec59f48c8104d9d5c5f97
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -133,17 +149,17 @@ income considering the following variables: `sex`, `relhead`, `age`,
 
 “hhincome” : Household income
 
-“usstate1”: First US mig: State of residence
+“usstate1”: First US migration: State of residence
 
-“usstatel”: Latest US mig: State of residence
+“usstatel”: Latest US migration: State of residence
 
-“usplace1”: First US mig: City of residence (in place codes)
+“usplace1”: First US migration: City of residence (in place codes)
 
-“usplacel”: Latest US mig: City of residence (in place codes)
+“usplacel”: Latest US migration: City of residence (in place codes)
 
-“usdur1”: First US mig: Duration (in months)
+“usdur1”: First US migration: Duration (in months)
 
-“usdurl”: Latest US mig: Duration (in months)
+“usdurl”: Latest US migration: Duration (in months)
 
 “usdoc1”: Type of documentation
 
@@ -11712,8 +11728,6 @@ satisfied.
 
 #### 4.3.1 Histogram of Residuals
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
 ![](regression-analysis_files/figure-gfm/histogram-residuals-1.png)<!-- -->
 
 #### 4.3.2 Normal-QQ Plot of Residuals
@@ -11742,21 +11756,21 @@ usdoc1Temporary: Tourist/visitor - 41.715 usdoc1Undocumented + 2.712
 age:edyrs - 1.184 sexM:usdur1
 
 Intercept: Our model expects an average household income of $456.946 for
-female Mexican migrants who has contract Bracero, at age 39 with no
-years of education and a duration of 43.99 months for first US
-migration, all else held constant.
+female Mexican migrants at age 39 who are contract workers (through the
+now-discontinued Bracero program) with no years of education and a
+duration of 43.99 months for first US migration, all else held constant.
 
 Coefficient: All else constant, as compared to a female, a male’s
 household income increases by $289.409; All else constant, with each
-year of increase in age, the household income decrease by $7.630; All
+year of increase in age, the household income decreases by $7.630; All
 else constant, with each year of increase in years of education, the
 household income increases by $24.947; All else constant, with each
 month of increase in duration in the US during first migration, the
 household income increases by $1.122; All else constant, as compared to
-contract Bracero, the household income of a legal resident increases by
-$166.464; All else constant, as compared to contract Bracero, the
+a contract Bracero, the household income of a legal resident increases
+by $166.464; All else constant, as compared to a contract Bracero, the
 household income of a temporary visitor decreases by $94.505; All else
-constant, as compared to contract Bracero, the household income of an
+constant, as compared to a contract Bracero, the household income of an
 undocumented person decreases by $41.715.
 
 Interaction:
