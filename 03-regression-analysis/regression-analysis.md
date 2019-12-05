@@ -4,14 +4,22 @@ Influence Household Income
 Ben 10
 November 20, 2019
 
+<<<<<<< HEAD
     ## ── Attaching packages ────────────────────────────────────────────── tidyverse 1.2.1 ──
+=======
+    ## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+>>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
+<<<<<<< HEAD
     ## ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
+=======
+    ## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+>>>>>>> b6a8daa39ac82d82fea726380ee746c4885a4353
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -195,9 +203,15 @@ distributions:
 We determined that 412,647 dollars is an absurdly high median income for
 a survey of largely undocumented immigrants in the US and believe that a
 significant chunk of the high incomes were actually recorded in pesos.
-However, since the data is taken across a period of 10 years, the
-exchange rate between pesos and USD had increased significantly. Hence,
-we cannot simply convert all the data that are larger into USD.
+The documentation for the data from the Mexican Migration Project does
+not specify unit of hhincome; however, the project site details that
+researchers surveyed communities in Mexico, then traveled to the US to
+survey communities there. It seems likely that the communities surveyed
+in Mexico would report income in pesos and those surveyed in the US
+would report income in USD. However, the data was collected over a
+period of 10 years, during which the exchange rate between pesos and USD
+changed significantly. Hence, we cannot simply convert all the incomes
+that appear to be recorded in pesos into USD.
 
 Therefore, we decided to filter out the incomes above 60,000 to remove
 what appears to be a second distribution of incomes in pesos. We will
@@ -226,14 +240,16 @@ of immigrants went to LA-Long Beach area.
 
 #### 2.2.3 Remove Variable “relhead”
 
-It turned out that all values from relhead in our cleaned data were “1”
-or head. So we will remove this variable, as well as state variables
-since we are only using California data. We will also remove place data
-since we are using uscity, and occ since we are using occtype.
+It turned out that all values from relhead (relationship to head of
+household) in our cleaned data were “1” or head. So we will remove this
+variable, as well as state variables since we are only using California
+data. We will also remove place data since we are using uscity, and occ
+since we are using occtype.
 
 #### 2.2.4 Mean-center “age” , “usdur1” and “usdurl”
 
-We must center age and usdurl in order to interpret them.
+We must center age and usdurl in order to have a useful model intercept
+interpretation.
 
     ## [1] 39.42495
 
@@ -243,8 +259,33 @@ We must center age and usdurl in order to interpret them.
 
 The mean age in the dataset is 39.43 years ; the mean duration of last
 US migration is 60.27 months (about 5 years); and the mean duration of
-first US migration is 43.99 months (less than 3.5
-years).
+first US migration is 43.99 months (less than 3.5 years).
+
+## 2\. Multiple Linear Regression Model
+
+In an effort to explain which characteristics of migrants influence
+their household income, we will use a multiple linear regression model.
+Since our response variable is numerical with mulitple potential
+predictors, this is the best model at our disposal.
+
+We will consider the potential interaction between principal occupation
+and number of years of school completed, since those are generally
+interconnected. We may also consider the interaction between
+documentation type and occupation type, although the effect may be
+insignificant. However, if the variables occtype, edyrs, or usdoc1 don’t
+make it through the process of inital model selection, we will not
+include these interactions in the model as that would not be prudent.
+
+We will select our model using AIC criteria, because since we’re dealing
+with people, we want to build a model that accounts for volatile human
+nature and the ever-changing socioeconomic and political climate that
+could influence someone’s household income. AIC is used when we would
+rather say a variable is a relevant predictor, when in reality it might
+not be and so in this case, we would rather err on the side of a false
+positive because we are dealing with a constantly fluctuating
+issue.
+
+# \#\#\# 2.1 Full Model
 
 #### 2.2.5 Remove Obvious Collinear Variable
 
@@ -2440,6 +2481,10 @@ sex, edyrs, usdurl and age.
 
 To find potential interactions between the 4 variables, we used nested-F
 test for each of the possible interactions:
+
+After inital backwards selection, we will explore the possible
+interactions between remaining variables- edyrs, usdurl, sex, and age-
+to determine if any are significant.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
@@ -4983,7 +5028,8 @@ Before interpreting the model, it is essential to check the assumptions.
 ![](regression-analysis_files/figure-gfm/income-sex-plot-1.png)<!-- -->
 
 From the above plots, there seems to be a weak linear relationship
-between the response and predictor variables.
+between the response and predictor variables. No non-linear patterns
+(i.e. quadratic relationships) appear.
 
 We also observe that there is a distinct linear relationship between
 usdurl and usdur1, which makes sense, because many people’s first
@@ -9412,10 +9458,7 @@ We believe that this violation of constant variance may result from
 certain migration patterns- seasonal workers which come to the US for a
 short period of time would expect to see different household incomes
 than long-term migrants. We can examine the distribution of duration of
-first US
-    migration.
-
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+first US migration.
 
 ![](regression-analysis_files/figure-gfm/usdurl-plot-1.png)<!-- -->
 
@@ -11677,8 +11720,6 @@ satisfied.
 
 #### 4.3.1 Histogram of Residuals
 
-    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
 ![](regression-analysis_files/figure-gfm/histogram-residuals-1.png)<!-- -->
 
 #### 4.3.2 Normal-QQ Plot of Residuals
@@ -11707,21 +11748,21 @@ usdoc1Temporary: Tourist/visitor - 41.715 usdoc1Undocumented + 2.712
 age:edyrs - 1.184 sexM:usdur1
 
 Intercept: Our model expects an average household income of $456.946 for
-female Mexican migrants who has contract Bracero, at age 39 with no
-years of education and a duration of 43.99 months for first US
-migration, all else held constant.
+female Mexican migrants at age 39 who are contract workers (through the
+now-discontinued Bracero program) with no years of education and a
+duration of 43.99 months for first US migration, all else held constant.
 
 Coefficient: All else constant, as compared to a female, a male’s
 household income increases by $289.409; All else constant, with each
-year of increase in age, the household income decrease by $7.630; All
+year of increase in age, the household income decreases by $7.630; All
 else constant, with each year of increase in years of education, the
 household income increases by $24.947; All else constant, with each
 month of increase in duration in the US during first migration, the
 household income increases by $1.122; All else constant, as compared to
-contract Bracero, the household income of a legal resident increases by
-$166.464; All else constant, as compared to contract Bracero, the
+a contract Bracero, the household income of a legal resident increases
+by $166.464; All else constant, as compared to a contract Bracero, the
 household income of a temporary visitor decreases by $94.505; All else
-constant, as compared to contract Bracero, the household income of an
+constant, as compared to a contract Bracero, the household income of an
 undocumented person decreases by $41.715.
 
 Interaction:
