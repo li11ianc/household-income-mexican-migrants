@@ -20,8 +20,6 @@ library(dplyr)
 library(rms)
 ```
 
-<<<<<<< HEAD
-=======
 
 ```{r data}
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
@@ -31,7 +29,6 @@ Your project goes here! Before you submit, make sure your chunks are turned off 
 
 You can add sections as you see fit. At a minimum, you should have the following sections: 
 
->>>>>>> 84c0b5415d0e29f76350b248d5d32f6c9c88fd67
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 ## 1. Introduction
 
@@ -154,14 +151,29 @@ Now the distribution of response variable (hhincome) looks like a right skewed n
 
 ```{r cities, fig.align="center"}
 caldata <- caldata %>%
-  filter(uscity %in% c("Bakersfield, CA","Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
+  filter(uscity %in% c("Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
+
+caldata <- caldata %>%
+  mutate(uscity=recode(uscity, "Bakersfield, CA"="centcal", "Fresno, CA"="centcal", "Los Angeles-Long Beach, CA"="socal", "Merced, CA"="centcal","Orange County, CA"="socal","Riverside-San Bernardino, CA"= "socal", "Sacramento, CA"="centcal", "San Diego, CA"= "socal", "San Francisco, CA"="bayarea", "San Jose, CA"="bayarea","Santa Barbara-Santa Maria-Lompoc, CA"= "socal","Santa Cruz-Watsonville, CA"="bayarea","Vallejo-Fairfield-Napa, CA"="bayarea","Ventura, CA"="socal"))
+
+
 ggplot(data = caldata, aes(x = uscity))+ 
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of Cities in California", x = "City", y = "Count")
 ```
 
-These immigrants to California arrived to the following cities: Los Angeles-Long Beach, San Francisco, San Diego, Santa Cruz-Watsonville, Bakersfield, Fresno, Merced, Orange County, Riverside-San Bernardino, Sacramento, San Jose, Santa Barbara-Santa Maria-Lompoc, Vallejo-Fairfield-Napa, and Ventura. Given the comparatively small number of cases in which no city was reported, we deleted these instances. This leaves 15 unique locations in California. The majority of immigrants went to LA-Long Beach area. 
+These immigrants to California arrived to the following cities: 
+
+Bay Area: Vallejo-Fairfield-Napa, San Francisco, San Jose, Santa Cruz-Watsonville
+
+Central California: Sacramento, Merced, Fresno, Bakersfield
+
+Southern California: Santa Barbara-Santa Maria-Lompoc, Ventura, Los Angeles-Long Beach, Orange County, Riverside-San Bernardino, and San Diego.
+
+We decided to simplify these cities into 3 regional categories: Bay Area, Southern California and Central California. 
+
+Given the comparatively small number of cases in which no city was reported, we deleted these instances. The majority of immigrants went to LA-Long Beach area in Southern California.
 
 #### 2.2.3 Remove Variable "relhead"
 
