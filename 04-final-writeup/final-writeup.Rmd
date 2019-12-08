@@ -25,10 +25,13 @@ library(rms)
 data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 ```
 
+<<<<<<< HEAD
 Your project goes here! Before you submit, make sure your chunks are turned off with `echo = FALSE`. 
 
 You can add sections as you see fit. At a minimum, you should have the following sections: 
 
+=======
+>>>>>>> a76ba95fa37e84fd7730a7d833d877bf04ef7777
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 ## 1. Introduction
 
@@ -117,6 +120,7 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
+
 ```
 
 #### 2.2.2 Cut Household Income Groups
@@ -135,16 +139,19 @@ Therefore, we decided to filter out the incomes above 60,000 to remove what appe
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
-mutate(hhincome = case_when(hhincome == .1 ~ 0,TRUE ~ hhincome)) #undoing mutation from proposal to return 0 income variables to 0
+  mutate(hhincome = case_when(
+    hhincome == .1 ~ 0,
+    TRUE ~ hhincome
+  )) #undoing mutation from proposal to return 0 income variables to 0
 caldata <- caldata %>%
- filter(hhincome > 5, log(hhincome) < 8)
+  filter(hhincome > 5, log(hhincome) < 8)
 ```
 
 
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
- geom_histogram(binwidth = 100) +
-labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+  geom_histogram(binwidth = 100) +
+  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
@@ -191,6 +198,7 @@ We must center age and usdurl in order to have a useful model intercept interpre
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
 mean(caldata$usdur1) #mean usdur1
+mean(caldata$edyrs) #mean edyrs
 ```
 
 The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
@@ -213,6 +221,7 @@ We will consider the potential interaction between principal occupation and numb
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
+### 2.1 Full Model
 
 #### 2.2.5 Remove Obvious Collinear Variable
 
@@ -256,35 +265,51 @@ Using backward selection based on AIC, we narrowed down to 4 variables: sex, edy
 
 To find potential interactions between the 4 variables, we used nested-F test for each of the possible interactions:
 
-After inital backwards selection, we will explore the possible interactions between remaining variables- edyrs, usdurl, sex, and age- to determine if any are significant.
+After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, and `age`, to determine if any are significant.
 
 ```{r int-model}
 int_model_1 <- lm(hhincome ~ sex + age + edyrs + usdurl + edyrs*usdurl, data = caldata)
 anova(reduced, int_model_1, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.653
+```
+First, we tested the interaction between `edyrs` and `usdurl`. The p-value for this test was 0.653 > 0.05, therefore we will not include it in the model.
 
+```{r int-model2}
 int_model_2 <- lm(hhincome ~ sex + age + edyrs + usdurl + sex*usdurl, data = caldata)
 anova(reduced, int_model_2, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3) # p = 0.034
+```
+Then, we tested the interaction between `sex` and `usdurl`. The p-value for this test was 0.034 < 0.05, therefore we will include it in the model.
 
+```{r int-model3}
 int_model_3 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*usdurl, data = caldata)
 anova(reduced, int_model_3, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.201
+```
+Then, we tested the interaction between `age` and `usdurl`. The p-value for this test was 0.201 > 0.05, therefore we will not include it in the model.
 
+```{r int-model4}
 int_model_4 <- lm(hhincome ~ sex + age + edyrs + usdurl + sex*edyrs, data = caldata)
 anova(reduced, int_model_4, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.326
+```
+Then, we tested the interaction between `sex` and `edyrs`. The p-value for this test was 0.326 > 0.05, therefore we will not include it in the model.
 
+```{r int-model5}
 int_model_5 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs, data = caldata)
 anova(reduced, int_model_5, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0
+```
+Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
 
+```{r int-model 6}
 int_model_6 <- lm(hhincome ~ sex + age + edyrs + usdurl + age*sex, data = caldata)
 anova(reduced, int_model_6, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.376
 ```
+Then, we tested the interaction between `age` and `sex`. The p-value for this test was 0.376 > 0.05, therefore we will not include it in the model.
 
-Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034.
+Through nested F-test, we observed significant interactions between age & edyrs and between sex & usdurl, with respective p-values of 0 and 0.034 and will be including them in our model.
 
 ### 3.4 Model with Interaction
 
@@ -310,6 +335,148 @@ kable(digits = 3, format = "markdown")
 ```
 
 We observed that the variable selection changed. Specifically, usdur1 and usdoc1 are significant, besides the 4 variables and the 2 interaction terms identified previously.
+
+### 3.6 Final model
+
+```{r}
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1 , data=caldata)
+kable(tidy(full_int_new_2),format="html" ,digits=3)
+
+reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+sel_summary <- summary(reduced_int_new_2)
+tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+
+### 3.6 High Leverage Points 
+
+```{r augment}
+mig_output <- augment(reduced_int_new_2) %>%
+  mutate(obs_num = row_number())
+```
+
+.hat: leverage
+.cooksd: Cook's distance
+.std.resid: standardized residuals
+
+```{r leverage}
+leverage_threshold <- 2*(5+1)/nrow(caldata)
+
+ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = leverage_threshold,color = "red")
+ ## labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
+ ## geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
+
+mig_output %>% 
+  filter(.hat > leverage_threshold)
+145/nrow(caldata)
+```
+
+```{r standardized-residuals}
+ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0,color = "red") +
+  geom_hline(yintercept = -2,color = "red",linetype = "dotted") +
+  geom_hline(yintercept = 2,color = "red",linetype = "dotted") +
+  labs(x ="Predicted Value",y ="Standardized Residuals",title = "Standardized Residuals vs. Predicted") +
+  geom_text(aes(label = ifelse(abs(.std.resid) >2,as.character(obs_num),"")), nudge_x = 0.3)
+
+mig_output %>% 
+  filter(abs(.std.resid) > 2)
+```
+  
+Standardized residuals vs. predictors!!! make plots
+
+  
+Estimate of regression standard deviation, σ̂,  using all observations
+
+```{r regression-standard-deviation}
+glance(reduced_int_new_2)$sigma
+
+mig_output %>%
+  filter(abs(.std.resid) <= 2) %>%
+  summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
+```
+
+Estimate of σ̂ without points with large magnitude standardized residuals
+
+tips_output %>%
+  filter(abs(.std.resid) <= 2) %>%
+  summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
+  
+Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
+
+```{r cooks-distance}
+ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) + 
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept=1,color = "red")+
+  labs(x= "Observation Number",y = "Cook's Distance",title = "Cook's Distance") +
+  geom_text(aes(label = ifelse(.hat>1,as.character(obs_num),"")))
+```
+
+```{r vif}
+tidy(vif(reduced_int_new_2))
+```
+
+
+
 ## Section 3: Discussion and Limitations 
+
+
+### 3.1 Limitations
+
+In order to complete an effective analysis in the time given, we greatly simplified our raw data to predict our response variable, household income. We ended up only analyzing a subgroup of the immigrants and focused on those who migrated to California because they made up a large majority of our dataset, anyway. If we were given more time, we would’ve analyzed the entirety of the set. Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitely sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis.
+
+If we could continue to work on the project, we would operate under the assumption that the household income that is unusual was reported in pesos and potentially recorded in the Mexico and split the data set into two and investigate that. I think our model could be stronger if we were able to include this very valuable data and inform our predictions with this information.  
+
+### 3.2 Prediction
+
+### 3.2.1 Effect of "Gender" on Wage 
+
+```{r}
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x0, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted wage is $854.32 We are 95% confident that the actual salary falls in the interval of [801.25, 907.40].
+
+```{r}
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x1, interval = "confidence")
+```
+For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted salary is $564.91 We are 95% confident that the actual salary falls in the interval of [331.67, 798.15].
+
+
+We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
+
+### 3.2.2 Effect of "Type of Documentation" on Wage
+
+```{r}
+x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Temporary: Tourist/visitor")
+predict.lm(reduced_int_new_2, x3, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Temporary: Tourist/visitor", his predicted wage is $801.53 We are 95% confident that the actual salary falls in the interval of [609.88, 993.18].
+
+
+```{r}
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero")
+predict.lm(reduced_int_new_2, x4, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Contract - Bracero", his predicted salary is $896.04 We are 95% confident that the actual salary falls in the interval of [676.52, 1115.55].
+
+```{r}
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident")
+predict.lm(reduced_int_new_2, x5, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Legal resident", his predicted salary is $1062.50 We are 95% confident that the actual salary falls in the interval of [898.52, 1226.48].
+
+
+The prediction suggest a hierarchy in wage discrimination based on documentation: temporary visa holders  males makes the least wage, followed by undocumented people, followed by contract visa holders, and legal residents earn the most wage.
+
+
 ## Section 4: Conclusion
 ## Section 5: Additional Work
+
+
+

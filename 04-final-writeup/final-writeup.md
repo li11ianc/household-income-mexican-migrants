@@ -4,6 +4,7 @@ Influence Household Income
 Ben 10
 12/05/2019
 
+<<<<<<< HEAD
 Your project goes here\! Before you submit, make sure your chunks are
 turned off with `echo = FALSE`.
 
@@ -11,6 +12,8 @@ You can add sections as you see fit. At a minimum, you should have the
 following
 sections:
 
+=======
+>>>>>>> a76ba95fa37e84fd7730a7d833d877bf04ef7777
 ## Section 1: Introduction (includes introduction and exploratory data analysis)
 
 ## 1\. Introduction
@@ -203,6 +206,8 @@ interpretation.
 
     ## [1] 43.98635
 
+    ## [1] 6.440546
+
 The mean age in the dataset is 39.43 years ; the mean duration of last
 US migration is 60.27 months (about 5 years); and the mean duration of
 first US migration is 43.99 months (less than 3.5
@@ -233,6 +238,8 @@ rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating
 issue.
+
+### 2.1 Full Model
 
 #### 2.2.5 Remove Obvious Collinear Variable
 
@@ -2424,7 +2431,777 @@ p.value
 
 </thead>
 
+<<<<<<< HEAD
 <tbody>
+=======
+<td style="text-align:right;">
+
+341.941
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.451
+
+</td>
+
+<td style="text-align:right;">
+
+0.652
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+### 3.2 Backward selection
+
+    ## Start:  AIC=6442.92
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdurl + usdoc1 + uscity
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - uscity   13   3071711 119125190 6430.3
+    ## - occtype  17   6282840 122336319 6436.0
+    ## - marstat   5    831232 116884711 6436.6
+    ## - usdoc1    3    505808 116559287 6439.2
+    ## - statebrn 15   6094016 122147495 6439.2
+    ## - usdur1    1     11365 116064844 6441.0
+    ## <none>                  116053479 6442.9
+    ## - edyrs     1    542908 116596387 6443.3
+    ## - usdurl    1    547562 116601041 6443.3
+    ## - sex       1   1032440 117085919 6445.5
+    ## - age       1   1350282 117403761 6446.9
+    ## 
+    ## Step:  AIC=6430.33
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - occtype  17   5845224 124970414 6420.9
+    ## - marstat   5   1083209 120208399 6425.0
+    ## - statebrn 15   6724549 125849739 6428.5
+    ## - usdoc1    3    975015 120100205 6428.5
+    ## - usdur1    1     81050 119206241 6428.7
+    ## <none>                  119125190 6430.3
+    ## - edyrs     1    471056 119596246 6430.3
+    ## - usdurl    1    898034 120023224 6432.2
+    ## - sex       1    900647 120025837 6432.2
+    ## - age       1    931697 120056887 6432.3
+    ## 
+    ## Step:  AIC=6420.9
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ##     usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - marstat   5    777612 125748026 6414.1
+    ## - statebrn 15   6347181 131317596 6416.3
+    ## - usdoc1    3    830148 125800562 6418.3
+    ## - usdur1    1    155180 125125594 6419.5
+    ## <none>                  124970414 6420.9
+    ## - sex       1    570931 125541345 6421.2
+    ## - age       1    602177 125572591 6421.4
+    ## - usdurl    1   1428461 126398876 6424.7
+    ## - edyrs     1   1682731 126653145 6425.8
+    ## 
+    ## Step:  AIC=6414.08
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1
+    ## 
+    ##            Df Sum of Sq       RSS    AIC
+    ## - statebrn 15   6699887 132447914 6410.7
+    ## - usdoc1    3    868576 126616602 6411.6
+    ## - usdur1    1    147884 125895910 6412.7
+    ## <none>                  125748026 6414.1
+    ## - age       1    849920 126597946 6415.5
+    ## - sex       1   1355291 127103317 6417.6
+    ## - usdurl    1   1442401 127190427 6417.9
+    ## - edyrs     1   1576632 127324658 6418.5
+    ## 
+    ## Step:  AIC=6410.71
+    ## hhincome ~ sex + age + edyrs + usdur1 + usdurl + usdoc1
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## - usdur1  1    299052 132746966 6409.9
+    ## <none>                132447914 6410.7
+    ## - usdoc1  3   1634456 134082370 6411.0
+    ## - sex     1    790805 133238718 6411.8
+    ## - usdurl  1   1541739 133989652 6414.6
+    ## - age     1   1835768 134283682 6415.8
+    ## - edyrs   1   2538651 134986564 6418.5
+    ## 
+    ## Step:  AIC=6409.87
+    ## hhincome ~ sex + age + edyrs + usdurl + usdoc1
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## - usdoc1  3   1494678 134241644 6409.6
+    ## <none>                132746966 6409.9
+    ## - sex     1   1016294 133763260 6411.8
+    ## - usdurl  1   1375595 134122561 6413.2
+    ## - age     1   1956939 134703904 6415.4
+    ## - edyrs   1   2620424 135367390 6417.9
+    ## 
+    ## Step:  AIC=6409.61
+    ## hhincome ~ sex + age + edyrs + usdurl
+    ## 
+    ##          Df Sum of Sq       RSS    AIC
+    ## <none>                134241644 6409.6
+    ## - sex     1   1249042 135490686 6412.4
+    ## - usdurl  1   1733473 135975117 6414.2
+    ## - age     1   2491615 136733260 6417.0
+    ## - edyrs   1   3203237 137444881 6419.7
+
+| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
+| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
+| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
+| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
+| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
+| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
+| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
+
+Using backward selection based on AIC, we narrowed down to 4 variables:
+sex, edyrs, usdurl and age.
+
+### 3.3 Interactions
+
+To find potential interactions between the 4 variables, we used nested-F
+test for each of the possible interactions:
+
+After inital backwards selection, we will explore the possible
+interactions between remaining variables: `edyrs`, `usdurl`, `sex`, and
+`age`, to determine if any are significant.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 134188199 |  1 |  53444.74 |     0.653 |
+
+First, we tested the interaction between `edyrs` and `usdurl`. The
+p-value for this test was 0.653 \> 0.05, therefore we will not include
+it in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133063129 |  1 |   1178515 |     0.034 |
+
+Then, we tested the interaction between `sex` and `usdurl`. The p-value
+for this test was 0.034 \< 0.05, therefore we will include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133809343 |  1 |  432301.3 |     0.201 |
+
+Then, we tested the interaction between `age` and `usdurl`. The p-value
+for this test was 0.201 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 133986215 |  1 |  255429.1 |     0.326 |
+
+Then, we tested the interaction between `sex` and `edyrs`. The p-value
+for this test was 0.326 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 128320533 |  1 |   5921111 |         0 |
+
+Then, we tested the interaction between `age` and `edyrs`. The p-value
+for this test was 0 \< 0.05, therefore we will include it in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    508 | 134241644 | NA |        NA |        NA |
+|    507 | 134034469 |  1 |  207174.7 |     0.376 |
+
+Then, we tested the interaction between `age` and `sex`. The p-value for
+this test was 0.376 \> 0.05, therefore we will not include it in the
+model.
+
+Through nested F-test, we observed significant interactions between age
+& edyrs and between sex & usdurl, with respective p-values of 0 and
+0.034 and will be including them in our model.
+
+### 3.4 Model with Interaction
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+term
+
+</th>
+
+<th style="text-align:right;">
+
+estimate
+
+</th>
+
+<th style="text-align:right;">
+
+std.error
+
+</th>
+
+<th style="text-align:right;">
+
+statistic
+
+</th>
+
+<th style="text-align:right;">
+
+p.value
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+(Intercept)
+
+</td>
+
+<td style="text-align:right;">
+
+435.625
+
+</td>
+
+<td style="text-align:right;">
+
+118.863
+
+</td>
+
+<td style="text-align:right;">
+
+3.665
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM
+
+</td>
+
+<td style="text-align:right;">
+
+279.468
+
+</td>
+
+<td style="text-align:right;">
+
+109.513
+
+</td>
+
+<td style="text-align:right;">
+
+2.552
+
+</td>
+
+<td style="text-align:right;">
+
+0.011
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age
+
+</td>
+
+<td style="text-align:right;">
+
+\-6.969
+
+</td>
+
+<td style="text-align:right;">
+
+3.614
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.928
+
+</td>
+
+<td style="text-align:right;">
+
+0.054
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+25.408
+
+</td>
+
+<td style="text-align:right;">
+
+6.641
+
+</td>
+
+<td style="text-align:right;">
+
+3.826
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+1.881
+
+</td>
+
+<td style="text-align:right;">
+
+0.795
+
+</td>
+
+<td style="text-align:right;">
+
+2.366
+
+</td>
+
+<td style="text-align:right;">
+
+0.018
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+2.576
+
+</td>
+
+<td style="text-align:right;">
+
+0.549
+
+</td>
+
+<td style="text-align:right;">
+
+4.694
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.493
+
+</td>
+
+<td style="text-align:right;">
+
+0.833
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.793
+
+</td>
+
+<td style="text-align:right;">
+
+0.074
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+### 3.5 Backward Selection with Interaction
+
+Since we observed 2 pairs of significant interactions, we will do the
+backward selection again with the new interaction terms.
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+term
+
+</th>
+
+<th style="text-align:right;">
+
+estimate
+
+</th>
+
+<th style="text-align:right;">
+
+std.error
+
+</th>
+
+<th style="text-align:right;">
+
+statistic
+
+</th>
+
+<th style="text-align:right;">
+
+p.value
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+(Intercept)
+
+</td>
+
+<td style="text-align:right;">
+
+878.026
+
+</td>
+
+<td style="text-align:right;">
+
+557.482
+
+</td>
+
+<td style="text-align:right;">
+
+1.575
+
+</td>
+
+<td style="text-align:right;">
+
+0.116
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM
+
+</td>
+
+<td style="text-align:right;">
+
+345.547
+
+</td>
+
+<td style="text-align:right;">
+
+183.808
+
+</td>
+
+<td style="text-align:right;">
+
+1.880
+
+</td>
+
+<td style="text-align:right;">
+
+0.061
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age
+
+</td>
+
+<td style="text-align:right;">
+
+\-6.990
+
+</td>
+
+<td style="text-align:right;">
+
+4.410
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.585
+
+</td>
+
+<td style="text-align:right;">
+
+0.114
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnChihuahua
+
+</td>
+
+<td style="text-align:right;">
+
+\-37.480
+
+</td>
+
+<td style="text-align:right;">
+
+618.716
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.061
+
+</td>
+
+<td style="text-align:right;">
+
+0.952
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCoahuila
+
+</td>
+
+<td style="text-align:right;">
+
+1789.955
+
+</td>
+
+<td style="text-align:right;">
+
+804.966
+
+</td>
+
+<td style="text-align:right;">
+
+2.224
+
+</td>
+
+<td style="text-align:right;">
+
+0.027
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnColima
+
+</td>
+
+<td style="text-align:right;">
+
+\-135.045
+
+</td>
+
+<td style="text-align:right;">
+
+372.886
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.362
+
+</td>
+
+<td style="text-align:right;">
+
+0.717
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnGuanajuato
+
+</td>
+
+<td style="text-align:right;">
+
+2.438
+
+</td>
+
+<td style="text-align:right;">
+
+374.644
+
+</td>
+
+<td style="text-align:right;">
+
+0.007
+
+</td>
+
+<td style="text-align:right;">
+
+0.995
+
+</td>
+
+</tr>
+>>>>>>> a76ba95fa37e84fd7730a7d833d877bf04ef7777
 
 <tr>
 
@@ -4212,5 +4989,135 @@ age:edyrs
 
 We observed that the variable selection changed. Specifically, usdur1
 and usdoc1 are significant, besides the 4 variables and the 2
-interaction terms identified previously. \#\# Section 3: Discussion and
-Limitations \#\# Section 4: Conclusion \#\# Section 5: Additional Work
+interaction terms identified previously.
+
+### 3.6 High Leverage Points
+
+.hat: leverage .cooksd: Cook’s distance .std.resid: standardized
+residuals
+
+![](final-writeup_files/figure-gfm/leverage-1.png)<!-- -->
+
+    ## # A tibble: 145 x 15
+    ##    hhincome sex      age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
+    ##       <dbl> <chr>  <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
+    ##  1     1050 M     -15.4     12 -14.0  -30.3  Legal…    846.    99.3  204. 
+    ##  2      475 F      10.6      9   4.01 -36.3  Undoc…    757.   128.  -282. 
+    ##  3     1500 M      -1.42     3 220.   204.   Legal…   1008.   108.   492. 
+    ##  4      900 M      -4.42     5 -40.0   23.7  Legal…   1071.    91.4 -171. 
+    ##  5      213 M      14.6      1 -41.0  162.   Undoc…    783.    85.2 -570. 
+    ##  6     2500 M       8.58    11 -36.0  171.   Tempo…   1216.   116.  1284. 
+    ##  7      500 F      -8.42     9  28.0   29.7  Undoc…    619.   116.  -119. 
+    ##  8     1750 M     -10.4      8  28.0    5.73 Legal…    977.    84.9  773. 
+    ##  9     1250 M       6.58    16   4.01 -54.3  Tempo…   1203.   126.    46.8
+    ## 10      630 M      10.6      0 -38.0  -54.3  Tempo…    553.   112.    77.4
+    ## # … with 135 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
+    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+
+    ## [1] 0.2826511
+
+![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
+
+    ## # A tibble: 35 x 15
+    ##    hhincome sex     age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
+    ##       <dbl> <chr> <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
+    ##  1     1900 M     -5.42     6 -26.0   29.7  Undoc…    845.    34.1  1055.
+    ##  2     2500 M      8.58    11 -36.0  171.   Tempo…   1216.   116.   1284.
+    ##  3     1777 M     -9.42     4   4.01 -36.3  Undoc…    758.    42.0  1019.
+    ##  4     2100 M     -4.42     5  52.0   57.7  Undoc…    813.    36.1  1287.
+    ##  5     2025 M     -7.42    11   4.01   5.73 Undoc…    814.    39.4  1211.
+    ##  6     2250 M      3.58     1   4.01 -54.3  Undoc…    677.    44.6  1573.
+    ##  7     2421 M      6.58     5 -41.0   41.7  Undoc…    911.    40.3  1510.
+    ##  8     2063 M     -1.42     9 -38.0  150.   Undoc…   1019.    67.5  1044.
+    ##  9     2500 M     -9.42    16 -38.0   17.7  Legal…   1024.   106.   1476.
+    ## 10     2000 M     25.6      4 514.   498.   Undoc…    875.   176.   1125.
+    ## # … with 25 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
+    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+
+Standardized residuals vs. predictors\!\!\! make plots
+
+Estimate of regression standard deviation, σ̂, using all observations
+
+    ## [1] 499.4409
+
+    ## # A tibble: 1 x 1
+    ##   sigma_est
+    ##       <dbl>
+    ## 1      388.
+
+Estimate of σ̂ without points with large magnitude standardized
+residuals
+
+tips\_output %\>% filter(abs(.std.resid) \<= 2) %\>%
+summarise(sigma\_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
+
+Recall that we use σ̂ to calculate the standard errors for all
+confidence intervals and p-values, so outliers can affect conclusions
+drawn from model
+
+![](final-writeup_files/figure-gfm/cooks-distance-1.png)<!-- -->
+
+    ## # A tibble: 10 x 2
+    ##    names                                x
+    ##    <chr>                            <dbl>
+    ##  1 sexM                              1.15
+    ##  2 age                               4.46
+    ##  3 edyrs                             1.33
+    ##  4 usdur1                            1.98
+    ##  5 usdurl                           13.0 
+    ##  6 usdoc1Legal resident              2.73
+    ##  7 usdoc1Temporary: Tourist/visitor  2.40
+    ##  8 usdoc1Undocumented                4.09
+    ##  9 sexM:usdurl                      10.9 
+    ## 10 age:edyrs                         3.70
+
+## Section 3: Discussion and Limitations
+
+In order to complete an effective analysis in the time given, we greatly
+simplified our raw data to predict our response variable, household
+income. We ended up only analyzing a subgroup of the immigrants and
+focused on those who migrated to California because they made up a large
+majority of our dataset, anyway. If we were given more time, we would’ve
+analyzed the entirety of the set. Additionally, we cut a chunk of the
+data out because it appeared that some of the income was reported in
+pesos and USD, though we are not definitely sure. Further analysis could
+investigate why it appeared that some income was reported in a
+potentially different currency and adjust for it so we can include all
+observations in our analysis.
+
+If we could continue to work on the project, we would operate under the
+assumption that the household income that is unusual was reported in
+pesos and potentially recorded in the Mexico and split the data set into
+two and investigate that. I think our model could be stronger if we were
+able to include this very valuable data and inform our predictions with
+this information.
+
+### 3.1 Prediction
+
+### 3.1.1 Effect of “Gender” on Wage
+
+    ##        fit      lwr     upr
+    ## 1 850.1124 797.2718 902.953
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “undocumented”, his
+predicted wage is $850.11 We are 95% confident that the actual salary
+falls in the interval of \[797.27, 902.95\].
+
+    ##       fit     lwr     upr
+    ## 1 620.833 397.379 844.287
+
+For a female who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “undocumented”, his
+predicted salary is $620.83 We are 95% confident that the actual salary
+falls in the interval of \[397.38, 844.29\].
+
+### 3.1.2 Effect of “Type of Documentation” on Wage
+
+## Section 4: Conclusion
+
+## Section 5: Additional Work
