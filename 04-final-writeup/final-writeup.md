@@ -4,19 +4,15 @@ Influence Household Income
 Ben 10
 12/05/2019
 
-<<<<<<< HEAD
-Your project goes here\! Before you submit, make sure your chunks are
-turned off with `echo = FALSE`.
+\<\<\<\<\<\<\< HEAD Your project goes here\! Before you submit, make
+sure your chunks are turned off with `echo = FALSE`.
 
 You can add sections as you see fit. At a minimum, you should have the
-following
-sections:
+following sections:
 
-=======
->>>>>>> a76ba95fa37e84fd7730a7d833d877bf04ef7777
-## Section 1: Introduction (includes introduction and exploratory data analysis)
-
-## 1\. Introduction
+\======= \>\>\>\>\>\>\> a76ba95fa37e84fd7730a7d833d877bf04ef7777 \#\#
+Section 1: Introduction (includes introduction and exploratory data
+analysis) \#\# 1. Introduction
 
 ### 1.1 Objective
 
@@ -167,6 +163,8 @@ Now the distribution of response variable (hhincome) looks like a right
 skewed normal
 distribution.
 
+#### 2.2.2 Group cities by region
+
 <img src="final-writeup_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
 
 These immigrants to California arrived to the following cities:
@@ -187,7 +185,7 @@ Given the comparatively small number of cases in which no city was
 reported, we deleted these instances. The majority of immigrants went to
 LA-Long Beach area in Southern California.
 
-#### 2.2.3 Remove Variable “relhead”
+#### 2.2.4 Remove Variable “relhead”
 
 It turned out that all values from relhead (relationship to head of
 household) in our cleaned data were “1” or head. So we will remove this
@@ -195,7 +193,7 @@ variable, as well as state variables since we are only using California
 data. We will also remove place data since we are using uscity, and occ
 since we are using occtype.
 
-#### 2.2.4 Mean-center “age” , “usdur1” and “usdurl”
+#### 2.2.5 Mean-center “age” , “usdur1” and “usdurl”
 
 We must center age and usdurl in order to have a useful model intercept
 interpretation.
@@ -2063,514 +2061,6 @@ To find potential interactions between the 4 variables, we used nested-F
 test for each of the possible interactions:
 
 After inital backwards selection, we will explore the possible
-interactions between remaining variables- edyrs, usdurl, sex, and age-
-to determine if any are significant.
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 134188199 |  1 |  53444.74 |     0.653 |
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 133063129 |  1 |   1178515 |     0.034 |
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 133809343 |  1 |  432301.3 |     0.201 |
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 133986215 |  1 |  255429.1 |     0.326 |
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 128320533 |  1 |   5921111 |         0 |
-
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    508 | 134241644 | NA |        NA |        NA |
-|    507 | 134034469 |  1 |  207174.7 |     0.376 |
-
-Through nested F-test, we observed significant interactions between age
-& edyrs and between sex & usdurl, with respective p-values of 0 and
-0.034.
-
-### 3.4 Model with Interaction
-
-<table>
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-term
-
-</th>
-
-<th style="text-align:right;">
-
-estimate
-
-</th>
-
-<th style="text-align:right;">
-
-std.error
-
-</th>
-
-<th style="text-align:right;">
-
-statistic
-
-</th>
-
-<th style="text-align:right;">
-
-p.value
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-(Intercept)
-
-</td>
-
-<td style="text-align:right;">
-
-435.625
-
-</td>
-
-<td style="text-align:right;">
-
-118.863
-
-</td>
-
-<td style="text-align:right;">
-
-3.665
-
-</td>
-
-<td style="text-align:right;">
-
-0.000
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM
-
-</td>
-
-<td style="text-align:right;">
-
-279.468
-
-</td>
-
-<td style="text-align:right;">
-
-109.513
-
-</td>
-
-<td style="text-align:right;">
-
-2.552
-
-</td>
-
-<td style="text-align:right;">
-
-0.011
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age
-
-</td>
-
-<td style="text-align:right;">
-
-\-6.969
-
-</td>
-
-<td style="text-align:right;">
-
-3.614
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.928
-
-</td>
-
-<td style="text-align:right;">
-
-0.054
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-25.408
-
-</td>
-
-<td style="text-align:right;">
-
-6.641
-
-</td>
-
-<td style="text-align:right;">
-
-3.826
-
-</td>
-
-<td style="text-align:right;">
-
-0.000
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-1.881
-
-</td>
-
-<td style="text-align:right;">
-
-0.795
-
-</td>
-
-<td style="text-align:right;">
-
-2.366
-
-</td>
-
-<td style="text-align:right;">
-
-0.018
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-2.576
-
-</td>
-
-<td style="text-align:right;">
-
-0.549
-
-</td>
-
-<td style="text-align:right;">
-
-4.694
-
-</td>
-
-<td style="text-align:right;">
-
-0.000
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.493
-
-</td>
-
-<td style="text-align:right;">
-
-0.833
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.793
-
-</td>
-
-<td style="text-align:right;">
-
-0.074
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-### 3.5 Backward Selection with Interaction
-
-Since we observed 2 pairs of significant interactions, we will do the
-backward selection again with the new interaction terms.
-
-<table>
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-term
-
-</th>
-
-<th style="text-align:right;">
-
-estimate
-
-</th>
-
-<th style="text-align:right;">
-
-std.error
-
-</th>
-
-<th style="text-align:right;">
-
-statistic
-
-</th>
-
-<th style="text-align:right;">
-
-p.value
-
-</th>
-
-</tr>
-
-</thead>
-
-<<<<<<< HEAD
-<tbody>
-=======
-<td style="text-align:right;">
-
-341.941
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.451
-
-</td>
-
-<td style="text-align:right;">
-
-0.652
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-### 3.2 Backward selection
-
-    ## Start:  AIC=6442.92
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
-    ##     usdur1 + usdurl + usdoc1 + uscity
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - uscity   13   3071711 119125190 6430.3
-    ## - occtype  17   6282840 122336319 6436.0
-    ## - marstat   5    831232 116884711 6436.6
-    ## - usdoc1    3    505808 116559287 6439.2
-    ## - statebrn 15   6094016 122147495 6439.2
-    ## - usdur1    1     11365 116064844 6441.0
-    ## <none>                  116053479 6442.9
-    ## - edyrs     1    542908 116596387 6443.3
-    ## - usdurl    1    547562 116601041 6443.3
-    ## - sex       1   1032440 117085919 6445.5
-    ## - age       1   1350282 117403761 6446.9
-    ## 
-    ## Step:  AIC=6430.33
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
-    ##     usdur1 + usdurl + usdoc1
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - occtype  17   5845224 124970414 6420.9
-    ## - marstat   5   1083209 120208399 6425.0
-    ## - statebrn 15   6724549 125849739 6428.5
-    ## - usdoc1    3    975015 120100205 6428.5
-    ## - usdur1    1     81050 119206241 6428.7
-    ## <none>                  119125190 6430.3
-    ## - edyrs     1    471056 119596246 6430.3
-    ## - usdurl    1    898034 120023224 6432.2
-    ## - sex       1    900647 120025837 6432.2
-    ## - age       1    931697 120056887 6432.3
-    ## 
-    ## Step:  AIC=6420.9
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
-    ##     usdurl + usdoc1
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - marstat   5    777612 125748026 6414.1
-    ## - statebrn 15   6347181 131317596 6416.3
-    ## - usdoc1    3    830148 125800562 6418.3
-    ## - usdur1    1    155180 125125594 6419.5
-    ## <none>                  124970414 6420.9
-    ## - sex       1    570931 125541345 6421.2
-    ## - age       1    602177 125572591 6421.4
-    ## - usdurl    1   1428461 126398876 6424.7
-    ## - edyrs     1   1682731 126653145 6425.8
-    ## 
-    ## Step:  AIC=6414.08
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - statebrn 15   6699887 132447914 6410.7
-    ## - usdoc1    3    868576 126616602 6411.6
-    ## - usdur1    1    147884 125895910 6412.7
-    ## <none>                  125748026 6414.1
-    ## - age       1    849920 126597946 6415.5
-    ## - sex       1   1355291 127103317 6417.6
-    ## - usdurl    1   1442401 127190427 6417.9
-    ## - edyrs     1   1576632 127324658 6418.5
-    ## 
-    ## Step:  AIC=6410.71
-    ## hhincome ~ sex + age + edyrs + usdur1 + usdurl + usdoc1
-    ## 
-    ##          Df Sum of Sq       RSS    AIC
-    ## - usdur1  1    299052 132746966 6409.9
-    ## <none>                132447914 6410.7
-    ## - usdoc1  3   1634456 134082370 6411.0
-    ## - sex     1    790805 133238718 6411.8
-    ## - usdurl  1   1541739 133989652 6414.6
-    ## - age     1   1835768 134283682 6415.8
-    ## - edyrs   1   2538651 134986564 6418.5
-    ## 
-    ## Step:  AIC=6409.87
-    ## hhincome ~ sex + age + edyrs + usdurl + usdoc1
-    ## 
-    ##          Df Sum of Sq       RSS    AIC
-    ## - usdoc1  3   1494678 134241644 6409.6
-    ## <none>                132746966 6409.9
-    ## - sex     1   1016294 133763260 6411.8
-    ## - usdurl  1   1375595 134122561 6413.2
-    ## - age     1   1956939 134703904 6415.4
-    ## - edyrs   1   2620424 135367390 6417.9
-    ## 
-    ## Step:  AIC=6409.61
-    ## hhincome ~ sex + age + edyrs + usdurl
-    ## 
-    ##          Df Sum of Sq       RSS    AIC
-    ## <none>                134241644 6409.6
-    ## - sex     1   1249042 135490686 6412.4
-    ## - usdurl  1   1733473 135975117 6414.2
-    ## - age     1   2491615 136733260 6417.0
-    ## - edyrs   1   3203237 137444881 6419.7
-
-| term        | estimate | std.error | statistic | p.value | conf.low | conf.high |
-| :---------- | -------: | --------: | --------: | ------: | -------: | --------: |
-| (Intercept) |  435.912 |   120.504 |     3.617 |   0.000 |  199.164 |   672.660 |
-| sexM        |  241.933 |   111.280 |     2.174 |   0.030 |   23.307 |   460.559 |
-| age         |    6.725 |     2.190 |     3.071 |   0.002 |    2.422 |    11.028 |
-| edyrs       |   23.641 |     6.790 |     3.482 |   0.001 |   10.301 |    36.982 |
-| usdurl      |    0.662 |     0.258 |     2.561 |   0.011 |    0.154 |     1.169 |
-
-Using backward selection based on AIC, we narrowed down to 4 variables:
-sex, edyrs, usdurl and age.
-
-### 3.3 Interactions
-
-To find potential interactions between the 4 variables, we used nested-F
-test for each of the possible interactions:
-
-After inital backwards selection, we will explore the possible
 interactions between remaining variables: `edyrs`, `usdurl`, `sex`, and
 `age`, to determine if any are significant.
 
@@ -2963,245 +2453,6 @@ p.value
 </thead>
 
 <tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-(Intercept)
-
-</td>
-
-<td style="text-align:right;">
-
-878.026
-
-</td>
-
-<td style="text-align:right;">
-
-557.482
-
-</td>
-
-<td style="text-align:right;">
-
-1.575
-
-</td>
-
-<td style="text-align:right;">
-
-0.116
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM
-
-</td>
-
-<td style="text-align:right;">
-
-345.547
-
-</td>
-
-<td style="text-align:right;">
-
-183.808
-
-</td>
-
-<td style="text-align:right;">
-
-1.880
-
-</td>
-
-<td style="text-align:right;">
-
-0.061
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age
-
-</td>
-
-<td style="text-align:right;">
-
-\-6.990
-
-</td>
-
-<td style="text-align:right;">
-
-4.410
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.585
-
-</td>
-
-<td style="text-align:right;">
-
-0.114
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnChihuahua
-
-</td>
-
-<td style="text-align:right;">
-
-\-37.480
-
-</td>
-
-<td style="text-align:right;">
-
-618.716
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.061
-
-</td>
-
-<td style="text-align:right;">
-
-0.952
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCoahuila
-
-</td>
-
-<td style="text-align:right;">
-
-1789.955
-
-</td>
-
-<td style="text-align:right;">
-
-804.966
-
-</td>
-
-<td style="text-align:right;">
-
-2.224
-
-</td>
-
-<td style="text-align:right;">
-
-0.027
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnColima
-
-</td>
-
-<td style="text-align:right;">
-
-\-135.045
-
-</td>
-
-<td style="text-align:right;">
-
-372.886
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.362
-
-</td>
-
-<td style="text-align:right;">
-
-0.717
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnGuanajuato
-
-</td>
-
-<td style="text-align:right;">
-
-2.438
-
-</td>
-
-<td style="text-align:right;">
-
-374.644
-
-</td>
-
-<td style="text-align:right;">
-
-0.007
-
-</td>
-
-<td style="text-align:right;">
-
-0.995
-
-</td>
-
-</tr>
->>>>>>> a76ba95fa37e84fd7730a7d833d877bf04ef7777
 
 <tr>
 
@@ -4991,6 +4242,1793 @@ We observed that the variable selection changed. Specifically, usdur1
 and usdoc1 are significant, besides the 4 variables and the 2
 interaction terms identified previously.
 
+### 3.6 Final model
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+term
+
+</th>
+
+<th style="text-align:right;">
+
+estimate
+
+</th>
+
+<th style="text-align:right;">
+
+std.error
+
+</th>
+
+<th style="text-align:right;">
+
+statistic
+
+</th>
+
+<th style="text-align:right;">
+
+p.value
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+(Intercept)
+
+</td>
+
+<td style="text-align:right;">
+
+446.058
+
+</td>
+
+<td style="text-align:right;">
+
+448.854
+
+</td>
+
+<td style="text-align:right;">
+
+0.994
+
+</td>
+
+<td style="text-align:right;">
+
+0.321
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM
+
+</td>
+
+<td style="text-align:right;">
+
+400.641
+
+</td>
+
+<td style="text-align:right;">
+
+184.684
+
+</td>
+
+<td style="text-align:right;">
+
+2.169
+
+</td>
+
+<td style="text-align:right;">
+
+0.031
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age
+
+</td>
+
+<td style="text-align:right;">
+
+\-7.054
+
+</td>
+
+<td style="text-align:right;">
+
+4.248
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.661
+
+</td>
+
+<td style="text-align:right;">
+
+0.097
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnChihuahua
+
+</td>
+
+<td style="text-align:right;">
+
+\-9.137
+
+</td>
+
+<td style="text-align:right;">
+
+617.621
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.015
+
+</td>
+
+<td style="text-align:right;">
+
+0.988
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCoahuila
+
+</td>
+
+<td style="text-align:right;">
+
+1754.434
+
+</td>
+
+<td style="text-align:right;">
+
+806.202
+
+</td>
+
+<td style="text-align:right;">
+
+2.176
+
+</td>
+
+<td style="text-align:right;">
+
+0.030
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnColima
+
+</td>
+
+<td style="text-align:right;">
+
+\-124.948
+
+</td>
+
+<td style="text-align:right;">
+
+369.877
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.338
+
+</td>
+
+<td style="text-align:right;">
+
+0.736
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnGuanajuato
+
+</td>
+
+<td style="text-align:right;">
+
+68.230
+
+</td>
+
+<td style="text-align:right;">
+
+371.509
+
+</td>
+
+<td style="text-align:right;">
+
+0.184
+
+</td>
+
+<td style="text-align:right;">
+
+0.854
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnGuerrero
+
+</td>
+
+<td style="text-align:right;">
+
+207.073
+
+</td>
+
+<td style="text-align:right;">
+
+386.688
+
+</td>
+
+<td style="text-align:right;">
+
+0.536
+
+</td>
+
+<td style="text-align:right;">
+
+0.593
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnJalisco
+
+</td>
+
+<td style="text-align:right;">
+
+48.324
+
+</td>
+
+<td style="text-align:right;">
+
+369.546
+
+</td>
+
+<td style="text-align:right;">
+
+0.131
+
+</td>
+
+<td style="text-align:right;">
+
+0.896
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnMexico City
+
+</td>
+
+<td style="text-align:right;">
+
+437.928
+
+</td>
+
+<td style="text-align:right;">
+
+432.722
+
+</td>
+
+<td style="text-align:right;">
+
+1.012
+
+</td>
+
+<td style="text-align:right;">
+
+0.312
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnMichoacán
+
+</td>
+
+<td style="text-align:right;">
+
+29.306
+
+</td>
+
+<td style="text-align:right;">
+
+368.076
+
+</td>
+
+<td style="text-align:right;">
+
+0.080
+
+</td>
+
+<td style="text-align:right;">
+
+0.937
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNayarit
+
+</td>
+
+<td style="text-align:right;">
+
+223.779
+
+</td>
+
+<td style="text-align:right;">
+
+374.418
+
+</td>
+
+<td style="text-align:right;">
+
+0.598
+
+</td>
+
+<td style="text-align:right;">
+
+0.550
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnOaxaca
+
+</td>
+
+<td style="text-align:right;">
+
+230.528
+
+</td>
+
+<td style="text-align:right;">
+
+380.486
+
+</td>
+
+<td style="text-align:right;">
+
+0.606
+
+</td>
+
+<td style="text-align:right;">
+
+0.545
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPuebla
+
+</td>
+
+<td style="text-align:right;">
+
+181.071
+
+</td>
+
+<td style="text-align:right;">
+
+617.220
+
+</td>
+
+<td style="text-align:right;">
+
+0.293
+
+</td>
+
+<td style="text-align:right;">
+
+0.769
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSan Luis Potosí
+
+</td>
+
+<td style="text-align:right;">
+
+72.170
+
+</td>
+
+<td style="text-align:right;">
+
+371.129
+
+</td>
+
+<td style="text-align:right;">
+
+0.194
+
+</td>
+
+<td style="text-align:right;">
+
+0.846
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnTamaulipas
+
+</td>
+
+<td style="text-align:right;">
+
+\-402.553
+
+</td>
+
+<td style="text-align:right;">
+
+616.616
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.653
+
+</td>
+
+<td style="text-align:right;">
+
+0.514
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnVeracruz
+
+</td>
+
+<td style="text-align:right;">
+
+197.543
+
+</td>
+
+<td style="text-align:right;">
+
+505.513
+
+</td>
+
+<td style="text-align:right;">
+
+0.391
+
+</td>
+
+<td style="text-align:right;">
+
+0.696
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnZacatecas
+
+</td>
+
+<td style="text-align:right;">
+
+205.280
+
+</td>
+
+<td style="text-align:right;">
+
+366.576
+
+</td>
+
+<td style="text-align:right;">
+
+0.560
+
+</td>
+
+<td style="text-align:right;">
+
+0.576
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatDivorced
+
+</td>
+
+<td style="text-align:right;">
+
+135.625
+
+</td>
+
+<td style="text-align:right;">
+
+209.307
+
+</td>
+
+<td style="text-align:right;">
+
+0.648
+
+</td>
+
+<td style="text-align:right;">
+
+0.517
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatMarried
+
+</td>
+
+<td style="text-align:right;">
+
+49.394
+
+</td>
+
+<td style="text-align:right;">
+
+114.238
+
+</td>
+
+<td style="text-align:right;">
+
+0.432
+
+</td>
+
+<td style="text-align:right;">
+
+0.666
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatNever married
+
+</td>
+
+<td style="text-align:right;">
+
+\-139.046
+
+</td>
+
+<td style="text-align:right;">
+
+160.088
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.869
+
+</td>
+
+<td style="text-align:right;">
+
+0.386
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatSeparated
+
+</td>
+
+<td style="text-align:right;">
+
+48.035
+
+</td>
+
+<td style="text-align:right;">
+
+226.266
+
+</td>
+
+<td style="text-align:right;">
+
+0.212
+
+</td>
+
+<td style="text-align:right;">
+
+0.832
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatWidowed
+
+</td>
+
+<td style="text-align:right;">
+
+85.547
+
+</td>
+
+<td style="text-align:right;">
+
+239.709
+
+</td>
+
+<td style="text-align:right;">
+
+0.357
+
+</td>
+
+<td style="text-align:right;">
+
+0.721
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+12.703
+
+</td>
+
+<td style="text-align:right;">
+
+7.712
+
+</td>
+
+<td style="text-align:right;">
+
+1.647
+
+</td>
+
+<td style="text-align:right;">
+
+0.100
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeAdministrator
+
+</td>
+
+<td style="text-align:right;">
+
+87.372
+
+</td>
+
+<td style="text-align:right;">
+
+261.362
+
+</td>
+
+<td style="text-align:right;">
+
+0.334
+
+</td>
+
+<td style="text-align:right;">
+
+0.738
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeAgriculture
+
+</td>
+
+<td style="text-align:right;">
+
+\-324.096
+
+</td>
+
+<td style="text-align:right;">
+
+134.424
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.411
+
+</td>
+
+<td style="text-align:right;">
+
+0.016
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeArts
+
+</td>
+
+<td style="text-align:right;">
+
+\-876.829
+
+</td>
+
+<td style="text-align:right;">
+
+515.845
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.700
+
+</td>
+
+<td style="text-align:right;">
+
+0.090
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeEducator
+
+</td>
+
+<td style="text-align:right;">
+
+268.761
+
+</td>
+
+<td style="text-align:right;">
+
+325.183
+
+</td>
+
+<td style="text-align:right;">
+
+0.826
+
+</td>
+
+<td style="text-align:right;">
+
+0.409
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeHomemaker
+
+</td>
+
+<td style="text-align:right;">
+
+\-397.103
+
+</td>
+
+<td style="text-align:right;">
+
+557.517
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.712
+
+</td>
+
+<td style="text-align:right;">
+
+0.477
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeManufacturing (skilled)
+
+</td>
+
+<td style="text-align:right;">
+
+\-147.770
+
+</td>
+
+<td style="text-align:right;">
+
+131.784
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.121
+
+</td>
+
+<td style="text-align:right;">
+
+0.263
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeManufacturing (unskilled)
+
+</td>
+
+<td style="text-align:right;">
+
+\-222.480
+
+</td>
+
+<td style="text-align:right;">
+
+134.117
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.659
+
+</td>
+
+<td style="text-align:right;">
+
+0.098
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeOther, unspecified (disabled, incarcerated, tourist and other)
+
+</td>
+
+<td style="text-align:right;">
+
+\-725.166
+
+</td>
+
+<td style="text-align:right;">
+
+420.758
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.723
+
+</td>
+
+<td style="text-align:right;">
+
+0.085
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeProfessional
+
+</td>
+
+<td style="text-align:right;">
+
+\-756.193
+
+</td>
+
+<td style="text-align:right;">
+
+523.716
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.444
+
+</td>
+
+<td style="text-align:right;">
+
+0.149
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeProtection
+
+</td>
+
+<td style="text-align:right;">
+
+\-319.832
+
+</td>
+
+<td style="text-align:right;">
+
+378.054
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.846
+
+</td>
+
+<td style="text-align:right;">
+
+0.398
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeRetired
+
+</td>
+
+<td style="text-align:right;">
+
+\-632.620
+
+</td>
+
+<td style="text-align:right;">
+
+227.219
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.784
+
+</td>
+
+<td style="text-align:right;">
+
+0.006
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeSales
+
+</td>
+
+<td style="text-align:right;">
+
+\-181.722
+
+</td>
+
+<td style="text-align:right;">
+
+141.880
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.281
+
+</td>
+
+<td style="text-align:right;">
+
+0.201
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeServices
+
+</td>
+
+<td style="text-align:right;">
+
+\-151.106
+
+</td>
+
+<td style="text-align:right;">
+
+137.508
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.099
+
+</td>
+
+<td style="text-align:right;">
+
+0.272
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeStudent
+
+</td>
+
+<td style="text-align:right;">
+
+14.165
+
+</td>
+
+<td style="text-align:right;">
+
+534.828
+
+</td>
+
+<td style="text-align:right;">
+
+0.026
+
+</td>
+
+<td style="text-align:right;">
+
+0.979
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeTechnical Worker
+
+</td>
+
+<td style="text-align:right;">
+
+\-174.848
+
+</td>
+
+<td style="text-align:right;">
+
+238.727
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.732
+
+</td>
+
+<td style="text-align:right;">
+
+0.464
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeTransportation
+
+</td>
+
+<td style="text-align:right;">
+
+\-146.086
+
+</td>
+
+<td style="text-align:right;">
+
+160.923
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.908
+
+</td>
+
+<td style="text-align:right;">
+
+0.364
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeUnemployed (seeking work)
+
+</td>
+
+<td style="text-align:right;">
+
+\-728.362
+
+</td>
+
+<td style="text-align:right;">
+
+331.647
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.196
+
+</td>
+
+<td style="text-align:right;">
+
+0.029
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+1.512
+
+</td>
+
+<td style="text-align:right;">
+
+0.763
+
+</td>
+
+<td style="text-align:right;">
+
+1.982
+
+</td>
+
+<td style="text-align:right;">
+
+0.048
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Legal resident
+
+</td>
+
+<td style="text-align:right;">
+
+128.487
+
+</td>
+
+<td style="text-align:right;">
+
+146.292
+
+</td>
+
+<td style="text-align:right;">
+
+0.878
+
+</td>
+
+<td style="text-align:right;">
+
+0.380
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Temporary: Tourist/visitor
+
+</td>
+
+<td style="text-align:right;">
+
+\-100.509
+
+</td>
+
+<td style="text-align:right;">
+
+154.102
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.652
+
+</td>
+
+<td style="text-align:right;">
+
+0.515
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Undocumented
+
+</td>
+
+<td style="text-align:right;">
+
+\-54.831
+
+</td>
+
+<td style="text-align:right;">
+
+121.695
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.451
+
+</td>
+
+<td style="text-align:right;">
+
+0.653
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitycentcal
+
+</td>
+
+<td style="text-align:right;">
+
+83.133
+
+</td>
+
+<td style="text-align:right;">
+
+102.368
+
+</td>
+
+<td style="text-align:right;">
+
+0.812
+
+</td>
+
+<td style="text-align:right;">
+
+0.417
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitysocal
+
+</td>
+
+<td style="text-align:right;">
+
+69.892
+
+</td>
+
+<td style="text-align:right;">
+
+84.763
+
+</td>
+
+<td style="text-align:right;">
+
+0.825
+
+</td>
+
+<td style="text-align:right;">
+
+0.410
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+2.430
+
+</td>
+
+<td style="text-align:right;">
+
+0.584
+
+</td>
+
+<td style="text-align:right;">
+
+4.161
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM:usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.628
+
+</td>
+
+<td style="text-align:right;">
+
+0.838
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.942
+
+</td>
+
+<td style="text-align:right;">
+
+0.053
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+    ## Start:  AIC=6413.76
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdoc1 + uscity + age * edyrs + sex * usdur1
+    ## 
+    ##              Df Sum of Sq       RSS    AIC
+    ## - marstat     5    721607 114720477 6407.0
+    ## - occtype    17   6343459 120342329 6407.5
+    ## - statebrn   15   5984726 119983596 6410.0
+    ## - uscity      2    191505 114190375 6410.6
+    ## - usdoc1      3   1124078 115122948 6412.8
+    ## <none>                    113998870 6413.8
+    ## - sex:usdur1  1    926494 114925365 6415.9
+    ## - age:edyrs   1   4253860 118252730 6430.6
+    ## 
+    ## Step:  AIC=6407
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
+    ##     usdoc1 + uscity + age:edyrs + sex:usdur1
+    ## 
+    ##              Df Sum of Sq       RSS    AIC
+    ## - occtype    17   6147767 120868245 6399.8
+    ## - uscity      2    225651 114946128 6404.0
+    ## - statebrn   15   6403399 121123877 6404.9
+    ## - usdoc1      3   1197754 115918231 6406.3
+    ## <none>                    114720477 6407.0
+    ## - sex:usdur1  1   1004173 115724650 6409.5
+    ## - age:edyrs   1   4564519 119284996 6425.0
+    ## 
+    ## Step:  AIC=6399.78
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + uscity + 
+    ##     age:edyrs + sex:usdur1
+    ## 
+    ##              Df Sum of Sq       RSS    AIC
+    ## - statebrn   15   5952707 126820951 6394.4
+    ## - uscity      2    259222 121127466 6396.9
+    ## - usdoc1      3    968459 121836704 6397.9
+    ## <none>                    120868245 6399.8
+    ## - sex:usdur1  1    510836 121379080 6399.9
+    ## - age:edyrs   1   5208654 126076898 6419.4
+    ## 
+    ## Step:  AIC=6394.44
+    ## hhincome ~ sex + age + edyrs + usdur1 + usdoc1 + uscity + age:edyrs + 
+    ##     sex:usdur1
+    ## 
+    ##              Df Sum of Sq       RSS    AIC
+    ## - uscity      2    185104 127006055 6391.2
+    ## <none>                    126820951 6394.4
+    ## - sex:usdur1  1    597548 127418499 6394.9
+    ## - usdoc1      3   1674263 128495215 6395.2
+    ## - age:edyrs   1   5941860 132762811 6415.9
+    ## 
+    ## Step:  AIC=6391.19
+    ## hhincome ~ sex + age + edyrs + usdur1 + usdoc1 + age:edyrs + 
+    ##     sex:usdur1
+    ## 
+    ##              Df Sum of Sq       RSS    AIC
+    ## <none>                    127006055 6391.2
+    ## - sex:usdur1  1    574028 127580083 6391.5
+    ## - usdoc1      3   1640814 128646869 6391.8
+    ## - age:edyrs   1   5990044 132996099 6412.8
+
+| term                             | estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :------------------------------- | -------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept)                      |  456.946 |   174.409 |     2.620 |   0.009 |   114.286 |   799.606 |
+| sexM                             |  289.409 |   118.992 |     2.432 |   0.015 |    55.627 |   523.191 |
+| age                              |  \-7.630 |     3.927 |   \-1.943 |   0.053 |  \-15.345 |     0.085 |
+| edyrs                            |   24.947 |     6.785 |     3.677 |   0.000 |    11.616 |    38.277 |
+| usdur1                           |    1.122 |     0.718 |     1.563 |   0.119 |   \-0.289 |     2.533 |
+| usdoc1Legal resident             |  166.464 |   137.544 |     1.210 |   0.227 | \-103.767 |   436.695 |
+| usdoc1Temporary: Tourist/visitor | \-94.505 |   143.726 |   \-0.658 |   0.511 | \-376.882 |   187.871 |
+| usdoc1Undocumented               | \-41.715 |   114.287 |   \-0.365 |   0.715 | \-266.252 |   182.823 |
+| age:edyrs                        |    2.712 |     0.557 |     4.871 |   0.000 |     1.618 |     3.805 |
+| sexM:usdur1                      |  \-1.184 |     0.785 |   \-1.508 |   0.132 |   \-2.727 |     0.359 |
+
 ### 3.6 High Leverage Points
 
 .hat: leverage .cooksd: Cook’s distance .std.resid: standardized
@@ -4998,52 +6036,52 @@ residuals
 
 ![](final-writeup_files/figure-gfm/leverage-1.png)<!-- -->
 
-    ## # A tibble: 145 x 15
-    ##    hhincome sex      age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
-    ##       <dbl> <chr>  <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
-    ##  1     1050 M     -15.4     12 -14.0  -30.3  Legal…    846.    99.3  204. 
-    ##  2      475 F      10.6      9   4.01 -36.3  Undoc…    757.   128.  -282. 
-    ##  3     1500 M      -1.42     3 220.   204.   Legal…   1008.   108.   492. 
-    ##  4      900 M      -4.42     5 -40.0   23.7  Legal…   1071.    91.4 -171. 
-    ##  5      213 M      14.6      1 -41.0  162.   Undoc…    783.    85.2 -570. 
-    ##  6     2500 M       8.58    11 -36.0  171.   Tempo…   1216.   116.  1284. 
-    ##  7      500 F      -8.42     9  28.0   29.7  Undoc…    619.   116.  -119. 
-    ##  8     1750 M     -10.4      8  28.0    5.73 Legal…    977.    84.9  773. 
-    ##  9     1250 M       6.58    16   4.01 -54.3  Tempo…   1203.   126.    46.8
-    ## 10      630 M      10.6      0 -38.0  -54.3  Tempo…    553.   112.    77.4
-    ## # … with 135 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
-    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+    ## # A tibble: 133 x 14
+    ##    hhincome sex      age edyrs usdur1 usdoc1 .fitted .se.fit .resid   .hat
+    ##       <dbl> <chr>  <dbl> <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>  <dbl>
+    ##  1     1050 M     -15.4     12 -14.0  Legal…    829.    99.1  221.  0.0389
+    ##  2      475 F      10.6      9   4.01 Undoc…    822.   125.  -347.  0.0620
+    ##  3     1500 M      -1.42     3 220.   Legal…    973.   111.   527.  0.0485
+    ##  4      900 M      -4.42     5 -40.0  Legal…   1014.    89.2 -114.  0.0315
+    ##  5     2500 M       8.58    11 -36.0  Tempo…   1119.   105.  1381.  0.0434
+    ##  6      500 F      -8.42     9  28.0  Undoc…    530.   116.   -29.9 0.0534
+    ##  7     1750 M     -10.4      8  28.0  Legal…    964.    85.1  786.  0.0287
+    ##  8     1250 M       6.58    16   4.01 Tempo…   1286.   120.   -35.8 0.0567
+    ##  9      630 M      10.6      0 -38.0  Tempo…    574.   112.    56.5 0.0496
+    ## 10      700 M     -10.4      9 -38.0  Legal…    965.    87.3 -265.  0.0302
+    ## # … with 123 more rows, and 4 more variables: .sigma <dbl>, .cooksd <dbl>,
+    ## #   .std.resid <dbl>, obs_num <int>
 
     ## [1] 0.2826511
 
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
-    ## # A tibble: 35 x 15
-    ##    hhincome sex     age edyrs usdur1 usdurl usdoc1 .fitted .se.fit .resid
-    ##       <dbl> <chr> <dbl> <dbl>  <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>
-    ##  1     1900 M     -5.42     6 -26.0   29.7  Undoc…    845.    34.1  1055.
-    ##  2     2500 M      8.58    11 -36.0  171.   Tempo…   1216.   116.   1284.
-    ##  3     1777 M     -9.42     4   4.01 -36.3  Undoc…    758.    42.0  1019.
-    ##  4     2100 M     -4.42     5  52.0   57.7  Undoc…    813.    36.1  1287.
-    ##  5     2025 M     -7.42    11   4.01   5.73 Undoc…    814.    39.4  1211.
-    ##  6     2250 M      3.58     1   4.01 -54.3  Undoc…    677.    44.6  1573.
-    ##  7     2421 M      6.58     5 -41.0   41.7  Undoc…    911.    40.3  1510.
-    ##  8     2063 M     -1.42     9 -38.0  150.   Undoc…   1019.    67.5  1044.
-    ##  9     2500 M     -9.42    16 -38.0   17.7  Legal…   1024.   106.   1476.
-    ## 10     2000 M     25.6      4 514.   498.   Undoc…    875.   176.   1125.
-    ## # … with 25 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
-    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+    ## # A tibble: 34 x 14
+    ##    hhincome sex     age edyrs usdur1 usdoc1 .fitted .se.fit .resid    .hat
+    ##       <dbl> <chr> <dbl> <dbl>  <dbl> <chr>    <dbl>   <dbl>  <dbl>   <dbl>
+    ##  1     1900 M     -5.42     6 -26.0  Undoc…    809.    28.6  1091. 0.00323
+    ##  2     2500 M      8.58    11 -36.0  Tempo…   1119.   105.   1381. 0.0434 
+    ##  3     1777 M     -9.42     4   4.01 Undoc…    774.    41.6  1003. 0.00684
+    ##  4     2100 M     -4.42     5  52.0  Undoc…    800.    35.4  1300. 0.00495
+    ##  5     2025 M     -7.42    11   4.01 Undoc…    814.    39.6  1211. 0.00622
+    ##  6     2250 M      3.58     1   4.01 Undoc…    712.    41.4  1538. 0.00677
+    ##  7     2421 M      6.58     5 -41.0  Undoc…    871.    34.6  1550. 0.00474
+    ##  8     2063 M     -1.42     9 -38.0  Undoc…    908.    34.4  1155. 0.00469
+    ##  9     2500 M     -9.42    16 -38.0  Legal…    977.   105.   1523. 0.0440 
+    ## 10     2000 M     25.6      4 514.   Undoc…    855.   179.   1145. 0.127  
+    ## # … with 24 more rows, and 4 more variables: .sigma <dbl>, .cooksd <dbl>,
+    ## #   .std.resid <dbl>, obs_num <int>
 
 Standardized residuals vs. predictors\!\!\! make plots
 
 Estimate of regression standard deviation, σ̂, using all observations
 
-    ## [1] 499.4409
+    ## [1] 502.4909
 
     ## # A tibble: 1 x 1
     ##   sigma_est
     ##       <dbl>
-    ## 1      388.
+    ## 1      395.
 
 Estimate of σ̂ without points with large magnitude standardized
 residuals
@@ -5057,21 +6095,22 @@ drawn from model
 
 ![](final-writeup_files/figure-gfm/cooks-distance-1.png)<!-- -->
 
-    ## # A tibble: 10 x 2
-    ##    names                                x
-    ##    <chr>                            <dbl>
-    ##  1 sexM                              1.15
-    ##  2 age                               4.46
-    ##  3 edyrs                             1.33
-    ##  4 usdur1                            1.98
-    ##  5 usdurl                           13.0 
-    ##  6 usdoc1Legal resident              2.73
-    ##  7 usdoc1Temporary: Tourist/visitor  2.40
-    ##  8 usdoc1Undocumented                4.09
-    ##  9 sexM:usdurl                      10.9 
-    ## 10 age:edyrs                         3.70
+    ## # A tibble: 9 x 2
+    ##   names                                x
+    ##   <chr>                            <dbl>
+    ## 1 sexM                              1.23
+    ## 2 age                               4.42
+    ## 3 edyrs                             1.31
+    ## 4 usdur1                            6.12
+    ## 5 usdoc1Legal resident              2.70
+    ## 6 usdoc1Temporary: Tourist/visitor  2.38
+    ## 7 usdoc1Undocumented                4.07
+    ## 8 age:edyrs                         3.69
+    ## 9 sexM:usdur1                       5.92
 
 ## Section 3: Discussion and Limitations
+
+### 3.1 Limitations
 
 In order to complete an effective analysis in the time given, we greatly
 simplified our raw data to predict our response variable, household
@@ -5092,31 +6131,70 @@ two and investigate that. I think our model could be stronger if we were
 able to include this very valuable data and inform our predictions with
 this information.
 
-### 3.1 Prediction
+### 3.2 Prediction
 
-### 3.1.1 Effect of “Gender” on Wage
+### 3.2.1 Effect of “Gender” on Wage
 
-    ##        fit      lwr     upr
-    ## 1 850.1124 797.2718 902.953
+    ##        fit      lwr      upr
+    ## 1 854.3208 801.2458 907.3959
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), and last immigrated to the US for 3 years and 7 months
 (average duration), and has a documentation type of “undocumented”, his
-predicted wage is $850.11 We are 95% confident that the actual salary
-falls in the interval of \[797.27, 902.95\].
+predicted wage is $854.32 We are 95% confident that the actual salary
+falls in the interval of \[801.25, 907.40\].
 
-    ##       fit     lwr     upr
-    ## 1 620.833 397.379 844.287
+    ##        fit      lwr      upr
+    ## 1 564.9119 331.6745 798.1493
 
 For a female who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), and last immigrated to the US for 3 years and 7 months
 (average duration), and has a documentation type of “undocumented”, his
-predicted salary is $620.83 We are 95% confident that the actual salary
-falls in the interval of \[397.38, 844.29\].
+predicted salary is $564.91 We are 95% confident that the actual salary
+falls in the interval of \[331.67, 798.15\].
 
-### 3.1.2 Effect of “Type of Documentation” on Wage
+We can see from the prediction that there is a large gender wage gap,
+since a male’s predicted wage is much higher than a female of the same
+average demographics.
+
+### 3.2.2 Effect of “Type of Documentation” on Wage
+
+    ##      fit      lwr      upr
+    ## 1 801.53 609.8778 993.1821
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “Temporary:
+Tourist/visitor”, his predicted wage is $801.53 We are 95% confident
+that the actual salary falls in the interval of \[609.88, 993.18\].
+
+    ##        fit      lwr      upr
+    ## 1 896.0355 676.5237 1115.547
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “Contract -
+Bracero”, his predicted salary is $896.04 We are 95% confident that
+the actual salary falls in the interval of \[676.52, 1115.55\].
+
+    ##        fit      lwr      upr
+    ## 1 1062.499 898.5196 1226.479
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and has a documentation type of “Legal resident”,
+his predicted salary is $1062.50 We are 95% confident that the actual
+salary falls in the interval of \[898.52, 1226.48\].
+
+The prediction suggest a hierarchy in wage discrimination based on
+documentation: temporary visa holders males makes the least wage,
+followed by undocumented people, followed by contract visa holders, and
+legal residents earn the most wage.
 
 ## Section 4: Conclusion
 
