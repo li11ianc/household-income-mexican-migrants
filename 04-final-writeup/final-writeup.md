@@ -211,6 +211,8 @@ US migration is 60.27 months (about 5 years); and the mean duration of
 first US migration is 43.99 months (less than 3.5
 years).
 
+#### 2.2.6 Remove El Salvador Data and regionalize state born variable
+
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 
 ## 2\. Multiple Linear Regression Model
