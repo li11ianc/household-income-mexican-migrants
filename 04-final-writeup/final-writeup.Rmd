@@ -215,6 +215,21 @@ caldata <- caldata %>%
 ```
 #### 2.2.6 Remove El Salvador Data and regionalize state born variable
 
+```{r states, fig.align="center"}
+caldata <- caldata %>%
+  filter(statebrn %in% c("Aguascalientes", "Baja California del Norte","Baja California del Sur","Campeche","Coahuila", "Colima","Chiapas", "Chihuahua","Mexico City","Durango","Guanajuato", "Guerrero", "Hidalgo","Jalisco","México","Michoacán", "Morelos", "Nayarit","Nuevo Leon", "Oaxaca","Puebla","Querétaro","Quintana Roo","San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas","Tlaxcala", "Veracruz","Yucatán", "Zacatecas"))
+
+caldata <- caldata %>%
+  mutate(statebrn=recode(statebrn, "Aguascalientes"="Bajío", "Baja California del Norte"="bajacal","Baja California del Sur"="bajacal","Campeche"= "Yucatán Peninsula","Coahuila"="Northern Mexico", "Colima"="Pacific Coast","Chiapas"="Chiapas and Tabasco", "Chihuahua"="Northern Mexico","Mexico City"="Central Mexico","Durango"="Northern Mexico", "Guanajuato"="Bajío", "Guerrero"="Pacific Coast", "Hidalgo"="Central Mexico","Jalisco"="Pacific Coast","México"="Central Mexico","Michoacán"="Pacific Coast", "Morelos"="Central Mexico","Nayarit"="Pacific Coast","Nuevo Leon"="Northern Mexico", "Oaxaca"="Oaxaca","Puebla"="Central Mexico","Querétaro"="Bajío","Quintana Roo"= "Yucatán Peninsula","San Luis Potosí"="Bajío", "Sinaloa"="Northern Mexico", "Sonora"="Northern Mexico", "Tabasco"="Chiapas and Tabasco", "Tamaulipas"="Northern Mexico","Tlaxcala"="Central Mexico", "Veracruz"="Veracruz","Yucatán"= "Yucatán Peninsula", "Zacatecas"="Bajío"))
+
+
+ggplot(data = caldata, aes(x = statebrn))+ 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
+```
+Missing Yucatan and chiapas and tabasco
+
 
 
 
