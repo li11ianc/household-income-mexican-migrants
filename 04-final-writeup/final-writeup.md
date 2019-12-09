@@ -6202,10 +6202,17 @@ region of Central Mexico has the highest predicted wage, followed by
 Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
 lowest average predicted wage. However, it is worth noting that the
 confidence interval of South East Mexico is very large, including as low
+<<<<<<< HEAD
 as 0 and as high as
 $1901.58.
 
 ![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+=======
+as 0 and as high as $1901.58. This could be due to the small sample
+size, as shown in the histogram below:
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+>>>>>>> eb45aa731947edbacaa119c140cdc40dd1a95e17
 
 ## Section 4: Conclusion
 
