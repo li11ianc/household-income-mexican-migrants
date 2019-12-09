@@ -6006,46 +6006,66 @@ statebrnSouth East Mexico:usdurl
 
 ![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
-    ## # A tibble: 131 x 14
-    ##    hhincome sex      age statebrn edyrs usdurl .fitted .se.fit .resid
-    ##       <dbl> <chr>  <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>  <dbl>
-    ##  1     1050 M     -15.4  Bajío       12 -30.3     819.    90.2  231. 
-    ##  2      475 F      10.6  Pacific…     9 -36.3     689.   119.  -214. 
-    ##  3      425 M     -10.4  Bajío        1   5.73    707.    83.6 -282. 
-    ##  4     1500 M      -1.42 Pacific…     3 204.      751.    90.9  749. 
-    ##  5      567 M     -17.4  Bajío       11 -53.3     743.    84.4 -176. 
-    ##  6      213 M      14.6  Bajío        1 162.      814.    86.3 -601. 
-    ##  7      425 M     -15.4  Central…     9 -18.3     410.   318.    15.0
-    ##  8     2500 M       8.58 Bajío       11 171.     1476.    81.0 1024. 
-    ##  9      500 F      -8.42 Central…     9  29.7     803.   291.  -303. 
-    ## 10      800 M      -1.42 Norther…     6 126.      443.   301.   357. 
-    ## # … with 121 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
-    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+    ## [1] 0.2553606
 
-    ## [1] 0.2826511
+About a quarter of our observations are high leverage points, meaning
+that their combinations of values for the predictor variables are very
+far from the typical combinations in the data. Because human
+circumstances and economic conditions are often so extremely variable,
+we would not expect most migrants to share common values for the
+predictor variables.
 
-About 28% of our observations are high leverage points, meaning that
-they have x-values which differ greatly from the
+We can look at the four observations with the highest leverage:
+
+    ## # A tibble: 4 x 14
+    ##   hhincome sex      age statebrn edyrs usdurl .fitted .se.fit   .resid
+    ##      <dbl> <chr>  <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>    <dbl>
+    ## 1     2421 M       6.58 Central…     5   41.7   2421.    458. -3.45e-2
+    ## 2     1000 M      -2.42 Central…     5  -54.3   1174.    458. -1.74e+2
+    ## 3       16 M     -10.4  Norther…    14  270.     221.    436. -2.05e+2
+    ## 4     2000 M      -9.42 Norther…    16  -48.3   1909.    478.  9.10e+1
+    ## # … with 5 more variables: .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
+    ## #   .std.resid <dbl>, obs_num <int>
+
+Of the individuals in the data with high leverage, two have extensive
+educations and are relatively young and from Northern Mexico. Two are
+closer to the median age, have 5 years of education, and are from
+Central Mexico.
+
+These points are potentially, but not certainly, influential points, so
+we use other methods to sort out influential points.
 
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
-    ## # A tibble: 29 x 14
-    ##    hhincome sex     age statebrn edyrs usdurl .fitted .se.fit .resid
-    ##       <dbl> <chr> <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>  <dbl>
-    ##  1     1900 M     -5.42 Pacific…     6  29.7     769.    35.6  1131.
-    ##  2     2500 M      8.58 Bajío       11 171.     1476.    81.0  1024.
-    ##  3     1777 M     -9.42 Pacific…     4 -36.3     774.    46.2  1003.
-    ##  4     2100 M     -4.42 Pacific…     5  57.7     772.    43.0  1328.
-    ##  5     2025 M     -7.42 Pacific…    11   5.73    722.    45.0  1303.
-    ##  6     2250 M      3.58 Pacific…     1 -54.3     772.    55.0  1478.
-    ##  7     2500 M     -9.42 Bajío       16  17.7    1098.   120.   1402.
-    ##  8     2400 M      9.58 Bajío        6 162.     1157.    60.9  1243.
-    ##  9     1800 M     -9.42 Pacific…     6 -10.3     747.    35.7  1053.
-    ## 10     2000 M      9.58 Pacific…     4 -22.3     833.    41.0  1167.
-    ## # … with 19 more rows, and 5 more variables: .hat <dbl>, .sigma <dbl>,
-    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
+    ## [1] 0.05653021
 
-Standardized residuals vs. predictors\!\!\! make plots
+The 5% of our observations with standardized residuals of magnitude
+greater than 2 should be examined more closely- these are outliers, but
+they may not have an impact on the regression line. We can look plots of
+the standardized residuals versus all of our predictors.
+
+    ## Observations: 513
+    ## Variables: 14
+    ## $ hhincome   <dbl> 350, 313, 600, 570, 1050, 750, 1900, 1100, 1500, 500,…
+    ## $ sex        <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M"…
+    ## $ age        <dbl> -21.4249513, -6.4249513, -6.4249513, -11.4249513, -15…
+    ## $ statebrn   <chr> "Bajío", "Bajío", "Bajío", "Bajío", "Bajío", "Pacific…
+    ## $ edyrs      <dbl> 6, 4, 6, 9, 12, 6, 6, 6, 2, 3, 6, 1, 9, 8, 4, 1, 0, 3…
+    ## $ usdurl     <dbl> -54.2709552, -54.2709552, -54.2709552, -48.2709552, -…
+    ## $ .fitted    <dbl> 669.6265, 717.8052, 781.1042, 814.3973, 818.7793, 714…
+    ## $ .se.fit    <dbl> 59.67995, 50.53635, 41.71705, 53.75402, 90.20383, 40.…
+    ## $ .resid     <dbl> -319.62650, -404.80518, -181.10424, -244.39734, 231.2…
+    ## $ .hat       <dbl> 0.015011404, 0.010763961, 0.007334855, 0.012178287, 0…
+    ## $ .sigma     <dbl> 487.3771, 487.2485, 487.5238, 487.4669, 487.4775, 487…
+    ## $ .cooksd    <dbl> 3.701147e-04, 4.220425e-04, 5.716564e-05, 1.745476e-0…
+    ## $ .std.resid <dbl> -0.66116423, -0.83556120, -0.37317230, -0.50482327, 0…
+    ## $ obs_num    <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
+
+![](final-writeup_files/figure-gfm/std-resid-predictor-plots-1.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-2.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-3.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-4.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-5.png)<!-- -->
+
+Plots of the standardized residuals for each predictor variable reveal
+that, for the most part, our data satisfies the constant variance
+assumption.
 
 Estimate of regression standard deviation, σ̂, using all observations
 
@@ -6056,17 +6076,30 @@ Estimate of regression standard deviation, σ̂, using all observations
     ##       <dbl>
     ## 1      388.
 
-Estimate of σ̂ without points with large magnitude standardized
-residuals
-
-tips\_output %\>% filter(abs(.std.resid) \<= 2) %\>%
-summarise(sigma\_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
-
-Recall that we use σ̂ to calculate the standard errors for all
-confidence intervals and p-values, so outliers can affect conclusions
-drawn from model
+The estimate of our regression standard deviation using all observations
+is 487.0997, whereas the standard deviation estimate without points with
+large magnitude standardized residuals is 387.6239. Removing points with
+large magnitude standardized residuals would affect our conclusions by
+decreasing the standard error associated with our model coefficients,
+however, we do not want to damage our model’s integrity and explanatory
+power by removing too much human variability from the observations we
+base it on. We will examine Cook’s Distance to see if any observations
+have excessive overall impact or significantly affect the estimated
+coefficients when removed.
 
 ![](final-writeup_files/figure-gfm/cooks-distance-1.png)<!-- -->
+
+    ## # A tibble: 1 x 14
+    ##   hhincome sex     age statebrn edyrs usdurl .fitted .se.fit .resid  .hat
+    ##      <dbl> <chr> <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>  <dbl> <dbl>
+    ## 1     2000 M     -9.42 Norther…    16  -48.3   1909.    478.   91.0 0.962
+    ## # … with 4 more variables: .sigma <dbl>, .cooksd <dbl>, .std.resid <dbl>,
+    ## #   obs_num <int>
+
+One observation has a Cook’s Distance greater than 1- we will remove
+this individual from our analysis because it exerts significantly
+greater influence on the final coefficients of our model and could
+distort our explanations.
 
     ## # A tibble: 17 x 2
     ##    names                                x
@@ -6208,5 +6241,7 @@ size, as shown in the histogram below:
 ![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Section 4: Conclusion
+
+Thorugh
 
 ## Section 5: Additional Work

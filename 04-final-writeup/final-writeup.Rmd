@@ -421,17 +421,27 @@ leverage_threshold <- 2*(5+1)/nrow(caldata)
 
 ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
   geom_point(alpha = 0.7) + 
-  geom_hline(yintercept = leverage_threshold,color = "red")
- ## labs(x = "Observation Number",y = "Leverage",title = "Leverage") +
- ## geom_text(aes(label=ifelse(.hat > leverage_threshold, as.character(obs_num), "")), nudge_x = 4)
+  geom_hline(yintercept = leverage_threshold,color = "red") +
+  labs(x = "Observation Number",y = "Leverage",title = "Leverage")
 
-mig_output %>% 
+highlev <- mig_output %>% 
   filter(.hat > leverage_threshold)
 
-145/nrow(caldata)
+nrow(highlev)/nrow(caldata)
 ```
 
-About 28% of our observations are high leverage points, meaning that they have x-values which differ greatly from the 
+About a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables. 
+
+We can look at the four observations with the highest leverage:
+
+```{r top-leverage-points}
+highlev %>%
+  filter(.hat > .5)
+```
+
+Of the individuals in the data with high leverage, two have extensive educations and are relatively young and from Northern Mexico. Two are closer to the median age, have 5 years of education, and are from Central Mexico.
+
+These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
 
 ```{r standardized-residuals}
 ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
@@ -439,16 +449,45 @@ ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
   geom_hline(yintercept = 0,color = "red") +
   geom_hline(yintercept = -2,color = "red",linetype = "dotted") +
   geom_hline(yintercept = 2,color = "red",linetype = "dotted") +
-  labs(x ="Predicted Value",y ="Standardized Residuals",title = "Standardized Residuals vs. Predicted") +
-  geom_text(aes(label = ifelse(abs(.std.resid) >2,as.character(obs_num),"")), nudge_x = 0.3)
+  labs(x ="Predicted Value",y ="Standardized Residuals",title = "Standardized Residuals vs. Predicted Values")
 
-mig_output %>% 
+high_stdresid <- mig_output %>% 
   filter(abs(.std.resid) > 2)
+
+nrow(high_stdresid)/nrow(mig_output)
 ```
   
-Standardized residuals vs. predictors!!! make plots
+The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors.
 
-  
+```{r std-resid-predictor-plots}
+glimpse(mig_output)
+ggplot(data = mig_output, aes(x = age, y = .std.resid)) +
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="Centered Age (yrs)", y ="Standardized Residuals",
+       title = "Standardized Residuals vs. Age")
+ggplot(data = mig_output, aes(x = edyrs, y = .std.resid)) +
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="CYears of Education (yrs)", y ="Standardized Residuals",
+       title = "Standardized Residuals vs. Education Years")
+ggplot(data = mig_output, aes(x = usdurl, y = .std.resid)) +
+  geom_point(alpha = 0.7) + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="Centered Duration of Last Migration to US (months)", y ="Standardized Residuals",
+       title = "Standardized Residuals vs. Duration of Last US Migration")
+ggplot(data = mig_output, aes(x = sex, y = .std.resid)) +
+  geom_boxplot() + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="Sex", y ="Standardized Residuals",title = "Standardized Residuals vs. Sex")
+ggplot(data = mig_output, aes(x = statebrn, y = .std.resid)) +
+  geom_boxplot() + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="State of Birth", y ="Standardized Residuals",title = "Standardized Residuals vs. State of Birth")
+```
+
+Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption. 
+
 Estimate of regression standard deviation, σ̂,  using all observations
 
 ```{r regression-standard-deviation}
@@ -459,21 +498,22 @@ mig_output %>%
   summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
 ```
 
-Estimate of σ̂ without points with large magnitude standardized residuals
-
-tips_output %>%
-  filter(abs(.std.resid) <= 2) %>%
-  summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
-  
-Recall that we use σ̂ to calculate the standard errors for all confidence intervals and p-values, so outliers can affect conclusions drawn from model
+The estimate of our regression standard deviation using all observations is 487.0997, whereas the standard deviation estimate without points with large magnitude standardized residuals is 387.6239. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model's integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook's Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
 
 ```{r cooks-distance}
 ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) + 
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept=1,color = "red")+
   labs(x= "Observation Number",y = "Cook's Distance",title = "Cook's Distance") +
-  geom_text(aes(label = ifelse(.hat>1,as.character(obs_num),"")))
+  geom_text(aes(label = ifelse(.cooksd>1,as.character(obs_num),"")), nudge_y = .05)
 ```
+
+```{r high-cooks-dist}
+mig_output %>%
+  filter(obs_num == 279)
+```
+
+One observation has a Cook's Distance greater than 1- we will remove this individual from our analysis because it exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
 
 ```{r vif}
 tidy(vif(reduced_int_new_2))
