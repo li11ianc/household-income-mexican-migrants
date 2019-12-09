@@ -103,7 +103,7 @@ Accoridng to our previous data exploration, we found that the overwhelming major
 statedist <- within(data, 
                    usstatel <- factor(usstatel, 
                                       levels=names(sort(table(usstatel), 
-                                                        increasing=TRUE))))
+                                                        decreasing=TRUE))))
 ggplot(statedist, aes(x = usstatel)) + 
   geom_bar() +
   coord_flip()+
@@ -221,6 +221,7 @@ caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
@@ -232,6 +233,9 @@ statebrndist <- within(caldata,
                                                         increasing=TRUE))))
 ggplot(statebrndist, aes(x = statebrn))+ 
 >>>>>>> eb45aa731947edbacaa119c140cdc40dd1a95e17
+=======
+ggplot(data = caldata, aes(x = statebrn))+ 
+>>>>>>> 3176f099bfaa0a4e0a554b8e98e6f86b18d6832d
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
@@ -570,11 +574,15 @@ SouthEast <- caldata %>%
 ggplot(SouthEast, mapping = aes(x=hhincome)) +
   geom_histogram()+
   labs(x = "Household Income", y = "Count", title = "Distribution of Household Income in Immigrants Born in South East Mexico")
+
 ```
 
 
 
 ## Section 4: Conclusion
+
+Thorugh
+
 ## Section 5: Additional Work
 
 
