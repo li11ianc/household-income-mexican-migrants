@@ -6118,27 +6118,27 @@ this information.
 
 ### 3.2.1 Effect of “Gender” on Wage
 
-    ##        fit      lwr      upr
-    ## 1 814.8583 750.9734 878.7431
+    ##        fit      lwr     upr
+    ## 1 893.3224 824.8808 961.764
 
 For a male who is 39 years old (average age), was born on the Pacific
 Coast of Mexico, has 6 years of education (average edyrs), first
 immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and has a
-documentation type of “undocumented”, his predicted wage is $814.8583 We
-are 95% confident that the actual salary falls in the interval of
-\[750.9734, 878.7431\].
+to the US for 3 years and 7 months (average duration), and was born in
+the region of “Bajío”, his predicted wage is $893.32 We are 95%
+confident that the actual salary falls in the interval of \[824.88,
+961.76\].
 
     ##        fit      lwr      upr
-    ## 1 511.6485 296.4629 726.8341
+    ## 1 590.1126 370.6824 809.5429
 
 For a female who is 39 years old (average age), was born on the Pacific
 Coast of Mexico, has 6 years of education (average edyrs), first
 immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and has a
-documentation type of “undocumented”, his predicted salary is $511.6485
-We are 95% confident that the actual salary falls in the interval of
-\[296.4629, 726.8341\].
+to the US for 3 years and 7 months (average duration), and was born in
+the region of “Bajío”, her predicted salary is $590.11 We are 95%
+confident that the actual salary falls in the interval of \[370.68,
+809.54\].
 
 We can see from the prediction that there is a large gender wage gap,
 since a male’s predicted wage is much higher than a female of the same
@@ -6205,8 +6205,27 @@ confidence interval of South East Mexico is very large, including as low
 as 0 and as high as $1901.58. This could be due to the small sample
 size, as shown in the histogram below:
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ## Section 4: Conclusion
+
+Thorugh our exploration and analysis, we found sex, age, years of
+education, duration of last US immigration and region born significant
+predictors of household income of Mexican immigrant living in
+California. Among these, there are significant interactions between
+region born and years of education, as well as between region born and
+duration of last US stay.
+
+From our predictions, we observe a large gender wage gap: the average
+male has predicted wage of 893.32 USD, whereas the average female has
+predicted wage of 590.11 USD. It is shocking that the average wage for
+males is almost two times that of females.
+
+We also observed regional differences in terms of where the immigrant
+was born. Immigrants from the region of Central Mexico has the highest
+predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and
+South East Mexico has the lowest average predicted wage. However, since
+there is a prominent imbalance in number of observations from various
+regions, this conclusion should be taken with caution.
 
 ## Section 5: Additional Work

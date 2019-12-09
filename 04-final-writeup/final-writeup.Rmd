@@ -398,10 +398,12 @@ We observed that the variable selection changed. Specifically, usdur1 is signifi
 
 ### 3.6 Final model
 
-```{r}
+```{r full}
 full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
 kable(tidy(full_int_new_2),format="html" ,digits=3)
+```
 
+```{r final}
 reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
 sel_summary <- summary(reduced_int_new_2)
 tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
@@ -500,16 +502,16 @@ If we could continue to work on the project, we would operate under the assumpti
 ### 3.2.1 Effect of "Gender" on Wage 
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented", statebrn="Pacific Coast")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
-For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted wage is $814.8583 We are 95% confident that the actual salary falls in the interval of [750.9734, 878.7431].
+For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 ```{r}
-x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Undocumented", statebrn="Pacific Coast")
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
 predict.lm(reduced_int_new_2, x1, interval = "confidence")
 ```
-For a female who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "undocumented", his predicted salary is $511.6485 We are 95% confident that the actual salary falls in the interval of [296.4629, 726.8341].
+For a female who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11 We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
 
 
 We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
@@ -566,7 +568,11 @@ ggplot(SouthEast, mapping = aes(x=hhincome)) +
 
 ## Section 4: Conclusion
 
-Thorugh
+Thorugh our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay.
+
+From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males is almost two times that of females.
+
+We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution.
 
 ## Section 5: Additional Work
 
