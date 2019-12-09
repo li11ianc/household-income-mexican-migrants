@@ -92,9 +92,9 @@ income considering the following variables: `sex`, `relhead`, `age`,
 “uscity”: City of residence during first US migration
 
 Our response variable is household income: the total income for a single
-household, reported in $USD. We chose to use the multiple linear
-regression because our response variable is numeric, and there are
-multiple predictor variables.
+household. We chose to use the multiple linear regression because our
+response variable is numeric, and there are multiple predictor
+variables.
 
 ## 2\. Exploratory Data Analysis
 
@@ -6002,12 +6002,9 @@ statebrnSouth East Mexico:usdurl
 | statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
 | statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
 
-### 3.6 High Leverage Points
+### 3.6 Model Diagnostics
 
-.hat: leverage .cooksd: Cook’s distance .std.resid: standardized
-residuals
-
-![](final-writeup_files/figure-gfm/leverage-1.png)<!-- -->
+![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
     ## # A tibble: 131 x 14
     ##    hhincome sex      age statebrn edyrs usdurl .fitted .se.fit .resid
@@ -6026,6 +6023,9 @@ residuals
     ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
     ## [1] 0.2826511
+
+About 28% of our observations are high leverage points, meaning that
+they have x-values which differ greatly from the
 
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
@@ -6202,10 +6202,21 @@ region of Central Mexico has the highest predicted wage, followed by
 Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
 lowest average predicted wage. However, it is worth noting that the
 confidence interval of South East Mexico is very large, including as low
+<<<<<<< HEAD
+as 0 and as high as
+$1901.58.
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
+=======
 as 0 and as high as $1901.58. This could be due to the small sample
 size, as shown in the histogram below:
 
+<<<<<<< HEAD
 ![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+=======
+![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+>>>>>>> eb45aa731947edbacaa119c140cdc40dd1a95e17
+>>>>>>> 893895a1f739fc7dd41ba0f45421b21329f29135
 
 ## Section 4: Conclusion
 

@@ -83,7 +83,7 @@ We will build a multiple linear regression model to predict household income con
 
 "uscity": City of residence during first US migration
 
-Our response variable is household income: the total income for a single household, reported in $USD. We chose to use the multiple linear regression because our response variable is numeric, and there are multiple predictor variables.
+Our response variable is household income: the total income for a single household. We chose to use the multiple linear regression because our response variable is numeric, and there are multiple predictor variables.
 
 ## 2. Exploratory Data Analysis
 
@@ -220,12 +220,14 @@ caldata <- caldata %>%
 caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
-ggplot(data = caldata, aes(x = statebrn))+ 
+
+statebrndist <- within(caldata, 
+                   statebrn <- factor(statebrn, 
+                                      levels=names(sort(table(statebrn), increasing=TRUE))))
+ggplot(statebrndist, aes(x = statebrn))+ 
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
-
-
 
 ```
 We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted. 
@@ -411,18 +413,14 @@ kable(digits = 3, format = "markdown")
 ```
 
 
-### 3.6 High Leverage Points 
+### 3.6 Model Diagnostics
 
 ```{r augment}
 mig_output <- augment(reduced_int_new_2) %>%
   mutate(obs_num = row_number())
 ```
 
-.hat: leverage
-.cooksd: Cook's distance
-.std.resid: standardized residuals
-
-```{r leverage}
+```{r high-leverage}
 leverage_threshold <- 2*(5+1)/nrow(caldata)
 
 ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
@@ -433,8 +431,11 @@ ggplot(data = mig_output, aes(x = obs_num,y = .hat)) +
 
 mig_output %>% 
   filter(.hat > leverage_threshold)
+
 145/nrow(caldata)
 ```
+
+About 28% of our observations are high leverage points, meaning that they have x-values which differ greatly from the 
 
 ```{r standardized-residuals}
 ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
