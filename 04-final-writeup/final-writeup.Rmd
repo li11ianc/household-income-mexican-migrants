@@ -361,14 +361,14 @@ int_model_9 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*edyr
 anova(reduced, int_model_9, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.0002466
 ```
-Then, we tested the interaction between `statebrn` and `edyrs`. The p-value for this test was  0.0002466> 0.05, therefore we will  include it in the model.
+Then, we tested the interaction between `statebrn` and `edyrs`. The p-value for this test was  0.0002466< 0.05, therefore we will  include it in the model.
 
 ```{r int-model 10}
 int_model_10 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*usdurl, data = caldata)
 anova(reduced, int_model_10, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.0012
 ```
-Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for this test was 0.0012 > 0.05, therefore we will include it in the model.
+Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
 
 Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
 
