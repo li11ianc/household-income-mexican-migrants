@@ -100,7 +100,11 @@ However, we did make some adjustment according to the feedback that there is lar
 Accoridng to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
 ```{r}
-ggplot(data = data, aes(x = uscity)) + 
+citydist <- within(data, 
+                   uscity <- factor(uscity, 
+                                      levels=names(sort(table(uscity), 
+                                                        decreasing=TRUE))))
+ggplot(citydist, aes(x = uscity)) + 
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
