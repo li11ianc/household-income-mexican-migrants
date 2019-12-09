@@ -217,19 +217,33 @@ caldata <- caldata %>%
 
 ```{r states, fig.align="center"}
 caldata <- caldata %>%
-  filter(statebrn %in% c("Aguascalientes", "Baja California del Norte","Baja California del Sur","Campeche","Coahuila", "Colima","Chiapas", "Chihuahua","Mexico City","Durango","Guanajuato", "Guerrero", "Hidalgo","Jalisco","México","Michoacán", "Morelos", "Nayarit","Nuevo Leon", "Oaxaca","Puebla","Querétaro","Quintana Roo","San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas","Tlaxcala", "Veracruz","Yucatán", "Zacatecas"))
+  filter(statebrn %in% c("Guanajuato","Jalisco","Mexico City","San Luis Potosí","Zacatecas","Coahuila","Morelos","Baja California del Norte","Querétaro","Michoacán","Guerrero","Durango","Chihuahua","Nayarit","Sonora","Aguascalientes","Veracruz","Campeche","Colima","Tabasco","México","Puebla","Nuevo Leon","Oaxaca","Tamaulipas"))
 
 caldata <- caldata %>%
-  mutate(statebrn=recode(statebrn, "Aguascalientes"="Bajío", "Baja California del Norte"="bajacal","Baja California del Sur"="bajacal","Campeche"= "Yucatán Peninsula","Coahuila"="Northern Mexico", "Colima"="Pacific Coast","Chiapas"="Chiapas and Tabasco", "Chihuahua"="Northern Mexico","Mexico City"="Central Mexico","Durango"="Northern Mexico", "Guanajuato"="Bajío", "Guerrero"="Pacific Coast", "Hidalgo"="Central Mexico","Jalisco"="Pacific Coast","México"="Central Mexico","Michoacán"="Pacific Coast", "Morelos"="Central Mexico","Nayarit"="Pacific Coast","Nuevo Leon"="Northern Mexico", "Oaxaca"="Oaxaca","Puebla"="Central Mexico","Querétaro"="Bajío","Quintana Roo"= "Yucatán Peninsula","San Luis Potosí"="Bajío", "Sinaloa"="Northern Mexico", "Sonora"="Northern Mexico", "Tabasco"="Chiapas and Tabasco", "Tamaulipas"="Northern Mexico","Tlaxcala"="Central Mexico", "Veracruz"="Veracruz","Yucatán"= "Yucatán Peninsula", "Zacatecas"="Bajío"))
-
+  mutate(statebrn=recode(statebrn,"Baja California del Norte"="Baja California", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="Veracruz", ))
 
 ggplot(data = caldata, aes(x = statebrn))+ 
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
 ```
-Missing Yucatan and chiapas and tabasco
+We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. 
 
+We divided the remaining states into the following regions: 
+
+Baja California: 
+
+South East Mexico: Tabasco, Oaxaca, Campeche 
+
+Northern Mexico: Coahuila, Chihuahua, Durango, Nuevo Leon, Sonora, Tamaulipas
+
+Bajío: Aguascalientes, Guanajuato, Querétaro, San Luis Potosí, Zacatecas 
+
+Central Mexico: Mexico City, México, Morelos, Puebla 
+
+Pacific Coast:Colima, Guerrero, Jalisco, Michoacán, Nayarit 
+
+Veracruz: Veracruz 
 
 
 
