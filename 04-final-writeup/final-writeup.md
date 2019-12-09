@@ -92,9 +92,9 @@ income considering the following variables: `sex`, `relhead`, `age`,
 “uscity”: City of residence during first US migration
 
 Our response variable is household income: the total income for a single
-household, reported in $USD. We chose to use the multiple linear
-regression because our response variable is numeric, and there are
-multiple predictor variables.
+household. We chose to use the multiple linear regression because our
+response variable is numeric, and there are multiple predictor
+variables.
 
 ## 2\. Exploratory Data Analysis
 
