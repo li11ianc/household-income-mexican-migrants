@@ -4,15 +4,9 @@ Influence Household Income
 Ben 10
 12/05/2019
 
-\<\<\<\<\<\<\< HEAD Your project goes here\! Before you submit, make
-sure your chunks are turned off with `echo = FALSE`.
+## Section 1: Introduction (includes introduction and exploratory data analysis)
 
-You can add sections as you see fit. At a minimum, you should have the
-following sections:
-
-\======= \>\>\>\>\>\>\> a76ba95fa37e84fd7730a7d833d877bf04ef7777 \#\#
-Section 1: Introduction (includes introduction and exploratory data
-analysis) \#\# 1. Introduction
+## 1\. Introduction
 
 ### 1.1 Objective
 
@@ -230,7 +224,7 @@ Bajío: Aguascalientes, Guanajuato, Querétaro, San Luis Potosí, Zacatecas
 
 Central Mexico: Mexico City, México, Morelos, Puebla
 
-Pacific Coast:Colima, Guerrero, Jalisco, Michoacán, Nayarit
+Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit
 
 Veracruz:
 Veracruz
