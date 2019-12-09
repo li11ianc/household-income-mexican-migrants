@@ -6186,7 +6186,7 @@ size, as shown in the histogram below:
 
 ## Section 4: Conclusion
 
-Thorugh our exploration and analysis, we found sex, age, years of
+Through our exploration and analysis, we found sex, age, years of
 education, duration of last US immigration and region born significant
 predictors of household income of Mexican immigrant living in
 California. Among these, there are significant interactions between

@@ -563,7 +563,7 @@ ggplot(SouthEast, mapping = aes(x=hhincome)) +
 
 ## Section 4: Conclusion
 
-Thorugh our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay.
+Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay.
 
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males is almost two times that of females.
 
