@@ -328,7 +328,7 @@ anova(reduced, int_model_5, test = "Chisq") %>%
 Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
 
 ```{r int-model 6}
-int_model_6 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + age*sex, data = caldata)
+int_model_6 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + age*sex, data = caldata)
 anova(reduced, int_model_6, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.2073624
 ```
@@ -505,26 +505,39 @@ For a female who is 39 years old (average age), was born on the Pacific Coast of
 
 We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
 
-### 3.2.2 Effect of "Type of Documentation" on Wage
+### 3.2.2 Effect of "State born" on Wage
 
 ```{r}
-x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Temporary: Tourist/visitor")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast")
+predict.lm(reduced_int_new_2, x0, interval = "confidence")
+```
+
+```{r}
+x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Temporary: Tourist/visitor", his predicted wage is $814.8583 We are 95% confident that the actual salary falls in the interval of [750.9734, 878.7431].
 
 
 ```{r}
-x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero")
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero", statebrn="Northern Mexico")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Contract - Bracero", his predicted salary is $814.8583 We are 95% confident that the actual salary falls in the interval of [676.52, 1115.55].
 
 ```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident")
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident", statebrn="South East Mexico")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and has a documentation type of "Legal resident", his predicted salary is $1062.50 We are 95% confident that the actual salary falls in the interval of [898.52, 1226.48].
+
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "South East Mexico", his predicted salary is $788.32 We are 95% confident that the actual salary falls in the interval of [-324.9458, 961.76].
+
+```{r}
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident", statebrn="Bajío")
+predict.lm(reduced_int_new_2, x5, interval = "confidence")
+```
+
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Bajío", his predicted salary is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 
 The prediction suggest a hierarchy in wage discrimination based on documentation: temporary visa holders  males makes the least wage, followed by undocumented people, followed by contract visa holders, and legal residents earn the most wage.
