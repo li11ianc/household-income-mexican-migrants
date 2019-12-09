@@ -100,14 +100,14 @@ However, we did make some adjustment according to the feedback that there is lar
 Accoridng to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
 ```{r}
-citydist <- within(data, 
-                   uscity <- factor(uscity, 
-                                      levels=names(sort(table(uscity), 
+statedist <- within(data, 
+                   usstatel <- factor(usstatel, 
+                                      levels=names(sort(table(usstatel), 
                                                         decreasing=TRUE))))
-ggplot(citydist, aes(x = uscity)) + 
+ggplot(statedist, aes(x = usstatel)) + 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of City of Residence", x= "City of Residence", y = "Count")
+  labs(title = "Distribution of State of Residence", x= "State of Residence", y = "Count")
 ```
 
 Hence, we decided to concentrate on California alone. Since the originial dataset is large, we have enough data left in California alone to produce meaningful analysis.
@@ -554,18 +554,14 @@ predict.lm(reduced_int_new_2, x5, interval = "confidence")
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Bajío", his predicted salary is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 
-The prediction suggest a hierarchy in wage discrimination based on the regions in Mexico that the immigrants are born in. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, it is worth noting that the confidence interval of South East Mexico is very large, including as low as 0 and as high as $1901.58. 
+The prediction suggest a hierarchy in wage discrimination based on the regions in Mexico that the immigrants are born in. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, it is worth noting that the confidence interval of South East Mexico is very large, including as low as 0 and as high as $1901.58. This could be due to the small sample size, as shown in the histogram below:
 
 ```{r}
 SouthEast <- caldata %>%
   filter(statebrn == "South East Mexico")
 ggplot(SouthEast, mapping = aes(x=hhincome)) +
-  geom_histogram()
-
-Pacific <- caldata %>%
-  filter(statebrn == "Pacific Coast")
-ggplot(Pacific, mapping = aes(x=hhincome)) +
-  geom_histogram()
+  geom_histogram()+
+  labs(x = "Household Income", y = "Count", title = "Distribution of Household Income in Immigrants Born in South East Mexico")
 ```
 
 
