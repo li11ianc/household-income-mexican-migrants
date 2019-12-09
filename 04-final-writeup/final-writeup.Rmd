@@ -559,7 +559,7 @@ ggplot(SouthEast, mapping = aes(x=hhincome)) +
 
 ```
 
-
+It may also be because this region was artifiically created from 4 distinct cultural/economic/geographic regions in Mexico: the Yucatan Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were combined in order to be useful for analysis, but with more data we would have prefered to keep them as seperate regions. 
 
 ## Section 4: Conclusion
 

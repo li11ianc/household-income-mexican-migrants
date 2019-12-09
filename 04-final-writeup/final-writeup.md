@@ -6184,6 +6184,12 @@ size, as shown in the histogram below:
 
 ![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
+It may also be because this region was artifiically created from 4
+distinct cultural/economic/geographic regions in Mexico: the Yucatan
+Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were
+combined in order to be useful for analysis, but with more data we would
+have prefered to keep them as seperate regions.
+
 ## Section 4: Conclusion
 
 Through our exploration and analysis, we found sex, age, years of
