@@ -214,7 +214,7 @@ caldata <- caldata %>%
   filter(statebrn %in% c("Guanajuato","Jalisco","Mexico City","San Luis Potosí","Zacatecas","Coahuila","Morelos","Baja California del Norte","Querétaro","Michoacán","Guerrero","Durango","Chihuahua","Nayarit","Sonora","Aguascalientes","Veracruz","Campeche","Colima","Tabasco","México","Puebla","Nuevo Leon","Oaxaca","Tamaulipas"))
 
 caldata <- caldata %>%
-  mutate(statebrn=recode(statebrn,"Baja California del Norte"="Baja California", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="Veracruz", ))
+  mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico", ))
 
 ggplot(data = caldata, aes(x = statebrn))+ 
   geom_bar() +
@@ -225,19 +225,15 @@ We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo
 
 We divided the remaining states into the following regions: 
 
-Baja California: 
+South East Mexico: Tabasco, Oaxaca, Campeche, Veracruz
 
-South East Mexico: Tabasco, Oaxaca, Campeche 
-
-Northern Mexico: Coahuila, Chihuahua, Durango, Nuevo Leon, Sonora, Tamaulipas
+Northern Mexico: Coahuila, Chihuahua, Durango, Nuevo Leon, Sonora, Tamaulipas, Baja California del Norte
 
 Bajío: Aguascalientes, Guanajuato, Querétaro, San Luis Potosí, Zacatecas 
 
 Central Mexico: Mexico City, México, Morelos, Puebla 
 
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit 
-
-Veracruz: Veracruz 
 
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 ## 2. Multiple Linear Regression Model
