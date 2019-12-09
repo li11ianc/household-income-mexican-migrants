@@ -6089,6 +6089,8 @@ drawn from model
     ## 16 statebrnPacific Coast:usdurl      1.71
     ## 17 statebrnSouth East Mexico:usdurl 24.3
 
+    ## [1] 0.1443861
+
 ## Section 3: Discussion and Limitations
 
 ### 3.1 Limitations
@@ -6147,15 +6149,22 @@ average demographics.
     ##        fit      lwr      upr
     ## 1 814.8583 750.9734 878.7431
 
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of of “Pacific Coast”,
+his predicted salary is $814.86 We are 95% confident that the actual
+salary falls in the interval of \[750.97, 750.97\].
+
     ##        fit      lwr      upr
     ## 1 1611.188 1101.465 2120.911
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and has a documentation type of “Temporary:
-Tourist/visitor”, his predicted wage is $814.8583 We are 95% confident
-that the actual salary falls in the interval of \[750.9734, 878.7431\].
+(average duration), and was born in the region of of “Central Mexico”,
+his predicted salary is $1611.19 We are 95% confident that the actual
+salary falls in the interval of \[1101.47, 2120.91\].
 
     ##        fit      lwr      upr
     ## 1 1056.728 580.6308 1532.824
@@ -6163,9 +6172,9 @@ that the actual salary falls in the interval of \[750.9734, 878.7431\].
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and has a documentation type of “Contract -
-Bracero”, his predicted salary is $814.8583 We are 95% confident that
-the actual salary falls in the interval of \[676.52, 1115.55\].
+(average duration), and was born in the region of of “Northern Mexico”,
+his predicted salary is $1056.73 We are 95% confident that the actual
+salary falls in the interval of \[580.63, 1532.82\].
 
     ##        fit       lwr     upr
     ## 1 788.3172 -324.9458 1901.58
@@ -6187,10 +6196,16 @@ duration), and last immigrated to the US for 3 years and 7 months
 predicted salary is $893.32 We are 95% confident that the actual salary
 falls in the interval of \[824.88, 961.76\].
 
-The prediction suggest a hierarchy in wage discrimination based on
-documentation: temporary visa holders males makes the least wage,
-followed by undocumented people, followed by contract visa holders, and
-legal residents earn the most wage.
+The prediction suggest a hierarchy in wage discrimination based on the
+regions in Mexico that the immigrants are born in. Immigrants from the
+region of Central Mexico has the highest predicted wage, followed by
+Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
+lowest average predicted wage. However, it is worth noting that the
+confidence interval of South East Mexico is very large, including as low
+as 0 and as high as $1901.58. This could be due to the small sample
+size, as shown in the histogram below:
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Section 4: Conclusion
 
