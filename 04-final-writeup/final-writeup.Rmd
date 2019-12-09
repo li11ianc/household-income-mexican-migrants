@@ -563,11 +563,11 @@ ggplot(SouthEast, mapping = aes(x=hhincome)) +
 
 ## Section 4: Conclusion
 
-Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay.
+Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay. 
 
-From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males is almost two times that of females.
+From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
 
-We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution.
+We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico. 
 
 ## Section 5: Additional Work
 
