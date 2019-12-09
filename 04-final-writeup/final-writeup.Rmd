@@ -220,27 +220,18 @@ caldata <- caldata %>%
 caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
 ggplot(data = caldata, aes(x = statebrn))+ 
-=======
+
 statebrndist <- within(caldata, 
                    statebrn <- factor(statebrn, 
-                                      levels=names(sort(table(statebrn), 
-                                                        increasing=TRUE))))
-ggplot(statebrndist, aes(x = statebrn))+ 
->>>>>>> eb45aa731947edbacaa119c140cdc40dd1a95e17
-=======
+                                      levels=names(sort(table(statebrn), increasing=TRUE))))
 ggplot(data = caldata, aes(x = statebrn))+ 
->>>>>>> 3176f099bfaa0a4e0a554b8e98e6f86b18d6832d
   geom_bar() +
   coord_flip()+
   labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
-
-
 
 ```
 We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted. 
