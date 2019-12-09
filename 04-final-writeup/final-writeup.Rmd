@@ -413,18 +413,14 @@ kable(digits = 3, format = "markdown")
 ```
 
 
-### 3.6 High Leverage Points 
+### 3.6 Model Diagnostics
 
 ```{r augment}
 mig_output <- augment(reduced_int_new_2) %>%
   mutate(obs_num = row_number())
 ```
 
-.hat: leverage
-.cooksd: Cook's distance
-.std.resid: standardized residuals
-
-```{r leverage}
+```{r high-leverage}
 leverage_threshold <- 2*(5+1)/nrow(caldata)
 
 ggplot(data = mig_output, aes(x = obs_num,y = .hat)) + 
@@ -435,8 +431,11 @@ ggplot(data = mig_output, aes(x = obs_num,y = .hat)) +
 
 mig_output %>% 
   filter(.hat > leverage_threshold)
+
 145/nrow(caldata)
 ```
+
+About 28% of our observations are high leverage points, meaning that they have x-values which differ greatly from the 
 
 ```{r standardized-residuals}
 ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
