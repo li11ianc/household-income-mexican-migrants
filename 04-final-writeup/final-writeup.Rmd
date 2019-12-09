@@ -223,7 +223,7 @@ ggplot(data = caldata, aes(x = statebrn))+
 
 
 ```
-We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. 
+We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted. 
 
 We divided the remaining states into the following regions: 
 
@@ -236,8 +236,6 @@ Bajío: Aguascalientes, Guanajuato, Querétaro, San Luis Potosí, Zacatecas
 Central Mexico: Mexico City, México, Morelos, Puebla 
 
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit 
-
-Veracruz:  
 
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 ## 2. Multiple Linear Regression Model
