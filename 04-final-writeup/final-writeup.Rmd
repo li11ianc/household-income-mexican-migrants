@@ -244,18 +244,7 @@ Central Mexico: Mexico City, México, Morelos, Puebla
 
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit 
 
-## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
-## 2. Multiple Linear Regression Model
-
-In an effort to explain which characteristics of migrants influence their household income, we will use a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal.
-
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant. However, if the variables occtype, edyrs, or usdoc1 don't make it through the process of inital model selection, we will not include these interactions in the model as that would not be prudent.
-
-We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
-
-### 2.1 Full Model
-
-#### 2.2.5 Remove Obvious Collinear Variable
+#### 2.2.7 Remove Obvious Collinear Variable
 
 ```{r yrborn-age, fig.align = "center"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
@@ -266,22 +255,25 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 `yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
 
 
-## 3. Multiple Linear Regression Model
+## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 
-In an effort to explain which characteristics of candidates influence their household income, we will be using a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal for us to use.
+## 2. Multiple Linear Regression Model
 
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant.
+In an effort to explain which characteristics of migrants influence their household income, we will use a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal.
+
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant. However, if the variables occtype, edyrs, or usdoc1 don't make it through the process of inital model selection, we will not include these interactions in the model as that would not be prudent.
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
-### 3.1 Full Model
+
+### 2.1 Full Model
 
 ```{r model}
 full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
 kable(tidy(full),format="html" ,digits=3)
 ```
 
-### 3.2 Backward selection
+### 2.2 Backward selection
 
 ```{r backward-selection}
 reduced <- step(full, direction = "backward")
@@ -293,7 +285,7 @@ kable(digits = 3, format = "markdown")
 Using backward selection based on AIC, we narrowed down to 5 variables: sex, edyrs, usdurl, statebrn and age.
 
 
-### 3.3 Interactions
+### 2.3 Interactions
 
 To find potential interactions between the 5 variables, we used nested-F test for each of the possible interactions:
 
@@ -373,14 +365,14 @@ Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for
 Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
 
 
-### 3.4 Model with Interaction
+### 2.4 Model with Interaction
 
 ```{r final-model}
 reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl + statebrn*edyrs+statebrn*usdurl, data=caldata)
 kable(tidy(reduced_int),format="html" ,digits=3)
 ```
 
-### 3.5 Backward Selection with Interaction
+### 2.5 Backward Selection with Interaction
 
 Since we observed 4 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
 
@@ -398,7 +390,7 @@ kable(digits = 3, format = "markdown")
 
 We observed that the variable selection changed. Specifically, usdur1 is significant, besides the 4 variables and the 4 interaction terms identified previously.
 
-### 3.6 Final model
+### 2.6 Final model
 
 ```{r full}
 full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
@@ -413,7 +405,7 @@ kable(digits = 3, format = "markdown")
 ```
 
 
-### 3.6 Model Diagnostics
+### 2.7 Model Diagnostics
 
 ```{r augment}
 mig_output <- augment(reduced_int_new_2) %>%
@@ -487,6 +479,8 @@ tidy(vif(reduced_int_new_2))
 summary(reduced_int_new_2)$adj.r.squared
 
 ```
+
+
 
 
 ## Section 3: Discussion and Limitations 

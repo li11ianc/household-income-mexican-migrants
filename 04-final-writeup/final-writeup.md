@@ -226,6 +226,15 @@ Central Mexico: Mexico City, México, Morelos, Puebla
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán,
 Nayarit
 
+#### 2.2.7 Remove Obvious Collinear Variable
+
+<img src="final-writeup_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
+
+`yrborn` and `age` provide the same information and are perfectly
+linear, therefore we decided to remove `yrborn` from consideration in
+the
+model.
+
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 
 ## 2\. Multiple Linear Regression Model
@@ -249,41 +258,9 @@ nature and the ever-changing socioeconomic and political climate that
 could influence someone’s household income. AIC is used when we would
 rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
-positive because we are dealing with a constantly fluctuating
-issue.
-
-### 2.1 Full Model
-
-#### 2.2.5 Remove Obvious Collinear Variable
-
-<img src="final-writeup_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
-
-`yrborn` and `age` provide the same information and are perfectly
-linear, therefore we decided to remove `yrborn` from consideration in
-the model.
-
-## 3\. Multiple Linear Regression Model
-
-In an effort to explain which characteristics of candidates influence
-their household income, we will be using a multiple linear regression
-model. Since our response variable is numerical with mulitple potential
-predictors, this is the best model at our disposal for us to use.
-
-We will consider the potential interaction between principal occupation
-and number of years of school completed, since those are generally
-interconnected. We may also consider the interaction between
-documentation type and occupation type, although the effect may be
-insignificant.
-
-We will select our model using AIC criteria, because since we’re dealing
-with people, we want to build a model that accounts for volatile human
-nature and the ever-changing socioeconomic and political climate that
-could influence someone’s household income. AIC is used when we would
-rather say a variable is a relevant predictor, when in reality it might
-not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating issue.
 
-### 3.1 Full Model
+### 2.1 Full Model
 
 <table>
 
@@ -1589,7 +1566,7 @@ uscitysocal
 
 </table>
 
-### 3.2 Backward selection
+### 2.2 Backward selection
 
     ## Start:  AIC=6431.64
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
@@ -1690,7 +1667,7 @@ uscitysocal
 Using backward selection based on AIC, we narrowed down to 5 variables:
 sex, edyrs, usdurl, statebrn and age.
 
-### 3.3 Interactions
+### 2.3 Interactions
 
 To find potential interactions between the 5 variables, we used nested-F
 test for each of the possible interactions:
@@ -1776,7 +1753,7 @@ it in the model.
 |    500 | 125945407 |  4 |   5427461 |         0 |
 
 Then, we tested the interaction between `statebrn` and `edyrs`. The
-p-value for this test was 0.0002466\> 0.05, therefore we will include it
+p-value for this test was 0.0002466\< 0.05, therefore we will include it
 in the model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
@@ -1785,7 +1762,7 @@ in the model.
 |    500 | 126792566 |  4 |   4580302 |     0.001 |
 
 Then, we tested the interaction between `statebrn` and `usdurl`. The
-p-value for this test was 0.0012 \> 0.05, therefore we will include it
+p-value for this test was 0.0012 \< 0.05, therefore we will include it
 in the model.
 
 Through nested F-test, we observed significant interactions between age
@@ -1793,7 +1770,7 @@ Through nested F-test, we observed significant interactions between age
 with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be
 including them in our model.
 
-### 3.4 Model with Interaction
+### 2.4 Model with Interaction
 
 <table>
 
@@ -2487,7 +2464,7 @@ usdurl:statebrnSouth East Mexico
 
 </table>
 
-### 3.5 Backward Selection with Interaction
+### 2.5 Backward Selection with Interaction
 
 Since we observed 4 pairs of significant interactions, we will do the
 backward selection again with the new interaction terms.
@@ -4245,7 +4222,7 @@ We observed that the variable selection changed. Specifically, usdur1 is
 significant, besides the 4 variables and the 4 interaction terms
 identified previously.
 
-### 3.6 Final model
+### 2.6 Final model
 
 <table>
 
@@ -6002,7 +5979,7 @@ statebrnSouth East Mexico:usdurl
 | statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
 | statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
 
-### 3.6 Model Diagnostics
+### 2.7 Model Diagnostics
 
 ![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
@@ -6202,21 +6179,10 @@ region of Central Mexico has the highest predicted wage, followed by
 Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
 lowest average predicted wage. However, it is worth noting that the
 confidence interval of South East Mexico is very large, including as low
-<<<<<<< HEAD
-as 0 and as high as
-$1901.58.
-
-![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
-=======
 as 0 and as high as $1901.58. This could be due to the small sample
 size, as shown in the histogram below:
 
-<<<<<<< HEAD
 ![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-=======
-![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
->>>>>>> eb45aa731947edbacaa119c140cdc40dd1a95e17
->>>>>>> 893895a1f739fc7dd41ba0f45421b21329f29135
 
 ## Section 4: Conclusion
 
