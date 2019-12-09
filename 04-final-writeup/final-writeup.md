@@ -1,4 +1,4 @@
-Characteristics of Recent Mexican Immigrants to the United States that
+Characteristics of Recent Mexican Immigrants to California, USA, that
 Influence Household Income
 ================
 Ben 10
@@ -55,7 +55,7 @@ income considering the following variables: `sex`, `relhead`, `age`,
 
 “X1”: Number of observation
 
-“sex”: Sex
+“sex”: Sex of immigrant
 
 “relhead”: Relationship to household head
 
@@ -109,9 +109,9 @@ there is large imbalance of the amount of data between regions, and that
 the distribution of the response variable is not normal. Below is the
 update on our data cleaning:
 
-### 2.2 Updated Data Exploration
+### 1.4 Updated Data Exploration
 
-#### 2.2.1 Filter Only Immigrants in California
+#### 1.4.1 Filter Only Immigrants in California
 
 Accoridng to our previous data exploration, we found that the
 overwhelming majority of immigrants settled in California, as shown in
@@ -123,7 +123,7 @@ Hence, we decided to concentrate on California alone. Since the
 originial dataset is large, we have enough data left in California alone
 to produce meaningful analysis.
 
-#### 2.2.2 Cut Household Income Groups
+#### 1.4.2 Cut Household Income Groups
 
 Originally, the distribution of log(Household Income)- our response
 variable- was bimodal and had a median of 412,647 dollars. It almost
@@ -157,7 +157,7 @@ Now the distribution of response variable (hhincome) looks like a right
 skewed normal
 distribution.
 
-#### 2.2.2 Group cities by region
+#### 1.4.3 Group cities by region
 
 <img src="final-writeup_files/figure-gfm/cities-1.png" style="display: block; margin: auto;" />
 
@@ -179,7 +179,7 @@ Given the comparatively small number of cases in which no city was
 reported, we deleted these instances. The majority of immigrants went to
 LA-Long Beach area in Southern California.
 
-#### 2.2.4 Remove Variable “relhead”
+#### 1.4.4 Remove Variable “relhead”
 
 It turned out that all values from relhead (relationship to head of
 household) in our cleaned data were “1” or head. So we will remove this
@@ -187,7 +187,7 @@ variable, as well as state variables since we are only using California
 data. We will also remove place data since we are using uscity, and occ
 since we are using occtype.
 
-#### 2.2.5 Mean-center “age” , “usdur1” and “usdurl”
+#### 1.4.5 Mean-center “age” , “usdur1” and “usdurl”
 
 We must center age and usdurl in order to have a useful model intercept
 interpretation.
@@ -205,7 +205,7 @@ US migration is 60.27 months (about 5 years); and the mean duration of
 first US migration is 43.99 months (less than 3.5
 years).
 
-### 2.2.6 Remove El Salvador Data and regionalize state born variable
+### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
 <img src="final-writeup_files/figure-gfm/states-1.png" style="display: block; margin: auto;" />
 We do not have any data from seven states: Baja California Sur, Chiapas,
@@ -226,7 +226,7 @@ Central Mexico: Mexico City, México, Morelos, Puebla
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán,
 Nayarit
 
-#### 2.2.7 Remove Obvious Collinear Variable
+#### 1.4.7 Remove Obvious Collinear Variable
 
 <img src="final-writeup_files/figure-gfm/yrborn-age-1.png" style="display: block; margin: auto;" />
 
@@ -259,6 +259,2028 @@ could influence someone’s household income. AIC is used when we would
 rather say a variable is a relevant predictor, when in reality it might
 not be and so in this case, we would rather err on the side of a false
 positive because we are dealing with a constantly fluctuating issue.
+
+### 2.1 Description of Methods
+
+In our first multiple linear regression model, we included all 19
+variables. Then, we used backwards model selection to reduce the model
+to 5 significant variables: edyrs, usdurl, sex, statebrn and age. We
+used AIC as the criterion because immigration is a complex social issue,
+hence we would prefer a model with many predictors and err on the side
+of false-positive, rather than having a leaner model.
+
+After inital backwards selection, we will explore the possible
+interactions between remaining variables: edyrs, usdurl, sex, statebrn
+and age, to determine if any are significant. The significant
+interactions are:
+
+age*edyrs: p = 0 \< 0.05  
+(This interaction makes sense, because we expect older immigrants to be
+more educated) sex*usdurl: p = 0.0303039 \< 0.05  
+(This interaction is surprising, because it suggests that the change in
+income with time in the US differs depending on the immigrant’s sex.
+This potentially highlight the gender discrimination in workplace.)
+statebrn*edyrs: p = 0.0002466 \< 0.05 (This interaction makes sense,
+because we expect different region of Mexico have different level of
+development and hence access to education.) statebrn*usdurl: p = 0.0012
+\< 0.05 (This interaction makes sense, because immigrants from certain
+regions in Mexico may have a easier time staying longer in California
+because there is already a large community of immigrants from that
+region there.)
+
+Therefore, we included these interactions in our original full model,
+and did backward selection again to get our final model. Our final model
+dropped the interaction between sex\*usdurl, which is the one we found
+that didn’t make sense immediately. Hence, we are confident about our
+final model.
+
+### 2.2 Full Model after Evaluating Interactions
+
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+term
+
+</th>
+
+<th style="text-align:right;">
+
+estimate
+
+</th>
+
+<th style="text-align:right;">
+
+std.error
+
+</th>
+
+<th style="text-align:right;">
+
+statistic
+
+</th>
+
+<th style="text-align:right;">
+
+p.value
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+(Intercept)
+
+</td>
+
+<td style="text-align:right;">
+
+457.355
+
+</td>
+
+<td style="text-align:right;">
+
+298.649
+
+</td>
+
+<td style="text-align:right;">
+
+1.531
+
+</td>
+
+<td style="text-align:right;">
+
+0.126
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM
+
+</td>
+
+<td style="text-align:right;">
+
+424.019
+
+</td>
+
+<td style="text-align:right;">
+
+183.309
+
+</td>
+
+<td style="text-align:right;">
+
+2.313
+
+</td>
+
+<td style="text-align:right;">
+
+0.021
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age
+
+</td>
+
+<td style="text-align:right;">
+
+\-4.975
+
+</td>
+
+<td style="text-align:right;">
+
+4.252
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.170
+
+</td>
+
+<td style="text-align:right;">
+
+0.243
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCentral Mexico
+
+</td>
+
+<td style="text-align:right;">
+
+2504.734
+
+</td>
+
+<td style="text-align:right;">
+
+885.789
+
+</td>
+
+<td style="text-align:right;">
+
+2.828
+
+</td>
+
+<td style="text-align:right;">
+
+0.005
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNorthern Mexico
+
+</td>
+
+<td style="text-align:right;">
+
+\-201.370
+
+</td>
+
+<td style="text-align:right;">
+
+435.606
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.462
+
+</td>
+
+<td style="text-align:right;">
+
+0.644
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast
+
+</td>
+
+<td style="text-align:right;">
+
+150.271
+
+</td>
+
+<td style="text-align:right;">
+
+96.132
+
+</td>
+
+<td style="text-align:right;">
+
+1.563
+
+</td>
+
+<td style="text-align:right;">
+
+0.119
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSouth East Mexico
+
+</td>
+
+<td style="text-align:right;">
+
+\-401.046
+
+</td>
+
+<td style="text-align:right;">
+
+669.895
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.599
+
+</td>
+
+<td style="text-align:right;">
+
+0.550
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatDivorced
+
+</td>
+
+<td style="text-align:right;">
+
+148.264
+
+</td>
+
+<td style="text-align:right;">
+
+205.697
+
+</td>
+
+<td style="text-align:right;">
+
+0.721
+
+</td>
+
+<td style="text-align:right;">
+
+0.471
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatMarried
+
+</td>
+
+<td style="text-align:right;">
+
+33.421
+
+</td>
+
+<td style="text-align:right;">
+
+111.683
+
+</td>
+
+<td style="text-align:right;">
+
+0.299
+
+</td>
+
+<td style="text-align:right;">
+
+0.765
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatNever married
+
+</td>
+
+<td style="text-align:right;">
+
+\-181.347
+
+</td>
+
+<td style="text-align:right;">
+
+156.641
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.158
+
+</td>
+
+<td style="text-align:right;">
+
+0.248
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatSeparated
+
+</td>
+
+<td style="text-align:right;">
+
+135.613
+
+</td>
+
+<td style="text-align:right;">
+
+221.139
+
+</td>
+
+<td style="text-align:right;">
+
+0.613
+
+</td>
+
+<td style="text-align:right;">
+
+0.540
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatWidowed
+
+</td>
+
+<td style="text-align:right;">
+
+\-22.483
+
+</td>
+
+<td style="text-align:right;">
+
+237.042
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.095
+
+</td>
+
+<td style="text-align:right;">
+
+0.924
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+37.846
+
+</td>
+
+<td style="text-align:right;">
+
+11.508
+
+</td>
+
+<td style="text-align:right;">
+
+3.289
+
+</td>
+
+<td style="text-align:right;">
+
+0.001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeAdministrator
+
+</td>
+
+<td style="text-align:right;">
+
+4.692
+
+</td>
+
+<td style="text-align:right;">
+
+258.933
+
+</td>
+
+<td style="text-align:right;">
+
+0.018
+
+</td>
+
+<td style="text-align:right;">
+
+0.986
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeAgriculture
+
+</td>
+
+<td style="text-align:right;">
+
+\-263.703
+
+</td>
+
+<td style="text-align:right;">
+
+135.315
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.949
+
+</td>
+
+<td style="text-align:right;">
+
+0.052
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeArts
+
+</td>
+
+<td style="text-align:right;">
+
+\-605.272
+
+</td>
+
+<td style="text-align:right;">
+
+507.363
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.193
+
+</td>
+
+<td style="text-align:right;">
+
+0.233
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeEducator
+
+</td>
+
+<td style="text-align:right;">
+
+344.957
+
+</td>
+
+<td style="text-align:right;">
+
+320.305
+
+</td>
+
+<td style="text-align:right;">
+
+1.077
+
+</td>
+
+<td style="text-align:right;">
+
+0.282
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeHomemaker
+
+</td>
+
+<td style="text-align:right;">
+
+\-162.027
+
+</td>
+
+<td style="text-align:right;">
+
+548.574
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.295
+
+</td>
+
+<td style="text-align:right;">
+
+0.768
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeManufacturing (skilled)
+
+</td>
+
+<td style="text-align:right;">
+
+\-131.631
+
+</td>
+
+<td style="text-align:right;">
+
+133.768
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.984
+
+</td>
+
+<td style="text-align:right;">
+
+0.326
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeManufacturing (unskilled)
+
+</td>
+
+<td style="text-align:right;">
+
+\-190.272
+
+</td>
+
+<td style="text-align:right;">
+
+133.730
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.423
+
+</td>
+
+<td style="text-align:right;">
+
+0.155
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeOther, unspecified (disabled, incarcerated, tourist and other)
+
+</td>
+
+<td style="text-align:right;">
+
+\-652.774
+
+</td>
+
+<td style="text-align:right;">
+
+413.412
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.579
+
+</td>
+
+<td style="text-align:right;">
+
+0.115
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeProfessional
+
+</td>
+
+<td style="text-align:right;">
+
+\-485.175
+
+</td>
+
+<td style="text-align:right;">
+
+493.974
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.982
+
+</td>
+
+<td style="text-align:right;">
+
+0.327
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeProtection
+
+</td>
+
+<td style="text-align:right;">
+
+\-331.159
+
+</td>
+
+<td style="text-align:right;">
+
+371.333
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.892
+
+</td>
+
+<td style="text-align:right;">
+
+0.373
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeRetired
+
+</td>
+
+<td style="text-align:right;">
+
+\-532.860
+
+</td>
+
+<td style="text-align:right;">
+
+221.082
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.410
+
+</td>
+
+<td style="text-align:right;">
+
+0.016
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeSales
+
+</td>
+
+<td style="text-align:right;">
+
+\-79.551
+
+</td>
+
+<td style="text-align:right;">
+
+143.271
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.555
+
+</td>
+
+<td style="text-align:right;">
+
+0.579
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeServices
+
+</td>
+
+<td style="text-align:right;">
+
+\-88.099
+
+</td>
+
+<td style="text-align:right;">
+
+138.102
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.638
+
+</td>
+
+<td style="text-align:right;">
+
+0.524
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeStudent
+
+</td>
+
+<td style="text-align:right;">
+
+249.596
+
+</td>
+
+<td style="text-align:right;">
+
+521.607
+
+</td>
+
+<td style="text-align:right;">
+
+0.479
+
+</td>
+
+<td style="text-align:right;">
+
+0.633
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeTechnical Worker
+
+</td>
+
+<td style="text-align:right;">
+
+\-212.307
+
+</td>
+
+<td style="text-align:right;">
+
+235.237
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.903
+
+</td>
+
+<td style="text-align:right;">
+
+0.367
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeTransportation
+
+</td>
+
+<td style="text-align:right;">
+
+\-106.638
+
+</td>
+
+<td style="text-align:right;">
+
+161.527
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.660
+
+</td>
+
+<td style="text-align:right;">
+
+0.509
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeUnemployed (seeking work)
+
+</td>
+
+<td style="text-align:right;">
+
+\-623.453
+
+</td>
+
+<td style="text-align:right;">
+
+328.166
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.900
+
+</td>
+
+<td style="text-align:right;">
+
+0.058
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+1.261
+
+</td>
+
+<td style="text-align:right;">
+
+0.793
+
+</td>
+
+<td style="text-align:right;">
+
+1.589
+
+</td>
+
+<td style="text-align:right;">
+
+0.113
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Legal resident
+
+</td>
+
+<td style="text-align:right;">
+
+32.627
+
+</td>
+
+<td style="text-align:right;">
+
+137.285
+
+</td>
+
+<td style="text-align:right;">
+
+0.238
+
+</td>
+
+<td style="text-align:right;">
+
+0.812
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Temporary: Tourist/visitor
+
+</td>
+
+<td style="text-align:right;">
+
+\-160.803
+
+</td>
+
+<td style="text-align:right;">
+
+147.840
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.088
+
+</td>
+
+<td style="text-align:right;">
+
+0.277
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Undocumented
+
+</td>
+
+<td style="text-align:right;">
+
+\-123.482
+
+</td>
+
+<td style="text-align:right;">
+
+114.409
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.079
+
+</td>
+
+<td style="text-align:right;">
+
+0.281
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitycentcal
+
+</td>
+
+<td style="text-align:right;">
+
+42.192
+
+</td>
+
+<td style="text-align:right;">
+
+97.041
+
+</td>
+
+<td style="text-align:right;">
+
+0.435
+
+</td>
+
+<td style="text-align:right;">
+
+0.664
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitysocal
+
+</td>
+
+<td style="text-align:right;">
+
+34.119
+
+</td>
+
+<td style="text-align:right;">
+
+78.832
+
+</td>
+
+<td style="text-align:right;">
+
+0.433
+
+</td>
+
+<td style="text-align:right;">
+
+0.665
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+1.071
+
+</td>
+
+<td style="text-align:right;">
+
+0.414
+
+</td>
+
+<td style="text-align:right;">
+
+2.590
+
+</td>
+
+<td style="text-align:right;">
+
+0.010
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+1.923
+
+</td>
+
+<td style="text-align:right;">
+
+0.579
+
+</td>
+
+<td style="text-align:right;">
+
+3.321
+
+</td>
+
+<td style="text-align:right;">
+
+0.001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM:usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.648
+
+</td>
+
+<td style="text-align:right;">
+
+0.825
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.997
+
+</td>
+
+<td style="text-align:right;">
+
+0.046
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCentral Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-309.860
+
+</td>
+
+<td style="text-align:right;">
+
+116.651
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.656
+
+</td>
+
+<td style="text-align:right;">
+
+0.008
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNorthern Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+60.832
+
+</td>
+
+<td style="text-align:right;">
+
+56.519
+
+</td>
+
+<td style="text-align:right;">
+
+1.076
+
+</td>
+
+<td style="text-align:right;">
+
+0.282
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-37.330
+
+</td>
+
+<td style="text-align:right;">
+
+13.336
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.799
+
+</td>
+
+<td style="text-align:right;">
+
+0.005
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSouth East Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+21.733
+
+</td>
+
+<td style="text-align:right;">
+
+36.479
+
+</td>
+
+<td style="text-align:right;">
+
+0.596
+
+</td>
+
+<td style="text-align:right;">
+
+0.552
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCentral Mexico:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+11.469
+
+</td>
+
+<td style="text-align:right;">
+
+6.422
+
+</td>
+
+<td style="text-align:right;">
+
+1.786
+
+</td>
+
+<td style="text-align:right;">
+
+0.075
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNorthern Mexico:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-6.341
+
+</td>
+
+<td style="text-align:right;">
+
+2.196
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.888
+
+</td>
+
+<td style="text-align:right;">
+
+0.004
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.101
+
+</td>
+
+<td style="text-align:right;">
+
+0.515
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.139
+
+</td>
+
+<td style="text-align:right;">
+
+0.033
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSouth East Mexico:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-8.154
+
+</td>
+
+<td style="text-align:right;">
+
+11.534
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.707
+
+</td>
+
+<td style="text-align:right;">
+
+0.480
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+### 2.3 Final model
+
+    ## Start:  AIC=6393.26
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
+    ##     usdur1 + usdoc1 + uscity + age * edyrs + sex * usdur1 + statebrn * 
+    ##     edyrs + statebrn * usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - occtype         17   4970301 115360932 6381.9
+    ## - marstat          5   1079762 111470393 6388.3
+    ## - uscity           2     52095 110442726 6389.5
+    ## - usdoc1           3   1012809 111403440 6391.9
+    ## <none>                         110390631 6393.3
+    ## - sex:usdur1       1    944255 111334886 6395.6
+    ## - statebrn:usdurl  4   3657567 114048198 6402.0
+    ## - age:edyrs        1   2612133 113002764 6403.3
+    ## - statebrn:edyrs   4   4134248 114524879 6404.1
+    ## 
+    ## Step:  AIC=6381.85
+    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ##     usdoc1 + uscity + usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + 
+    ##     statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - marstat          5    676355 116037286 6374.9
+    ## - uscity           2     91421 115452352 6378.3
+    ## - usdoc1           3    752471 116113402 6379.2
+    ## <none>                         115360932 6381.9
+    ## - sex:usdur1       1    477941 115838873 6382.0
+    ## - statebrn:edyrs   4   3807473 119168405 6390.5
+    ## - statebrn:usdurl  4   4243189 119604120 6392.4
+    ## - age:edyrs        1   3240213 118601145 6394.1
+    ## 
+    ## Step:  AIC=6374.85
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + uscity + 
+    ##     usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - uscity           2    144340 116181626 6371.5
+    ## - usdoc1           3    858947 116896234 6372.6
+    ## <none>                         116037286 6374.9
+    ## - sex:usdur1       1    464989 116502275 6374.9
+    ## - statebrn:edyrs   4   3746809 119784095 6383.2
+    ## - statebrn:usdurl  4   4115471 120152758 6384.7
+    ## - age:edyrs        1   3465505 119502792 6387.9
+    ## 
+    ## Step:  AIC=6371.49
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + usdurl + 
+    ##     age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - usdoc1           3    803764 116985390 6369.0
+    ## - sex:usdur1       1    445825 116627452 6371.5
+    ## <none>                         116181626 6371.5
+    ## - statebrn:edyrs   4   3839608 120021235 6380.2
+    ## - statebrn:usdurl  4   4076429 120258055 6381.2
+    ## - age:edyrs        1   3498300 119679926 6384.7
+    ## 
+    ## Step:  AIC=6369.03
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
+    ##     sex:usdur1 + statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - sex:usdur1       1    455541 117440932 6369.0
+    ## <none>                         116985390 6369.0
+    ## - statebrn:edyrs   4   4317873 121303264 6379.6
+    ## - statebrn:usdurl  4   4471000 121456390 6380.3
+    ## - age:edyrs        1   3263657 120249048 6381.1
+    ## 
+    ## Step:  AIC=6369.02
+    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
+    ##     statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - usdur1           1      5781 117446712 6367.0
+    ## <none>                         117440932 6369.0
+    ## - sex              1   1701794 119142726 6374.4
+    ## - statebrn:edyrs   4   4370391 121811323 6379.8
+    ## - statebrn:usdurl  4   4704863 122145795 6381.2
+    ## - age:edyrs        1   3491165 120932097 6382.0
+    ## 
+    ## Step:  AIC=6367.05
+    ## hhincome ~ sex + age + statebrn + edyrs + usdurl + age:edyrs + 
+    ##     statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## <none>                         117446712 6367.0
+    ## - sex              1   1807944 119254656 6372.9
+    ## - statebrn:edyrs   4   4418165 121864877 6378.0
+    ## - statebrn:usdurl  4   4766282 122212994 6379.5
+    ## - age:edyrs        1   3485788 120932501 6380.0
+
+| term                             |  estimate | std.error | statistic | p.value |   conf.low | conf.high |
+| :------------------------------- | --------: | --------: | --------: | ------: | ---------: | --------: |
+| (Intercept)                      |   318.943 |   137.955 |     2.312 |   0.021 |     47.893 |   589.993 |
+| sexM                             |   303.210 |   109.842 |     2.760 |   0.006 |     87.396 |   519.024 |
+| age                              |   \-5.218 |     3.602 |   \-1.448 |   0.148 |   \-12.295 |     1.860 |
+| statebrnCentral Mexico           |  2510.513 |   873.876 |     2.873 |   0.004 |    793.550 |  4227.476 |
+| statebrnNorthern Mexico          |  \-99.091 |   406.790 |   \-0.244 |   0.808 |  \-898.339 |   700.157 |
+| statebrnPacific Coast            |   142.460 |    91.810 |     1.552 |   0.121 |   \-37.925 |   322.844 |
+| statebrnSouth East Mexico        | \-242.945 |   659.794 |   \-0.368 |   0.713 | \-1539.288 |  1053.398 |
+| edyrs                            |    45.195 |    10.514 |     4.299 |   0.000 |     24.538 |    65.852 |
+| usdurl                           |     1.188 |     0.325 |     3.650 |   0.000 |      0.548 |     1.827 |
+| age:edyrs                        |     2.108 |     0.550 |     3.833 |   0.000 |      1.028 |     3.189 |
+| statebrnCentral Mexico:edyrs     | \-298.775 |   114.636 |   \-2.606 |   0.009 |  \-524.007 |  \-73.542 |
+| statebrnNorthern Mexico:edyrs    |    43.749 |    44.357 |     0.986 |   0.324 |   \-43.402 |   130.901 |
+| statebrnPacific Coast:edyrs      |  \-36.821 |    12.742 |   \-2.890 |   0.004 |   \-61.855 |  \-11.786 |
+| statebrnSouth East Mexico:edyrs  |    22.990 |    34.971 |     0.657 |   0.511 |   \-45.720 |    91.700 |
+| statebrnCentral Mexico:usdurl    |    11.304 |     6.396 |     1.767 |   0.078 |    \-1.262 |    23.870 |
+| statebrnNorthern Mexico:usdurl   |   \-5.986 |     1.840 |   \-3.254 |   0.001 |    \-9.600 |   \-2.371 |
+| statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
+| statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
+
+### 2.4 Description of Method in Model Diagnostics
+
+We checked leverage, standardized residuals, estimate of standard
+deviation, cook’s distance, VIF and adjusted R-square.
+
+#### 2.4.1 Leverage
+
+About a quarter of our observations are high leverage points, meaning
+that their combinations of values for the predictor variables are very
+far from the typical combinations in the data. Because human
+circumstances and economic conditions are often so extremely variable,
+we would not expect most migrants to share common values for the
+predictor variables.
+
+Of the individuals in the data with high leverage, two have extensive
+educations and are relatively young and from Northern Mexico. Two are
+closer to the median age, have 5 years of education, and are from
+Central Mexico.
+
+These points are potentially, but not certainly, influential points, so
+we use other methods to sort out influential points.
+
+#### 2.4.2 Standardized Residuals
+
+The 5% of our observations with standardized residuals of magnitude
+greater than 2 should be examined more closely- these are outliers, but
+they may not have an impact on the regression line. We can look plots of
+the standardized residuals versus all of our predictors. Plots of the
+standardized residuals for each predictor variable reveal that, for the
+most part, our data satisfies the constant variance assumption.
+
+#### 2.4.3 Estimate of Standard Deviation
+
+The estimate of our regression standard deviation using all observations
+is 487.0997, whereas the standard deviation estimate without points with
+large magnitude standardized residuals is 387.6239. Removing points with
+large magnitude standardized residuals would affect our conclusions by
+decreasing the standard error associated with our model coefficients,
+however, we do not want to damage our model’s integrity and explanatory
+power by removing too much human variability from the observations we
+base it on. We will examine Cook’s Distance to see if any observations
+have excessive overall impact or significantly affect the estimated
+coefficients when removed.
+
+#### 2.4.4 Cook’s Distance
+
+Only one observation has a Cook’s Distance greater than 1. Hence, we
+will remove this individual from our analysis because it exerts
+significantly greater influence on the final coefficients of our model
+and could distort our explanations.
+
+#### 2.4.5 VIF
+
+There are 3 coefficients with high VIFs (\>10):
+
+statebrnCentral Mexico : 19.1 statebrnSouth East Mexico : 33.6
+statebrnCentral Mexico:edyrs : 19.6 statebrnSouth East Mexico:usdurl :
+24.3
+
+The latter 2 VIFs could be related to the first 2. The first 2
+coefficients have high collinearity because when we divided the birth
+state into regions, there are very few and very geographically sparse
+observations in the South East Mexico, and a lot more observations in
+Central Mexico. Hence, in order to make each region more representative,
+we included some of the ambiguous states that could possibly be included
+in both regions into South East Mexico. Since the geographical regional
+divide is subjective and continuous, we expect there to be collinearity.
+
+#### 2.4.6 Adjusted R-squre
+
+The adjusted R-square of our final model is 0.1443861, meaning that our
+model explains around 14.4% of the variation in household income. This
+is a small percentage. However, given that there are numerous social
+determinants of income, and we only included Californian data and those
+who have income between 1 and 60,000, the R-square seems reasonable.
+
+## Section 3: Discussion and Limitations
+
+### 3.1 Limitations
+
+In order to complete an effective analysis in the time given, we greatly
+simplified our raw data to predict our response variable, household
+income. We ended up only analyzing a subgroup of the immigrants and
+focused on those who migrated to California because they made up a large
+majority of our dataset, anyway. If we were given more time, we would’ve
+analyzed the entirety of the set. Additionally, we cut a chunk of the
+data out because it appeared that some of the income was reported in
+pesos and USD, though we are not definitely sure. Further analysis could
+investigate why it appeared that some income was reported in a
+potentially different currency and adjust for it so we can include all
+observations in our analysis.
+
+If we could continue to work on the project, we would operate under the
+assumption that the household income that is unusual was reported in
+pesos and potentially recorded in the Mexico and split the data set into
+two and investigate that. I think our model could be stronger if we were
+able to include this very valuable data and inform our predictions with
+this information.
+
+### 3.2 Prediction
+
+### 3.2.1 Effect of “Gender” on Wage
+
+    ##        fit      lwr     upr
+    ## 1 893.3224 824.8808 961.764
+
+For a male who is 39 years old (average age), was born on the Pacific
+Coast of Mexico, has 6 years of education (average edyrs), first
+immigrated to the US for 5 years (average duration), and last immigrated
+to the US for 3 years and 7 months (average duration), and was born in
+the region of “Bajío”, his predicted wage is $893.32 We are 95%
+confident that the actual salary falls in the interval of \[824.88,
+961.76\].
+
+    ##        fit      lwr      upr
+    ## 1 590.1126 370.6824 809.5429
+
+For a female who is 39 years old (average age), was born on the Pacific
+Coast of Mexico, has 6 years of education (average edyrs), first
+immigrated to the US for 5 years (average duration), and last immigrated
+to the US for 3 years and 7 months (average duration), and was born in
+the region of “Bajío”, her predicted salary is $590.11 We are 95%
+confident that the actual salary falls in the interval of \[370.68,
+809.54\].
+
+We can see from the prediction that there is a large gender wage gap,
+since a male’s predicted wage is much higher than a female of the same
+average demographics.
+
+### 3.2.2 Effect of “State born” on Wage
+
+We used male as a model input because the majority of the immigrants in
+our data set are male. We used edyrs = 6 as the input because it is the
+average number of years of education for the data set. The rest of the
+inputs are 0 since those predictors are mean-centered.
+
+    ##        fit      lwr     upr
+    ## 1 893.3224 824.8808 961.764
+
+For a male who is 39 years old (average age), was born on the Pacific
+Coast of Mexico, has 6 years of education (average edyrs), first
+immigrated to the US for 5 years (average duration), and last immigrated
+to the US for 3 years and 7 months (average duration), and was born in
+the region of “Bajío”, his predicted wage is $893.32 We are 95%
+confident that the actual salary falls in the interval of \[824.88,
+961.76\].
+
+    ##        fit      lwr      upr
+    ## 1 1611.188 1101.465 2120.911
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of of “Central Mexico”,
+his predicted salary is $1611.19 We are 95% confident that the actual
+salary falls in the interval of \[1101.47, 2120.91\].
+
+    ##        fit      lwr      upr
+    ## 1 1056.728 580.6308 1532.824
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of of “Northern Mexico”,
+his predicted salary is $1056.73 We are 95% confident that the actual
+salary falls in the interval of \[580.63, 1532.82\].
+
+    ##        fit       lwr     upr
+    ## 1 788.3172 -324.9458 1901.58
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of of “South East
+Mexico”, his predicted salary is $788.32 We are 95% confident that the
+actual salary falls in the interval of \[-324.9458, 961.76\].
+
+    ##        fit      lwr      upr
+    ## 1 814.8583 750.9734 878.7431
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of of “Pacific Coast”,
+his predicted salary is $814.86 We are 95% confident that the actual
+salary falls in the interval of \[750.97, 750.97\].
+
+The prediction suggest a hierarchy in wage discrimination based on the
+regions in Mexico that the immigrants are born in. Immigrants from the
+region of Central Mexico has the highest predicted wage, followed by
+Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
+lowest average predicted wage. However, it is worth noting that the
+confidence interval of South East Mexico is very large, including as low
+as 0 and as high as $1901.58. This could be due to the small sample
+size, as shown in the histogram below:
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+It may also be because this region was artifiically created from 4
+distinct cultural/economic/geographic regions in Mexico: the Yucatan
+Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were
+combined in order to be useful for analysis, but with more data we would
+have prefered to keep them as seperate regions.
+
+## Section 4: Conclusion
+
+Through our exploration and analysis, we found sex, age, years of
+education, duration of last US immigration and region born to be
+significant predictors of household income of Mexican immigrant living
+in California. Among these, there are significant interactions between
+region born and years of education, as well as between region born and
+duration of last US stay.
+
+From our predictions, we observe a large gender wage gap: the average
+male has predicted wage of 893.32 USD, whereas the average female has
+predicted wage of 590.11 USD. It is shocking that the average wage for
+males in this sample is almost two times that of females in this sample.
+
+We also observed regional differences in terms of where the immigrant
+was born. Immigrants from the region of Central Mexico have the highest
+predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and
+South East Mexico has the lowest average predicted wage. However, since
+there is a prominent imbalance in number of observations from various
+regions, this conclusion should be taken with caution – for example, we
+are notably missing data from two of the three states in the Yucatan
+Peninsula in the South East of Mexico.
+
+## Section 5: Additional Work
 
 ### 2.1 Full Model
 
@@ -4222,1763 +6244,6 @@ We observed that the variable selection changed. Specifically, usdur1 is
 significant, besides the 4 variables and the 4 interaction terms
 identified previously.
 
-### 2.6 Final model
-
-<table>
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-term
-
-</th>
-
-<th style="text-align:right;">
-
-estimate
-
-</th>
-
-<th style="text-align:right;">
-
-std.error
-
-</th>
-
-<th style="text-align:right;">
-
-statistic
-
-</th>
-
-<th style="text-align:right;">
-
-p.value
-
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-(Intercept)
-
-</td>
-
-<td style="text-align:right;">
-
-457.355
-
-</td>
-
-<td style="text-align:right;">
-
-298.649
-
-</td>
-
-<td style="text-align:right;">
-
-1.531
-
-</td>
-
-<td style="text-align:right;">
-
-0.126
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM
-
-</td>
-
-<td style="text-align:right;">
-
-424.019
-
-</td>
-
-<td style="text-align:right;">
-
-183.309
-
-</td>
-
-<td style="text-align:right;">
-
-2.313
-
-</td>
-
-<td style="text-align:right;">
-
-0.021
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age
-
-</td>
-
-<td style="text-align:right;">
-
-\-4.975
-
-</td>
-
-<td style="text-align:right;">
-
-4.252
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.170
-
-</td>
-
-<td style="text-align:right;">
-
-0.243
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCentral Mexico
-
-</td>
-
-<td style="text-align:right;">
-
-2504.734
-
-</td>
-
-<td style="text-align:right;">
-
-885.789
-
-</td>
-
-<td style="text-align:right;">
-
-2.828
-
-</td>
-
-<td style="text-align:right;">
-
-0.005
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico
-
-</td>
-
-<td style="text-align:right;">
-
-\-201.370
-
-</td>
-
-<td style="text-align:right;">
-
-435.606
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.462
-
-</td>
-
-<td style="text-align:right;">
-
-0.644
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast
-
-</td>
-
-<td style="text-align:right;">
-
-150.271
-
-</td>
-
-<td style="text-align:right;">
-
-96.132
-
-</td>
-
-<td style="text-align:right;">
-
-1.563
-
-</td>
-
-<td style="text-align:right;">
-
-0.119
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnSouth East Mexico
-
-</td>
-
-<td style="text-align:right;">
-
-\-401.046
-
-</td>
-
-<td style="text-align:right;">
-
-669.895
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.599
-
-</td>
-
-<td style="text-align:right;">
-
-0.550
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatDivorced
-
-</td>
-
-<td style="text-align:right;">
-
-148.264
-
-</td>
-
-<td style="text-align:right;">
-
-205.697
-
-</td>
-
-<td style="text-align:right;">
-
-0.721
-
-</td>
-
-<td style="text-align:right;">
-
-0.471
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatMarried
-
-</td>
-
-<td style="text-align:right;">
-
-33.421
-
-</td>
-
-<td style="text-align:right;">
-
-111.683
-
-</td>
-
-<td style="text-align:right;">
-
-0.299
-
-</td>
-
-<td style="text-align:right;">
-
-0.765
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatNever married
-
-</td>
-
-<td style="text-align:right;">
-
-\-181.347
-
-</td>
-
-<td style="text-align:right;">
-
-156.641
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.158
-
-</td>
-
-<td style="text-align:right;">
-
-0.248
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatSeparated
-
-</td>
-
-<td style="text-align:right;">
-
-135.613
-
-</td>
-
-<td style="text-align:right;">
-
-221.139
-
-</td>
-
-<td style="text-align:right;">
-
-0.613
-
-</td>
-
-<td style="text-align:right;">
-
-0.540
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatWidowed
-
-</td>
-
-<td style="text-align:right;">
-
-\-22.483
-
-</td>
-
-<td style="text-align:right;">
-
-237.042
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.095
-
-</td>
-
-<td style="text-align:right;">
-
-0.924
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-37.846
-
-</td>
-
-<td style="text-align:right;">
-
-11.508
-
-</td>
-
-<td style="text-align:right;">
-
-3.289
-
-</td>
-
-<td style="text-align:right;">
-
-0.001
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAdministrator
-
-</td>
-
-<td style="text-align:right;">
-
-4.692
-
-</td>
-
-<td style="text-align:right;">
-
-258.933
-
-</td>
-
-<td style="text-align:right;">
-
-0.018
-
-</td>
-
-<td style="text-align:right;">
-
-0.986
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAgriculture
-
-</td>
-
-<td style="text-align:right;">
-
-\-263.703
-
-</td>
-
-<td style="text-align:right;">
-
-135.315
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.949
-
-</td>
-
-<td style="text-align:right;">
-
-0.052
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeArts
-
-</td>
-
-<td style="text-align:right;">
-
-\-605.272
-
-</td>
-
-<td style="text-align:right;">
-
-507.363
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.193
-
-</td>
-
-<td style="text-align:right;">
-
-0.233
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeEducator
-
-</td>
-
-<td style="text-align:right;">
-
-344.957
-
-</td>
-
-<td style="text-align:right;">
-
-320.305
-
-</td>
-
-<td style="text-align:right;">
-
-1.077
-
-</td>
-
-<td style="text-align:right;">
-
-0.282
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeHomemaker
-
-</td>
-
-<td style="text-align:right;">
-
-\-162.027
-
-</td>
-
-<td style="text-align:right;">
-
-548.574
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.295
-
-</td>
-
-<td style="text-align:right;">
-
-0.768
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (skilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-131.631
-
-</td>
-
-<td style="text-align:right;">
-
-133.768
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.984
-
-</td>
-
-<td style="text-align:right;">
-
-0.326
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (unskilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-190.272
-
-</td>
-
-<td style="text-align:right;">
-
-133.730
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.423
-
-</td>
-
-<td style="text-align:right;">
-
-0.155
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeOther, unspecified (disabled, incarcerated, tourist and other)
-
-</td>
-
-<td style="text-align:right;">
-
-\-652.774
-
-</td>
-
-<td style="text-align:right;">
-
-413.412
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.579
-
-</td>
-
-<td style="text-align:right;">
-
-0.115
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeProfessional
-
-</td>
-
-<td style="text-align:right;">
-
-\-485.175
-
-</td>
-
-<td style="text-align:right;">
-
-493.974
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.982
-
-</td>
-
-<td style="text-align:right;">
-
-0.327
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeProtection
-
-</td>
-
-<td style="text-align:right;">
-
-\-331.159
-
-</td>
-
-<td style="text-align:right;">
-
-371.333
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.892
-
-</td>
-
-<td style="text-align:right;">
-
-0.373
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeRetired
-
-</td>
-
-<td style="text-align:right;">
-
-\-532.860
-
-</td>
-
-<td style="text-align:right;">
-
-221.082
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.410
-
-</td>
-
-<td style="text-align:right;">
-
-0.016
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeSales
-
-</td>
-
-<td style="text-align:right;">
-
-\-79.551
-
-</td>
-
-<td style="text-align:right;">
-
-143.271
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.555
-
-</td>
-
-<td style="text-align:right;">
-
-0.579
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeServices
-
-</td>
-
-<td style="text-align:right;">
-
-\-88.099
-
-</td>
-
-<td style="text-align:right;">
-
-138.102
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.638
-
-</td>
-
-<td style="text-align:right;">
-
-0.524
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeStudent
-
-</td>
-
-<td style="text-align:right;">
-
-249.596
-
-</td>
-
-<td style="text-align:right;">
-
-521.607
-
-</td>
-
-<td style="text-align:right;">
-
-0.479
-
-</td>
-
-<td style="text-align:right;">
-
-0.633
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTechnical Worker
-
-</td>
-
-<td style="text-align:right;">
-
-\-212.307
-
-</td>
-
-<td style="text-align:right;">
-
-235.237
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.903
-
-</td>
-
-<td style="text-align:right;">
-
-0.367
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTransportation
-
-</td>
-
-<td style="text-align:right;">
-
-\-106.638
-
-</td>
-
-<td style="text-align:right;">
-
-161.527
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.660
-
-</td>
-
-<td style="text-align:right;">
-
-0.509
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeUnemployed (seeking work)
-
-</td>
-
-<td style="text-align:right;">
-
-\-623.453
-
-</td>
-
-<td style="text-align:right;">
-
-328.166
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.900
-
-</td>
-
-<td style="text-align:right;">
-
-0.058
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdur1
-
-</td>
-
-<td style="text-align:right;">
-
-1.261
-
-</td>
-
-<td style="text-align:right;">
-
-0.793
-
-</td>
-
-<td style="text-align:right;">
-
-1.589
-
-</td>
-
-<td style="text-align:right;">
-
-0.113
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Legal resident
-
-</td>
-
-<td style="text-align:right;">
-
-32.627
-
-</td>
-
-<td style="text-align:right;">
-
-137.285
-
-</td>
-
-<td style="text-align:right;">
-
-0.238
-
-</td>
-
-<td style="text-align:right;">
-
-0.812
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Temporary: Tourist/visitor
-
-</td>
-
-<td style="text-align:right;">
-
-\-160.803
-
-</td>
-
-<td style="text-align:right;">
-
-147.840
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.088
-
-</td>
-
-<td style="text-align:right;">
-
-0.277
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Undocumented
-
-</td>
-
-<td style="text-align:right;">
-
-\-123.482
-
-</td>
-
-<td style="text-align:right;">
-
-114.409
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.079
-
-</td>
-
-<td style="text-align:right;">
-
-0.281
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-uscitycentcal
-
-</td>
-
-<td style="text-align:right;">
-
-42.192
-
-</td>
-
-<td style="text-align:right;">
-
-97.041
-
-</td>
-
-<td style="text-align:right;">
-
-0.435
-
-</td>
-
-<td style="text-align:right;">
-
-0.664
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-uscitysocal
-
-</td>
-
-<td style="text-align:right;">
-
-34.119
-
-</td>
-
-<td style="text-align:right;">
-
-78.832
-
-</td>
-
-<td style="text-align:right;">
-
-0.433
-
-</td>
-
-<td style="text-align:right;">
-
-0.665
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-1.071
-
-</td>
-
-<td style="text-align:right;">
-
-0.414
-
-</td>
-
-<td style="text-align:right;">
-
-2.590
-
-</td>
-
-<td style="text-align:right;">
-
-0.010
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-1.923
-
-</td>
-
-<td style="text-align:right;">
-
-0.579
-
-</td>
-
-<td style="text-align:right;">
-
-3.321
-
-</td>
-
-<td style="text-align:right;">
-
-0.001
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM:usdur1
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.648
-
-</td>
-
-<td style="text-align:right;">
-
-0.825
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.997
-
-</td>
-
-<td style="text-align:right;">
-
-0.046
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCentral Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-\-309.860
-
-</td>
-
-<td style="text-align:right;">
-
-116.651
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.656
-
-</td>
-
-<td style="text-align:right;">
-
-0.008
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-60.832
-
-</td>
-
-<td style="text-align:right;">
-
-56.519
-
-</td>
-
-<td style="text-align:right;">
-
-1.076
-
-</td>
-
-<td style="text-align:right;">
-
-0.282
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-\-37.330
-
-</td>
-
-<td style="text-align:right;">
-
-13.336
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.799
-
-</td>
-
-<td style="text-align:right;">
-
-0.005
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnSouth East Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-21.733
-
-</td>
-
-<td style="text-align:right;">
-
-36.479
-
-</td>
-
-<td style="text-align:right;">
-
-0.596
-
-</td>
-
-<td style="text-align:right;">
-
-0.552
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCentral Mexico:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-11.469
-
-</td>
-
-<td style="text-align:right;">
-
-6.422
-
-</td>
-
-<td style="text-align:right;">
-
-1.786
-
-</td>
-
-<td style="text-align:right;">
-
-0.075
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-\-6.341
-
-</td>
-
-<td style="text-align:right;">
-
-2.196
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.888
-
-</td>
-
-<td style="text-align:right;">
-
-0.004
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.101
-
-</td>
-
-<td style="text-align:right;">
-
-0.515
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.139
-
-</td>
-
-<td style="text-align:right;">
-
-0.033
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnSouth East Mexico:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-\-8.154
-
-</td>
-
-<td style="text-align:right;">
-
-11.534
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.707
-
-</td>
-
-<td style="text-align:right;">
-
-0.480
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-    ## Start:  AIC=6393.26
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
-    ##     usdur1 + usdoc1 + uscity + age * edyrs + sex * usdur1 + statebrn * 
-    ##     edyrs + statebrn * usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - occtype         17   4970301 115360932 6381.9
-    ## - marstat          5   1079762 111470393 6388.3
-    ## - uscity           2     52095 110442726 6389.5
-    ## - usdoc1           3   1012809 111403440 6391.9
-    ## <none>                         110390631 6393.3
-    ## - sex:usdur1       1    944255 111334886 6395.6
-    ## - statebrn:usdurl  4   3657567 114048198 6402.0
-    ## - age:edyrs        1   2612133 113002764 6403.3
-    ## - statebrn:edyrs   4   4134248 114524879 6404.1
-    ## 
-    ## Step:  AIC=6381.85
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
-    ##     usdoc1 + uscity + usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + 
-    ##     statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - marstat          5    676355 116037286 6374.9
-    ## - uscity           2     91421 115452352 6378.3
-    ## - usdoc1           3    752471 116113402 6379.2
-    ## <none>                         115360932 6381.9
-    ## - sex:usdur1       1    477941 115838873 6382.0
-    ## - statebrn:edyrs   4   3807473 119168405 6390.5
-    ## - statebrn:usdurl  4   4243189 119604120 6392.4
-    ## - age:edyrs        1   3240213 118601145 6394.1
-    ## 
-    ## Step:  AIC=6374.85
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + uscity + 
-    ##     usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - uscity           2    144340 116181626 6371.5
-    ## - usdoc1           3    858947 116896234 6372.6
-    ## <none>                         116037286 6374.9
-    ## - sex:usdur1       1    464989 116502275 6374.9
-    ## - statebrn:edyrs   4   3746809 119784095 6383.2
-    ## - statebrn:usdurl  4   4115471 120152758 6384.7
-    ## - age:edyrs        1   3465505 119502792 6387.9
-    ## 
-    ## Step:  AIC=6371.49
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + usdurl + 
-    ##     age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - usdoc1           3    803764 116985390 6369.0
-    ## - sex:usdur1       1    445825 116627452 6371.5
-    ## <none>                         116181626 6371.5
-    ## - statebrn:edyrs   4   3839608 120021235 6380.2
-    ## - statebrn:usdurl  4   4076429 120258055 6381.2
-    ## - age:edyrs        1   3498300 119679926 6384.7
-    ## 
-    ## Step:  AIC=6369.03
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
-    ##     sex:usdur1 + statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - sex:usdur1       1    455541 117440932 6369.0
-    ## <none>                         116985390 6369.0
-    ## - statebrn:edyrs   4   4317873 121303264 6379.6
-    ## - statebrn:usdurl  4   4471000 121456390 6380.3
-    ## - age:edyrs        1   3263657 120249048 6381.1
-    ## 
-    ## Step:  AIC=6369.02
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
-    ##     statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - usdur1           1      5781 117446712 6367.0
-    ## <none>                         117440932 6369.0
-    ## - sex              1   1701794 119142726 6374.4
-    ## - statebrn:edyrs   4   4370391 121811323 6379.8
-    ## - statebrn:usdurl  4   4704863 122145795 6381.2
-    ## - age:edyrs        1   3491165 120932097 6382.0
-    ## 
-    ## Step:  AIC=6367.05
-    ## hhincome ~ sex + age + statebrn + edyrs + usdurl + age:edyrs + 
-    ##     statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## <none>                         117446712 6367.0
-    ## - sex              1   1807944 119254656 6372.9
-    ## - statebrn:edyrs   4   4418165 121864877 6378.0
-    ## - statebrn:usdurl  4   4766282 122212994 6379.5
-    ## - age:edyrs        1   3485788 120932501 6380.0
-
-| term                             |  estimate | std.error | statistic | p.value |   conf.low | conf.high |
-| :------------------------------- | --------: | --------: | --------: | ------: | ---------: | --------: |
-| (Intercept)                      |   318.943 |   137.955 |     2.312 |   0.021 |     47.893 |   589.993 |
-| sexM                             |   303.210 |   109.842 |     2.760 |   0.006 |     87.396 |   519.024 |
-| age                              |   \-5.218 |     3.602 |   \-1.448 |   0.148 |   \-12.295 |     1.860 |
-| statebrnCentral Mexico           |  2510.513 |   873.876 |     2.873 |   0.004 |    793.550 |  4227.476 |
-| statebrnNorthern Mexico          |  \-99.091 |   406.790 |   \-0.244 |   0.808 |  \-898.339 |   700.157 |
-| statebrnPacific Coast            |   142.460 |    91.810 |     1.552 |   0.121 |   \-37.925 |   322.844 |
-| statebrnSouth East Mexico        | \-242.945 |   659.794 |   \-0.368 |   0.713 | \-1539.288 |  1053.398 |
-| edyrs                            |    45.195 |    10.514 |     4.299 |   0.000 |     24.538 |    65.852 |
-| usdurl                           |     1.188 |     0.325 |     3.650 |   0.000 |      0.548 |     1.827 |
-| age:edyrs                        |     2.108 |     0.550 |     3.833 |   0.000 |      1.028 |     3.189 |
-| statebrnCentral Mexico:edyrs     | \-298.775 |   114.636 |   \-2.606 |   0.009 |  \-524.007 |  \-73.542 |
-| statebrnNorthern Mexico:edyrs    |    43.749 |    44.357 |     0.986 |   0.324 |   \-43.402 |   130.901 |
-| statebrnPacific Coast:edyrs      |  \-36.821 |    12.742 |   \-2.890 |   0.004 |   \-61.855 |  \-11.786 |
-| statebrnSouth East Mexico:edyrs  |    22.990 |    34.971 |     0.657 |   0.511 |   \-45.720 |    91.700 |
-| statebrnCentral Mexico:usdurl    |    11.304 |     6.396 |     1.767 |   0.078 |    \-1.262 |    23.870 |
-| statebrnNorthern Mexico:usdurl   |   \-5.986 |     1.840 |   \-3.254 |   0.001 |    \-9.600 |   \-2.371 |
-| statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
-| statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
-
 ### 2.7 Model Diagnostics
 
 ![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
@@ -6100,154 +6365,3 @@ distort our explanations.
     ## 17 statebrnSouth East Mexico:usdurl 24.3
 
     ## [1] 0.1443861
-
-## Section 3: Discussion and Limitations
-
-### 3.1 Limitations
-
-In order to complete an effective analysis in the time given, we greatly
-simplified our raw data to predict our response variable, household
-income. We ended up only analyzing a subgroup of the immigrants and
-focused on those who migrated to California because they made up a large
-majority of our dataset, anyway. If we were given more time, we would’ve
-analyzed the entirety of the set. Additionally, we cut a chunk of the
-data out because it appeared that some of the income was reported in
-pesos and USD, though we are not definitely sure. Further analysis could
-investigate why it appeared that some income was reported in a
-potentially different currency and adjust for it so we can include all
-observations in our analysis.
-
-If we could continue to work on the project, we would operate under the
-assumption that the household income that is unusual was reported in
-pesos and potentially recorded in the Mexico and split the data set into
-two and investigate that. I think our model could be stronger if we were
-able to include this very valuable data and inform our predictions with
-this information.
-
-### 3.2 Prediction
-
-### 3.2.1 Effect of “Gender” on Wage
-
-    ##        fit      lwr     upr
-    ## 1 893.3224 824.8808 961.764
-
-For a male who is 39 years old (average age), was born on the Pacific
-Coast of Mexico, has 6 years of education (average edyrs), first
-immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and was born in
-the region of “Bajío”, his predicted wage is $893.32 We are 95%
-confident that the actual salary falls in the interval of \[824.88,
-961.76\].
-
-    ##        fit      lwr      upr
-    ## 1 590.1126 370.6824 809.5429
-
-For a female who is 39 years old (average age), was born on the Pacific
-Coast of Mexico, has 6 years of education (average edyrs), first
-immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and was born in
-the region of “Bajío”, her predicted salary is $590.11 We are 95%
-confident that the actual salary falls in the interval of \[370.68,
-809.54\].
-
-We can see from the prediction that there is a large gender wage gap,
-since a male’s predicted wage is much higher than a female of the same
-average demographics.
-
-### 3.2.2 Effect of “State born” on Wage
-
-    ##        fit      lwr      upr
-    ## 1 814.8583 750.9734 878.7431
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Pacific Coast”,
-his predicted salary is $814.86 We are 95% confident that the actual
-salary falls in the interval of \[750.97, 750.97\].
-
-    ##        fit      lwr      upr
-    ## 1 1611.188 1101.465 2120.911
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Central Mexico”,
-his predicted salary is $1611.19 We are 95% confident that the actual
-salary falls in the interval of \[1101.47, 2120.91\].
-
-    ##        fit      lwr      upr
-    ## 1 1056.728 580.6308 1532.824
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Northern Mexico”,
-his predicted salary is $1056.73 We are 95% confident that the actual
-salary falls in the interval of \[580.63, 1532.82\].
-
-    ##        fit       lwr     upr
-    ## 1 788.3172 -324.9458 1901.58
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “South East
-Mexico”, his predicted salary is $788.32 We are 95% confident that the
-actual salary falls in the interval of \[-324.9458, 961.76\].
-
-    ##        fit      lwr     upr
-    ## 1 893.3224 824.8808 961.764
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Bajío”, his
-predicted salary is $893.32 We are 95% confident that the actual salary
-falls in the interval of \[824.88, 961.76\].
-
-The prediction suggest a hierarchy in wage discrimination based on the
-regions in Mexico that the immigrants are born in. Immigrants from the
-region of Central Mexico has the highest predicted wage, followed by
-Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the
-lowest average predicted wage. However, it is worth noting that the
-confidence interval of South East Mexico is very large, including as low
-as 0 and as high as $1901.58. This could be due to the small sample
-size, as shown in the histogram below:
-
-![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-
-It may also be because this region was artifiically created from 4
-distinct cultural/economic/geographic regions in Mexico: the Yucatan
-Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were
-combined in order to be useful for analysis, but with more data we would
-have prefered to keep them as seperate regions.
-
-## Section 4: Conclusion
-
-<<<<<<< HEAD
-Thorugh
-=======
-Through our exploration and analysis, we found sex, age, years of
-education, duration of last US immigration and region born to be
-significant predictors of household income of Mexican immigrant living
-in California. Among these, there are significant interactions between
-region born and years of education, as well as between region born and
-duration of last US stay.
-
-From our predictions, we observe a large gender wage gap: the average
-male has predicted wage of 893.32 USD, whereas the average female has
-predicted wage of 590.11 USD. It is shocking that the average wage for
-males in this sample is almost two times that of females in this sample.
-
-We also observed regional differences in terms of where the immigrant
-was born. Immigrants from the region of Central Mexico have the highest
-predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and
-South East Mexico has the lowest average predicted wage. However, since
-there is a prominent imbalance in number of observations from various
-regions, this conclusion should be taken with caution – for example, we
-are notably missing data from two of the three states in the Yucatan
-Peninsula in the South East of Mexico.
->>>>>>> 998a382326ca7cef989b5506eebb19ecceef5ce7
-
-## Section 5: Additional Work

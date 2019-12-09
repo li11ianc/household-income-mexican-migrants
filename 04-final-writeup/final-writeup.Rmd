@@ -1,5 +1,5 @@
 ---
-title: "Characteristics of Recent Mexican Immigrants to the United States that Influence Household Income"
+title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
 date: "12/05/2019"
 output: github_document
@@ -47,7 +47,7 @@ We will build a multiple linear regression model to predict household income con
 
 "X1": Number of observation
 
-"sex": Sex
+"sex": Sex of immigrant
   
 "relhead": Relationship to household head
 
@@ -93,9 +93,9 @@ Due to the complexity of our original data, we did not include data cleaning in 
 
 However, we did make some adjustment according to the feedback that there is large imbalance of the amount of data between regions, and that the distribution of the response variable is not normal. Below is the update on our data cleaning:
 
-### 2.2 Updated Data Exploration
+### 1.4 Updated Data Exploration
 
-#### 2.2.1 Filter Only Immigrants in California
+#### 1.4.1 Filter Only Immigrants in California
 
 Accoridng to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
@@ -121,7 +121,7 @@ caldata <- caldata%>%
 
 ```
 
-#### 2.2.2 Cut Household Income Groups
+#### 1.4.2 Cut Household Income Groups
 
 Originally, the distribution of log(Household Income)- our response variable- was bimodal and had a median of 412,647 dollars. It almost looks like 3 separate distributions:
 
@@ -149,12 +149,12 @@ caldata <- caldata %>%
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram(binwidth = 100) +
-  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+  labs(title = "Distribution of Household Income", x= "Household Income/ USD", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
 
-#### 2.2.2 Group cities by region
+#### 1.4.3 Group cities by region
 
 ```{r cities, fig.align="center"}
 caldata <- caldata %>%
@@ -182,7 +182,7 @@ We decided to simplify these cities into 3 regional categories: Bay Area, Southe
 
 Given the comparatively small number of cases in which no city was reported, we deleted these instances. The majority of immigrants went to LA-Long Beach area in Southern California.
 
-#### 2.2.4 Remove Variable "relhead"
+#### 1.4.4 Remove Variable "relhead"
 
 It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
@@ -190,7 +190,7 @@ It turned out that all values from relhead (relationship to head of household) i
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
-#### 2.2.5 Mean-center "age" , "usdur1" and "usdurl"
+#### 1.4.5 Mean-center "age" , "usdur1" and "usdurl"
 
 We must center age and usdurl in order to have a useful model intercept interpretation.
 
@@ -211,7 +211,7 @@ caldata <- caldata %>%
 caldata <- caldata %>%
   mutate(usdur1=usdur1-mean(usdur1))
 ```
-### 2.2.6 Remove El Salvador Data and regionalize state born variable
+### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
 ```{r states, fig.align="center"}
 caldata <- caldata %>%
@@ -230,7 +230,7 @@ ggplot(statebrndist, aes(x = statebrn))+
   labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
 
 ```
-We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted. 
+We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted.
 
 We divided the remaining states into the following regions: 
 
@@ -244,7 +244,7 @@ Central Mexico: Mexico City, México, Morelos, Puebla
 
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit 
 
-#### 2.2.7 Remove Obvious Collinear Variable
+#### 1.4.7 Remove Obvious Collinear Variable
 
 ```{r yrborn-age, fig.align = "center"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
@@ -253,6 +253,13 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 ```
 
 `yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
+
+
+
+
+
+
+
 
 
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
@@ -264,6 +271,178 @@ In an effort to explain which characteristics of migrants influence their househ
 We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant. However, if the variables occtype, edyrs, or usdoc1 don't make it through the process of inital model selection, we will not include these interactions in the model as that would not be prudent.
 
 We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
+
+
+### 2.1 Description of Methods
+
+In our first multiple linear regression model, we included all 19 variables. Then, we used backwards model selection to reduce the model to 5 significant variables: edyrs, usdurl, sex, statebrn and age. We used AIC as the criterion because immigration is a complex social issue, hence we would prefer a model with many predictors and err on the side of false-positive, rather than having a leaner model.
+
+After inital backwards selection, we will explore the possible interactions between remaining variables: edyrs, usdurl, sex, statebrn and age, to determine if any are significant.
+The significant interactions are: 
+
+age*edyrs: p = 0 < 0.05      
+(This interaction makes sense, because we expect older immigrants to be more educated)
+sex*usdurl: p = 0.0303039 < 0.05     
+(This interaction is surprising, because it suggests that the change in income with time in the US differs depending on the immigrant's sex. This potentially highlight the gender discrimination in workplace.)
+statebrn*edyrs: p = 0.0002466 < 0.05
+(This interaction makes sense, because we expect different region of Mexico have different level of development and hence access to education.)
+statebrn*usdurl: p = 0.0012 < 0.05
+(This interaction makes sense, because immigrants from certain regions in Mexico may have a easier time staying longer in California because there is already a large community of immigrants from that region there.)
+
+Therefore, we included these interactions in our original full model, and did backward selection again to get our final model. Our final model dropped the interaction between sex*usdurl, which is the one we found that didn't make sense immediately. Hence, we are confident about our final model.
+
+
+### 2.2 Full Model after Evaluating Interactions
+
+```{r full}
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
+kable(tidy(full_int_new_2),format="html" ,digits=3)
+```
+
+
+### 2.3 Final model
+```{r final}
+reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+sel_summary <- summary(reduced_int_new_2)
+tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+
+### 2.4 Description of Method in Model Diagnostics
+
+We checked leverage, standardized residuals, estimate of standard deviation, cook's distance, VIF and adjusted R-square.
+
+#### 2.4.1 Leverage
+About a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.
+
+Of the individuals in the data with high leverage, two have extensive educations and are relatively young and from Northern Mexico. Two are closer to the median age, have 5 years of education, and are from Central Mexico.
+
+These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
+
+#### 2.4.2 Standardized Residuals
+
+The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors. Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption.
+
+#### 2.4.3 Estimate of Standard Deviation
+
+The estimate of our regression standard deviation using all observations is 487.0997, whereas the standard deviation estimate without points with large magnitude standardized residuals is 387.6239. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model’s integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook’s Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
+
+#### 2.4.4 Cook's Distance
+
+Only one observation has a Cook’s Distance greater than 1. Hence, we will remove this individual from our analysis because it exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
+
+#### 2.4.5 VIF
+
+There are 3 coefficients with high VIFs (>10):
+
+statebrnCentral Mexico : 19.1
+statebrnSouth East Mexico : 33.6
+statebrnCentral Mexico:edyrs : 19.6
+statebrnSouth East Mexico:usdurl : 24.3
+
+The latter 2 VIFs could be related to the first 2. The first 2 coefficients have high collinearity because when we divided the birth state into regions, there are very few and very geographically sparse observations in the South East Mexico, and a lot more observations in Central Mexico. Hence, in order to make each region more representative, we included some of the ambiguous states that could possibly be included in both regions into South East Mexico. Since the geographical regional divide is subjective and continuous, we expect there to be collinearity.
+
+
+#### 2.4.6 Adjusted R-squre
+
+The adjusted R-square of our final model is 0.1443861, meaning that our model explains around 14.4% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-square seems reasonable.
+
+
+## Section 3: Discussion and Limitations 
+
+
+### 3.1 Limitations
+
+In order to complete an effective analysis in the time given, we greatly simplified our raw data to predict our response variable, household income. We ended up only analyzing a subgroup of the immigrants and focused on those who migrated to California because they made up a large majority of our dataset, anyway. If we were given more time, we would’ve analyzed the entirety of the set. Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitely sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis.
+
+If we could continue to work on the project, we would operate under the assumption that the household income that is unusual was reported in pesos and potentially recorded in the Mexico and split the data set into two and investigate that. I think our model could be stronger if we were able to include this very valuable data and inform our predictions with this information.  
+
+### 3.2 Prediction
+
+### 3.2.1 Effect of "Gender" on Wage 
+
+```{r}
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+predict.lm(reduced_int_new_2, x0, interval = "confidence")
+```
+For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+
+```{r}
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+predict.lm(reduced_int_new_2, x1, interval = "confidence")
+```
+For a female who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11 We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
+
+
+We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
+
+### 3.2.2 Effect of "State born" on Wage
+
+We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. The rest of the inputs are 0 since those predictors are mean-centered.
+
+```{r}
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+predict.lm(reduced_int_new_2, x0, interval = "confidence")
+```
+For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+
+```{r}
+x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico")
+predict.lm(reduced_int_new_2, x3, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Central Mexico", his predicted salary is $1611.19 We are 95% confident that the actual salary falls in the interval of [1101.47, 2120.91].
+
+
+```{r}
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico")
+predict.lm(reduced_int_new_2, x4, interval = "confidence")
+```
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Northern Mexico", his predicted salary is $1056.73 We are 95% confident that the actual salary falls in the interval of [580.63, 1532.82].
+
+```{r}
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico")
+predict.lm(reduced_int_new_2, x5, interval = "confidence")
+```
+
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "South East Mexico", his predicted salary is $788.32 We are 95% confident that the actual salary falls in the interval of [-324.9458, 961.76].
+
+```{r}
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast")
+predict.lm(reduced_int_new_2, x5, interval = "confidence")
+```
+
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Pacific Coast", his predicted salary is $814.86 We are 95% confident that the actual salary falls in the interval of [750.97, 750.97].
+
+
+The prediction suggest a hierarchy in wage discrimination based on the regions in Mexico that the immigrants are born in. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, it is worth noting that the confidence interval of South East Mexico is very large, including as low as 0 and as high as $1901.58. This could be due to the small sample size, as shown in the histogram below:
+
+```{r}
+SouthEast <- caldata %>%
+  filter(statebrn == "South East Mexico")
+ggplot(SouthEast, mapping = aes(x=hhincome)) +
+  geom_histogram()+
+  labs(x = "Household Income", y = "Count", title = "Distribution of Household Income in Immigrants Born in South East Mexico")
+
+```
+
+It may also be because this region was artifiically created from 4 distinct cultural/economic/geographic regions in Mexico: the Yucatan Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were combined in order to be useful for analysis, but with more data we would have prefered to keep them as seperate regions. 
+
+
+## Section 4: Conclusion
+
+Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay. 
+
+From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
+
+We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico. 
+
+
+
+
+
+
+## Section 5: Additional Work
 
 
 ### 2.1 Full Model
@@ -390,20 +569,6 @@ kable(digits = 3, format = "markdown")
 
 We observed that the variable selection changed. Specifically, usdur1 is significant, besides the 4 variables and the 4 interaction terms identified previously.
 
-### 2.6 Final model
-
-```{r full}
-full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
-kable(tidy(full_int_new_2),format="html" ,digits=3)
-```
-
-```{r final}
-reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
-sel_summary <- summary(reduced_int_new_2)
-tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
-kable(digits = 3, format = "markdown")
-```
-
 
 ### 2.7 Model Diagnostics
 
@@ -519,97 +684,3 @@ tidy(vif(reduced_int_new_2))
 summary(reduced_int_new_2)$adj.r.squared
 
 ```
-
-
-
-
-## Section 3: Discussion and Limitations 
-
-
-### 3.1 Limitations
-
-In order to complete an effective analysis in the time given, we greatly simplified our raw data to predict our response variable, household income. We ended up only analyzing a subgroup of the immigrants and focused on those who migrated to California because they made up a large majority of our dataset, anyway. If we were given more time, we would’ve analyzed the entirety of the set. Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitely sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis.
-
-If we could continue to work on the project, we would operate under the assumption that the household income that is unusual was reported in pesos and potentially recorded in the Mexico and split the data set into two and investigate that. I think our model could be stronger if we were able to include this very valuable data and inform our predictions with this information.  
-
-### 3.2 Prediction
-
-### 3.2.1 Effect of "Gender" on Wage 
-
-```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
-predict.lm(reduced_int_new_2, x0, interval = "confidence")
-```
-For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
-
-```{r}
-x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
-predict.lm(reduced_int_new_2, x1, interval = "confidence")
-```
-For a female who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11 We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
-
-
-We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
-
-### 3.2.2 Effect of "State born" on Wage
-
-```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast")
-predict.lm(reduced_int_new_2, x0, interval = "confidence")
-```
-
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Pacific Coast", his predicted salary is $814.86 We are 95% confident that the actual salary falls in the interval of [750.97, 750.97].
-
-```{r}
-x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico")
-predict.lm(reduced_int_new_2, x3, interval = "confidence")
-```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Central Mexico", his predicted salary is $1611.19 We are 95% confident that the actual salary falls in the interval of [1101.47, 2120.91].
-
-
-```{r}
-x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Contract - Bracero", statebrn="Northern Mexico")
-predict.lm(reduced_int_new_2, x4, interval = "confidence")
-```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Northern Mexico", his predicted salary is $1056.73 We are 95% confident that the actual salary falls in the interval of [580.63, 1532.82].
-
-```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident", statebrn="South East Mexico")
-predict.lm(reduced_int_new_2, x5, interval = "confidence")
-```
-
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "South East Mexico", his predicted salary is $788.32 We are 95% confident that the actual salary falls in the interval of [-324.9458, 961.76].
-
-```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, usdoc1 = "Legal resident", statebrn="Bajío")
-predict.lm(reduced_int_new_2, x5, interval = "confidence")
-```
-
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Bajío", his predicted salary is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
-
-
-The prediction suggest a hierarchy in wage discrimination based on the regions in Mexico that the immigrants are born in. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, it is worth noting that the confidence interval of South East Mexico is very large, including as low as 0 and as high as $1901.58. This could be due to the small sample size, as shown in the histogram below:
-
-```{r}
-SouthEast <- caldata %>%
-  filter(statebrn == "South East Mexico")
-ggplot(SouthEast, mapping = aes(x=hhincome)) +
-  geom_histogram()+
-  labs(x = "Household Income", y = "Count", title = "Distribution of Household Income in Immigrants Born in South East Mexico")
-
-```
-
-It may also be because this region was artifiically created from 4 distinct cultural/economic/geographic regions in Mexico: the Yucatan Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were combined in order to be useful for analysis, but with more data we would have prefered to keep them as seperate regions. 
-
-## Section 4: Conclusion
-
-Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay. 
-
-From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
-
-We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico. 
-
-## Section 5: Additional Work
-
-
-
