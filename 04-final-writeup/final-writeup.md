@@ -6002,12 +6002,9 @@ statebrnSouth East Mexico:usdurl
 | statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
 | statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
 
-### 3.6 High Leverage Points
+### 3.6 Model Diagnostics
 
-.hat: leverage .cooksd: Cook’s distance .std.resid: standardized
-residuals
-
-![](final-writeup_files/figure-gfm/leverage-1.png)<!-- -->
+![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
     ## # A tibble: 131 x 14
     ##    hhincome sex      age statebrn edyrs usdurl .fitted .se.fit .resid
@@ -6026,6 +6023,9 @@ residuals
     ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
     ## [1] 0.2826511
+
+About 28% of our observations are high leverage points, meaning that
+they have x-values which differ greatly from the
 
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
