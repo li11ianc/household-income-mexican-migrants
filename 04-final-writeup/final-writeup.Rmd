@@ -391,71 +391,71 @@ The adjusted R-squared of our final model is 0.1810094, meaning that our model e
 
 ### 3.1 Limitations
 
-In order to complete an effective analysis in the time given, we greatly simplified our raw data to predict our response variable, household income. We ended up only analyzing a subgroup of the immigrants and focused on those who migrated to California because they made up a large majority of our dataset, anyway. However, because of that, our findings may not be able to be generalized into other states in the US. If we were given more time, we would’ve analyzed the entirety of the set. 
+In order to complete an effective analysis in the time given, we greatly simplified our raw data to predict our response variable, household income. We ended up only analyzing a subgroup of the immigrants and focused on those who migrated to California because they made up a large majority of our original dataset. However, because of that, our findings may not be able to be generalized into other states in the US. If we were given more time, we would have analyzed the entirety of the dataset. 
 
-Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitely sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis. We also cut off the data with no income to avoid the influence of zero inflation on the final model, hence biasing the model against immigrants who are unemployed. Future models should be adjusted for zero inflation.
+Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitively sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis. We also cut off the data with no income to avoid the influence of zero inflation on the final model, hence biasing the model against immigrants who are unemployed. Future models should be adjusted for zero inflation.
 
 Moreover, in an attempt to simplify the variable "statebrn", we grouped observations into regions. However, in order to arrive at a balanced grouping in terms of the number of observations in each region, we artificially divided the regions geographically, rather than dividing them according to socio-economic characteristics. As a result, the household income in some regions, such as South East Mexico, has a wide range. Furthermore, through compromising between geographic integrity and number of observations in each region, the majority of observations are still in Pacific Coast and Bajío regions due to the nature of the data. Further work can look into weighing mechanisms for multiple linear models.
 
-According to our analysis of leverage and adjusted R-square, we conclude that there might be many outliers in our data, which makes sense since the immigrants has drastically different demographics and income. Hence, our model should only be taken as a reference to analyse general trend, rather than to predict precise income. Given that wage depends on numerous socio-econoimic factors, our model is satisfactory, yet it cannot tell the entire story.
+According to our analysis of leverage and adjusted R-square, we conclude that there might be many outliers in our data, which makes sense since the immigrants in the data have drastically different demographics and income. Hence, our model should only be taken as a reference to analyse general trends, rather than to predict precise incomes. Given that wage depends on numerous socio-economic factors, our model is satisfactory, yet it cannot tell the entire story.
 
-If we could continue to work on the project, we would operate under the assumption that the household income that is unusual was reported in pesos and potentially recorded in the Mexico and split the data set into two and investigate that. I think our model could be stronger if we were able to include this very valuable data and inform our predictions with this information.  
+If we could continue to work on the project, we would operate under the assumption that the household income that is unusual was reported in pesos and potentially recorded in the Mexico and split the data set into two and investigate that. Our model could be stronger if we were able to include this very valuable data and inform our predictions with this information.  
 
 ### 3.2 Prediction
 
 ### 3.2.1 Effect of "Gender" on Wage 
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32. We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $905.59. We are 95% confident that the actual salary falls in the interval of [814.7695, 996.2402].
 
 ```{r}
-x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x1, interval = "confidence")
 ```
-For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11. We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
+For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", her predicted salary is $577.84. We are 95% confident that the actual salary falls in the interval of [320.7065, 834.9644].
 
 
 We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
 
 ### 3.2.2 Effect of "State born" on Wage
 
-We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. The rest of the inputs are 0 since those predictors are mean-centered.
+We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. Manufacturing is the most common occupation type in the data, undocumented the most common immigration status. The rest of the inputs are 0 since those predictors are mean-centered.
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $905.50 We are 95% confident that the actual salary falls in the interval of [814.7695, 996.2402].
 
 ```{r}
-x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
+x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Central Mexico", his predicted salary is $1611.19 We are 95% confident that the actual salary falls in the interval of [1101.47, 2120.91].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Central Mexico", his predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.498].
 
 
 ```{r}
-x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Northern Mexico", his predicted salary is $1056.73 We are 95% confident that the actual salary falls in the interval of [580.63, 1532.82].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Northern Mexico", his predicted salary is $976.44 We are 95% confident that the actual salary falls in the interval of [502.3831, 1450.493].
 
 ```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "South East Mexico", his predicted salary is $788.32 We are 95% confident that the actual salary falls in the interval of [-324.9458, 961.76].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "South East Mexico", his predicted salary is $786.43 We are 95% confident that the actual salary falls in the interval of [-317.2469, 1890.109].
 
 ```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast", occtype = "Agriculture", usdoc1 = "Undocumented")
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Pacific Coast", his predicted salary is $814.86 We are 95% confident that the actual salary falls in the interval of [750.97, 750.97].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Pacific Coast", his predicted salary is $830.77 We are 95% confident that the actual salary falls in the interval of [743.669, 917.8617].
 
 
 The prediction suggest a hierarchy in wage discrimination based on the regions in Mexico that the immigrants are born in. Immigrants from the region of Central Mexico has the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. This is supported by literature on economic inequality in Mexico. Specifically, early industrialization started in Central and Northern Mexico, allowing more mobility and opportunity for education and trade in these regions. In fact, in 2012, the northern border states (6 of the 32) accounted for 52.87% of the total export value. Therefore, it is possible that as a result, immigrants from these regions have an easier time earning relative higher wages than those from other regions.
@@ -468,10 +468,14 @@ SouthEast <- caldata %>%
 ggplot(SouthEast, mapping = aes(x=hhincome)) +
   geom_histogram()+
   labs(x = "Household Income", y = "Count", title = "Distribution of Household Income in Immigrants Born in South East Mexico")
-
+nrow(SouthEast)
 ```
 
+There are only actually 19 observations in the data from this region.
+
 It may also be because this region was artifiically created from 4 distinct cultural/economic/geographic regions in Mexico: the Yucatan Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were combined in order to be useful for analysis, but with more data we would have prefered to keep them as seperate regions, especially since Veracruz is relatively better-off than the rest of the states.
+
+### 3.2.3 Effect of "Occupation Type" on Wage
 
 
 ## Section 4: Conclusion
