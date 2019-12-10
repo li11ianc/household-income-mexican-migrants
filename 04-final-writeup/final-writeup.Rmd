@@ -598,6 +598,9 @@ summary(factor(caldata$occtype))
 ```
 In terms of occupation type, as expected the highest incomes are found among professionals, with service and manufacturing workers close behind. As anticipated, agricultural workers had the lowest income. In this case, our data is robust, as each category has over 30 datapoints. 
 
+In terms of documentation type, we observed a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers.
+
+
 
 ## Section 5: Additional Work
 
