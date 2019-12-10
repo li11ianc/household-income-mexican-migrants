@@ -2476,18 +2476,19 @@ In order to complete an effective analysis in the time given, we greatly
 simplified our raw data to predict our response variable, household
 income. We ended up only analyzing a subgroup of the immigrants and
 focused on those who migrated to California because they made up a large
-majority of our dataset, anyway. However, because of that, our findings
+majority of our original dataset. However, because of that, our findings
 may not be able to be generalized into other states in the US. If we
-were given more time, we would’ve analyzed the entirety of the set.
+were given more time, we would have analyzed the entirety of the
+dataset.
 
 Additionally, we cut a chunk of the data out because it appeared that
 some of the income was reported in pesos and USD, though we are not
-definitely sure. Further analysis could investigate why it appeared that
-some income was reported in a potentially different currency and adjust
-for it so we can include all observations in our analysis. We also cut
-off the data with no income to avoid the influence of zero inflation on
-the final model, hence biasing the model against immigrants who are
-unemployed. Future models should be adjusted for zero inflation.
+definitively sure. Further analysis could investigate why it appeared
+that some income was reported in a potentially different currency and
+adjust for it so we can include all observations in our analysis. We
+also cut off the data with no income to avoid the influence of zero
+inflation on the final model, hence biasing the model against immigrants
+who are unemployed. Future models should be adjusted for zero inflation.
 
 Moreover, in an attempt to simplify the variable “statebrn”, we grouped
 observations into regions. However, in order to arrive at a balanced
@@ -2503,42 +2504,46 @@ models.
 
 According to our analysis of leverage and adjusted R-square, we conclude
 that there might be many outliers in our data, which makes sense since
-the immigrants has drastically different demographics and income. Hence,
-our model should only be taken as a reference to analyse general trend,
-rather than to predict precise income. Given that wage depends on
-numerous socio-econoimic factors, our model is satisfactory, yet it
-cannot tell the entire story.
+the immigrants in the data have drastically different demographics and
+income. Hence, our model should only be taken as a reference to analyse
+general trends, rather than to predict precise incomes. Given that wage
+depends on numerous socio-economic factors, our model is satisfactory,
+yet it cannot tell the entire story.
 
 If we could continue to work on the project, we would operate under the
 assumption that the household income that is unusual was reported in
 pesos and potentially recorded in the Mexico and split the data set into
-two and investigate that. I think our model could be stronger if we were
-able to include this very valuable data and inform our predictions with
-this information.
+two and investigate that. Our model could be stronger if we were able to
+include this very valuable data and inform our predictions with this
+information.
 
 ### 3.2 Prediction
 
 ### 3.2.1 Effect of “Gender” on Wage
 
     ##        fit      lwr      upr
-    ## 1 805.3087 695.6034 915.0141
+    ## 1 905.5048 814.7695 996.2402
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of “Bajío”, his predicted
-wage is $893.32. We are 95% confident that the actual salary falls in
-the interval of \[824.88, 961.76\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of “Bajío”, his predicted wage is
+$905.59. We are 95% confident that the actual salary falls in the
+interval of \[814.7695, 996.2402\].
 
     ##        fit      lwr      upr
-    ## 1 477.6393 211.7986 743.4801
+    ## 1 577.8354 320.7065 834.9644
 
 For a female who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of “Bajío”, her predicted
-salary is $590.11. We are 95% confident that the actual salary falls in
-the interval of \[370.68, 809.54\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of “Bajío”, her predicted salary is
+$577.84. We are 95% confident that the actual salary falls in the
+interval of \[320.7065, 834.9644\].
 
 We can see from the prediction that there is a large gender wage gap,
 since a male’s predicted wage is much higher than a female of the same
@@ -2548,58 +2553,70 @@ average demographics.
 
 We used male as a model input because the majority of the immigrants in
 our data set are male. We used edyrs = 6 as the input because it is the
-average number of years of education for the data set. The rest of the
-inputs are 0 since those predictors are mean-centered.
+average number of years of education for the data set. Manufacturing is
+the most common occupation type in the data, undocumented the most
+common immigration status. The rest of the inputs are 0 since those
+predictors are mean-centered.
 
     ##        fit      lwr      upr
-    ## 1 805.3087 695.6034 915.0141
+    ## 1 905.5048 814.7695 996.2402
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of “Bajío”, his predicted
-wage is $893.32 We are 95% confident that the actual salary falls in the
-interval of \[824.88, 961.76\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of “Bajío”, his predicted wage is
+$905.50 We are 95% confident that the actual salary falls in the
+interval of \[814.7695, 996.2402\].
+
+    ##        fit     lwr      upr
+    ## 1 1560.119 1054.74 2065.498
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of of “Central Mexico”, his
+predicted salary is $1560.12 We are 95% confident that the actual salary
+falls in the interval of \[1054.74, 2065.498\].
 
     ##        fit      lwr      upr
-    ## 1 1459.923 942.1008 1977.745
+    ## 1 976.4381 502.3831 1450.493
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Central Mexico”,
-his predicted salary is $1611.19 We are 95% confident that the actual
-salary falls in the interval of \[1101.47, 2120.91\].
-
-    ##       fit      lwr      upr
-    ## 1 876.242 388.1413 1364.343
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Northern Mexico”,
-his predicted salary is $1056.73 We are 95% confident that the actual
-salary falls in the interval of \[580.63, 1532.82\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of of “Northern Mexico”, his
+predicted salary is $976.44 We are 95% confident that the actual salary
+falls in the interval of \[502.3831, 1450.493\].
 
     ##        fit       lwr      upr
-    ## 1 686.2348 -424.3917 1796.861
+    ## 1 786.4308 -317.2469 1890.109
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “South East
-Mexico”, his predicted salary is $788.32 We are 95% confident that the
-actual salary falls in the interval of \[-324.9458, 961.76\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of of “South East Mexico”, his
+predicted salary is $786.43 We are 95% confident that the actual salary
+falls in the interval of \[-317.2469, 1890.109\].
 
-    ##        fit      lwr      upr
-    ## 1 730.5692 616.4773 844.6612
+    ##        fit     lwr      upr
+    ## 1 830.7653 743.669 917.8617
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
-duration), and last immigrated to the US for 3 years and 7 months
-(average duration), and was born in the region of of “Pacific Coast”,
-his predicted salary is $814.86 We are 95% confident that the actual
-salary falls in the interval of \[750.97, 750.97\].
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of of “Pacific Coast”, his
+predicted salary is $830.77 We are 95% confident that the actual salary
+falls in the interval of \[743.669, 917.8617\].
 
 The prediction suggest a hierarchy in wage discrimination based on the
 regions in Mexico that the immigrants are born in. Immigrants from the
@@ -2621,12 +2638,18 @@ below:
 
 ![](final-writeup_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
+    ## [1] 19
+
+There are only actually 19 observations in the data from this region.
+
 It may also be because this region was artifiically created from 4
 distinct cultural/economic/geographic regions in Mexico: the Yucatan
 Peninsula, Oaxaca, Veracruz and Chiapas & Tabasco. The regions were
 combined in order to be useful for analysis, but with more data we would
 have prefered to keep them as seperate regions, especially since
 Veracruz is relatively better-off than the rest of the states.
+
+### 3.2.3 Effect of “Occupation Type” on Wage
 
 ## Section 4: Conclusion
 
