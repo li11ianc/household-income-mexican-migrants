@@ -281,7 +281,8 @@ interconnected. We may also consider the interaction between
 documentation type and occupation type, although the effect may be
 insignificant. However, if the variables occtype, edyrs, or usdoc1 don’t
 make it through the process of inital model selection, we will not
-include these interactions in the model as that would not be prudent.
+include these interactions in the model as that would not be prudent. If
+other interactions appear significant, we will include these as well.
 
 We will select our model using AIC criteria, because since we’re dealing
 with people, we want to build a model that accounts for volatile human
@@ -295,35 +296,42 @@ positive because we are dealing with a constantly fluctuating issue.
 
 In our first multiple linear regression model, we included all 19
 variables. Then, we used backwards model selection to reduce the model
-to 5 significant variables: edyrs, usdurl, sex, statebrn and age. We
-used AIC as the criterion because immigration is a complex social issue,
-hence we would prefer a model with many predictors and err on the side
-of false-positive, rather than having a leaner model.
+to 7 significant variables: edyrs, usdurl, sex, statebrn, usdoc1,
+occtype and age. We used AIC as the criterion because immigration is a
+complex social issue, hence we would prefer a model with many predictors
+and err on the side of false-positive, rather than having a leaner
+model.
 
 After inital backwards selection, we will explore the possible
-interactions between remaining variables: edyrs, usdurl, sex, statebrn
-and age, to determine if any are significant. The significant
-interactions are:
+interactions between remaining variables: edyrs, usdurl, sex, statebrn,
+usdoc1, occtype and age, to determine if any are significant. The
+significant interactions that survived to our final model are:
+
+age & edyrs, edyrs & statebrn, usdurl & statebrn, age & usdoc1, and
+usdurl & usdoc1.
 
 age*edyrs: p = 0 \< 0.05  
 (This interaction makes sense, because we expect older immigrants to be
-more educated) sex*usdurl: p = 0.0303039 \< 0.05  
-(This interaction is surprising, because it suggests that the change in
-income with time in the US differs depending on the immigrant’s sex.
-This potentially highlight the gender discrimination in workplace.)
-statebrn*edyrs: p = 0.0002466 \< 0.05 (This interaction makes sense,
-because we expect different region of Mexico have different level of
-development and hence access to education.) statebrn*usdurl: p = 0.0012
-\< 0.05 (This interaction makes sense, because immigrants from certain
-regions in Mexico may have a easier time staying longer in California
-because there is already a large community of immigrants from that
-region there.)
+more educated) statebrn*edyrs: p = 0.001 \< 0.05 (This interaction makes
+sense, because we expect different region of Mexico have different level
+of development and hence access to education.) statebrn*usdurl: p =
+0.005 \< 0.05 (This interaction makes sense, because immigrants from
+certain regions in Mexico may have a easier time staying longer in
+California because there is already a large community of immigrants from
+that region there.) age*usdoc1: p = .007 \< 0.05 (This interaction could
+make some sense, because the physical stamina required to immigrate
+illegally could be very related to age, and age is likely considered by
+the US government in applications for legal immigration status.)
+usdurl\*usdoc1: p = .012 \< 0.05 (This interaction makes sense, because
+type of documentation and duration of migration would logically be
+highly related. Legal immigrants and contract workers can travel back
+and forth between Mexico and the US with greater ease than undocumented
+migrants, leading to potentially shorter stays, but they also don’t face
+the same threat of deportation, which could possibly lead them to be
+able to stay in the US longer)
 
-Therefore, we included these interactions in our original full model,
-and did backward selection again to get our final model. Our final model
-dropped the interaction between sex\*usdurl, which is the one we found
-that didn’t make sense immediately. Hence, we are confident about our
-final model.
+We included these interactions in our original full model, and did
+backward selection again to get our final model.
 
 (Please see “Section 5 : Additional Work” for detailed coding process.)
 
@@ -1852,7 +1860,7 @@ Peninsula in the South East of Mexico.
 
 ## Section 5: Additional Work
 
-### 2.1 Full Model
+### 5.1 Full Initial Model, No Interactions
 
 <table>
 
@@ -2682,7 +2690,7 @@ uscitysocal
 
 </table>
 
-### 2.2 Backward selection
+### 5.2 Backward selection
 
     ## Start:  AIC=6233.96
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
@@ -2767,7 +2775,7 @@ uscitysocal
 Using backward selection based on AIC, we narrowed down to 7 variables:
 sex, edyrs, usdurl, statebrn, occtype, usdoc1 and age.
 
-### 2.3 Interactions
+### 5.3 Interactions
 
 To find potential interactions between the 7 variables, we used nested-F
 test for each of the possible interactions:
@@ -2970,7 +2978,7 @@ Through nested F-test, we observed significant interactions between sex
 usdurl, occtype & statebrn, usdoc1 & age, usdoc1 & statebrn, and usdoc1
 & usdurl, and we will be including them in our model selection.
 
-### 2.4 Model with Interaction
+### 5.4 Model with Interactions
 
 <table>
 
@@ -4582,7 +4590,7 @@ usdurl:usdoc1Undocumented
 
 </table>
 
-### 2.5 Backward Selection with Interaction
+### 5.5 Backwards Selection from Initial Model with Interactions
 
 Since we observed 9 pairs of significant interactions, we will do the
 backward selection again with the new interaction terms.
@@ -6649,7 +6657,7 @@ usdoc1, occtype, statebrn. It also includes these interactions: age &
 edyrs, edyrs & statebrn, usdurl & statebrn, age & usdoc1, and usdurl &
 usdoc1.
 
-### 2.7 Model Diagnostics
+### 5.6 Model Diagnostics
 
 ![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
@@ -6746,6 +6754,8 @@ multicollinearity. This is discussed in Section 2.
 The adjusted R-squared for our final model is 0.181. This means the
 approximately 18% of the variation in household income is well-accounted
 for by our model.
+
+### 5.7 Gender Wage Gaps
 
     ##   Gender pred_hhincome
     ## 1   Male        893.32
