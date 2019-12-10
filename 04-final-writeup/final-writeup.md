@@ -2528,7 +2528,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of “Bajío”, his predicted wage is
 $905.59. We are 95% confident that the actual salary falls in the
-interval of \[814.7695, 996.2402\].
+interval of \[814.77, 996.24\].
 
     ##        fit      lwr      upr
     ## 1 577.8354 320.7065 834.9644
@@ -2540,7 +2540,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of “Bajío”, her predicted salary is
 $577.84. We are 95% confident that the actual salary falls in the
-interval of \[320.7065, 834.9644\].
+interval of \[320.71, 834.96\].
 
 We can see from the prediction that there is a large gender wage gap,
 since a male’s predicted wage is much higher than a female of the same
@@ -2565,7 +2565,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of “Bajío”, his predicted wage is
 $905.50 We are 95% confident that the actual salary falls in the
-interval of \[814.7695, 996.2402\].
+interval of \[814.77, 996.24\].
 
     ##        fit     lwr      upr
     ## 1 1560.119 1054.74 2065.498
@@ -2577,7 +2577,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Central Mexico”, his
 predicted salary is $1560.12 We are 95% confident that the actual salary
-falls in the interval of \[1054.74, 2065.498\].
+falls in the interval of \[1054.74, 2065.50\].
 
     ##        fit      lwr      upr
     ## 1 976.4381 502.3831 1450.493
@@ -2589,7 +2589,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Northern Mexico”, his
 predicted salary is $976.44 We are 95% confident that the actual salary
-falls in the interval of \[502.3831, 1450.493\].
+falls in the interval of \[502.38, 1450.50\].
 
     ##        fit       lwr      upr
     ## 1 786.4308 -317.2469 1890.109
@@ -2601,7 +2601,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “South East Mexico”, his
 predicted salary is $786.43 We are 95% confident that the actual salary
-falls in the interval of \[-317.2469, 1890.109\].
+falls in the interval of \[-317.25, 1890.11\].
 
     ##        fit     lwr      upr
     ## 1 830.7653 743.669 917.8617
@@ -2613,7 +2613,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Pacific Coast”, his
 predicted salary is $830.77 We are 95% confident that the actual salary
-falls in the interval of \[743.669, 917.8617\].
+falls in the interval of \[743.67, 917.86\].
 
 The prediction suggest a hierarchy in wage discrimination based on the
 regions in Mexico that the immigrants are born in. Immigrants from the
@@ -2671,7 +2671,7 @@ the US for 5 years (average duration), last immigrated to the US for 3
 years and 7 months (average duration), has undocumented status (most
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $917.44 We are 95% confident that the
-actual salary falls in the interval of \[826.3196, 1008.566\].
+actual salary falls in the interval of \[826.32, 1008.57\].
 
     ##      edyrs     
     ##  Min.   : 0.0  
@@ -2690,7 +2690,7 @@ For a male who is 39 years old (average age), has 4.6 years of education
 months (average duration), has undocumented status (most common
 documentation in the dataset), and was born in the region of “Bajío”,
 his predicted wage is $745.83. We are 95% confident that the actual
-salary falls in the interval of \[633.247, 858.417\].
+salary falls in the interval of \[633.25, 858.42\].
 
     ##      edyrs      
     ##  Min.   : 0.00  
@@ -2709,7 +2709,7 @@ to the US for 5 years (average duration), last immigrated to the US for
 3 years and 7 months (average duration), has undocumented status (most
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $958.61 We are 95% confident that the
-actual salary falls in the interval of \[862.9652, 1054.253\].
+actual salary falls in the interval of \[862.97, 1054.25\].
 
     ##      edyrs       
     ##  Min.   : 1.000  
@@ -2728,7 +2728,61 @@ the US for 5 years (average duration), last immigrated to the US for 3
 years and 7 months (average duration), has undocumented status (most
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $1182.06 We are 95% confident that the
-actual salary falls in the interval of \[991.1752, 1372.94\].
+actual salary falls in the interval of \[991.18, 1372.94\].
+
+### 3.2.3 Effect of “Documentation Type” on Wage
+
+    ##        fit      lwr      upr
+    ## 1 1074.249 945.7724 1202.725
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío” (Baseline region), his predicted wage is $1074.25 We are 95%
+confident that the actual salary falls in the interval of \[945.77,
+1202.73\].
+
+    ##        fit      lwr      upr
+    ## 1 1049.618 808.6814 1290.554
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has “Temporary: Tourist/visitor”
+status, and was born in the region of “Bajío” (Baseline region), his
+predicted wage is $1049.62 We are 95% confident that the actual salary
+falls in the interval of \[808.68, 1290.55\].
+
+    ##        fit      lwr      upr
+    ## 1 1480.787 970.0091 1991.564
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has “Contract - Bracero” status,
+and was born in the region of “Bajío” (Baseline region), his predicted
+wage is $1480.79 We are 95% confident that the actual salary falls in
+the interval of \[970.01, 1991.56\].
+
+    ##        fit      lwr      upr
+    ## 1 1236.296 1047.364 1425.229
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has “Legal resident” status, and
+was born in the region of “Bajío” (Baseline region), his predicted wage
+is $1236.30 We are 95% confident that the actual salary falls in the
+interval of \[1047.36, 1425.23\].
+
+The prediction suggest a hierarchy in wage discrimination based on the
+immigrants’ documentation type. Immigrants who have “contract - barcero”
+documentation earn the highest predicted household income, followed by
+legal residents, undocumented, and lastly temporary workers. This is
+counter intuitive because one would imagine legal residents to earn
+more. However, this could be due to
 
 ## Section 4: Conclusion
 
@@ -7658,4 +7712,4 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
