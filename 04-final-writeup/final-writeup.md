@@ -2442,20 +2442,30 @@ explanations.
 
 #### 2.4.5 VIF
 
-There are 3 coefficients with high VIFs (\>10):
+There are 10 coefficients with high VIFs (\>10):
 
-statebrnCentral Mexico : 19.1 statebrnSouth East Mexico : 33.6
-statebrnCentral Mexico:edyrs : 19.6 statebrnSouth East Mexico:usdurl :
-24.3
+usdoc1Legal resident: 10.424955 usdurl:usdoc1Undocumented: 18.919794
+statebrnCentral Mexico: 19.324207 statebrnCentral Mexico:edyrs:
+19.878084 usdoc1Undocumented: 20.608986 statebrnSouth East
+Mexico:usdurl: 24.55331 age:usdoc1Undocumented: 25.065321 usdurl:
+28.95936 statebrnSouth East Mexico: 33.951032 age: 34.366655
 
-The latter 2 VIFs could be related to the first 2. The first 2
-coefficients have high collinearity because when we divided the birth
-state into regions, there are very few and very geographically sparse
-observations in the South East Mexico, and a lot more observations in
-Central Mexico. Hence, in order to make each region more representative,
-we included some of the ambiguous states that could possibly be included
-in both regions into South East Mexico. Since the geographical regional
-divide is subjective and continuous, we expect there to be collinearity.
+It is likely the state born coefficients are collinear with education,
+as education is highly related to region in Mexico – Central Mexico and
+Northern Mexico have the best schools, while the South East has the
+worst. Length of time in the US obviously will be correlated to age, as
+well. Additionally, the coefficients of the regions may have high
+collinearity because when we divided the birth state into regions, there
+are very few and very geographically sparse observations in the South
+East Mexico, and a lot more observations in Central Mexico. Hence, in
+order to make each region more representative, we included some of the
+ambiguous states that could possibly be included in both regions into
+South East Mexico. Since the geographical regional divide is subjective
+and continuous, we expect there to be collinearity.
+
+The duration of time in the US is likely collinear with documentation
+status, as the longer a person lives in the US, the harder it is to be
+undocumented.
 
 #### 2.4.6 Adjusted R-squre
 
@@ -2782,7 +2792,9 @@ immigrants’ documentation type. Immigrants who have “contract - barcero”
 documentation earn the highest predicted household income, followed by
 legal residents, undocumented, and lastly temporary workers. This is
 counter intuitive because one would imagine legal residents to earn
-more. However, this could be due to
+more. However, this could be due to the relative imbalance in the
+observations in the two groups: the number of observations in “Legal
+resident” is significantly fewer than that in “Contract - Barcero”.
 
 ## Section 4: Conclusion
 

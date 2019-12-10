@@ -577,7 +577,7 @@ predict.lm(reduced_int_new_2, x13, interval = "confidence")
 
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Legal resident" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1236.30 We are 95% confident that the actual salary falls in the interval of [1047.36, 1425.23].
 
-The prediction suggest a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers. This is counter intuitive because one would imagine legal residents to earn more. However, this could be due to 
+The prediction suggest a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers. This is counter intuitive because one would imagine legal residents to earn more. However, this could be due to the relative imbalance in the observations in the two groups: the number of observations in "Legal resident" is significantly fewer than that in "Contract - Barcero".
 
 
 
