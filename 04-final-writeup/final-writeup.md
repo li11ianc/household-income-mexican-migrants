@@ -4860,9 +4860,9 @@ identified previously.
 
     ## [1] 0.2911647
 
-About a quarter of our observations are high leverage points, meaning
-that their combinations of values for the predictor variables are very
-far from the typical combinations in the data. Because human
+Just over a quarter of our observations are high leverage points,
+meaning that their combinations of values for the predictor variables
+are very far from the typical combinations in the data. Because human
 circumstances and economic conditions are often so extremely variable,
 we would not expect most migrants to share common values for the
 predictor variables.
@@ -4880,10 +4880,11 @@ We can look at the four observations with the highest leverage:
     ## # … with 6 more variables: .resid <dbl>, .hat <dbl>, .sigma <dbl>,
     ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
-Of the individuals in the data with high leverage, two have extensive
-educations and are relatively young and from Northern Mexico. Two are
-closer to the median age, have 5 years of education, and are from
-Central Mexico.
+Of the individuals in the data with high leverage, two men have
+extensive educations and are relatively young and from Northern Mexico.
+Two men are closer to the median age, have 5 years of education, and are
+from Central Mexico. And one woman, much older than the median age and
+from the Bajío, has a very long duration of first US migration.
 
 These points are potentially, but not certainly, influential points, so
 we use other methods to sort out influential points.
@@ -4895,33 +4896,14 @@ we use other methods to sort out influential points.
 The 5% of our observations with standardized residuals of magnitude
 greater than 2 should be examined more closely- these are outliers, but
 they may not have an impact on the regression line. We can look plots of
-the standardized residuals versus all of our predictors.
+the standardized residuals versus all of our
+predictors.
 
-    ## Observations: 498
-    ## Variables: 15
-    ## $ hhincome   <dbl> 350, 313, 600, 570, 1050, 750, 1900, 1100, 1500, 500,…
-    ## $ sex        <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M"…
-    ## $ age        <dbl> -21.4249513, -6.4249513, -6.4249513, -11.4249513, -15…
-    ## $ statebrn   <chr> "Bajío", "Bajío", "Bajío", "Bajío", "Bajío", "Pacific…
-    ## $ edyrs      <dbl> 6, 4, 6, 9, 12, 6, 6, 6, 2, 3, 6, 1, 8, 4, 1, 0, 3, 0…
-    ## $ usdur1     <dbl> -37.986355, -31.986355, -34.986355, -34.986355, -13.9…
-    ## $ usdurl     <dbl> -54.2709552, -54.2709552, -54.2709552, -48.2709552, -…
-    ## $ .fitted    <dbl> 658.2102, 717.4478, 787.7377, 821.7648, 819.0131, 721…
-    ## $ .se.fit    <dbl> 62.81833, 51.64988, 43.01099, 55.52480, 92.56585, 45.…
-    ## $ .resid     <dbl> -308.21016, -404.44777, -187.73774, -251.76479, 230.9…
-    ## $ .hat       <dbl> 0.016528441, 0.011173719, 0.007748505, 0.012913176, 0…
-    ## $ .sigma     <dbl> 488.9240, 488.7764, 489.0549, 488.9934, 489.0124, 489…
-    ## $ .cooksd    <dbl> 3.399627e-04, 3.914819e-04, 5.809070e-05, 1.759306e-0…
-    ## $ .std.resid <dbl> -0.63605632, -0.83239982, -0.38571829, -0.51861713, 0…
-    ## $ obs_num    <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
-
-![](final-writeup_files/figure-gfm/std-resid-predictor-plots-1.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-2.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-3.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-4.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-5.png)<!-- -->
+![](final-writeup_files/figure-gfm/std-resid-predictor-plots-1.png)<!-- -->
 
 Plots of the standardized residuals for each predictor variable reveal
 that, for the most part, our data satisfies the constant variance
 assumption.
-
-Estimate of regression standard deviation, σ̂, using all observations
 
     ## [1] 488.6191
 
@@ -4931,8 +4913,8 @@ Estimate of regression standard deviation, σ̂, using all observations
     ## 1      389.
 
 The estimate of our regression standard deviation using all observations
-is 487.0997, whereas the standard deviation estimate without points with
-large magnitude standardized residuals is 387.6239. Removing points with
+is 488.6191, whereas the standard deviation estimate without points with
+large magnitude standardized residuals is 389.2314. Removing points with
 large magnitude standardized residuals would affect our conclusions by
 decreasing the standard error associated with our model coefficients,
 however, we do not want to damage our model’s integrity and explanatory
@@ -4946,14 +4928,16 @@ coefficients when removed.
     ## # A tibble: 1 x 15
     ##   hhincome sex     age statebrn edyrs usdur1 usdurl .fitted .se.fit .resid
     ##      <dbl> <chr> <dbl> <chr>    <dbl>  <dbl>  <dbl>   <dbl>   <dbl>  <dbl>
-    ## 1      800 M     -6.42 Pacific…     9  -32.0  -48.3    766.    40.5   34.4
+    ## 1     2000 M     -9.42 Norther…    16  -35.0  -48.3   1910.    479.   90.2
     ## # … with 5 more variables: .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
     ## #   .std.resid <dbl>, obs_num <int>
 
-One observation has a Cook’s Distance greater than 1- we will remove
-this individual from our analysis because it exerts significantly
-greater influence on the final coefficients of our model and could
-distort our explanations.
+One observation has a Cook’s Distance greater than 1- a man from
+Northern Mexico, nine years younger than the mean age, and with income
+$2000, 16 years of education, and a migration about 34 months shorter
+than the mean. We will remove this individual from our analysis because
+this data point exerts significantly greater influence on the final
+coefficients of our model and could distort our explanations.
 
     ## # A tibble: 19 x 2
     ##    names                                x

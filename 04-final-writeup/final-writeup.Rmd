@@ -632,7 +632,7 @@ highlev <- mig_output %>%
 nrow(highlev)/nrow(caldata)
 ```
 
-About a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables. 
+Just over a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables. 
 
 We can look at the four observations with the highest leverage:
 
@@ -641,7 +641,7 @@ highlev %>%
   filter(.hat > .5)
 ```
 
-Of the individuals in the data with high leverage, two have extensive educations and are relatively young and from Northern Mexico. Two are closer to the median age, have 5 years of education, and are from Central Mexico.
+Of the individuals in the data with high leverage, two men have extensive educations and are relatively young and from Northern Mexico. Two men are closer to the median age, have 5 years of education, and are from Central Mexico. And one woman, much older than the median age and from the Bajío, has a very long duration of first US migration.
 
 These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
 
@@ -661,36 +661,34 @@ nrow(high_stdresid)/nrow(mig_output)
   
 The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors.
 
-```{r std-resid-predictor-plots}
-glimpse(mig_output)
-ggplot(data = mig_output, aes(x = age, y = .std.resid)) +
+```{r std-resid-predictor-plots, fig.width = 16}
+ageresidplot <- ggplot(data = mig_output, aes(x = age, y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
   labs(x ="Centered Age (yrs)", y ="Standardized Residuals",
        title = "Standardized Residuals vs. Age")
-ggplot(data = mig_output, aes(x = edyrs, y = .std.resid)) +
+edyrsresidplot <- ggplot(data = mig_output, aes(x = edyrs, y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
-  labs(x ="CYears of Education (yrs)", y ="Standardized Residuals",
+  labs(x ="Centered Years of Education (yrs)", y ="Standardized Residuals",
        title = "Standardized Residuals vs. Education Years")
-ggplot(data = mig_output, aes(x = usdurl, y = .std.resid)) +
+usdurlresidplot <- ggplot(data = mig_output, aes(x = usdurl, y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
   labs(x ="Centered Duration of Last Migration to US (months)", y ="Standardized Residuals",
        title = "Standardized Residuals vs. Duration of Last US Migration")
-ggplot(data = mig_output, aes(x = sex, y = .std.resid)) +
+sexresidplot <- ggplot(data = mig_output, aes(x = sex, y = .std.resid)) +
   geom_boxplot() + 
   geom_hline(yintercept = 0,color = "red") +
   labs(x ="Sex", y ="Standardized Residuals",title = "Standardized Residuals vs. Sex")
-ggplot(data = mig_output, aes(x = statebrn, y = .std.resid)) +
+statebrnresidplot <- ggplot(data = mig_output, aes(x = statebrn, y = .std.resid)) +
   geom_boxplot() + 
   geom_hline(yintercept = 0,color = "red") +
   labs(x ="State of Birth", y ="Standardized Residuals",title = "Standardized Residuals vs. State of Birth")
+cowplot::plot_grid(ageresidplot, edyrsresidplot, usdurlresidplot, sexresidplot, statebrnresidplot)
 ```
 
 Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption. 
-
-Estimate of regression standard deviation, σ̂,  using all observations
 
 ```{r regression-standard-deviation}
 glance(reduced_int_new_2)$sigma
@@ -700,7 +698,7 @@ mig_output %>%
   summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
 ```
 
-The estimate of our regression standard deviation using all observations is 487.0997, whereas the standard deviation estimate without points with large magnitude standardized residuals is 387.6239. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model's integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook's Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
+The estimate of our regression standard deviation using all observations is 488.6191, whereas the standard deviation estimate without points with large magnitude standardized residuals is 389.2314. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model's integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook's Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
 
 ```{r cooks-distance}
 ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) + 
@@ -712,10 +710,10 @@ ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) +
 
 ```{r high-cooks-dist}
 mig_output %>%
-  filter(obs_num == 279)
+  filter(obs_num == 269)
 ```
 
-One observation has a Cook's Distance greater than 1- we will remove this individual from our analysis because it exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
+One observation has a Cook's Distance greater than 1- a man from Northern Mexico, nine years younger than the mean age, and with income $2000, 16 years of education, and a migration about 34 months shorter than the mean. We will remove this individual from our analysis because this data point exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
 
 ```{r vif}
 tidy(vif(reduced_int_new_2))
