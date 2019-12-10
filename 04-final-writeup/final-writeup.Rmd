@@ -402,7 +402,9 @@ In order to complete an effective analysis in the time given, we greatly simplif
 
 Additionally, we cut a chunk of the data out because it appeared that some of the income was reported in pesos and USD, though we are not definitively sure. Further analysis could investigate why it appeared that some income was reported in a potentially different currency and adjust for it so we can include all observations in our analysis. We also cut off the data with no income to avoid the influence of zero inflation on the final model, hence biasing the model against immigrants who are unemployed. Future models should be adjusted for zero inflation.
 
-Moreover, in an attempt to simplify the variable "statebrn", we grouped observations into regions. However, in order to arrive at a balanced grouping in terms of the number of observations in each region, we artificially divided the regions geographically, rather than dividing them according to socio-economic characteristics. As a result, the household income in some regions, such as South East Mexico, has a wide range. Furthermore, through compromising between geographic integrity and number of observations in each region, the majority of observations are still in Pacific Coast and Bajío regions due to the nature of the data. Further work can look into weighing mechanisms for multiple linear models.
+Moreover, in an attempt to simplify the variable "statebrn", we grouped observations into regions. However, in order to arrive at a balanced grouping in terms of the number of observations in each region, we artificially divided the regions geographically, rather than dividing them according to socio-economic characteristics. As a result, the household income in some regions, such as South East Mexico, has a wide range. Furthermore, through compromising between geographic integrity and number of observations in each region, the majority of observations are still in Pacific Coast and Bajío regions due to the nature of the data. In fact, only those 2 regions had over 30 observations. Further work can look into weighing mechanisms for multiple linear models.
+
+We also had very few data points for female immigrants. In the future we would want more equal numbers. 
 
 According to our analysis of leverage and adjusted R-square, we conclude that there might be many outliers in our data, which makes sense since the immigrants in the data have drastically different demographics and income. Hence, our model should only be taken as a reference to analyse general trends, rather than to predict precise incomes. Given that wage depends on numerous socio-economic factors, our model is satisfactory, yet it cannot tell the entire story.
 
@@ -581,18 +583,16 @@ The prediction suggest a hierarchy in wage discrimination based on the immigrant
 
 ## Section 4: Conclusion
 
-Through our exploration and analysis, we found sex, age, years of education, occupation type, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between:
+Through our exploration and analysis, we found sex, age, years of education, occupation type, documentation type, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between:
 - age and years of education,
 - age and documentation type, 
 - documentation type and duration of last US migration, 
 - region born and years of education,
 - and region born and duration of last US migration.
 
-From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
+From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample. However, we also had significantly more male data points in this dataset, with 21 female datapoints and 477 male datapoints.
 
-We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico. 
-
-
+We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico, and over 50% of our data points are from the Pacific Coast.
 
 
 
