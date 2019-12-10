@@ -313,8 +313,6 @@ In our first multiple linear regression model, we included all 19 variables. The
 After inital backwards selection, we will explore the possible interactions between remaining variables: edyrs, usdurl, sex, statebrn, usdoc1, occtype and age, to determine if any are significant.
 The significant interactions that survived to our final model are: 
 
-age & edyrs, edyrs & statebrn, usdurl & statebrn, age & usdoc1, and usdurl & usdoc1.
-
 age*edyrs: p = 0 < 0.05      
 (This interaction makes sense, because we expect older immigrants to be more educated)
 statebrn*edyrs: p = 0.001 < 0.05
@@ -334,7 +332,7 @@ We included these interactions in our original full model, and did backward sele
 ### 2.2 Full Model after Evaluating Interactions
 
 ```{r full}
-full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*usdurl + age*edyrs + statebrn*edyrs+statebrn*usdurl +occtype*statebrn + usdoc1*age + usdoc1*statebrn + usdoc1*usdurl, data=caldata)
 kable(tidy(full_int_new_2),format="html" ,digits=3)
 ```
 
@@ -350,27 +348,26 @@ kable(digits = 3, format = "markdown")
 
 ### 2.4 Description of Method in Model Diagnostics
 
-We checked leverage, standardized residuals, estimate of standard deviation, cook's distance, VIF and adjusted R-square. 
+We checked leverage, standardized residuals, estimate of standard deviation, Cook's distance, VIF and adjusted R-squared. 
 (Please see "Section 5 : Additional Work" for detailed codes and graphs)
 
 #### 2.4.1 Leverage
-About a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.
 
-Of the individuals in the data with high leverage, two have extensive educations and are relatively young and from Northern Mexico. Two are closer to the median age, have 5 years of education, and are from Central Mexico.
+Just under half of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.
 
-These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
+Of the individuals in the data with high leverage, two are highly educated professionals, and three have 5 years of education and work in manufacturing jobs. All are male. Age, documentation, and duration of migration vary. These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
 
 #### 2.4.2 Standardized Residuals
 
-The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors. Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption.
+The 6% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors. Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption.
 
 #### 2.4.3 Estimate of Standard Deviation
 
-The estimate of our regression standard deviation using all observations is 487.0997, whereas the standard deviation estimate without points with large magnitude standardized residuals is 387.6239. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model’s integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook’s Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
+The estimate of our regression standard deviation using all observations is 481.0428, whereas the standard deviation estimate without points with large magnitude standardized residuals is 370.9477. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model’s integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook’s Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
 
 #### 2.4.4 Cook's Distance
 
-Only one observation has a Cook’s Distance greater than 1. Hence, we will remove this individual from our analysis because it exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
+No observations have a Cook’s Distance greater than 1, thus none of the high leverage points exert significantly greater influence on the final coefficients of our model than the other points and could distort our explanations.
 
 #### 2.4.5 VIF
 
@@ -386,7 +383,7 @@ The latter 2 VIFs could be related to the first 2. The first 2 coefficients have
 
 #### 2.4.6 Adjusted R-squre
 
-The adjusted R-square of our final model is 0.1443861, meaning that our model explains around 14.4% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-square seems reasonable.
+The adjusted R-squared of our final model is 0.1810094, meaning that our model explains around 18.1% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-squared seems reasonable.
 
 
 ## Section 3: Discussion and Limitations 
@@ -409,13 +406,13 @@ If we could continue to work on the project, we would operate under the assumpti
 ### 3.2.1 Effect of "Gender" on Wage 
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32. We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 ```{r}
-x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x1, interval = "confidence")
 ```
 For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11. We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
@@ -428,33 +425,33 @@ We can see from the prediction that there is a large gender wage gap, since a ma
 We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. The rest of the inputs are 0 since those predictors are mean-centered.
 
 ```{r}
-x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
+x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 ```{r}
-x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico")
+x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Central Mexico", his predicted salary is $1611.19 We are 95% confident that the actual salary falls in the interval of [1101.47, 2120.91].
 
 
 ```{r}
-x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico")
+x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "Northern Mexico", his predicted salary is $1056.73 We are 95% confident that the actual salary falls in the interval of [580.63, 1532.82].
 
 ```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico")
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of of "South East Mexico", his predicted salary is $788.32 We are 95% confident that the actual salary falls in the interval of [-324.9458, 961.76].
 
 ```{r}
-x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast")
+x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
 
