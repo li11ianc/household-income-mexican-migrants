@@ -505,59 +505,59 @@ tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
-Using backward selection based on AIC, we narrowed down to 5 variables: sex, edyrs, usdurl, statebrn and age.
+Using backward selection based on AIC, we narrowed down to 6 variables: sex, edyrs, usdurl, statebrn, occtype and age.
 
 
 ### 2.3 Interactions
 
-To find potential interactions between the 5 variables, we used nested-F test for each of the possible interactions:
+To find potential interactions between the 6 variables, we used nested-F test for each of the possible interactions:
 
-After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, `statebrn` and `age`, to determine if any are significant.
+After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, `statebrn`, `occtype`, and `age`, to determine if any are significant.
 
 ```{r int-model}
-int_model_1 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + edyrs*usdurl, data = caldata)
+int_model_1 <- lm(hhincome ~ sex + age + statebrn + edyrs +occtype+ usdurl + edyrs*usdurl, data = caldata)
 anova(reduced, int_model_1, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.7366925
 ```
 First, we tested the interaction between `edyrs` and `usdurl`. The p-value for this test was 0.7366925 > 0.05, therefore we will not include it in the model.
 
 ```{r int-model2}
-int_model_2 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + sex*usdurl, data = caldata)
+int_model_2 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + sex*usdurl, data = caldata)
 anova(reduced, int_model_2, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3) # p = 0.0303039
 ```
 Then, we tested the interaction between `sex` and `usdurl`. The p-value for this test was 0.0303039 < 0.05, therefore we will include it in the model.
 
 ```{r int-model3}
-int_model_3 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + age*usdurl, data = caldata)
+int_model_3 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + age*usdurl, data = caldata)
 anova(reduced, int_model_3, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.1936359
 ```
 Then, we tested the interaction between `age` and `usdurl`. The p-value for this test was 0.1936359 > 0.05, therefore we will not include it in the model.
 
 ```{r int-model4}
-int_model_4 <- lm(hhincome ~ sex + age +statebrn+ edyrs + usdurl + sex*edyrs, data = caldata)
+int_model_4 <- lm(hhincome ~ sex + age +statebrn+ edyrs+occtype + usdurl + sex*edyrs, data = caldata)
 anova(reduced, int_model_4, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.5924992
 ```
 Then, we tested the interaction between `sex` and `edyrs`. The p-value for this test was 0.5024992 > 0.05, therefore we will not include it in the model.
 
 ```{r int-model5}
-int_model_5 <- lm(hhincome ~ sex + age + statebrn+ edyrs + usdurl + age*edyrs, data = caldata)
+int_model_5 <- lm(hhincome ~ sex + age + statebrn+ edyrs+occtype + usdurl + age*edyrs, data = caldata)
 anova(reduced, int_model_5, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0
 ```
 Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
 
 ```{r int-model 6}
-int_model_6 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + age*sex, data = caldata)
+int_model_6 <- lm(hhincome ~ sex + age + statebrn + edyrs+occtype + usdurl + age*sex, data = caldata)
 anova(reduced, int_model_6, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.2073624
 ```
 Then, we tested the interaction between `age` and `sex`. The p-value for this test was 0.2073624 > 0.05, therefore we will not include it in the model.
 
 ```{r int-model 7}
-int_model_7 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*sex, data = caldata)
+int_model_7 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + statebrn*sex, data = caldata)
 anova(reduced, int_model_7, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.3796077
 ```
@@ -565,25 +565,60 @@ Then, we tested the interaction between `statebrn` and `sex`. The p-value for th
 
 
 ```{r int-model 8}
-int_model_8 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*age, data = caldata)
+int_model_8 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + statebrn*age, data = caldata)
 anova(reduced, int_model_8, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.213341
 ```
 Then, we tested the interaction between `statebrn` and `age`. The p-value for this test was  0.213341> 0.05, therefore we will not include it in the model.
 
 ```{r int-model 9}
-int_model_9 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*edyrs, data = caldata)
+int_model_9 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + statebrn*edyrs, data = caldata)
 anova(reduced, int_model_9, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.0002466
 ```
 Then, we tested the interaction between `statebrn` and `edyrs`. The p-value for this test was  0.0002466< 0.05, therefore we will  include it in the model.
 
 ```{r int-model 10}
-int_model_10 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*usdurl, data = caldata)
+int_model_10 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + statebrn*usdurl, data = caldata)
 anova(reduced, int_model_10, test = "Chisq") %>% 
   kable(format = "markdown", digits = 3)  # p = 0.0012
 ```
 Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+```{r int-model 11}
+int_model_11 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + occtype*sex, data = caldata)
+anova(reduced, int_model_11, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `occtype` and `sex`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+```{r int-model 12}
+int_model_12 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + occtype*age, data = caldata)
+anova(reduced, int_model_12, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `occtype` and `age`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+```{r int-model 13}
+int_model_13 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + occtype*statebrn, data = caldata)
+anova(reduced, int_model_13, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `occtype` and `statebrn`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+```{r int-model 14}
+int_model_14 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + occtype*edyrs, data = caldata)
+anova(reduced, int_model_14, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `occtype` and `edyrs`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+```{r int-model 15}
+int_model_15 <- lm(hhincome ~ sex + age + statebrn+edyrs+occtype + usdurl + occtype*usdurl, data = caldata)
+anova(reduced, int_model_15, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `occtype` and `usdurl`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
 
 Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
 
@@ -664,7 +699,7 @@ nrow(high_stdresid)/nrow(mig_output)
   
 The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors.
 
-```{r std-resid-predictor-plots, fig.width = 16}
+```{r std-resid-predictor-plots, fig.width = 16, fig.height = 8}
 ageresidplot <- ggplot(data = mig_output, aes(x = age, y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
@@ -717,6 +752,150 @@ mig_output %>%
 ```
 
 One observation has a Cook's Distance greater than 1- a man from Northern Mexico, nine years younger than the mean age, and with income $2000, 16 years of education, and a migration about 34 months shorter than the mean. We will remove this individual from our analysis because this data point exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
+
+```{r remove-obs-269}
+caldata <- caldata %>%
+  filter(X1 != 2024)
+```
+
+We remove the observation and now redo model selection.
+
+## Repeated Model Selection
+
+```{r model-2}
+full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
+kable(tidy(full),format="html" ,digits=3)
+```
+
+### 2.2 Backward selection
+
+```{r backward-selection-2}
+reduced <- step(full, direction = "backward")
+sel_summary <- summary(reduced)
+tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+Using backward selection based on AIC, we narrowed down to 5 variables: sex, edyrs, usdurl, statebrn, and age.
+
+
+### 2.3 Interactions
+
+To find potential interactions between the 5 variables, we used nested-F test for each of the possible interactions:
+
+After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, `statebrn` and `age`, to determine if any are significant.
+
+```{r int-model-2}
+int_model_1 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + edyrs*usdurl, data = caldata)
+anova(reduced, int_model_1, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.7366925
+```
+First, we tested the interaction between `edyrs` and `usdurl`. The p-value for this test was 0.7366925 > 0.05, therefore we will not include it in the model.
+
+```{r int-model2-2}
+int_model_2 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + sex*usdurl, data = caldata)
+anova(reduced, int_model_2, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3) # p = 0.0303039
+```
+Then, we tested the interaction between `sex` and `usdurl`. The p-value for this test was 0.0303039 < 0.05, therefore we will include it in the model.
+
+```{r int-model3-2}
+int_model_3 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + age*usdurl, data = caldata)
+anova(reduced, int_model_3, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.1936359
+```
+Then, we tested the interaction between `age` and `usdurl`. The p-value for this test was 0.1936359 > 0.05, therefore we will not include it in the model.
+
+```{r int-model4-2}
+int_model_4 <- lm(hhincome ~ sex + age +statebrn+ edyrs + usdurl + sex*edyrs, data = caldata)
+anova(reduced, int_model_4, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.5924992
+```
+Then, we tested the interaction between `sex` and `edyrs`. The p-value for this test was 0.5024992 > 0.05, therefore we will not include it in the model.
+
+```{r int-model5-2}
+int_model_5 <- lm(hhincome ~ sex + age + statebrn+ edyrs + usdurl + age*edyrs, data = caldata)
+anova(reduced, int_model_5, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0
+```
+Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
+
+```{r int-model 6-2}
+int_model_6 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + age*sex, data = caldata)
+anova(reduced, int_model_6, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.2073624
+```
+Then, we tested the interaction between `age` and `sex`. The p-value for this test was 0.2073624 > 0.05, therefore we will not include it in the model.
+
+```{r int-model 7-2}
+int_model_7 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*sex, data = caldata)
+anova(reduced, int_model_7, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.3796077
+```
+Then, we tested the interaction between `statebrn` and `sex`. The p-value for this test was  0.3796077> 0.05, therefore we will not include it in the model.
+
+
+```{r int-model 8-2}
+int_model_8 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*age, data = caldata)
+anova(reduced, int_model_8, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.213341
+```
+Then, we tested the interaction between `statebrn` and `age`. The p-value for this test was  0.213341> 0.05, therefore we will not include it in the model.
+
+```{r int-model 9-2}
+int_model_9 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*edyrs, data = caldata)
+anova(reduced, int_model_9, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0002466
+```
+Then, we tested the interaction between `statebrn` and `edyrs`. The p-value for this test was  0.0002466< 0.05, therefore we will  include it in the model.
+
+```{r int-model 10-2}
+int_model_10 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*usdurl, data = caldata)
+anova(reduced, int_model_10, test = "Chisq") %>% 
+  kable(format = "markdown", digits = 3)  # p = 0.0012
+```
+Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
+
+Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
+
+
+### 2.4 Model with Interaction
+
+```{r final-model-2}
+reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl + statebrn*edyrs+statebrn*usdurl, data=caldata)
+kable(tidy(reduced_int),format="html" ,digits=3)
+```
+
+### 2.5 Backward Selection with Interaction
+
+Since we observed 4 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
+
+```{r}
+full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs +statebrn*edyrs+statebrn*usdurl , data=caldata)
+kable(tidy(full_int),format="html" ,digits=3)
+```
+
+```{r}
+reduced_int_new <- step(full_int, direction = "backward")
+sel_summary <- summary(reduced_int_new)
+tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
+```{r full-2}
+full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
+kable(tidy(full_int_new_2),format="html" ,digits=3)
+```
+
+
+### 2.3 Final model
+```{r final-2}
+reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+sel_summary <- summary(reduced_int_new_2)
+tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
+kable(digits = 3, format = "markdown")
+```
+
 
 ```{r vif}
 tidy(vif(reduced_int_new_2))
