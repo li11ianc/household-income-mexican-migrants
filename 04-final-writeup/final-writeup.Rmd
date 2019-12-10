@@ -324,6 +324,8 @@ statebrn*usdurl: p = 0.0012 < 0.05
 
 Therefore, we included these interactions in our original full model, and did backward selection again to get our final model. Our final model dropped the interaction between sex*usdurl, which is the one we found that didn't make sense immediately. Hence, we are confident about our final model.
 
+(Please see "Section 5 : Additional Work" for detailed coding process.)
+
 
 ### 2.2 Full Model after Evaluating Interactions
 
@@ -344,7 +346,8 @@ kable(digits = 3, format = "markdown")
 
 ### 2.4 Description of Method in Model Diagnostics
 
-We checked leverage, standardized residuals, estimate of standard deviation, cook's distance, VIF and adjusted R-square.
+We checked leverage, standardized residuals, estimate of standard deviation, cook's distance, VIF and adjusted R-square. 
+(Please see "Section 5 : Additional Work" for detailed codes and graphs)
 
 #### 2.4.1 Leverage
 About a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.

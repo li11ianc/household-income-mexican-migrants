@@ -325,6 +325,8 @@ dropped the interaction between sex\*usdurl, which is the one we found
 that didn’t make sense immediately. Hence, we are confident about our
 final model.
 
+(Please see “Section 5 : Additional Work” for detailed coding process.)
+
 ### 2.2 Full Model after Evaluating Interactions
 
 <table>
@@ -1591,7 +1593,8 @@ statebrnSouth East Mexico:usdurl
 ### 2.4 Description of Method in Model Diagnostics
 
 We checked leverage, standardized residuals, estimate of standard
-deviation, cook’s distance, VIF and adjusted R-square.
+deviation, cook’s distance, VIF and adjusted R-square. (Please see
+“Section 5 : Additional Work” for detailed codes and graphs)
 
 #### 2.4.1 Leverage
 
