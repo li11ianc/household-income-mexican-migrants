@@ -9,14 +9,14 @@ library(knitr)
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
     ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
     ## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
     ## ✔ ggplot2 3.2.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
@@ -519,6 +519,25 @@ ggplot(data = data, aes(x = statebrn, fill = statebrn)) +
 ```
 
 ![](proposal_files/figure-gfm/State%20of%20birth-1.png)<!-- -->
+
+``` r
+unique(data$statebrn)
+```
+
+    ##  [1] "Guanajuato"                "Jalisco"                  
+    ##  [3] "Mexico City"               "San Luis Potosí"          
+    ##  [5] "Zacatecas"                 "Coahuila"                 
+    ##  [7] "Morelos"                   "Baja California del Norte"
+    ##  [9] "Querétaro"                 "Michoacán"                
+    ## [11] "Guerrero"                  "Durango"                  
+    ## [13] "Chihuahua"                 "Nayarit"                  
+    ## [15] "Sonora"                    "Aguascalientes"           
+    ## [17] "Veracruz"                  "Campeche"                 
+    ## [19] "Colima"                    "Tabasco"                  
+    ## [21] "México"                    "Puebla"                   
+    ## [23] "Nuevo Leon"                "El Salvador"              
+    ## [25] "Oaxaca"                    "Tamaulipas"               
+    ## [27] "NA"
 
 Clearly, the most common states of birth by far are Zacatecas, San Luis
 Potosí, Michoacán, Jalisco, and Guanajuato. These states border one
