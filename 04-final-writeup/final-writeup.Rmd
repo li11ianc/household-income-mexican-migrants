@@ -687,13 +687,12 @@ tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
 
-We observed that the variable selection changed. Specifically, usdur1 is significant, besides the 4 variables and the 4 interaction terms identified previously.
-
+After backwards selection, including all possible relevant interactions, our model contains the following variables: sex, age, edyrs, usdurl, usdoc1, occtype, statebrn. It also includes these interactions: age & edyrs, edyrs & statebrn, usdurl & statebrn, age & usdoc1, and usdurl & usdoc1.
 
 ### 2.7 Model Diagnostics
 
 ```{r augment}
-mig_output <- augment(reduced_int_new_2) %>%
+mig_output <- augment(reduced_int_new) %>%
   mutate(obs_num = row_number())
 ```
 
@@ -711,7 +710,7 @@ highlev <- mig_output %>%
 nrow(highlev)/nrow(caldata)
 ```
 
-Just over a quarter of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables. 
+Just under half of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables. 
 
 We can look at the four observations with the highest leverage:
 
@@ -720,9 +719,7 @@ highlev %>%
   filter(.hat > .5)
 ```
 
-Of the individuals in the data with high leverage, two men have extensive educations and are relatively young and from Northern Mexico. Two men are closer to the median age, have 5 years of education, and are from Central Mexico. And one woman, much older than the median age and from the Bajío, has a very long duration of first US migration.
-
-These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
+Within the individuals in the data with high leverage, two are highly educated professionals, and three have 5 years of education and work in manufacturing jobs. All are male. Age, documentation, and duration of migration vary. These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
 
 ```{r standardized-residuals}
 ggplot(data = mig_output, aes(x = .fitted,y = .std.resid)) +
@@ -738,9 +735,9 @@ high_stdresid <- mig_output %>%
 nrow(high_stdresid)/nrow(mig_output)
 ```
   
-The 5% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors.
+The 6% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors.
 
-```{r std-resid-predictor-plots, fig.width = 16, fig.height = 8}
+```{r std-resid-predictor-plots, fig.width = 16, fig.height = 14}
 ageresidplot <- ggplot(data = mig_output, aes(x = age, y = .std.resid)) +
   geom_point(alpha = 0.7) + 
   geom_hline(yintercept = 0,color = "red") +
@@ -764,20 +761,28 @@ statebrnresidplot <- ggplot(data = mig_output, aes(x = statebrn, y = .std.resid)
   geom_boxplot() + 
   geom_hline(yintercept = 0,color = "red") +
   labs(x ="State of Birth", y ="Standardized Residuals",title = "Standardized Residuals vs. State of Birth")
-cowplot::plot_grid(ageresidplot, edyrsresidplot, usdurlresidplot, sexresidplot, statebrnresidplot)
+occtyperesidplot <- ggplot(data = mig_output, aes(x = occtype, y = .std.resid)) +
+  geom_boxplot() + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="Occupation Type", y ="Standardized Residuals",title = "Standardized Residuals vs. Occupation Type")
+usdoc1residplot <- ggplot(data = mig_output, aes(x = usdoc1, y = .std.resid)) +
+  geom_boxplot() + 
+  geom_hline(yintercept = 0,color = "red") +
+  labs(x ="Documentation Type on First US Migration", y ="Standardized Residuals",title = "Standardized Residuals vs. Documentation Type")
+cowplot::plot_grid(ageresidplot, edyrsresidplot, usdurlresidplot, sexresidplot, statebrnresidplot, occtyperesidplot, usdoc1residplot)
 ```
 
 Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption. 
 
 ```{r regression-standard-deviation}
-glance(reduced_int_new_2)$sigma
+glance(reduced_int_new)$sigma
 
 mig_output %>%
   filter(abs(.std.resid) <= 2) %>%
   summarise(sigma_est = sqrt(sum(.resid^2)/(n() - 5 - 1)))
 ```
 
-The estimate of our regression standard deviation using all observations is 488.6191, whereas the standard deviation estimate without points with large magnitude standardized residuals is 389.2314. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model's integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook's Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
+The estimate of our regression standard deviation using all observations is 481.0428, whereas the standard deviation estimate without points with large magnitude standardized residuals is 370.9477. Removing points with large magnitude standardized residuals would affect our conclusions by decreasing the standard error associated with our model coefficients, however, we do not want to damage our model's integrity and explanatory power by removing too much human variability from the observations we base it on. We will examine Cook's Distance to see if any observations have excessive overall impact or significantly affect the estimated coefficients when removed.
 
 ```{r cooks-distance}
 ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) + 
@@ -787,167 +792,20 @@ ggplot(data = mig_output, aes(x = obs_num, y = .cooksd)) +
   geom_text(aes(label = ifelse(.cooksd>1,as.character(obs_num),"")), nudge_y = .05)
 ```
 
-```{r high-cooks-dist}
-mig_output %>%
-  filter(obs_num == 269)
-```
-
-One observation has a Cook's Distance greater than 1- a man from Northern Mexico, nine years younger than the mean age, and with income $2000, 16 years of education, and a migration about 34 months shorter than the mean. We will remove this individual from our analysis because this data point exerts significantly greater influence on the final coefficients of our model and could distort our explanations.
-
-```{r remove-obs-269}
-caldata <- caldata %>%
-  filter(X1 != 2024)
-```
-
-We remove the observation and now redo model selection.
-
-## Repeated Model Selection
-
-```{r model-2}
-full <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity, data=caldata)
-kable(tidy(full),format="html" ,digits=3)
-```
-
-### 2.2 Backward selection
-
-```{r backward-selection-2}
-reduced <- step(full, direction = "backward")
-sel_summary <- summary(reduced)
-tidy(reduced, exponentiate = FALSE, conf.int = TRUE) %>%
-kable(digits = 3, format = "markdown")
-```
-
-Using backward selection based on AIC, we narrowed down to 5 variables: sex, edyrs, usdurl, statebrn, and age.
-
-
-### 2.3 Interactions
-
-To find potential interactions between the 5 variables, we used nested-F test for each of the possible interactions:
-
-After inital backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, `statebrn` and `age`, to determine if any are significant.
-
-```{r int-model-2}
-int_model_1 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + edyrs*usdurl, data = caldata)
-anova(reduced, int_model_1, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.7366925
-```
-First, we tested the interaction between `edyrs` and `usdurl`. The p-value for this test was 0.7366925 > 0.05, therefore we will not include it in the model.
-
-```{r int-model2-2}
-int_model_2 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + sex*usdurl, data = caldata)
-anova(reduced, int_model_2, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3) # p = 0.0303039
-```
-Then, we tested the interaction between `sex` and `usdurl`. The p-value for this test was 0.0303039 < 0.05, therefore we will include it in the model.
-
-```{r int-model3-2}
-int_model_3 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + age*usdurl, data = caldata)
-anova(reduced, int_model_3, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.1936359
-```
-Then, we tested the interaction between `age` and `usdurl`. The p-value for this test was 0.1936359 > 0.05, therefore we will not include it in the model.
-
-```{r int-model4-2}
-int_model_4 <- lm(hhincome ~ sex + age +statebrn+ edyrs + usdurl + sex*edyrs, data = caldata)
-anova(reduced, int_model_4, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.5924992
-```
-Then, we tested the interaction between `sex` and `edyrs`. The p-value for this test was 0.5024992 > 0.05, therefore we will not include it in the model.
-
-```{r int-model5-2}
-int_model_5 <- lm(hhincome ~ sex + age + statebrn+ edyrs + usdurl + age*edyrs, data = caldata)
-anova(reduced, int_model_5, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0
-```
-Then, we tested the interaction between `age` and `edyrs`. The p-value for this test was 0 < 0.05, therefore we will include it in the model.
-
-```{r int-model 6-2}
-int_model_6 <- lm(hhincome ~ sex + age + statebrn + edyrs + usdurl + age*sex, data = caldata)
-anova(reduced, int_model_6, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.2073624
-```
-Then, we tested the interaction between `age` and `sex`. The p-value for this test was 0.2073624 > 0.05, therefore we will not include it in the model.
-
-```{r int-model 7-2}
-int_model_7 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*sex, data = caldata)
-anova(reduced, int_model_7, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.3796077
-```
-Then, we tested the interaction between `statebrn` and `sex`. The p-value for this test was  0.3796077> 0.05, therefore we will not include it in the model.
-
-
-```{r int-model 8-2}
-int_model_8 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*age, data = caldata)
-anova(reduced, int_model_8, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.213341
-```
-Then, we tested the interaction between `statebrn` and `age`. The p-value for this test was  0.213341> 0.05, therefore we will not include it in the model.
-
-```{r int-model 9-2}
-int_model_9 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*edyrs, data = caldata)
-anova(reduced, int_model_9, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.0002466
-```
-Then, we tested the interaction between `statebrn` and `edyrs`. The p-value for this test was  0.0002466< 0.05, therefore we will  include it in the model.
-
-```{r int-model 10-2}
-int_model_10 <- lm(hhincome ~ sex + age + statebrn+edyrs + usdurl + statebrn*usdurl, data = caldata)
-anova(reduced, int_model_10, test = "Chisq") %>% 
-  kable(format = "markdown", digits = 3)  # p = 0.0012
-```
-Then, we tested the interaction between `statebrn` and `usdurl`. The p-value for this test was 0.0012 < 0.05, therefore we will include it in the model.
-
-Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
-
-
-### 2.4 Model with Interaction
-
-```{r final-model-2}
-reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl + statebrn*edyrs+statebrn*usdurl, data=caldata)
-kable(tidy(reduced_int),format="html" ,digits=3)
-```
-
-### 2.5 Backward Selection with Interaction
-
-Since we observed 4 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
-
-```{r}
-full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs +statebrn*edyrs+statebrn*usdurl , data=caldata)
-kable(tidy(full_int),format="html" ,digits=3)
-```
-
-```{r}
-reduced_int_new <- step(full_int, direction = "backward")
-sel_summary <- summary(reduced_int_new)
-tidy(reduced_int_new, exponentiate = FALSE, conf.int = TRUE) %>%
-kable(digits = 3, format = "markdown")
-```
-
-```{r full-2}
-full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdoc1 + uscity + age*edyrs + sex*usdur1+ statebrn*edyrs+statebrn*usdurl, data=caldata)
-kable(tidy(full_int_new_2),format="html" ,digits=3)
-```
-
-
-### 2.3 Final model
-```{r final-2}
-reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
-sel_summary <- summary(reduced_int_new_2)
-tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
-kable(digits = 3, format = "markdown")
-```
+No observations have a Cook's Distance greater than 1, thus none of the high leverage points exert significantly greater influence on the final coefficients of our model than the other points and could distort our explanations.
 
 
 ```{r vif}
-tidy(vif(reduced_int_new_2))
+tidy(vif(reduced_int_new))
 ```
 
-```{r}
-summary(reduced_int_new_2)$adj.r.squared
+There appear to be several coefficients which exhibit dangerously high multicollinearity. This is discussed in Section 2.
 
+```{r adj-r-sq}
+summary(reduced_int_new)$adj.r.squared
 ```
 
-
+The adjusted R-squared for our final model is 0.181. This means the approximately 18% of the variation in household income is well-accounted for by our model.
 
 ```{r}
 gender <- data.frame("Gender" = c("Male", "Female"), "pred_hhincome" = c(893.32, 590.11))
