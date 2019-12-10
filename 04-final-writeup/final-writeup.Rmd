@@ -593,8 +593,10 @@ Through our exploration and analysis, we found sex, age, years of education, occ
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample. However, we also had significantly more male data points in this dataset, with 21 female datapoints and 477 male datapoints.
 
 We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico, and over 50% of our data points are from the Pacific Coast.
-
-
+```{r}
+summary(factor(caldata$occtype))
+```
+In terms of occupation type, as expected the highest incomes are found among professionals, with service and manufacturing workers close behind. As anticipated, agricultural workers had the lowest income. In this case, our data is robust, as each category has over 30 datapoints. 
 
 
 ## Section 5: Additional Work
