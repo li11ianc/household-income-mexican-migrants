@@ -37,7 +37,7 @@ We are aiming to build a model to determine which characteristics of Mexican imm
 
 The dataset is from The Mexican Migration Project (MMP, *see References below for confidentiality terms). It was created in 1982 by an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (US).
 
-Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they survey in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
+Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they surveyed in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
 
 The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations,and hence it is very large. Therefore, we selected 17 meaningful variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
 
@@ -77,7 +77,7 @@ We will build a multiple linear regression model to predict household income con
 
 "usdurl": Latest US migration: Duration (in months)
 
-"usdoc1": Type of documentation 
+"usdoc1": Type of documentation during first US migration
 
 "occtype": Category of occupation
 
@@ -97,9 +97,9 @@ However, we did make some adjustment according to the feedback that there is lar
 
 #### 1.4.1 Filter Only Immigrants in California
 
-Accoridng to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
+According to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
-```{r}
+```{r state-distribution-plot}
 statedist <- within(data, 
                    usstatel <- factor(usstatel, 
                                       levels=names(sort(table(usstatel), 
@@ -118,22 +118,25 @@ caldata <- data %>%
 
 caldata <- caldata%>%
   na.omit()
-
 ```
 
 #### 1.4.2 Cut Household Income Groups
 
-Originally, the distribution of log(Household Income)- our response variable- was bimodal and had a median of 412,647 dollars. It almost looks like 3 separate distributions:
+Originally, the distribution of Household Income- our response variable- was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions:
 
-```{r nonfilt-income-plot}
-ggplot(data = caldata, aes(x = log(hhincome))) +
+```{r nonfilt-income-plot, fig.width = 10}
+incomeplot <- ggplot(data = caldata, aes(x = hhincome)) +
+  geom_histogram()+
+  labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
+logincomeplot <- ggplot(data = caldata, aes(x = log(hhincome))) +
   geom_histogram(binwidth = .7)+
   labs(title = "Distribution of Log(Household Income)", x= "log(Household Income)", y = "Count")
+cowplot::plot_grid(incomeplot, logincomeplot)
 ```
 
 We determined that 412,647 dollars is an absurdly high median income for a survey of largely undocumented immigrants in the US and believe that a significant chunk of the high incomes were actually recorded in pesos. The documentation for the data from the Mexican Migration Project does not specify unit of hhincome; however, the project site details that researchers surveyed communities in Mexico, then traveled to the US to survey communities there. It seems likely that the communities surveyed in Mexico would report income in pesos and those surveyed in the US would report income in USD. However, the data was collected over a period of 10 years, during which the exchange rate between pesos and USD changed significantly. Hence, we cannot simply convert all the incomes that appear to be recorded in pesos into USD. 
 
-Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predicative range: our model will only be able to predict the household income of those who already have jobs (income).
+Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predictive and explanatory range: our model will only be able to predict or explain the household income of those who already have jobs with income.
 
 ```{r filter-hhincome}
 caldata <- caldata %>%
@@ -149,7 +152,7 @@ caldata <- caldata %>%
 ```{r hhincome-distribution}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram(binwidth = 100) +
-  labs(title = "Distribution of Household Income", x= "Household Income/ USD", y = "Count")
+  labs(title = "Distribution of Household Income", x= "Household Income (USD)", y = "Count")
 ```
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
@@ -211,6 +214,7 @@ caldata <- caldata %>%
 caldata <- caldata %>%
   mutate(usdur1=usdur1-mean(usdur1))
 ```
+
 ### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
 ```{r states, fig.align="center"}
@@ -220,16 +224,16 @@ caldata <- caldata %>%
 caldata <- caldata %>%
   mutate(statebrn=recode(statebrn,"Baja California del Norte"="Northern Mexico", "Tabasco"="South East Mexico", "Oaxaca"="South East Mexico", "Campeche"="South East Mexico","Coahuila"="Northern Mexico", "Chihuahua"="Northern Mexico","Durango"="Northern Mexico","Nuevo Leon"="Northern Mexico","Sonora"="Northern Mexico","Tamaulipas"="Northern Mexico","Aguascalientes"="Bajío","Guanajuato"="Bajío","Querétaro"="Bajío","San Luis Potosí"="Bajío","Zacatecas"="Bajío","Mexico City"="Central Mexico","México"="Central Mexico","Morelos"="Central Mexico","Puebla"="Central Mexico", "Colima"="Pacific Coast", "Guerrero"="Pacific Coast","Jalisco"="Pacific Coast","Michoacán"="Pacific Coast", "Nayarit"="Pacific Coast", "Veracruz"="South East Mexico"))
 
-
 statebrndist <- within(caldata, 
                    statebrn <- factor(statebrn, 
                                       levels=names(sort(table(statebrn), increasing=TRUE))))
+
 ggplot(statebrndist, aes(x = statebrn))+ 
   geom_bar() +
   coord_flip()+
-  labs(title = "Distribution of Region in Mexico", x = "Region", y = "Count")
-
+  labs(title = "Distribution of Birth Region in Mexico", x = "Region", y = "Count")
 ```
+
 We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted.
 
 We divided the remaining states into the following regions: 
@@ -254,6 +258,35 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 
 `yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
 
+#### 1.4.8 Simplify Occupation Type
+
+```{r}
+caldata <- caldata %>%
+  filter(!(occtype %in% c("Retired", "Unemployed (seeking work)", "Other, unspecified (disabled, incarcerated, tourist and other)", "Homemaker", "Student"))) 
+caldata %>%
+  group_by(occtype) %>%
+  count()
+caldata <- caldata %>%
+  mutate(occtype = case_when(
+    occtype %in% c("Administrative support", "Administrator", "Arts", "Educator", 
+                   "Professional", "Technical Worker") ~ "Professional",
+    occtype %in% c("Manufacturing (skilled)", "Manufacturing (unskilled)") ~ "Manufacturing",
+    occtype %in% c("Services", "Sales", "Technical Worker", "Transportation", 
+                   "Protection") ~ "Service",
+    occtype == "Agriculture" ~ "Agriculture"
+  ))
+
+occtypedist <- within(caldata, 
+                   occtype <- factor(occtype, 
+                                      levels=names(sort(table(occtype), increasing=TRUE))))
+
+ggplot(occtypedist, aes(x = occtype))+ 
+  geom_bar() +
+  coord_flip()+
+  labs(title = "Distribution of Type of Occupation", x = "Occupation Type", y = "Count")
+```
+
+We first filter out migrants with occupations indicating lack of paid employment, because our anaylsis focuses only on those migrants 
 
 
 

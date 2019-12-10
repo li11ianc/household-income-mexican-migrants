@@ -35,7 +35,7 @@ winter months, they randomly sample households in communities throughout
 Mexico, surveying household heads and members about their first and last
 trip to the US, as well as economic and demographic information. They
 then conduct the same survey in destination areas in the US, sampling
-migrants from the same communities they survey in Mexico but who have
+migrants from the same communities they surveyed in Mexico but who have
 not returned to Mexico. Thus, the sample of migrants includes residents
 in both Mexico and the US.
 
@@ -85,7 +85,7 @@ income considering the following variables: `sex`, `relhead`, `age`,
 
 “usdurl”: Latest US migration: Duration (in months)
 
-“usdoc1”: Type of documentation
+“usdoc1”: Type of documentation during first US migration
 
 “occtype”: Category of occupation
 
@@ -113,11 +113,12 @@ update on our data cleaning:
 
 #### 1.4.1 Filter Only Immigrants in California
 
-Accoridng to our previous data exploration, we found that the
+According to our previous data exploration, we found that the
 overwhelming majority of immigrants settled in California, as shown in
-the graph below:
+the graph
+below:
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](final-writeup_files/figure-gfm/state-distribution-plot-1.png)<!-- -->
 
 Hence, we decided to concentrate on California alone. Since the
 originial dataset is large, we have enough data left in California alone
@@ -125,9 +126,12 @@ to produce meaningful analysis.
 
 #### 1.4.2 Cut Household Income Groups
 
-Originally, the distribution of log(Household Income)- our response
-variable- was bimodal and had a median of 412,647 dollars. It almost
-looks like 3 separate distributions:
+Originally, the distribution of Household Income- our response variable-
+was bimodal and had a median of 412,647 dollars. A plot of household
+income in natural units reveals very little information, due to a
+scattering of very high incomes which blow up the range of the plot.
+However, a logged plot reveals that household income almost looks like 3
+separate distributions:
 
 ![](final-writeup_files/figure-gfm/nonfilt-income-plot-1.png)<!-- -->
 
@@ -148,8 +152,9 @@ Therefore, we decided to filter out the incomes above 60,000 to remove
 what appears to be a second distribution of incomes in pesos. We will
 also remove incomes of zero from our dataset, because it will interfere
 with our model accuracy. However, this compromises our model’s
-predicative range: our model will only be able to predict the household
-income of those who already have jobs (income).
+predictive and explanatory range: our model will only be able to predict
+or explain the household income of those who already have jobs with
+income.
 
 ![](final-writeup_files/figure-gfm/hhincome-distribution-1.png)<!-- -->
 
@@ -208,6 +213,7 @@ years).
 ### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
 <img src="final-writeup_files/figure-gfm/states-1.png" style="display: block; margin: auto;" />
+
 We do not have any data from seven states: Baja California Sur, Chiapas,
 Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small
 amount of non-Mexican data, which we omitted.
@@ -232,8 +238,33 @@ Nayarit
 
 `yrborn` and `age` provide the same information and are perfectly
 linear, therefore we decided to remove `yrborn` from consideration in
-the
-model.
+the model.
+
+#### 1.4.8 Simplify Occupation Type
+
+    ## # A tibble: 13 x 2
+    ## # Groups:   occtype [13]
+    ##    occtype                       n
+    ##    <chr>                     <int>
+    ##  1 Administrative support       19
+    ##  2 Administrator                 5
+    ##  3 Agriculture                 115
+    ##  4 Arts                          1
+    ##  5 Educator                      3
+    ##  6 Manufacturing (skilled)     101
+    ##  7 Manufacturing (unskilled)   102
+    ##  8 Professional                  2
+    ##  9 Protection                    2
+    ## 10 Sales                        49
+    ## 11 Services                     71
+    ## 12 Technical Worker              6
+    ## 13 Transportation               22
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+We first filter out migrants with occupations indicating lack of paid
+employment, because our anaylsis focuses only on those
+migrants
 
 ## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
 
@@ -348,25 +379,25 @@ p.value
 
 <td style="text-align:right;">
 
-457.355
+292.093
 
 </td>
 
 <td style="text-align:right;">
 
-298.649
+266.026
 
 </td>
 
 <td style="text-align:right;">
 
-1.531
+1.098
 
 </td>
 
 <td style="text-align:right;">
 
-0.126
+0.273
 
 </td>
 
@@ -382,25 +413,25 @@ sexM
 
 <td style="text-align:right;">
 
-424.019
+355.558
 
 </td>
 
 <td style="text-align:right;">
 
-183.309
+179.825
 
 </td>
 
 <td style="text-align:right;">
 
-2.313
+1.977
 
 </td>
 
 <td style="text-align:right;">
 
-0.021
+0.049
 
 </td>
 
@@ -416,25 +447,25 @@ age
 
 <td style="text-align:right;">
 
-\-4.975
+\-6.159
 
 </td>
 
 <td style="text-align:right;">
 
-4.252
+4.379
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.170
+\-1.407
 
 </td>
 
 <td style="text-align:right;">
 
-0.243
+0.160
 
 </td>
 
@@ -450,1413 +481,19 @@ statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-2504.734
+2592.408
 
 </td>
 
 <td style="text-align:right;">
 
-885.789
+883.726
 
 </td>
 
 <td style="text-align:right;">
 
-2.828
-
-</td>
-
-<td style="text-align:right;">
-
-0.005
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico
-
-</td>
-
-<td style="text-align:right;">
-
-\-201.370
-
-</td>
-
-<td style="text-align:right;">
-
-435.606
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.462
-
-</td>
-
-<td style="text-align:right;">
-
-0.644
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast
-
-</td>
-
-<td style="text-align:right;">
-
-150.271
-
-</td>
-
-<td style="text-align:right;">
-
-96.132
-
-</td>
-
-<td style="text-align:right;">
-
-1.563
-
-</td>
-
-<td style="text-align:right;">
-
-0.119
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnSouth East Mexico
-
-</td>
-
-<td style="text-align:right;">
-
-\-401.046
-
-</td>
-
-<td style="text-align:right;">
-
-669.895
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.599
-
-</td>
-
-<td style="text-align:right;">
-
-0.550
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatDivorced
-
-</td>
-
-<td style="text-align:right;">
-
-148.264
-
-</td>
-
-<td style="text-align:right;">
-
-205.697
-
-</td>
-
-<td style="text-align:right;">
-
-0.721
-
-</td>
-
-<td style="text-align:right;">
-
-0.471
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatMarried
-
-</td>
-
-<td style="text-align:right;">
-
-33.421
-
-</td>
-
-<td style="text-align:right;">
-
-111.683
-
-</td>
-
-<td style="text-align:right;">
-
-0.299
-
-</td>
-
-<td style="text-align:right;">
-
-0.765
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatNever married
-
-</td>
-
-<td style="text-align:right;">
-
-\-181.347
-
-</td>
-
-<td style="text-align:right;">
-
-156.641
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.158
-
-</td>
-
-<td style="text-align:right;">
-
-0.248
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatSeparated
-
-</td>
-
-<td style="text-align:right;">
-
-135.613
-
-</td>
-
-<td style="text-align:right;">
-
-221.139
-
-</td>
-
-<td style="text-align:right;">
-
-0.613
-
-</td>
-
-<td style="text-align:right;">
-
-0.540
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-marstatWidowed
-
-</td>
-
-<td style="text-align:right;">
-
-\-22.483
-
-</td>
-
-<td style="text-align:right;">
-
-237.042
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.095
-
-</td>
-
-<td style="text-align:right;">
-
-0.924
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-37.846
-
-</td>
-
-<td style="text-align:right;">
-
-11.508
-
-</td>
-
-<td style="text-align:right;">
-
-3.289
-
-</td>
-
-<td style="text-align:right;">
-
-0.001
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAdministrator
-
-</td>
-
-<td style="text-align:right;">
-
-4.692
-
-</td>
-
-<td style="text-align:right;">
-
-258.933
-
-</td>
-
-<td style="text-align:right;">
-
-0.018
-
-</td>
-
-<td style="text-align:right;">
-
-0.986
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAgriculture
-
-</td>
-
-<td style="text-align:right;">
-
-\-263.703
-
-</td>
-
-<td style="text-align:right;">
-
-135.315
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.949
-
-</td>
-
-<td style="text-align:right;">
-
-0.052
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeArts
-
-</td>
-
-<td style="text-align:right;">
-
-\-605.272
-
-</td>
-
-<td style="text-align:right;">
-
-507.363
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.193
-
-</td>
-
-<td style="text-align:right;">
-
-0.233
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeEducator
-
-</td>
-
-<td style="text-align:right;">
-
-344.957
-
-</td>
-
-<td style="text-align:right;">
-
-320.305
-
-</td>
-
-<td style="text-align:right;">
-
-1.077
-
-</td>
-
-<td style="text-align:right;">
-
-0.282
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeHomemaker
-
-</td>
-
-<td style="text-align:right;">
-
-\-162.027
-
-</td>
-
-<td style="text-align:right;">
-
-548.574
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.295
-
-</td>
-
-<td style="text-align:right;">
-
-0.768
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (skilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-131.631
-
-</td>
-
-<td style="text-align:right;">
-
-133.768
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.984
-
-</td>
-
-<td style="text-align:right;">
-
-0.326
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (unskilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-190.272
-
-</td>
-
-<td style="text-align:right;">
-
-133.730
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.423
-
-</td>
-
-<td style="text-align:right;">
-
-0.155
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeOther, unspecified (disabled, incarcerated, tourist and other)
-
-</td>
-
-<td style="text-align:right;">
-
-\-652.774
-
-</td>
-
-<td style="text-align:right;">
-
-413.412
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.579
-
-</td>
-
-<td style="text-align:right;">
-
-0.115
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeProfessional
-
-</td>
-
-<td style="text-align:right;">
-
-\-485.175
-
-</td>
-
-<td style="text-align:right;">
-
-493.974
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.982
-
-</td>
-
-<td style="text-align:right;">
-
-0.327
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeProtection
-
-</td>
-
-<td style="text-align:right;">
-
-\-331.159
-
-</td>
-
-<td style="text-align:right;">
-
-371.333
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.892
-
-</td>
-
-<td style="text-align:right;">
-
-0.373
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeRetired
-
-</td>
-
-<td style="text-align:right;">
-
-\-532.860
-
-</td>
-
-<td style="text-align:right;">
-
-221.082
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.410
-
-</td>
-
-<td style="text-align:right;">
-
-0.016
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeSales
-
-</td>
-
-<td style="text-align:right;">
-
-\-79.551
-
-</td>
-
-<td style="text-align:right;">
-
-143.271
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.555
-
-</td>
-
-<td style="text-align:right;">
-
-0.579
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeServices
-
-</td>
-
-<td style="text-align:right;">
-
-\-88.099
-
-</td>
-
-<td style="text-align:right;">
-
-138.102
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.638
-
-</td>
-
-<td style="text-align:right;">
-
-0.524
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeStudent
-
-</td>
-
-<td style="text-align:right;">
-
-249.596
-
-</td>
-
-<td style="text-align:right;">
-
-521.607
-
-</td>
-
-<td style="text-align:right;">
-
-0.479
-
-</td>
-
-<td style="text-align:right;">
-
-0.633
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTechnical Worker
-
-</td>
-
-<td style="text-align:right;">
-
-\-212.307
-
-</td>
-
-<td style="text-align:right;">
-
-235.237
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.903
-
-</td>
-
-<td style="text-align:right;">
-
-0.367
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTransportation
-
-</td>
-
-<td style="text-align:right;">
-
-\-106.638
-
-</td>
-
-<td style="text-align:right;">
-
-161.527
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.660
-
-</td>
-
-<td style="text-align:right;">
-
-0.509
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeUnemployed (seeking work)
-
-</td>
-
-<td style="text-align:right;">
-
-\-623.453
-
-</td>
-
-<td style="text-align:right;">
-
-328.166
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.900
-
-</td>
-
-<td style="text-align:right;">
-
-0.058
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdur1
-
-</td>
-
-<td style="text-align:right;">
-
-1.261
-
-</td>
-
-<td style="text-align:right;">
-
-0.793
-
-</td>
-
-<td style="text-align:right;">
-
-1.589
-
-</td>
-
-<td style="text-align:right;">
-
-0.113
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Legal resident
-
-</td>
-
-<td style="text-align:right;">
-
-32.627
-
-</td>
-
-<td style="text-align:right;">
-
-137.285
-
-</td>
-
-<td style="text-align:right;">
-
-0.238
-
-</td>
-
-<td style="text-align:right;">
-
-0.812
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Temporary: Tourist/visitor
-
-</td>
-
-<td style="text-align:right;">
-
-\-160.803
-
-</td>
-
-<td style="text-align:right;">
-
-147.840
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.088
-
-</td>
-
-<td style="text-align:right;">
-
-0.277
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdoc1Undocumented
-
-</td>
-
-<td style="text-align:right;">
-
-\-123.482
-
-</td>
-
-<td style="text-align:right;">
-
-114.409
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.079
-
-</td>
-
-<td style="text-align:right;">
-
-0.281
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-uscitycentcal
-
-</td>
-
-<td style="text-align:right;">
-
-42.192
-
-</td>
-
-<td style="text-align:right;">
-
-97.041
-
-</td>
-
-<td style="text-align:right;">
-
-0.435
-
-</td>
-
-<td style="text-align:right;">
-
-0.664
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-uscitysocal
-
-</td>
-
-<td style="text-align:right;">
-
-34.119
-
-</td>
-
-<td style="text-align:right;">
-
-78.832
-
-</td>
-
-<td style="text-align:right;">
-
-0.433
-
-</td>
-
-<td style="text-align:right;">
-
-0.665
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-1.071
-
-</td>
-
-<td style="text-align:right;">
-
-0.414
-
-</td>
-
-<td style="text-align:right;">
-
-2.590
-
-</td>
-
-<td style="text-align:right;">
-
-0.010
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-age:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-1.923
-
-</td>
-
-<td style="text-align:right;">
-
-0.579
-
-</td>
-
-<td style="text-align:right;">
-
-3.321
-
-</td>
-
-<td style="text-align:right;">
-
-0.001
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-sexM:usdur1
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.648
-
-</td>
-
-<td style="text-align:right;">
-
-0.825
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.997
-
-</td>
-
-<td style="text-align:right;">
-
-0.046
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCentral Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-\-309.860
-
-</td>
-
-<td style="text-align:right;">
-
-116.651
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.656
-
-</td>
-
-<td style="text-align:right;">
-
-0.008
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-60.832
-
-</td>
-
-<td style="text-align:right;">
-
-56.519
-
-</td>
-
-<td style="text-align:right;">
-
-1.076
-
-</td>
-
-<td style="text-align:right;">
-
-0.282
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-\-37.330
-
-</td>
-
-<td style="text-align:right;">
-
-13.336
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.799
-
-</td>
-
-<td style="text-align:right;">
-
-0.005
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnSouth East Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-21.733
-
-</td>
-
-<td style="text-align:right;">
-
-36.479
-
-</td>
-
-<td style="text-align:right;">
-
-0.596
-
-</td>
-
-<td style="text-align:right;">
-
-0.552
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnCentral Mexico:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-11.469
-
-</td>
-
-<td style="text-align:right;">
-
-6.422
-
-</td>
-
-<td style="text-align:right;">
-
-1.786
-
-</td>
-
-<td style="text-align:right;">
-
-0.075
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico:usdurl
-
-</td>
-
-<td style="text-align:right;">
-
-\-6.341
-
-</td>
-
-<td style="text-align:right;">
-
-2.196
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.888
+2.933
 
 </td>
 
@@ -1872,31 +509,949 @@ statebrnNorthern Mexico:usdurl
 
 <td style="text-align:left;">
 
+statebrnNorthern Mexico
+
+</td>
+
+<td style="text-align:right;">
+
+\-38.135
+
+</td>
+
+<td style="text-align:right;">
+
+412.600
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.092
+
+</td>
+
+<td style="text-align:right;">
+
+0.926
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast
+
+</td>
+
+<td style="text-align:right;">
+
+145.301
+
+</td>
+
+<td style="text-align:right;">
+
+96.510
+
+</td>
+
+<td style="text-align:right;">
+
+1.506
+
+</td>
+
+<td style="text-align:right;">
+
+0.133
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSouth East Mexico
+
+</td>
+
+<td style="text-align:right;">
+
+\-323.036
+
+</td>
+
+<td style="text-align:right;">
+
+669.034
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.483
+
+</td>
+
+<td style="text-align:right;">
+
+0.629
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatDivorced
+
+</td>
+
+<td style="text-align:right;">
+
+154.227
+
+</td>
+
+<td style="text-align:right;">
+
+208.087
+
+</td>
+
+<td style="text-align:right;">
+
+0.741
+
+</td>
+
+<td style="text-align:right;">
+
+0.459
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatMarried
+
+</td>
+
+<td style="text-align:right;">
+
+26.483
+
+</td>
+
+<td style="text-align:right;">
+
+111.742
+
+</td>
+
+<td style="text-align:right;">
+
+0.237
+
+</td>
+
+<td style="text-align:right;">
+
+0.813
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatNever married
+
+</td>
+
+<td style="text-align:right;">
+
+\-176.336
+
+</td>
+
+<td style="text-align:right;">
+
+155.478
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.134
+
+</td>
+
+<td style="text-align:right;">
+
+0.257
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatSeparated
+
+</td>
+
+<td style="text-align:right;">
+
+61.779
+
+</td>
+
+<td style="text-align:right;">
+
+220.279
+
+</td>
+
+<td style="text-align:right;">
+
+0.280
+
+</td>
+
+<td style="text-align:right;">
+
+0.779
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marstatWidowed
+
+</td>
+
+<td style="text-align:right;">
+
+\-65.290
+
+</td>
+
+<td style="text-align:right;">
+
+239.025
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.273
+
+</td>
+
+<td style="text-align:right;">
+
+0.785
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+40.619
+
+</td>
+
+<td style="text-align:right;">
+
+11.654
+
+</td>
+
+<td style="text-align:right;">
+
+3.486
+
+</td>
+
+<td style="text-align:right;">
+
+0.001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeManufacturing
+
+</td>
+
+<td style="text-align:right;">
+
+96.781
+
+</td>
+
+<td style="text-align:right;">
+
+62.687
+
+</td>
+
+<td style="text-align:right;">
+
+1.544
+
+</td>
+
+<td style="text-align:right;">
+
+0.123
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeProfessional
+
+</td>
+
+<td style="text-align:right;">
+
+206.852
+
+</td>
+
+<td style="text-align:right;">
+
+107.317
+
+</td>
+
+<td style="text-align:right;">
+
+1.927
+
+</td>
+
+<td style="text-align:right;">
+
+0.055
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+occtypeService
+
+</td>
+
+<td style="text-align:right;">
+
+158.660
+
+</td>
+
+<td style="text-align:right;">
+
+68.504
+
+</td>
+
+<td style="text-align:right;">
+
+2.316
+
+</td>
+
+<td style="text-align:right;">
+
+0.021
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+1.382
+
+</td>
+
+<td style="text-align:right;">
+
+0.902
+
+</td>
+
+<td style="text-align:right;">
+
+1.532
+
+</td>
+
+<td style="text-align:right;">
+
+0.126
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Legal resident
+
+</td>
+
+<td style="text-align:right;">
+
+\-8.308
+
+</td>
+
+<td style="text-align:right;">
+
+142.493
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.058
+
+</td>
+
+<td style="text-align:right;">
+
+0.954
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Temporary: Tourist/visitor
+
+</td>
+
+<td style="text-align:right;">
+
+\-190.813
+
+</td>
+
+<td style="text-align:right;">
+
+152.086
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.255
+
+</td>
+
+<td style="text-align:right;">
+
+0.210
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdoc1Undocumented
+
+</td>
+
+<td style="text-align:right;">
+
+\-153.857
+
+</td>
+
+<td style="text-align:right;">
+
+119.229
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.290
+
+</td>
+
+<td style="text-align:right;">
+
+0.198
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitycentcal
+
+</td>
+
+<td style="text-align:right;">
+
+29.635
+
+</td>
+
+<td style="text-align:right;">
+
+98.773
+
+</td>
+
+<td style="text-align:right;">
+
+0.300
+
+</td>
+
+<td style="text-align:right;">
+
+0.764
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+uscitysocal
+
+</td>
+
+<td style="text-align:right;">
+
+31.966
+
+</td>
+
+<td style="text-align:right;">
+
+79.040
+
+</td>
+
+<td style="text-align:right;">
+
+0.404
+
+</td>
+
+<td style="text-align:right;">
+
+0.686
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+1.125
+
+</td>
+
+<td style="text-align:right;">
+
+0.444
+
+</td>
+
+<td style="text-align:right;">
+
+2.531
+
+</td>
+
+<td style="text-align:right;">
+
+0.012
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+age:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+2.182
+
+</td>
+
+<td style="text-align:right;">
+
+0.609
+
+</td>
+
+<td style="text-align:right;">
+
+3.584
+
+</td>
+
+<td style="text-align:right;">
+
+0.000
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+sexM:usdur1
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.754
+
+</td>
+
+<td style="text-align:right;">
+
+0.904
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.940
+
+</td>
+
+<td style="text-align:right;">
+
+0.053
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCentral Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-321.323
+
+</td>
+
+<td style="text-align:right;">
+
+116.354
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.762
+
+</td>
+
+<td style="text-align:right;">
+
+0.006
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNorthern Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+28.718
+
+</td>
+
+<td style="text-align:right;">
+
+45.291
+
+</td>
+
+<td style="text-align:right;">
+
+0.634
+
+</td>
+
+<td style="text-align:right;">
+
+0.526
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-35.998
+
+</td>
+
+<td style="text-align:right;">
+
+13.430
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.680
+
+</td>
+
+<td style="text-align:right;">
+
+0.008
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnSouth East Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+19.019
+
+</td>
+
+<td style="text-align:right;">
+
+36.078
+
+</td>
+
+<td style="text-align:right;">
+
+0.527
+
+</td>
+
+<td style="text-align:right;">
+
+0.598
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnCentral Mexico:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+11.046
+
+</td>
+
+<td style="text-align:right;">
+
+6.441
+
+</td>
+
+<td style="text-align:right;">
+
+1.715
+
+</td>
+
+<td style="text-align:right;">
+
+0.087
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnNorthern Mexico:usdurl
+
+</td>
+
+<td style="text-align:right;">
+
+\-5.348
+
+</td>
+
+<td style="text-align:right;">
+
+1.882
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.841
+
+</td>
+
+<td style="text-align:right;">
+
+0.005
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
 statebrnPacific Coast:usdurl
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.101
+\-1.232
 
 </td>
 
 <td style="text-align:right;">
 
-0.515
+0.550
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.139
+\-2.240
 
 </td>
 
 <td style="text-align:right;">
 
-0.033
+0.026
 
 </td>
 
@@ -1912,25 +1467,25 @@ statebrnSouth East Mexico:usdurl
 
 <td style="text-align:right;">
 
-\-8.154
+\-7.038
 
 </td>
 
 <td style="text-align:right;">
 
-11.534
+11.520
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.707
+\-0.611
 
 </td>
 
 <td style="text-align:right;">
 
-0.480
+0.542
 
 </td>
 
@@ -1942,116 +1497,96 @@ statebrnSouth East Mexico:usdurl
 
 ### 2.3 Final model
 
-    ## Start:  AIC=6393.26
+    ## Start:  AIC=6197.51
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
     ##     usdur1 + usdoc1 + uscity + age * edyrs + sex * usdur1 + statebrn * 
     ##     edyrs + statebrn * usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - occtype         17   4970301 115360932 6381.9
-    ## - marstat          5   1079762 111470393 6388.3
-    ## - uscity           2     52095 110442726 6389.5
-    ## - usdoc1           3   1012809 111403440 6391.9
-    ## <none>                         110390631 6393.3
-    ## - sex:usdur1       1    944255 111334886 6395.6
-    ## - statebrn:usdurl  4   3657567 114048198 6402.0
-    ## - age:edyrs        1   2612133 113002764 6403.3
-    ## - statebrn:edyrs   4   4134248 114524879 6404.1
+    ## - marstat          5    990853 111749117 6191.9
+    ## - uscity           2     39047 110797311 6193.7
+    ## - usdoc1           3   1023232 111781496 6196.1
+    ## <none>                         110758264 6197.5
+    ## - occtype          3   1530017 112288281 6198.3
+    ## - sex:usdur1       1    896476 111654740 6199.5
+    ## - statebrn:usdurl  4   3624483 114382748 6205.5
+    ## - statebrn:edyrs   4   3908846 114667110 6206.8
+    ## - age:edyrs        1   3059507 113817771 6209.1
     ## 
-    ## Step:  AIC=6381.85
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ## Step:  AIC=6191.94
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
     ##     usdoc1 + uscity + usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + 
     ##     statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - marstat          5    676355 116037286 6374.9
-    ## - uscity           2     91421 115452352 6378.3
-    ## - usdoc1           3    752471 116113402 6379.2
-    ## <none>                         115360932 6381.9
-    ## - sex:usdur1       1    477941 115838873 6382.0
-    ## - statebrn:edyrs   4   3807473 119168405 6390.5
-    ## - statebrn:usdurl  4   4243189 119604120 6392.4
-    ## - age:edyrs        1   3240213 118601145 6394.1
+    ## - uscity           2     57689 111806806 6188.2
+    ## - usdoc1           3   1130901 112880018 6191.0
+    ## - occtype          3   1351608 113100725 6191.9
+    ## <none>                         111749117 6191.9
+    ## - sex:usdur1       1    791780 112540897 6193.5
+    ## - statebrn:usdurl  4   3623158 115372275 6199.8
+    ## - statebrn:edyrs   4   3765065 115514181 6200.4
+    ## - age:edyrs        1   3518342 115267459 6205.4
     ## 
-    ## Step:  AIC=6374.85
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + uscity + 
+    ## Step:  AIC=6188.2
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
+    ##     usdoc1 + usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + 
+    ##     statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - usdoc1           3   1082077 112888883 6187.0
+    ## <none>                         111806806 6188.2
+    ## - occtype          3   1392744 113199550 6188.4
+    ## - sex:usdur1       1    783093 112589899 6189.7
+    ## - statebrn:usdurl  4   3606914 115413719 6196.0
+    ## - statebrn:edyrs   4   3817195 115624000 6196.9
+    ## - age:edyrs        1   3536160 115342965 6201.7
+    ## 
+    ## Step:  AIC=6186.99
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
     ##     usdurl + age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - uscity           2    144340 116181626 6371.5
-    ## - usdoc1           3    858947 116896234 6372.6
-    ## <none>                         116037286 6374.9
-    ## - sex:usdur1       1    464989 116502275 6374.9
-    ## - statebrn:edyrs   4   3746809 119784095 6383.2
-    ## - statebrn:usdurl  4   4115471 120152758 6384.7
-    ## - age:edyrs        1   3465505 119502792 6387.9
+    ## - occtype          3   1232975 114121858 6186.4
+    ## <none>                         112888883 6187.0
+    ## - sex:usdur1       1    711441 113600324 6188.1
+    ## - statebrn:usdurl  4   4051621 116940503 6196.6
+    ## - statebrn:edyrs   4   4321243 117210125 6197.7
+    ## - age:edyrs        1   3222780 116111663 6199.0
     ## 
-    ## Step:  AIC=6371.49
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdoc1 + usdurl + 
-    ##     age:edyrs + sex:usdur1 + statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - usdoc1           3    803764 116985390 6369.0
-    ## - sex:usdur1       1    445825 116627452 6371.5
-    ## <none>                         116181626 6371.5
-    ## - statebrn:edyrs   4   3839608 120021235 6380.2
-    ## - statebrn:usdurl  4   4076429 120258055 6381.2
-    ## - age:edyrs        1   3498300 119679926 6384.7
-    ## 
-    ## Step:  AIC=6369.03
+    ## Step:  AIC=6186.4
     ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
     ##     sex:usdur1 + statebrn:edyrs + statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - sex:usdur1       1    455541 117440932 6369.0
-    ## <none>                         116985390 6369.0
-    ## - statebrn:edyrs   4   4317873 121303264 6379.6
-    ## - statebrn:usdurl  4   4471000 121456390 6380.3
-    ## - age:edyrs        1   3263657 120249048 6381.1
-    ## 
-    ## Step:  AIC=6369.02
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + age:edyrs + 
-    ##     statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - usdur1           1      5781 117446712 6367.0
-    ## <none>                         117440932 6369.0
-    ## - sex              1   1701794 119142726 6374.4
-    ## - statebrn:edyrs   4   4370391 121811323 6379.8
-    ## - statebrn:usdurl  4   4704863 122145795 6381.2
-    ## - age:edyrs        1   3491165 120932097 6382.0
-    ## 
-    ## Step:  AIC=6367.05
-    ## hhincome ~ sex + age + statebrn + edyrs + usdurl + age:edyrs + 
-    ##     statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## <none>                         117446712 6367.0
-    ## - sex              1   1807944 119254656 6372.9
-    ## - statebrn:edyrs   4   4418165 121864877 6378.0
-    ## - statebrn:usdurl  4   4766282 122212994 6379.5
-    ## - age:edyrs        1   3485788 120932501 6380.0
+    ## <none>                         114121858 6186.4
+    ## - sex:usdur1       1    486405 114608263 6186.5
+    ## - statebrn:usdurl  4   4178233 118300091 6196.3
+    ## - statebrn:edyrs   4   4627989 118749847 6198.2
+    ## - age:edyrs        1   3624713 117746570 6200.0
 
 | term                             |  estimate | std.error | statistic | p.value |   conf.low | conf.high |
 | :------------------------------- | --------: | --------: | --------: | ------: | ---------: | --------: |
-| (Intercept)                      |   318.943 |   137.955 |     2.312 |   0.021 |     47.893 |   589.993 |
-| sexM                             |   303.210 |   109.842 |     2.760 |   0.006 |     87.396 |   519.024 |
-| age                              |   \-5.218 |     3.602 |   \-1.448 |   0.148 |   \-12.295 |     1.860 |
-| statebrnCentral Mexico           |  2510.513 |   873.876 |     2.873 |   0.004 |    793.550 |  4227.476 |
-| statebrnNorthern Mexico          |  \-99.091 |   406.790 |   \-0.244 |   0.808 |  \-898.339 |   700.157 |
-| statebrnPacific Coast            |   142.460 |    91.810 |     1.552 |   0.121 |   \-37.925 |   322.844 |
-| statebrnSouth East Mexico        | \-242.945 |   659.794 |   \-0.368 |   0.713 | \-1539.288 |  1053.398 |
-| edyrs                            |    45.195 |    10.514 |     4.299 |   0.000 |     24.538 |    65.852 |
-| usdurl                           |     1.188 |     0.325 |     3.650 |   0.000 |      0.548 |     1.827 |
-| age:edyrs                        |     2.108 |     0.550 |     3.833 |   0.000 |      1.028 |     3.189 |
-| statebrnCentral Mexico:edyrs     | \-298.775 |   114.636 |   \-2.606 |   0.009 |  \-524.007 |  \-73.542 |
-| statebrnNorthern Mexico:edyrs    |    43.749 |    44.357 |     0.986 |   0.324 |   \-43.402 |   130.901 |
-| statebrnPacific Coast:edyrs      |  \-36.821 |    12.742 |   \-2.890 |   0.004 |   \-61.855 |  \-11.786 |
-| statebrnSouth East Mexico:edyrs  |    22.990 |    34.971 |     0.657 |   0.511 |   \-45.720 |    91.700 |
-| statebrnCentral Mexico:usdurl    |    11.304 |     6.396 |     1.767 |   0.078 |    \-1.262 |    23.870 |
-| statebrnNorthern Mexico:usdurl   |   \-5.986 |     1.840 |   \-3.254 |   0.001 |    \-9.600 |   \-2.371 |
-| statebrnPacific Coast:usdurl     |   \-1.371 |     0.496 |   \-2.764 |   0.006 |    \-2.346 |   \-0.396 |
-| statebrnSouth East Mexico:usdurl |   \-5.108 |    11.386 |   \-0.449 |   0.654 |   \-27.478 |    17.262 |
+| (Intercept)                      |   256.460 |   149.652 |     1.714 |   0.087 |   \-37.598 |   550.518 |
+| sexM                             |   349.983 |   120.389 |     2.907 |   0.004 |    113.426 |   586.540 |
+| age                              |   \-5.058 |     3.811 |   \-1.327 |   0.185 |   \-12.548 |     2.431 |
+| statebrnCentral Mexico           |  2471.655 |   877.546 |     2.817 |   0.005 |    747.331 |  4195.980 |
+| statebrnNorthern Mexico          |  \-90.414 |   408.429 |   \-0.221 |   0.825 |  \-892.953 |   712.124 |
+| statebrnPacific Coast            |   166.223 |    94.743 |     1.754 |   0.080 |   \-19.942 |   352.388 |
+| statebrnSouth East Mexico        | \-253.250 |   662.826 |   \-0.382 |   0.703 | \-1555.663 |  1049.162 |
+| edyrs                            |    49.454 |    10.979 |     4.505 |   0.000 |     27.882 |    71.027 |
+| usdur1                           |     0.949 |     0.859 |     1.105 |   0.270 |    \-0.738 |     2.637 |
+| usdurl                           |     1.276 |     0.432 |     2.955 |   0.003 |      0.427 |     2.124 |
+| age:edyrs                        |     2.291 |     0.588 |     3.896 |   0.000 |      1.136 |     3.447 |
+| sexM:usdur1                      |   \-1.225 |     0.858 |   \-1.427 |   0.154 |    \-2.910 |     0.461 |
+| statebrnCentral Mexico:edyrs     | \-294.518 |   115.138 |   \-2.558 |   0.011 |  \-520.757 |  \-68.279 |
+| statebrnNorthern Mexico:edyrs    |    42.055 |    44.537 |     0.944 |   0.346 |   \-45.457 |   129.567 |
+| statebrnPacific Coast:edyrs      |  \-40.153 |    13.128 |   \-3.058 |   0.002 |   \-65.949 |  \-14.356 |
+| statebrnSouth East Mexico:edyrs  |    21.415 |    35.242 |     0.608 |   0.544 |   \-47.832 |    90.663 |
+| statebrnCentral Mexico:usdurl    |    11.167 |     6.422 |     1.739 |   0.083 |    \-1.452 |    23.786 |
+| statebrnNorthern Mexico:usdurl   |   \-5.790 |     1.860 |   \-3.113 |   0.002 |    \-9.445 |   \-2.135 |
+| statebrnPacific Coast:usdurl     |   \-1.285 |     0.537 |   \-2.393 |   0.017 |    \-2.340 |   \-0.230 |
+| statebrnSouth East Mexico:usdurl |   \-5.324 |    11.430 |   \-0.466 |   0.642 |   \-27.782 |    17.135 |
 
 ### 2.4 Description of Method in Model Diagnostics
 
@@ -2181,8 +1716,8 @@ this information.
 
 ### 3.2.1 Effect of “Gender” on Wage
 
-    ##        fit      lwr     upr
-    ## 1 893.3224 824.8808 961.764
+    ##        fit      lwr      upr
+    ## 1 903.1686 833.5162 972.8209
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2192,7 +1727,7 @@ wage is $893.32. We are 95% confident that the actual salary falls in
 the interval of \[824.88, 961.76\].
 
     ##        fit      lwr      upr
-    ## 1 590.1126 370.6824 809.5429
+    ## 1 553.1858 312.8893 793.4824
 
 For a female who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2212,8 +1747,8 @@ our data set are male. We used edyrs = 6 as the input because it is the
 average number of years of education for the data set. The rest of the
 inputs are 0 since those predictors are mean-centered.
 
-    ##        fit      lwr     upr
-    ## 1 893.3224 824.8808 961.764
+    ##        fit      lwr      upr
+    ## 1 903.1686 833.5162 972.8209
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2223,7 +1758,7 @@ wage is $893.32 We are 95% confident that the actual salary falls in the
 interval of \[824.88, 961.76\].
 
     ##        fit      lwr      upr
-    ## 1 1611.188 1101.465 2120.911
+    ## 1 1607.715 1095.732 2119.699
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2233,7 +1768,7 @@ his predicted salary is $1611.19 We are 95% confident that the actual
 salary falls in the interval of \[1101.47, 2120.91\].
 
     ##        fit      lwr      upr
-    ## 1 1056.728 580.6308 1532.824
+    ## 1 1065.083 586.6262 1543.539
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2242,8 +1777,8 @@ duration), and last immigrated to the US for 3 years and 7 months
 his predicted salary is $1056.73 We are 95% confident that the actual
 salary falls in the interval of \[580.63, 1532.82\].
 
-    ##        fit       lwr     upr
-    ## 1 788.3172 -324.9458 1901.58
+    ##        fit       lwr      upr
+    ## 1 778.4103 -339.3509 1896.171
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2253,7 +1788,7 @@ Mexico”, his predicted salary is $788.32 We are 95% confident that the
 actual salary falls in the interval of \[-324.9458, 961.76\].
 
     ##        fit      lwr      upr
-    ## 1 814.8583 750.9734 878.7431
+    ## 1 828.4753 762.4723 894.4782
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -2368,25 +1903,25 @@ p.value
 
 <td style="text-align:right;">
 
-561.032
+336.219
 
 </td>
 
 <td style="text-align:right;">
 
-291.735
+260.490
 
 </td>
 
 <td style="text-align:right;">
 
-1.923
+1.291
 
 </td>
 
 <td style="text-align:right;">
 
-0.055
+0.197
 
 </td>
 
@@ -2402,25 +1937,25 @@ sexM
 
 <td style="text-align:right;">
 
-351.983
+306.283
 
 </td>
 
 <td style="text-align:right;">
 
-184.897
+183.313
 
 </td>
 
 <td style="text-align:right;">
 
-1.904
+1.671
 
 </td>
 
 <td style="text-align:right;">
 
-0.058
+0.095
 
 </td>
 
@@ -2436,25 +1971,25 @@ age
 
 <td style="text-align:right;">
 
-5.984
+6.422
 
 </td>
 
 <td style="text-align:right;">
 
-2.788
+2.789
 
 </td>
 
 <td style="text-align:right;">
 
-2.146
+2.302
 
 </td>
 
 <td style="text-align:right;">
 
-0.032
+0.022
 
 </td>
 
@@ -2470,25 +2005,25 @@ statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-237.427
+243.019
 
 </td>
 
 <td style="text-align:right;">
 
-219.057
+217.955
 
 </td>
 
 <td style="text-align:right;">
 
-1.084
+1.115
 
 </td>
 
 <td style="text-align:right;">
 
-0.279
+0.265
 
 </td>
 
@@ -2504,25 +2039,25 @@ statebrnNorthern Mexico
 
 <td style="text-align:right;">
 
-\-134.376
+\-84.806
 
 </td>
 
 <td style="text-align:right;">
 
-247.638
+235.097
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.543
+\-0.361
 
 </td>
 
 <td style="text-align:right;">
 
-0.588
+0.718
 
 </td>
 
@@ -2538,25 +2073,25 @@ statebrnPacific Coast
 
 <td style="text-align:right;">
 
-\-102.287
+\-91.483
 
 </td>
 
 <td style="text-align:right;">
 
-49.209
+49.246
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.079
+\-1.858
 
 </td>
 
 <td style="text-align:right;">
 
-0.038
+0.064
 
 </td>
 
@@ -2572,25 +2107,25 @@ statebrnSouth East Mexico
 
 <td style="text-align:right;">
 
-109.686
+112.737
 
 </td>
 
 <td style="text-align:right;">
 
-126.407
+125.783
 
 </td>
 
 <td style="text-align:right;">
 
-0.868
+0.896
 
 </td>
 
 <td style="text-align:right;">
 
-0.386
+0.371
 
 </td>
 
@@ -2606,25 +2141,25 @@ marstatDivorced
 
 <td style="text-align:right;">
 
-229.780
+233.605
 
 </td>
 
 <td style="text-align:right;">
 
-213.883
+215.615
 
 </td>
 
 <td style="text-align:right;">
 
-1.074
+1.083
 
 </td>
 
 <td style="text-align:right;">
 
-0.283
+0.279
 
 </td>
 
@@ -2640,25 +2175,25 @@ marstatMarried
 
 <td style="text-align:right;">
 
-36.470
+34.821
 
 </td>
 
 <td style="text-align:right;">
 
-116.594
+116.576
 
 </td>
 
 <td style="text-align:right;">
 
-0.313
+0.299
 
 </td>
 
 <td style="text-align:right;">
 
-0.755
+0.765
 
 </td>
 
@@ -2674,25 +2209,25 @@ marstatNever married
 
 <td style="text-align:right;">
 
-\-173.118
+\-165.591
 
 </td>
 
 <td style="text-align:right;">
 
-163.413
+162.346
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.059
+\-1.020
 
 </td>
 
 <td style="text-align:right;">
 
-0.290
+0.308
 
 </td>
 
@@ -2708,25 +2243,25 @@ marstatSeparated
 
 <td style="text-align:right;">
 
-127.430
+74.747
 
 </td>
 
 <td style="text-align:right;">
 
-230.245
+229.565
 
 </td>
 
 <td style="text-align:right;">
 
-0.553
+0.326
 
 </td>
 
 <td style="text-align:right;">
 
-0.580
+0.745
 
 </td>
 
@@ -2742,25 +2277,25 @@ marstatWidowed
 
 <td style="text-align:right;">
 
-118.958
+95.702
 
 </td>
 
 <td style="text-align:right;">
 
-242.970
+242.640
 
 </td>
 
 <td style="text-align:right;">
 
-0.490
+0.394
 
 </td>
 
 <td style="text-align:right;">
 
-0.625
+0.693
 
 </td>
 
@@ -2776,25 +2311,25 @@ edyrs
 
 <td style="text-align:right;">
 
-14.540
+15.296
 
 </td>
 
 <td style="text-align:right;">
 
-7.685
+7.580
 
 </td>
 
 <td style="text-align:right;">
 
-1.892
+2.018
 
 </td>
 
 <td style="text-align:right;">
 
-0.059
+0.044
 
 </td>
 
@@ -2804,269 +2339,31 @@ edyrs
 
 <td style="text-align:left;">
 
-occtypeAdministrator
+occtypeManufacturing
 
 </td>
 
 <td style="text-align:right;">
 
-42.915
+118.000
 
 </td>
 
 <td style="text-align:right;">
 
-266.438
+64.682
 
 </td>
 
 <td style="text-align:right;">
 
-0.161
+1.824
 
 </td>
 
 <td style="text-align:right;">
 
-0.872
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAgriculture
-
-</td>
-
-<td style="text-align:right;">
-
-\-261.294
-
-</td>
-
-<td style="text-align:right;">
-
-135.654
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.926
-
-</td>
-
-<td style="text-align:right;">
-
-0.055
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeArts
-
-</td>
-
-<td style="text-align:right;">
-
-\-624.353
-
-</td>
-
-<td style="text-align:right;">
-
-527.969
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.183
-
-</td>
-
-<td style="text-align:right;">
-
-0.238
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeEducator
-
-</td>
-
-<td style="text-align:right;">
-
-378.022
-
-</td>
-
-<td style="text-align:right;">
-
-328.781
-
-</td>
-
-<td style="text-align:right;">
-
-1.150
-
-</td>
-
-<td style="text-align:right;">
-
-0.251
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeHomemaker
-
-</td>
-
-<td style="text-align:right;">
-
-\-254.743
-
-</td>
-
-<td style="text-align:right;">
-
-560.351
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.455
-
-</td>
-
-<td style="text-align:right;">
-
-0.650
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (skilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-107.692
-
-</td>
-
-<td style="text-align:right;">
-
-132.882
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.810
-
-</td>
-
-<td style="text-align:right;">
-
-0.418
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (unskilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-170.819
-
-</td>
-
-<td style="text-align:right;">
-
-134.054
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.274
-
-</td>
-
-<td style="text-align:right;">
-
-0.203
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeOther, unspecified (disabled, incarcerated, tourist and other)
-
-</td>
-
-<td style="text-align:right;">
-
-\-758.748
-
-</td>
-
-<td style="text-align:right;">
-
-427.270
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.776
-
-</td>
-
-<td style="text-align:right;">
-
-0.076
+0.069
 
 </td>
 
@@ -3082,25 +2379,25 @@ occtypeProfessional
 
 <td style="text-align:right;">
 
-188.405
+258.447
 
 </td>
 
 <td style="text-align:right;">
 
-398.793
+108.580
 
 </td>
 
 <td style="text-align:right;">
 
-0.472
+2.380
 
 </td>
 
 <td style="text-align:right;">
 
-0.637
+0.018
 
 </td>
 
@@ -3110,269 +2407,31 @@ occtypeProfessional
 
 <td style="text-align:left;">
 
-occtypeProtection
+occtypeService
 
 </td>
 
 <td style="text-align:right;">
 
-\-238.960
+149.976
 
 </td>
 
 <td style="text-align:right;">
 
-386.465
+70.720
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.618
+2.121
 
 </td>
 
 <td style="text-align:right;">
 
-0.537
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeRetired
-
-</td>
-
-<td style="text-align:right;">
-
-\-535.959
-
-</td>
-
-<td style="text-align:right;">
-
-228.666
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.344
-
-</td>
-
-<td style="text-align:right;">
-
-0.019
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeSales
-
-</td>
-
-<td style="text-align:right;">
-
-\-88.713
-
-</td>
-
-<td style="text-align:right;">
-
-143.649
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.618
-
-</td>
-
-<td style="text-align:right;">
-
-0.537
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeServices
-
-</td>
-
-<td style="text-align:right;">
-
-\-104.787
-
-</td>
-
-<td style="text-align:right;">
-
-138.210
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.758
-
-</td>
-
-<td style="text-align:right;">
-
-0.449
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeStudent
-
-</td>
-
-<td style="text-align:right;">
-
-64.804
-
-</td>
-
-<td style="text-align:right;">
-
-541.821
-
-</td>
-
-<td style="text-align:right;">
-
-0.120
-
-</td>
-
-<td style="text-align:right;">
-
-0.905
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTechnical Worker
-
-</td>
-
-<td style="text-align:right;">
-
-\-122.925
-
-</td>
-
-<td style="text-align:right;">
-
-243.378
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.505
-
-</td>
-
-<td style="text-align:right;">
-
-0.614
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTransportation
-
-</td>
-
-<td style="text-align:right;">
-
-\-122.315
-
-</td>
-
-<td style="text-align:right;">
-
-163.496
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.748
-
-</td>
-
-<td style="text-align:right;">
-
-0.455
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeUnemployed (seeking work)
-
-</td>
-
-<td style="text-align:right;">
-
-\-520.791
-
-</td>
-
-<td style="text-align:right;">
-
-329.770
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.579
-
-</td>
-
-<td style="text-align:right;">
-
-0.115
+0.034
 
 </td>
 
@@ -3388,25 +2447,25 @@ usdur1
 
 <td style="text-align:right;">
 
-\-0.354
+\-0.375
 
 </td>
 
 <td style="text-align:right;">
 
-0.422
+0.453
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.840
+\-0.828
 
 </td>
 
 <td style="text-align:right;">
 
-0.401
+0.408
 
 </td>
 
@@ -3422,25 +2481,25 @@ usdurl
 
 <td style="text-align:right;">
 
-0.764
+0.856
 
 </td>
 
 <td style="text-align:right;">
 
-0.366
+0.388
 
 </td>
 
 <td style="text-align:right;">
 
-2.086
+2.207
 
 </td>
 
 <td style="text-align:right;">
 
-0.038
+0.028
 
 </td>
 
@@ -3456,25 +2515,25 @@ usdoc1Legal resident
 
 <td style="text-align:right;">
 
-156.769
+161.966
 
 </td>
 
 <td style="text-align:right;">
 
-141.794
+145.344
 
 </td>
 
 <td style="text-align:right;">
 
-1.106
+1.114
 
 </td>
 
 <td style="text-align:right;">
 
-0.269
+0.266
 
 </td>
 
@@ -3490,25 +2549,25 @@ usdoc1Temporary: Tourist/visitor
 
 <td style="text-align:right;">
 
-\-123.315
+\-144.299
 
 </td>
 
 <td style="text-align:right;">
 
-150.994
+155.965
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.817
+\-0.925
 
 </td>
 
 <td style="text-align:right;">
 
-0.415
+0.355
 
 </td>
 
@@ -3524,25 +2583,25 @@ usdoc1Undocumented
 
 <td style="text-align:right;">
 
-\-53.363
+\-47.150
 
 </td>
 
 <td style="text-align:right;">
 
-117.789
+121.970
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.453
+\-0.387
 
 </td>
 
 <td style="text-align:right;">
 
-0.651
+0.699
 
 </td>
 
@@ -3558,25 +2617,25 @@ uscitycentcal
 
 <td style="text-align:right;">
 
-46.508
+39.085
 
 </td>
 
 <td style="text-align:right;">
 
-101.246
+102.900
 
 </td>
 
 <td style="text-align:right;">
 
-0.459
+0.380
 
 </td>
 
 <td style="text-align:right;">
 
-0.646
+0.704
 
 </td>
 
@@ -3592,25 +2651,25 @@ uscitysocal
 
 <td style="text-align:right;">
 
-40.399
+40.916
 
 </td>
 
 <td style="text-align:right;">
 
-82.173
+82.303
 
 </td>
 
 <td style="text-align:right;">
 
-0.492
+0.497
 
 </td>
 
 <td style="text-align:right;">
 
-0.623
+0.619
 
 </td>
 
@@ -3622,101 +2681,85 @@ uscitysocal
 
 ### 2.2 Backward selection
 
-    ## Start:  AIC=6431.64
+    ## Start:  AIC=6233.96
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
     ##     usdur1 + usdurl + usdoc1 + uscity
     ## 
     ##            Df Sum of Sq       RSS    AIC
-    ## - occtype  17   5172599 128867632 6418.7
-    ## - marstat   5   1172083 124867115 6426.5
-    ## - uscity    2     69171 123764203 6427.9
-    ## - usdur1    1    183322 123878354 6430.4
-    ## <none>                  123695033 6431.6
-    ## - statebrn  4   2065473 125760506 6432.1
-    ## - usdoc1    3   1600365 125295398 6432.2
-    ## - edyrs     1    930265 124625298 6433.5
-    ## - sex       1    941740 124636773 6433.5
-    ## - usdurl    1   1130669 124825702 6434.3
-    ## - age       1   1197263 124892296 6434.6
+    ## - marstat   5   1117380 125170807 6228.4
+    ## - uscity    2     64974 124118402 6230.2
+    ## - usdur1    1    178991 124232419 6232.7
+    ## - statebrn  4   1815643 125869071 6233.2
+    ## <none>                  124053428 6234.0
+    ## - usdoc1    3   1706651 125760078 6234.8
+    ## - sex       1    729080 124782508 6234.9
+    ## - occtype   3   1862901 125916329 6235.4
+    ## - edyrs     1   1063307 125116735 6236.2
+    ## - usdurl    1   1271734 125325161 6237.0
+    ## - age       1   1384513 125437941 6237.5
     ## 
-    ## Step:  AIC=6418.65
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ## Step:  AIC=6228.43
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
     ##     usdurl + usdoc1 + uscity
     ## 
     ##            Df Sum of Sq       RSS    AIC
-    ## - marstat   5    719661 129587293 6411.5
-    ## - uscity    2    132572 129000204 6415.2
-    ## - usdur1    1    298326 129165958 6417.8
-    ## - usdoc1    3   1423135 130290767 6418.3
-    ## <none>                  128867632 6418.7
-    ## - sex       1    629067 129496699 6419.2
-    ## - statebrn  4   2275652 131143283 6419.6
-    ## - age       1    952824 129820455 6420.4
-    ## - usdurl    1   1630703 130498335 6423.1
-    ## - edyrs     1   2282745 131150377 6425.7
+    ## - uscity    2     75805 125246612 6224.7
+    ## - usdur1    1    214264 125385071 6227.3
+    ## <none>                  125170807 6228.4
+    ## - usdoc1    3   1729934 126900742 6229.3
+    ## - occtype   3   1755477 126926284 6229.4
+    ## - statebrn  4   2273850 127444657 6229.4
+    ## - edyrs     1   1108665 126279473 6230.8
+    ## - sex       1   1162270 126333077 6231.0
+    ## - usdurl    1   1342243 126513050 6231.7
+    ## - age       1   1857888 127028695 6233.8
     ## 
-    ## Step:  AIC=6411.51
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1 + 
-    ##     uscity
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - uscity    2    185573 129772866 6408.2
-    ## - usdur1    1    306981 129894274 6410.7
-    ## - usdoc1    3   1519128 131106421 6411.5
-    ## <none>                  129587293 6411.5
-    ## - sex       1   1065971 130653264 6413.7
-    ## - statebrn  4   2608097 132195389 6413.7
-    ## - age       1   1266393 130853686 6414.5
-    ## - usdurl    1   1670900 131258192 6416.1
-    ## - edyrs     1   2194240 131781533 6418.1
-    ## 
-    ## Step:  AIC=6408.24
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1
+    ## Step:  AIC=6224.73
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
+    ##     usdurl + usdoc1
     ## 
     ##            Df Sum of Sq       RSS    AIC
-    ## - usdur1    1    254694 130027560 6407.2
-    ## - usdoc1    3   1456150 131229016 6408.0
-    ## <none>                  129772866 6408.2
-    ## - sex       1   1021060 130793926 6410.3
-    ## - statebrn  4   2675048 132447914 6410.7
-    ## - age       1   1249477 131022343 6411.2
-    ## - usdurl    1   1626356 131399222 6412.6
-    ## - edyrs     1   2251557 132024423 6415.1
+    ## - usdur1    1    188932 125435544 6223.5
+    ## <none>                  125246612 6224.7
+    ## - usdoc1    3   1666878 126913490 6225.3
+    ## - statebrn  4   2314226 127560838 6225.8
+    ## - occtype   3   1814497 127061109 6225.9
+    ## - edyrs     1   1094602 126341214 6227.1
+    ## - sex       1   1156574 126403186 6227.3
+    ## - usdurl    1   1311263 126557875 6227.9
+    ## - age       1   1846482 127093094 6230.0
     ## 
-    ## Step:  AIC=6407.25
-    ## hhincome ~ sex + age + statebrn + edyrs + usdurl + usdoc1
-    ## 
-    ##            Df Sum of Sq       RSS    AIC
-    ## - usdoc1    3   1345308 131372868 6406.5
-    ## <none>                  130027560 6407.2
-    ## - statebrn  4   2719406 132746966 6409.9
-    ## - sex       1   1275224 131302784 6410.3
-    ## - age       1   1345174 131372734 6410.5
-    ## - usdurl    1   1569109 131596669 6411.4
-    ## - edyrs     1   2328216 132355775 6414.4
-    ## 
-    ## Step:  AIC=6406.53
-    ## hhincome ~ sex + age + statebrn + edyrs + usdurl
+    ## Step:  AIC=6223.48
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdurl + 
+    ##     usdoc1
     ## 
     ##            Df Sum of Sq       RSS    AIC
-    ## <none>                  131372868 6406.5
-    ## - statebrn  4   2868777 134241644 6409.6
-    ## - sex       1   1504609 132877476 6410.4
-    ## - usdurl    1   1855160 133228028 6411.7
-    ## - age       1   1990047 133362914 6412.2
-    ## - edyrs     1   2985840 134358708 6416.1
+    ## <none>                  125435544 6223.5
+    ## - usdoc1    3   1631114 127066657 6223.9
+    ## - occtype   3   1796091 127231634 6224.6
+    ## - statebrn  4   2353643 127789187 6224.7
+    ## - edyrs     1   1146434 126581977 6226.0
+    ## - sex       1   1309985 126745529 6226.7
+    ## - usdurl    1   1324851 126760395 6226.7
+    ## - age       1   1959638 127395182 6229.2
 
-| term                      |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
-| :------------------------ | --------: | --------: | --------: | ------: | --------: | --------: |
-| (Intercept)               |   464.194 |   124.677 |     3.723 |   0.000 |   219.242 |   709.145 |
-| sexM                      |   269.037 |   111.979 |     2.403 |   0.017 |    49.033 |   489.040 |
-| age                       |     6.078 |     2.200 |     2.763 |   0.006 |     1.756 |    10.400 |
-| statebrnCentral Mexico    |   326.269 |   214.381 |     1.522 |   0.129 |  \-94.921 |   747.459 |
-| statebrnNorthern Mexico   |  \-14.495 |   231.625 |   \-0.063 |   0.950 | \-469.564 |   440.575 |
-| statebrnPacific Coast     | \-109.370 |    47.251 |   \-2.315 |   0.021 | \-202.203 |  \-16.536 |
-| statebrnSouth East Mexico |   124.058 |   123.170 |     1.007 |   0.314 | \-117.933 |   366.049 |
-| edyrs                     |    22.884 |     6.761 |     3.385 |   0.001 |     9.600 |    36.168 |
-| usdurl                    |     0.690 |     0.259 |     2.668 |   0.008 |     0.182 |     1.198 |
+| term                             |  estimate | std.error | statistic | p.value |  conf.low | conf.high |
+| :------------------------------- | --------: | --------: | --------: | ------: | --------: | --------: |
+| (Intercept)                      |   426.973 |   187.806 |     2.273 |   0.023 |    57.956 |   795.990 |
+| sexM                             |   277.772 |   123.678 |     2.246 |   0.025 |    34.759 |   520.785 |
+| age                              |     7.381 |     2.687 |     2.747 |   0.006 |     2.101 |    12.660 |
+| statebrnCentral Mexico           |   286.819 |   215.560 |     1.331 |   0.184 | \-136.733 |   710.371 |
+| statebrnNorthern Mexico          | \-105.700 |   233.279 |   \-0.453 |   0.651 | \-564.066 |   352.667 |
+| statebrnPacific Coast            | \-103.875 |    48.530 |   \-2.140 |   0.033 | \-199.231 |   \-8.519 |
+| statebrnSouth East Mexico        |   108.414 |   125.040 |     0.867 |   0.386 | \-137.277 |   354.104 |
+| edyrs                            |    15.712 |     7.478 |     2.101 |   0.036 |     1.018 |    30.406 |
+| occtypeManufacturing             |   120.484 |    63.986 |     1.883 |   0.060 |   \-5.241 |   246.208 |
+| occtypeProfessional              |   253.715 |   107.237 |     2.366 |   0.018 |    43.007 |   464.424 |
+| occtypeService                   |   138.278 |    69.463 |     1.991 |   0.047 |     1.790 |   274.766 |
+| usdurl                           |     0.646 |     0.286 |     2.259 |   0.024 |     0.084 |     1.207 |
+| usdoc1Legal resident             |   176.353 |   144.014 |     1.225 |   0.221 | \-106.619 |   459.324 |
+| usdoc1Temporary: Tourist/visitor |  \-90.471 |   150.968 |   \-0.599 |   0.549 | \-387.106 |   206.163 |
+| usdoc1Undocumented               |  \-38.190 |   120.305 |   \-0.317 |   0.751 | \-274.576 |   198.197 |
 
 Using backward selection based on AIC, we narrowed down to 5 variables:
 sex, edyrs, usdurl, statebrn and age.
@@ -3730,90 +2773,90 @@ After inital backwards selection, we will explore the possible
 interactions between remaining variables: `edyrs`, `usdurl`, `sex`,
 `statebrn` and `age`, to determine if any are significant.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 131343347 |  1 |  29520.93 |     0.737 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 128842936 | \-5 | \-3407392 |     0.022 |
 
 First, we tested the interaction between `edyrs` and `usdurl`. The
 p-value for this test was 0.7366925 \> 0.05, therefore we will not
 include it in the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 130158750 |  1 |   1214117 |      0.03 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 127935394 | \-5 | \-2499850 |     0.087 |
 
 Then, we tested the interaction between `sex` and `usdurl`. The p-value
 for this test was 0.0303039 \< 0.05, therefore we will include it in the
 model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 130933022 |  1 |  439845.2 |     0.194 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 127773414 | \-5 | \-2337870 |     0.109 |
 
 Then, we tested the interaction between `age` and `usdurl`. The p-value
 for this test was 0.1936359 \> 0.05, therefore we will not include it in
 the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 131298093 |  1 |  74774.17 |     0.592 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 128729406 | \-5 | \-3293862 |     0.027 |
 
 Then, we tested the interaction between `sex` and `edyrs`. The p-value
 for this test was 0.5024992 \> 0.05, therefore we will not include it in
 the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 125887088 |  1 |   5485780 |         0 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 123137587 | \-5 |   2297957 |        NA |
 
 Then, we tested the interaction between `age` and `edyrs`. The p-value
 for this test was 0 \< 0.05, therefore we will include it in the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    503 | 130958968 |  1 |  413899.7 |     0.207 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    488 | 128515297 | \-5 | \-3079753 |     0.037 |
 
 Then, we tested the interaction between `age` and `sex`. The p-value for
 this test was 0.2073624 \> 0.05, therefore we will not include it in the
 model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    501 | 130570425 |  3 |  802442.4 |      0.38 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    486 | 127993786 | \-3 | \-2558242 |      0.02 |
 
 Then, we tested the interaction between `statebrn` and `sex`. The
 p-value for this test was 0.3796077\> 0.05, therefore we will not
 include it in the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    500 | 129862386 |  4 |   1510482 |     0.213 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    485 | 126989447 | \-2 | \-1553903 |      0.05 |
 
 Then, we tested the interaction between `statebrn` and `age`. The
 p-value for this test was 0.213341\> 0.05, therefore we will not include
 it in the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    500 | 125945407 |  4 |   5427461 |         0 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    485 | 123185231 | \-2 |   2250313 |        NA |
 
 Then, we tested the interaction between `statebrn` and `edyrs`. The
 p-value for this test was 0.0002466\< 0.05, therefore we will include it
 in the model.
 
-| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | --------: | --------: |
-|    504 | 131372868 | NA |        NA |        NA |
-|    500 | 126792566 |  4 |   4580302 |     0.001 |
+| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | --: | --------: | --------: |
+|    483 | 125435544 |  NA |        NA |        NA |
+|    485 | 124505486 | \-2 |  930057.8 |        NA |
 
 Then, we tested the interaction between `statebrn` and `usdurl`. The
 p-value for this test was 0.0012 \< 0.05, therefore we will include it
@@ -3878,25 +2921,25 @@ p.value
 
 <td style="text-align:right;">
 
-295.234
+262.662
 
 </td>
 
 <td style="text-align:right;">
 
-138.478
+146.350
 
 </td>
 
 <td style="text-align:right;">
 
-2.132
+1.795
 
 </td>
 
 <td style="text-align:right;">
 
-0.034
+0.073
 
 </td>
 
@@ -3912,25 +2955,25 @@ sexM
 
 <td style="text-align:right;">
 
-324.501
+339.082
 
 </td>
 
 <td style="text-align:right;">
 
-110.422
+117.239
 
 </td>
 
 <td style="text-align:right;">
 
-2.939
+2.892
 
 </td>
 
 <td style="text-align:right;">
 
-0.003
+0.004
 
 </td>
 
@@ -3946,25 +2989,25 @@ age
 
 <td style="text-align:right;">
 
-\-4.873
+\-4.860
 
 </td>
 
 <td style="text-align:right;">
 
-3.602
+3.797
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.353
+\-1.280
 
 </td>
 
 <td style="text-align:right;">
 
-0.177
+0.201
 
 </td>
 
@@ -3980,19 +3023,19 @@ edyrs
 
 <td style="text-align:right;">
 
-45.585
+50.310
 
 </td>
 
 <td style="text-align:right;">
 
-10.498
+10.901
 
 </td>
 
 <td style="text-align:right;">
 
-4.342
+4.615
 
 </td>
 
@@ -4014,25 +3057,25 @@ usdurl
 
 <td style="text-align:right;">
 
-2.364
+2.224
 
 </td>
 
 <td style="text-align:right;">
 
-0.788
+0.805
 
 </td>
 
 <td style="text-align:right;">
 
-3.001
+2.763
 
 </td>
 
 <td style="text-align:right;">
 
-0.003
+0.006
 
 </td>
 
@@ -4048,25 +3091,25 @@ statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-2521.957
+2498.073
 
 </td>
 
 <td style="text-align:right;">
 
-872.419
+876.344
 
 </td>
 
 <td style="text-align:right;">
 
-2.891
+2.851
 
 </td>
 
 <td style="text-align:right;">
 
-0.004
+0.005
 
 </td>
 
@@ -4082,25 +3125,25 @@ statebrnNorthern Mexico
 
 <td style="text-align:right;">
 
-\-95.839
+\-96.798
 
 </td>
 
 <td style="text-align:right;">
 
-406.104
+407.998
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.236
+\-0.237
 
 </td>
 
 <td style="text-align:right;">
 
-0.814
+0.813
 
 </td>
 
@@ -4116,25 +3159,25 @@ statebrnPacific Coast
 
 <td style="text-align:right;">
 
-139.998
+172.548
 
 </td>
 
 <td style="text-align:right;">
 
-91.666
+94.159
 
 </td>
 
 <td style="text-align:right;">
 
-1.527
+1.833
 
 </td>
 
 <td style="text-align:right;">
 
-0.127
+0.067
 
 </td>
 
@@ -4150,25 +3193,25 @@ statebrnSouth East Mexico
 
 <td style="text-align:right;">
 
-\-277.749
+\-255.279
 
 </td>
 
 <td style="text-align:right;">
 
-659.015
+662.354
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.421
+\-0.385
 
 </td>
 
 <td style="text-align:right;">
 
-0.674
+0.700
 
 </td>
 
@@ -4184,19 +3227,19 @@ age:edyrs
 
 <td style="text-align:right;">
 
-2.040
+2.289
 
 </td>
 
 <td style="text-align:right;">
 
-0.551
+0.588
 
 </td>
 
 <td style="text-align:right;">
 
-3.704
+3.895
 
 </td>
 
@@ -4218,25 +3261,25 @@ sexM:usdurl
 
 <td style="text-align:right;">
 
-\-1.328
+\-1.103
 
 </td>
 
 <td style="text-align:right;">
 
-0.810
+0.828
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.639
+\-1.332
 
 </td>
 
 <td style="text-align:right;">
 
-0.102
+0.184
 
 </td>
 
@@ -4252,25 +3295,25 @@ edyrs:statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-\-300.949
+\-297.930
 
 </td>
 
 <td style="text-align:right;">
 
-114.448
+115.009
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.630
+\-2.590
 
 </td>
 
 <td style="text-align:right;">
 
-0.009
+0.010
 
 </td>
 
@@ -4286,25 +3329,25 @@ edyrs:statebrnNorthern Mexico
 
 <td style="text-align:right;">
 
-42.849
+41.745
 
 </td>
 
 <td style="text-align:right;">
 
-44.285
+44.505
 
 </td>
 
 <td style="text-align:right;">
 
-0.968
+0.938
 
 </td>
 
 <td style="text-align:right;">
 
-0.334
+0.349
 
 </td>
 
@@ -4320,25 +3363,25 @@ edyrs:statebrnPacific Coast
 
 <td style="text-align:right;">
 
-\-36.810
+\-41.091
 
 </td>
 
 <td style="text-align:right;">
 
-12.720
+13.047
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.894
+\-3.149
 
 </td>
 
 <td style="text-align:right;">
 
-0.004
+0.002
 
 </td>
 
@@ -4354,25 +3397,25 @@ edyrs:statebrnSouth East Mexico
 
 <td style="text-align:right;">
 
-24.355
+20.981
 
 </td>
 
 <td style="text-align:right;">
 
-34.922
+35.210
 
 </td>
 
 <td style="text-align:right;">
 
-0.697
+0.596
 
 </td>
 
 <td style="text-align:right;">
 
-0.486
+0.552
 
 </td>
 
@@ -4388,25 +3431,25 @@ usdurl:statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-11.405
+11.203
 
 </td>
 
 <td style="text-align:right;">
 
-6.385
+6.415
 
 </td>
 
 <td style="text-align:right;">
 
-1.786
+1.746
 
 </td>
 
 <td style="text-align:right;">
 
-0.075
+0.081
 
 </td>
 
@@ -4422,19 +3465,19 @@ usdurl:statebrnNorthern Mexico
 
 <td style="text-align:right;">
 
-\-5.831
+\-5.903
 
 </td>
 
 <td style="text-align:right;">
 
-1.839
+1.849
 
 </td>
 
 <td style="text-align:right;">
 
-\-3.171
+\-3.192
 
 </td>
 
@@ -4456,25 +3499,25 @@ usdurl:statebrnPacific Coast
 
 <td style="text-align:right;">
 
-\-1.318
+\-1.264
 
 </td>
 
 <td style="text-align:right;">
 
-0.496
+0.536
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.655
+\-2.359
 
 </td>
 
 <td style="text-align:right;">
 
-0.008
+0.019
 
 </td>
 
@@ -4490,25 +3533,25 @@ usdurl:statebrnSouth East Mexico
 
 <td style="text-align:right;">
 
-\-5.562
+\-5.422
 
 </td>
 
 <td style="text-align:right;">
 
-11.370
+11.421
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.489
+\-0.475
 
 </td>
 
 <td style="text-align:right;">
 
-0.625
+0.635
 
 </td>
 
@@ -4575,25 +3618,25 @@ p.value
 
 <td style="text-align:right;">
 
-515.561
+318.269
 
 </td>
 
 <td style="text-align:right;">
 
-295.320
+264.563
 
 </td>
 
 <td style="text-align:right;">
 
-1.746
+1.203
 
 </td>
 
 <td style="text-align:right;">
 
-0.082
+0.230
 
 </td>
 
@@ -4609,25 +3652,25 @@ sexM
 
 <td style="text-align:right;">
 
-373.781
+328.483
 
 </td>
 
 <td style="text-align:right;">
 
-179.624
+178.348
 
 </td>
 
 <td style="text-align:right;">
 
-2.081
+1.842
 
 </td>
 
 <td style="text-align:right;">
 
-0.038
+0.066
 
 </td>
 
@@ -4643,25 +3686,25 @@ age
 
 <td style="text-align:right;">
 
-\-4.791
+\-6.170
 
 </td>
 
 <td style="text-align:right;">
 
-4.253
+4.377
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.126
+\-1.410
 
 </td>
 
 <td style="text-align:right;">
 
-0.261
+0.159
 
 </td>
 
@@ -4677,25 +3720,25 @@ statebrnCentral Mexico
 
 <td style="text-align:right;">
 
-2544.681
+2602.534
 
 </td>
 
 <td style="text-align:right;">
 
-884.959
+883.670
 
 </td>
 
 <td style="text-align:right;">
 
-2.875
+2.945
 
 </td>
 
 <td style="text-align:right;">
 
-0.004
+0.003
 
 </td>
 
@@ -4711,25 +3754,25 @@ statebrnNorthern Mexico
 
 <td style="text-align:right;">
 
-\-206.891
+\-36.669
 
 </td>
 
 <td style="text-align:right;">
 
-435.217
+412.579
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.475
+\-0.089
 
 </td>
 
 <td style="text-align:right;">
 
-0.635
+0.929
 
 </td>
 
@@ -4745,19 +3788,19 @@ statebrnPacific Coast
 
 <td style="text-align:right;">
 
-144.913
+145.590
 
 </td>
 
 <td style="text-align:right;">
 
-96.076
+96.498
 
 </td>
 
 <td style="text-align:right;">
 
-1.508
+1.509
 
 </td>
 
@@ -4779,25 +3822,25 @@ statebrnSouth East Mexico
 
 <td style="text-align:right;">
 
-\-393.757
+\-322.903
 
 </td>
 
 <td style="text-align:right;">
 
-669.122
+668.980
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.588
+\-0.483
 
 </td>
 
 <td style="text-align:right;">
 
-0.557
+0.630
 
 </td>
 
@@ -4813,25 +3856,25 @@ marstatDivorced
 
 <td style="text-align:right;">
 
-186.999
+153.644
 
 </td>
 
 <td style="text-align:right;">
 
-206.133
+208.050
 
 </td>
 
 <td style="text-align:right;">
 
-0.907
+0.738
 
 </td>
 
 <td style="text-align:right;">
 
-0.365
+0.461
 
 </td>
 
@@ -4847,25 +3890,25 @@ marstatMarried
 
 <td style="text-align:right;">
 
-30.421
+26.177
 
 </td>
 
 <td style="text-align:right;">
 
-111.587
+111.734
 
 </td>
 
 <td style="text-align:right;">
 
-0.273
+0.234
 
 </td>
 
 <td style="text-align:right;">
 
-0.785
+0.815
 
 </td>
 
@@ -4881,25 +3924,25 @@ marstatNever married
 
 <td style="text-align:right;">
 
-\-183.713
+\-176.472
 
 </td>
 
 <td style="text-align:right;">
 
-156.496
+155.466
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.174
+\-1.135
 
 </td>
 
 <td style="text-align:right;">
 
-0.241
+0.257
 
 </td>
 
@@ -4915,25 +3958,25 @@ marstatSeparated
 
 <td style="text-align:right;">
 
-110.457
+59.654
 
 </td>
 
 <td style="text-align:right;">
 
-220.540
+220.252
 
 </td>
 
 <td style="text-align:right;">
 
-0.501
+0.271
 
 </td>
 
 <td style="text-align:right;">
 
-0.617
+0.787
 
 </td>
 
@@ -4949,25 +3992,25 @@ marstatWidowed
 
 <td style="text-align:right;">
 
-\-54.714
+\-63.282
 
 </td>
 
 <td style="text-align:right;">
 
-238.776
+238.724
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.229
+\-0.265
 
 </td>
 
 <td style="text-align:right;">
 
-0.819
+0.791
 
 </td>
 
@@ -4983,19 +4026,19 @@ edyrs
 
 <td style="text-align:right;">
 
-37.453
+40.724
 
 </td>
 
 <td style="text-align:right;">
 
-11.503
+11.651
 
 </td>
 
 <td style="text-align:right;">
 
-3.256
+3.495
 
 </td>
 
@@ -5011,269 +4054,31 @@ edyrs
 
 <td style="text-align:left;">
 
-occtypeAdministrator
+occtypeManufacturing
 
 </td>
 
 <td style="text-align:right;">
 
-\-4.938
+96.675
 
 </td>
 
 <td style="text-align:right;">
 
-258.358
+62.671
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.019
+1.543
 
 </td>
 
 <td style="text-align:right;">
 
-0.985
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeAgriculture
-
-</td>
-
-<td style="text-align:right;">
-
-\-268.443
-
-</td>
-
-<td style="text-align:right;">
-
-135.257
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.985
-
-</td>
-
-<td style="text-align:right;">
-
-0.048
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeArts
-
-</td>
-
-<td style="text-align:right;">
-
-\-611.321
-
-</td>
-
-<td style="text-align:right;">
-
-506.939
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.206
-
-</td>
-
-<td style="text-align:right;">
-
-0.228
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeEducator
-
-</td>
-
-<td style="text-align:right;">
-
-338.940
-
-</td>
-
-<td style="text-align:right;">
-
-319.628
-
-</td>
-
-<td style="text-align:right;">
-
-1.060
-
-</td>
-
-<td style="text-align:right;">
-
-0.290
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeHomemaker
-
-</td>
-
-<td style="text-align:right;">
-
-\-111.573
-
-</td>
-
-<td style="text-align:right;">
-
-550.622
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.203
-
-</td>
-
-<td style="text-align:right;">
-
-0.840
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (skilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-132.756
-
-</td>
-
-<td style="text-align:right;">
-
-133.635
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.993
-
-</td>
-
-<td style="text-align:right;">
-
-0.321
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeManufacturing (unskilled)
-
-</td>
-
-<td style="text-align:right;">
-
-\-193.019
-
-</td>
-
-<td style="text-align:right;">
-
-133.612
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.445
-
-</td>
-
-<td style="text-align:right;">
-
-0.149
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeOther, unspecified (disabled, incarcerated, tourist and other)
-
-</td>
-
-<td style="text-align:right;">
-
-\-694.808
-
-</td>
-
-<td style="text-align:right;">
-
-412.435
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.685
-
-</td>
-
-<td style="text-align:right;">
-
-0.093
+0.124
 
 </td>
 
@@ -5289,25 +4094,25 @@ occtypeProfessional
 
 <td style="text-align:right;">
 
-\-488.637
+207.054
 
 </td>
 
 <td style="text-align:right;">
 
-493.551
+107.310
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.990
+1.929
 
 </td>
 
 <td style="text-align:right;">
 
-0.323
+0.054
 
 </td>
 
@@ -5317,269 +4122,31 @@ occtypeProfessional
 
 <td style="text-align:left;">
 
-occtypeProtection
+occtypeService
 
 </td>
 
 <td style="text-align:right;">
 
-\-333.180
+159.200
 
 </td>
 
 <td style="text-align:right;">
 
-371.015
+68.524
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.898
+2.323
 
 </td>
 
 <td style="text-align:right;">
 
-0.370
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeRetired
-
-</td>
-
-<td style="text-align:right;">
-
-\-533.100
-
-</td>
-
-<td style="text-align:right;">
-
-220.876
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.414
-
-</td>
-
-<td style="text-align:right;">
-
-0.016
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeSales
-
-</td>
-
-<td style="text-align:right;">
-
-\-87.356
-
-</td>
-
-<td style="text-align:right;">
-
-143.114
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.610
-
-</td>
-
-<td style="text-align:right;">
-
-0.542
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeServices
-
-</td>
-
-<td style="text-align:right;">
-
-\-88.112
-
-</td>
-
-<td style="text-align:right;">
-
-137.956
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.639
-
-</td>
-
-<td style="text-align:right;">
-
-0.523
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeStudent
-
-</td>
-
-<td style="text-align:right;">
-
-248.318
-
-</td>
-
-<td style="text-align:right;">
-
-521.149
-
-</td>
-
-<td style="text-align:right;">
-
-0.476
-
-</td>
-
-<td style="text-align:right;">
-
-0.634
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTechnical Worker
-
-</td>
-
-<td style="text-align:right;">
-
-\-214.504
-
-</td>
-
-<td style="text-align:right;">
-
-234.997
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.913
-
-</td>
-
-<td style="text-align:right;">
-
-0.362
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeTransportation
-
-</td>
-
-<td style="text-align:right;">
-
-\-108.618
-
-</td>
-
-<td style="text-align:right;">
-
-161.342
-
-</td>
-
-<td style="text-align:right;">
-
-\-0.673
-
-</td>
-
-<td style="text-align:right;">
-
-0.501
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-occtypeUnemployed (seeking work)
-
-</td>
-
-<td style="text-align:right;">
-
-\-423.519
-
-</td>
-
-<td style="text-align:right;">
-
-320.414
-
-</td>
-
-<td style="text-align:right;">
-
-\-1.322
-
-</td>
-
-<td style="text-align:right;">
-
-0.187
+0.021
 
 </td>
 
@@ -5595,25 +4162,25 @@ usdur1
 
 <td style="text-align:right;">
 
-\-0.296
+\-0.373
 
 </td>
 
 <td style="text-align:right;">
 
-0.417
+0.453
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.711
+\-0.824
 
 </td>
 
 <td style="text-align:right;">
 
-0.478
+0.410
 
 </td>
 
@@ -5629,25 +4196,25 @@ usdurl
 
 <td style="text-align:right;">
 
-2.920
+2.888
 
 </td>
 
 <td style="text-align:right;">
 
-0.930
+0.967
 
 </td>
 
 <td style="text-align:right;">
 
-3.141
+2.985
 
 </td>
 
 <td style="text-align:right;">
 
-0.002
+0.003
 
 </td>
 
@@ -5663,25 +4230,25 @@ usdoc1Legal resident
 
 <td style="text-align:right;">
 
-46.506
+\-8.477
 
 </td>
 
 <td style="text-align:right;">
 
-137.587
+142.468
 
 </td>
 
 <td style="text-align:right;">
 
-0.338
+\-0.059
 
 </td>
 
 <td style="text-align:right;">
 
-0.736
+0.953
 
 </td>
 
@@ -5697,25 +4264,25 @@ usdoc1Temporary: Tourist/visitor
 
 <td style="text-align:right;">
 
-\-164.019
+\-190.142
 
 </td>
 
 <td style="text-align:right;">
 
-147.384
+152.096
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.113
+\-1.250
 
 </td>
 
 <td style="text-align:right;">
 
-0.266
+0.212
 
 </td>
 
@@ -5731,25 +4298,25 @@ usdoc1Undocumented
 
 <td style="text-align:right;">
 
-\-123.602
+\-154.523
 
 </td>
 
 <td style="text-align:right;">
 
-114.293
+119.207
 
 </td>
 
 <td style="text-align:right;">
 
-\-1.081
+\-1.296
 
 </td>
 
 <td style="text-align:right;">
 
-0.280
+0.196
 
 </td>
 
@@ -5765,25 +4332,25 @@ uscitycentcal
 
 <td style="text-align:right;">
 
-38.520
+30.930
 
 </td>
 
 <td style="text-align:right;">
 
-96.949
+98.764
 
 </td>
 
 <td style="text-align:right;">
 
-0.397
+0.313
 
 </td>
 
 <td style="text-align:right;">
 
-0.691
+0.754
 
 </td>
 
@@ -5799,25 +4366,25 @@ uscitysocal
 
 <td style="text-align:right;">
 
-34.734
+33.346
 
 </td>
 
 <td style="text-align:right;">
 
-78.766
+79.050
 
 </td>
 
 <td style="text-align:right;">
 
-0.441
+0.422
 
 </td>
 
 <td style="text-align:right;">
 
-0.659
+0.673
 
 </td>
 
@@ -5833,25 +4400,25 @@ sexM:usdurl
 
 <td style="text-align:right;">
 
-\-1.956
+\-1.766
 
 </td>
 
 <td style="text-align:right;">
 
-0.892
+0.902
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.193
+\-1.957
 
 </td>
 
 <td style="text-align:right;">
 
-0.029
+0.051
 
 </td>
 
@@ -5867,25 +4434,25 @@ age:edyrs
 
 <td style="text-align:right;">
 
-1.914
+2.182
 
 </td>
 
 <td style="text-align:right;">
 
-0.578
+0.609
 
 </td>
 
 <td style="text-align:right;">
 
-3.309
+3.583
 
 </td>
 
 <td style="text-align:right;">
 
-0.001
+0.000
 
 </td>
 
@@ -5901,87 +4468,19 @@ statebrnCentral Mexico:edyrs
 
 <td style="text-align:right;">
 
-\-317.896
+\-323.330
 
 </td>
 
 <td style="text-align:right;">
 
-116.569
+116.356
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.727
-
-</td>
-
-<td style="text-align:right;">
-
-0.007
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnNorthern Mexico:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-60.608
-
-</td>
-
-<td style="text-align:right;">
-
-56.470
-
-</td>
-
-<td style="text-align:right;">
-
-1.073
-
-</td>
-
-<td style="text-align:right;">
-
-0.284
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-statebrnPacific Coast:edyrs
-
-</td>
-
-<td style="text-align:right;">
-
-\-36.873
-
-</td>
-
-<td style="text-align:right;">
-
-13.322
-
-</td>
-
-<td style="text-align:right;">
-
-\-2.768
+\-2.779
 
 </td>
 
@@ -5997,31 +4496,99 @@ statebrnPacific Coast:edyrs
 
 <td style="text-align:left;">
 
+statebrnNorthern Mexico:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+28.503
+
+</td>
+
+<td style="text-align:right;">
+
+45.290
+
+</td>
+
+<td style="text-align:right;">
+
+0.629
+
+</td>
+
+<td style="text-align:right;">
+
+0.529
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+statebrnPacific Coast:edyrs
+
+</td>
+
+<td style="text-align:right;">
+
+\-36.128
+
+</td>
+
+<td style="text-align:right;">
+
+13.429
+
+</td>
+
+<td style="text-align:right;">
+
+\-2.690
+
+</td>
+
+<td style="text-align:right;">
+
+0.007
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
 statebrnSouth East Mexico:edyrs
 
 </td>
 
 <td style="text-align:right;">
 
-21.398
+18.868
 
 </td>
 
 <td style="text-align:right;">
 
-36.440
+36.074
 
 </td>
 
 <td style="text-align:right;">
 
-0.587
+0.523
 
 </td>
 
 <td style="text-align:right;">
 
-0.557
+0.601
 
 </td>
 
@@ -6037,25 +4604,25 @@ statebrnCentral Mexico:usdurl
 
 <td style="text-align:right;">
 
-11.171
+10.953
 
 </td>
 
 <td style="text-align:right;">
 
-6.416
+6.441
 
 </td>
 
 <td style="text-align:right;">
 
-1.741
+1.701
 
 </td>
 
 <td style="text-align:right;">
 
-0.082
+0.090
 
 </td>
 
@@ -6071,25 +4638,25 @@ statebrnNorthern Mexico:usdurl
 
 <td style="text-align:right;">
 
-\-6.298
+\-5.346
 
 </td>
 
 <td style="text-align:right;">
 
-2.194
+1.882
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.871
+\-2.840
 
 </td>
 
 <td style="text-align:right;">
 
-0.004
+0.005
 
 </td>
 
@@ -6105,25 +4672,25 @@ statebrnPacific Coast:usdurl
 
 <td style="text-align:right;">
 
-\-1.105
+\-1.229
 
 </td>
 
 <td style="text-align:right;">
 
-0.514
+0.550
 
 </td>
 
 <td style="text-align:right;">
 
-\-2.149
+\-2.235
 
 </td>
 
 <td style="text-align:right;">
 
-0.032
+0.026
 
 </td>
 
@@ -6139,25 +4706,25 @@ statebrnSouth East Mexico:usdurl
 
 <td style="text-align:right;">
 
-\-7.951
+\-7.050
 
 </td>
 
 <td style="text-align:right;">
 
-11.521
+11.520
 
 </td>
 
 <td style="text-align:right;">
 
-\-0.690
+\-0.612
 
 </td>
 
 <td style="text-align:right;">
 
-0.490
+0.541
 
 </td>
 
@@ -6167,110 +4734,121 @@ statebrnSouth East Mexico:usdurl
 
 </table>
 
-    ## Start:  AIC=6392.36
+    ## Start:  AIC=6197.43
     ## hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + 
     ##     usdur1 + usdurl + usdoc1 + uscity + sex * usdurl + age * 
     ##     edyrs + statebrn * edyrs + statebrn * usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - occtype         17   4753941 114951500 6380.0
-    ## - marstat          5   1171616 111369174 6387.8
-    ## - uscity           2     49340 110246898 6388.6
-    ## - usdur1           1    119379 110316937 6390.9
-    ## - usdoc1           3   1155007 111352565 6391.7
-    ## <none>                         110197558 6392.4
-    ## - sex:usdurl       1   1137328 111334886 6395.6
-    ## - statebrn:usdurl  4   3589303 113786861 6400.8
-    ## - age:edyrs        1   2589816 112787375 6402.3
-    ## - statebrn:edyrs   4   4160932 114358490 6403.4
+    ## - marstat          5    984485 111726671 6191.8
+    ## - uscity           2     42476 110784662 6193.6
+    ## - usdoc1           3   1027057 111769243 6196.0
+    ## - usdur1           1    161821 110904007 6196.2
+    ## <none>                         110742186 6197.4
+    ## - occtype          3   1537524 112279710 6198.3
+    ## - sex:usdurl       1    912554 111654740 6199.5
+    ## - statebrn:usdurl  4   3603746 114345932 6205.4
+    ## - statebrn:edyrs   4   3939449 114681635 6206.8
+    ## - age:edyrs        1   3058225 113800411 6209.0
     ## 
-    ## Step:  AIC=6380.03
-    ## hhincome ~ sex + age + statebrn + marstat + edyrs + usdur1 + 
+    ## Step:  AIC=6191.84
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
     ##     usdurl + usdoc1 + uscity + sex:usdurl + age:edyrs + statebrn:edyrs + 
     ##     statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - marstat          5    709249 115660749 6373.2
-    ## - uscity           2    101520 115053020 6376.5
-    ## - usdoc1           3    872872 115824372 6377.9
-    ## - usdur1           1    148600 115100099 6378.7
-    ## <none>                         114951500 6380.0
-    ## - sex:usdurl       1    887374 115838873 6382.0
-    ## - statebrn:edyrs   4   3842118 118793618 6388.9
-    ## - statebrn:usdurl  4   4039800 118991299 6389.7
-    ## - age:edyrs        1   3160477 118111976 6391.9
+    ## - uscity           2     61419 111788090 6188.1
+    ## - usdur1           1    180596 111907267 6190.6
+    ## - usdoc1           3   1133921 112860593 6190.9
+    ## <none>                         111726671 6191.8
+    ## - occtype          3   1359225 113085897 6191.9
+    ## - sex:usdurl       1    814226 112540897 6193.5
+    ## - statebrn:usdurl  4   3603961 115330632 6199.7
+    ## - statebrn:edyrs   4   3796798 115523469 6200.5
+    ## - age:edyrs        1   3509462 115236133 6205.2
     ## 
-    ## Step:  AIC=6373.18
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1 + 
-    ##     uscity + sex:usdurl + age:edyrs + statebrn:edyrs + statebrn:usdurl
+    ## Step:  AIC=6188.11
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdur1 + 
+    ##     usdurl + usdoc1 + sex:usdurl + age:edyrs + statebrn:edyrs + 
+    ##     statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - uscity           2    149345 115810094 6369.8
-    ## - usdoc1           3   1003426 116664175 6371.6
-    ## - usdur1           1    153961 115814709 6371.9
-    ## <none>                         115660749 6373.2
-    ## - sex:usdurl       1    841527 116502275 6374.9
-    ## - statebrn:edyrs   4   3739485 119400234 6381.5
-    ## - statebrn:usdurl  4   3956841 119617589 6382.4
-    ## - age:edyrs        1   3442317 119103066 6386.2
+    ## - usdur1           1    158820 111946909 6186.8
+    ## - usdoc1           3   1082639 112870729 6186.9
+    ## <none>                         111788090 6188.1
+    ## - occtype          3   1399881 113187971 6188.3
+    ## - sex:usdurl       1    801809 112589899 6189.7
+    ## - statebrn:usdurl  4   3587743 115375833 6195.8
+    ## - statebrn:edyrs   4   3850396 115638486 6197.0
+    ## - age:edyrs        1   3528679 115316769 6201.6
     ## 
-    ## Step:  AIC=6369.85
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + usdoc1 + 
+    ## Step:  AIC=6186.82
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdurl + 
+    ##     usdoc1 + sex:usdurl + age:edyrs + statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## - usdoc1           3   1062059 113008968 6185.5
+    ## - occtype          3   1349581 113296490 6186.8
+    ## <none>                         111946909 6186.8
+    ## - sex:usdurl       1    672516 112619426 6187.8
+    ## - statebrn:usdurl  4   3706233 115653142 6195.0
+    ## - statebrn:edyrs   4   4035734 115982644 6196.5
+    ## - age:edyrs        1   3544513 115491422 6200.3
+    ## 
+    ## Step:  AIC=6185.52
+    ## hhincome ~ sex + age + statebrn + edyrs + occtype + usdurl + 
     ##     sex:usdurl + age:edyrs + statebrn:edyrs + statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## - usdoc1           3    942883 116752977 6368.0
-    ## - usdur1           1    121254 115931348 6368.4
-    ## <none>                         115810094 6369.8
-    ## - sex:usdurl       1    817358 116627452 6371.5
-    ## - statebrn:edyrs   4   3832380 119642473 6378.5
-    ## - statebrn:usdurl  4   3918323 119728416 6378.9
-    ## - age:edyrs        1   3474628 119284721 6383.0
+    ## - occtype          3   1192024 114200993 6184.7
+    ## <none>                         113008968 6185.5
+    ## - sex:usdurl       1    615000 113623968 6186.2
+    ## - statebrn:usdurl  4   4125180 117134148 6195.4
+    ## - statebrn:edyrs   4   4540707 117549675 6197.1
+    ## - age:edyrs        1   3220785 116229753 6197.5
     ## 
-    ## Step:  AIC=6368.01
-    ## hhincome ~ sex + age + statebrn + edyrs + usdur1 + usdurl + sex:usdurl + 
-    ##     age:edyrs + statebrn:edyrs + statebrn:usdurl
-    ## 
-    ##                   Df Sum of Sq       RSS    AIC
-    ## - usdur1           1     58451 116811428 6366.3
-    ## <none>                         116752977 6368.0
-    ## - sex:usdurl       1    687955 117440932 6369.0
-    ## - statebrn:edyrs   4   4349872 121102850 6378.8
-    ## - statebrn:usdurl  4   4382426 121135403 6378.9
-    ## - age:edyrs        1   3256508 120009485 6380.1
-    ## 
-    ## Step:  AIC=6366.26
+    ## Step:  AIC=6184.75
     ## hhincome ~ sex + age + statebrn + edyrs + usdurl + sex:usdurl + 
     ##     age:edyrs + statebrn:edyrs + statebrn:usdurl
     ## 
     ##                   Df Sum of Sq       RSS    AIC
-    ## <none>                         116811428 6366.3
-    ## - sex:usdurl       1    635285 117446712 6367.0
-    ## - statebrn:edyrs   4   4448240 121259668 6377.4
-    ## - statebrn:usdurl  4   4527277 121338705 6377.8
-    ## - age:edyrs        1   3244266 120055694 6378.3
+    ## - sex:usdurl       1    422820 114623813 6184.6
+    ## <none>                         114200993 6184.7
+    ## - statebrn:usdurl  4   4240105 118441097 6194.9
+    ## - statebrn:edyrs   4   4812613 119013605 6197.3
+    ## - age:edyrs        1   3617710 117818703 6198.3
+    ## 
+    ## Step:  AIC=6184.59
+    ## hhincome ~ sex + age + statebrn + edyrs + usdurl + age:edyrs + 
+    ##     statebrn:edyrs + statebrn:usdurl
+    ## 
+    ##                   Df Sum of Sq       RSS    AIC
+    ## <none>                         114623813 6184.6
+    ## - sex              1   1766943 116390756 6190.2
+    ## - statebrn:usdurl  4   4400499 119024312 6195.4
+    ## - statebrn:edyrs   4   4779441 119403254 6196.9
+    ## - age:edyrs        1   3871503 118495316 6199.1
 
 | term                             |  estimate | std.error | statistic | p.value |   conf.low | conf.high |
 | :------------------------------- | --------: | --------: | --------: | ------: | ---------: | --------: |
-| (Intercept)                      |   295.234 |   138.478 |     2.132 |   0.034 |     23.155 |   567.313 |
-| sexM                             |   324.501 |   110.422 |     2.939 |   0.003 |    107.546 |   541.456 |
-| age                              |   \-4.873 |     3.602 |   \-1.353 |   0.177 |   \-11.951 |     2.205 |
-| statebrnCentral Mexico           |  2521.957 |   872.419 |     2.891 |   0.004 |    807.848 |  4236.066 |
-| statebrnNorthern Mexico          |  \-95.839 |   406.104 |   \-0.236 |   0.814 |  \-893.742 |   702.064 |
-| statebrnPacific Coast            |   139.998 |    91.666 |     1.527 |   0.127 |   \-40.105 |   320.101 |
-| statebrnSouth East Mexico        | \-277.749 |   659.015 |   \-0.421 |   0.674 | \-1572.568 |  1017.070 |
-| edyrs                            |    45.585 |    10.498 |     4.342 |   0.000 |     24.958 |    66.212 |
-| usdurl                           |     2.364 |     0.788 |     3.001 |   0.003 |      0.816 |     3.912 |
-| sexM:usdurl                      |   \-1.328 |     0.810 |   \-1.639 |   0.102 |    \-2.920 |     0.264 |
-| age:edyrs                        |     2.040 |     0.551 |     3.704 |   0.000 |      0.958 |     3.122 |
-| statebrnCentral Mexico:edyrs     | \-300.949 |   114.448 |   \-2.630 |   0.009 |  \-525.815 |  \-76.083 |
-| statebrnNorthern Mexico:edyrs    |    42.849 |    44.285 |     0.968 |   0.334 |   \-44.162 |   129.860 |
-| statebrnPacific Coast:edyrs      |  \-36.810 |    12.720 |   \-2.894 |   0.004 |   \-61.802 |  \-11.818 |
-| statebrnSouth East Mexico:edyrs  |    24.355 |    34.922 |     0.697 |   0.486 |   \-44.258 |    92.968 |
-| statebrnCentral Mexico:usdurl    |    11.405 |     6.385 |     1.786 |   0.075 |    \-1.140 |    23.950 |
-| statebrnNorthern Mexico:usdurl   |   \-5.831 |     1.839 |   \-3.171 |   0.002 |    \-9.444 |   \-2.218 |
-| statebrnPacific Coast:usdurl     |   \-1.318 |     0.496 |   \-2.655 |   0.008 |    \-2.293 |   \-0.343 |
-| statebrnSouth East Mexico:usdurl |   \-5.562 |    11.370 |   \-0.489 |   0.625 |   \-27.900 |    16.777 |
+| (Intercept)                      |   288.775 |   145.147 |     1.990 |   0.047 |      3.572 |   573.978 |
+| sexM                             |   315.506 |   115.988 |     2.720 |   0.007 |     87.599 |   543.412 |
+| age                              |   \-5.173 |     3.792 |   \-1.364 |   0.173 |   \-12.625 |     2.278 |
+| statebrnCentral Mexico           |  2491.134 |   877.034 |     2.840 |   0.005 |    767.833 |  4214.435 |
+| statebrnNorthern Mexico          | \-100.649 |   408.316 |   \-0.246 |   0.805 |  \-902.958 |   701.659 |
+| statebrnPacific Coast            |   174.061 |    94.228 |     1.847 |   0.065 |   \-11.090 |   359.213 |
+| statebrnSouth East Mexico        | \-224.425 |   662.482 |   \-0.339 |   0.735 | \-1526.148 |  1077.298 |
+| edyrs                            |    49.953 |    10.907 |     4.580 |   0.000 |     28.522 |    71.384 |
+| usdurl                           |     1.252 |     0.341 |     3.676 |   0.000 |      0.583 |     1.922 |
+| age:edyrs                        |     2.359 |     0.586 |     4.026 |   0.000 |      1.208 |     3.510 |
+| statebrnCentral Mexico:edyrs     | \-296.701 |   115.098 |   \-2.578 |   0.010 |  \-522.858 |  \-70.544 |
+| statebrnNorthern Mexico:edyrs    |    42.672 |    44.536 |     0.958 |   0.338 |   \-44.837 |   130.181 |
+| statebrnPacific Coast:edyrs      |  \-40.966 |    13.057 |   \-3.137 |   0.002 |   \-66.623 |  \-15.310 |
+| statebrnSouth East Mexico:edyrs  |    19.807 |    35.228 |     0.562 |   0.574 |   \-49.412 |    89.026 |
+| statebrnCentral Mexico:usdurl    |    11.078 |     6.419 |     1.726 |   0.085 |    \-1.535 |    23.691 |
+| statebrnNorthern Mexico:usdurl   |   \-6.036 |     1.848 |   \-3.266 |   0.001 |    \-9.668 |   \-2.405 |
+| statebrnPacific Coast:usdurl     |   \-1.300 |     0.536 |   \-2.428 |   0.016 |    \-2.352 |   \-0.248 |
+| statebrnSouth East Mexico:usdurl |   \-5.007 |    11.426 |   \-0.438 |   0.661 |   \-27.457 |    17.444 |
 
 We observed that the variable selection changed. Specifically, usdur1 is
 significant, besides the 4 variables and the 4 interaction terms
@@ -6280,7 +4858,7 @@ identified previously.
 
 ![](final-writeup_files/figure-gfm/high-leverage-1.png)<!-- -->
 
-    ## [1] 0.2553606
+    ## [1] 0.2911647
 
 About a quarter of our observations are high leverage points, meaning
 that their combinations of values for the predictor variables are very
@@ -6291,15 +4869,16 @@ predictor variables.
 
 We can look at the four observations with the highest leverage:
 
-    ## # A tibble: 4 x 14
-    ##   hhincome sex      age statebrn edyrs usdurl .fitted .se.fit   .resid
-    ##      <dbl> <chr>  <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>    <dbl>
-    ## 1     2421 M       6.58 Central…     5   41.7   2421.    458. -3.45e-2
-    ## 2     1000 M      -2.42 Central…     5  -54.3   1174.    458. -1.74e+2
-    ## 3       16 M     -10.4  Norther…    14  270.     221.    436. -2.05e+2
-    ## 4     2000 M      -9.42 Norther…    16  -48.3   1909.    478.  9.10e+1
-    ## # … with 5 more variables: .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
-    ## #   .std.resid <dbl>, obs_num <int>
+    ## # A tibble: 5 x 15
+    ##   hhincome sex      age statebrn edyrs usdur1 usdurl .fitted .se.fit
+    ##      <dbl> <chr>  <dbl> <chr>    <dbl>  <dbl>  <dbl>   <dbl>   <dbl>
+    ## 1     2421 M       6.58 Central…     5  -41.0   41.7   2425.    459.
+    ## 2     2606 F      36.6  Bajío        9  526.   510.    2420.    407.
+    ## 3     1000 M      -2.42 Central…     5  -38.0  -54.3   1172.    460.
+    ## 4       16 M     -10.4  Norther…    14  286.   270.     219.    438.
+    ## 5     2000 M      -9.42 Norther…    16  -35.0  -48.3   1910.    479.
+    ## # … with 6 more variables: .resid <dbl>, .hat <dbl>, .sigma <dbl>,
+    ## #   .cooksd <dbl>, .std.resid <dbl>, obs_num <int>
 
 Of the individuals in the data with high leverage, two have extensive
 educations and are relatively young and from Northern Mexico. Two are
@@ -6311,28 +4890,29 @@ we use other methods to sort out influential points.
 
 ![](final-writeup_files/figure-gfm/standardized-residuals-1.png)<!-- -->
 
-    ## [1] 0.05653021
+    ## [1] 0.0562249
 
 The 5% of our observations with standardized residuals of magnitude
 greater than 2 should be examined more closely- these are outliers, but
 they may not have an impact on the regression line. We can look plots of
 the standardized residuals versus all of our predictors.
 
-    ## Observations: 513
-    ## Variables: 14
+    ## Observations: 498
+    ## Variables: 15
     ## $ hhincome   <dbl> 350, 313, 600, 570, 1050, 750, 1900, 1100, 1500, 500,…
     ## $ sex        <chr> "M", "M", "M", "M", "M", "M", "M", "M", "M", "M", "M"…
     ## $ age        <dbl> -21.4249513, -6.4249513, -6.4249513, -11.4249513, -15…
     ## $ statebrn   <chr> "Bajío", "Bajío", "Bajío", "Bajío", "Bajío", "Pacific…
-    ## $ edyrs      <dbl> 6, 4, 6, 9, 12, 6, 6, 6, 2, 3, 6, 1, 9, 8, 4, 1, 0, 3…
+    ## $ edyrs      <dbl> 6, 4, 6, 9, 12, 6, 6, 6, 2, 3, 6, 1, 8, 4, 1, 0, 3, 0…
+    ## $ usdur1     <dbl> -37.986355, -31.986355, -34.986355, -34.986355, -13.9…
     ## $ usdurl     <dbl> -54.2709552, -54.2709552, -54.2709552, -48.2709552, -…
-    ## $ .fitted    <dbl> 669.6265, 717.8052, 781.1042, 814.3973, 818.7793, 714…
-    ## $ .se.fit    <dbl> 59.67995, 50.53635, 41.71705, 53.75402, 90.20383, 40.…
-    ## $ .resid     <dbl> -319.62650, -404.80518, -181.10424, -244.39734, 231.2…
-    ## $ .hat       <dbl> 0.015011404, 0.010763961, 0.007334855, 0.012178287, 0…
-    ## $ .sigma     <dbl> 487.3771, 487.2485, 487.5238, 487.4669, 487.4775, 487…
-    ## $ .cooksd    <dbl> 3.701147e-04, 4.220425e-04, 5.716564e-05, 1.745476e-0…
-    ## $ .std.resid <dbl> -0.66116423, -0.83556120, -0.37317230, -0.50482327, 0…
+    ## $ .fitted    <dbl> 658.2102, 717.4478, 787.7377, 821.7648, 819.0131, 721…
+    ## $ .se.fit    <dbl> 62.81833, 51.64988, 43.01099, 55.52480, 92.56585, 45.…
+    ## $ .resid     <dbl> -308.21016, -404.44777, -187.73774, -251.76479, 230.9…
+    ## $ .hat       <dbl> 0.016528441, 0.011173719, 0.007748505, 0.012913176, 0…
+    ## $ .sigma     <dbl> 488.9240, 488.7764, 489.0549, 488.9934, 489.0124, 489…
+    ## $ .cooksd    <dbl> 3.399627e-04, 3.914819e-04, 5.809070e-05, 1.759306e-0…
+    ## $ .std.resid <dbl> -0.63605632, -0.83239982, -0.38571829, -0.51861713, 0…
     ## $ obs_num    <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
 
 ![](final-writeup_files/figure-gfm/std-resid-predictor-plots-1.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-2.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-3.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-4.png)<!-- -->![](final-writeup_files/figure-gfm/std-resid-predictor-plots-5.png)<!-- -->
@@ -6343,12 +4923,12 @@ assumption.
 
 Estimate of regression standard deviation, σ̂, using all observations
 
-    ## [1] 487.0997
+    ## [1] 488.6191
 
     ## # A tibble: 1 x 1
     ##   sigma_est
     ##       <dbl>
-    ## 1      388.
+    ## 1      389.
 
 The estimate of our regression standard deviation using all observations
 is 487.0997, whereas the standard deviation estimate without points with
@@ -6363,40 +4943,42 @@ coefficients when removed.
 
 ![](final-writeup_files/figure-gfm/cooks-distance-1.png)<!-- -->
 
-    ## # A tibble: 1 x 14
-    ##   hhincome sex     age statebrn edyrs usdurl .fitted .se.fit .resid  .hat
-    ##      <dbl> <chr> <dbl> <chr>    <dbl>  <dbl>   <dbl>   <dbl>  <dbl> <dbl>
-    ## 1     2000 M     -9.42 Norther…    16  -48.3   1909.    478.   91.0 0.962
-    ## # … with 4 more variables: .sigma <dbl>, .cooksd <dbl>, .std.resid <dbl>,
-    ## #   obs_num <int>
+    ## # A tibble: 1 x 15
+    ##   hhincome sex     age statebrn edyrs usdur1 usdurl .fitted .se.fit .resid
+    ##      <dbl> <chr> <dbl> <chr>    <dbl>  <dbl>  <dbl>   <dbl>   <dbl>  <dbl>
+    ## 1      800 M     -6.42 Pacific…     9  -32.0  -48.3    766.    40.5   34.4
+    ## # … with 5 more variables: .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
+    ## #   .std.resid <dbl>, obs_num <int>
 
 One observation has a Cook’s Distance greater than 1- we will remove
 this individual from our analysis because it exerts significantly
 greater influence on the final coefficients of our model and could
 distort our explanations.
 
-    ## # A tibble: 17 x 2
+    ## # A tibble: 19 x 2
     ##    names                                x
     ##    <chr>                            <dbl>
-    ##  1 sexM                              1.12
+    ##  1 sexM                              1.22
     ##  2 age                               3.95
     ##  3 statebrnCentral Mexico           19.1 
-    ##  4 statebrnNorthern Mexico           3.45
-    ##  5 statebrnPacific Coast             4.54
+    ##  4 statebrnNorthern Mexico           3.46
+    ##  5 statebrnPacific Coast             4.67
     ##  6 statebrnSouth East Mexico        33.6 
-    ##  7 edyrs                             3.35
-    ##  8 usdurl                            1.87
-    ##  9 age:edyrs                         3.83
-    ## 10 statebrnCentral Mexico:edyrs     19.6 
-    ## 11 statebrnNorthern Mexico:edyrs     4.17
-    ## 12 statebrnPacific Coast:edyrs       6.68
-    ## 13 statebrnSouth East Mexico:edyrs   5.39
-    ## 14 statebrnCentral Mexico:usdurl     1.08
-    ## 15 statebrnNorthern Mexico:usdurl    1.39
-    ## 16 statebrnPacific Coast:usdurl      1.71
-    ## 17 statebrnSouth East Mexico:usdurl 24.3
+    ##  7 edyrs                             3.50
+    ##  8 usdur1                            8.02
+    ##  9 usdurl                            2.91
+    ## 10 age:edyrs                         3.89
+    ## 11 sexM:usdur1                       6.67
+    ## 12 statebrnCentral Mexico:edyrs     19.6 
+    ## 13 statebrnNorthern Mexico:edyrs     4.17
+    ## 14 statebrnPacific Coast:edyrs       6.87
+    ## 15 statebrnSouth East Mexico:edyrs   5.43
+    ## 16 statebrnCentral Mexico:usdurl     1.08
+    ## 17 statebrnNorthern Mexico:usdurl    1.41
+    ## 18 statebrnPacific Coast:usdurl      1.65
+    ## 19 statebrnSouth East Mexico:usdurl 24.3
 
-    ## [1] 0.1443861
+    ## [1] 0.1550085
 
     ##   Gender pred_hhincome
     ## 1   Male        893.32
