@@ -2159,24 +2159,22 @@ this information.
     ##        fit      lwr     upr
     ## 1 893.3224 824.8808 961.764
 
-For a male who is 39 years old (average age), was born on the Pacific
-Coast of Mexico, has 6 years of education (average edyrs), first
-immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and was born in
-the region of “Bajío”, his predicted wage is $893.32 We are 95%
-confident that the actual salary falls in the interval of \[824.88,
-961.76\].
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of “Bajío”, his predicted
+wage is $893.32 We are 95% confident that the actual salary falls in the
+interval of \[824.88, 961.76\].
 
     ##        fit      lwr      upr
     ## 1 590.1126 370.6824 809.5429
 
-For a female who is 39 years old (average age), was born on the Pacific
-Coast of Mexico, has 6 years of education (average edyrs), first
-immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and was born in
-the region of “Bajío”, her predicted salary is $590.11 We are 95%
-confident that the actual salary falls in the interval of \[370.68,
-809.54\].
+For a female who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of “Bajío”, her predicted
+salary is $590.11 We are 95% confident that the actual salary falls in
+the interval of \[370.68, 809.54\].
 
 We can see from the prediction that there is a large gender wage gap,
 since a male’s predicted wage is much higher than a female of the same
@@ -2192,13 +2190,12 @@ inputs are 0 since those predictors are mean-centered.
     ##        fit      lwr     upr
     ## 1 893.3224 824.8808 961.764
 
-For a male who is 39 years old (average age), was born on the Pacific
-Coast of Mexico, has 6 years of education (average edyrs), first
-immigrated to the US for 5 years (average duration), and last immigrated
-to the US for 3 years and 7 months (average duration), and was born in
-the region of “Bajío”, his predicted wage is $893.32 We are 95%
-confident that the actual salary falls in the interval of \[824.88,
-961.76\].
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), and last immigrated to the US for 3 years and 7 months
+(average duration), and was born in the region of “Bajío”, his predicted
+wage is $893.32 We are 95% confident that the actual salary falls in the
+interval of \[824.88, 961.76\].
 
     ##        fit      lwr      upr
     ## 1 1611.188 1101.465 2120.911
@@ -6365,3 +6362,9 @@ distort our explanations.
     ## 17 statebrnSouth East Mexico:usdurl 24.3
 
     ## [1] 0.1443861
+
+    ##   Gender pred_hhincome
+    ## 1   Male        893.32
+    ## 2 Female        590.11
+
+![](final-writeup_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->

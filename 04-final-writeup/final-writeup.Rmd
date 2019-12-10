@@ -366,13 +366,13 @@ If we could continue to work on the project, we would operate under the assumpti
 x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
-For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 ```{r}
 x1 <- data.frame(sex = "F" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
 predict.lm(reduced_int_new_2, x1, interval = "confidence")
 ```
-For a female who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11 We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
+For a female who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", her predicted salary is $590.11 We are 95% confident that the actual salary falls in the interval of [370.68, 809.54].
 
 
 We can see from the prediction that there is a large gender wage gap, since a male's predicted wage is much higher than a female of the same average demographics.
@@ -385,7 +385,7 @@ We used male as a model input because the majority of the immigrants in our data
 x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
-For a male who is 39 years old (average age), was born on the Pacific Coast of Mexico, has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), and last immigrated to the US for 3 years and 7 months (average duration), and was born in the region of "Bajío", his predicted wage is $893.32 We are 95% confident that the actual salary falls in the interval of [824.88, 961.76].
 
 ```{r}
 x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico")
@@ -684,3 +684,23 @@ tidy(vif(reduced_int_new_2))
 summary(reduced_int_new_2)$adj.r.squared
 
 ```
+
+
+
+```{r}
+gender <- data.frame("Gender" = c("Male", "Female"), "pred_hhincome" = c(893.32, 590.11))
+gender
+ggplot(gender, mapping = aes(x= Gender, y =pred_hhincome ))+
+  geom_col()+
+  labs(y = "Predicted Household Income of Average Immigrant", title = "Gender Wage Gap")
+
+
+region <- data.frame("Region" = c( "Central Mexico", "Northern Mexico","Bajío", "Pacific Coast", "South East Mexico" ), "pred_hhincome" = c( 1611.19, 1056.73,893.32,814.86,788.32 ))
+region <- within(region, 
+                   pred_hhincome <- factor(pred_hhincome, 
+                                      levels=names(sort(table(pred_hhincome), increasing=TRUE))))
+ggplot(region, mapping = aes(x= Region, y =pred_hhincome ))+
+  geom_col()+
+  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Region Wage Gap")
+```
+
