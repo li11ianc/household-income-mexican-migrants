@@ -4,9 +4,7 @@ Influence Household Income
 Ben 10
 12/05/2019
 
-## Section 1: Introduction (includes introduction and exploratory data analysis)
-
-## 1\. Introduction
+## Section 1: Introduction
 
 ### 1.1 Objective
 
@@ -263,10 +261,9 @@ the model.
 ![](final-writeup_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 We first filter out migrants with occupations indicating lack of paid
-employment, because our anaylsis focuses only on those
-migrants
+employment, because our anaylsis focuses only on those migrants
 
-## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
+## Section 2: Regression Analysis
 
 ## 2\. Multiple Linear Regression Model
 
@@ -2654,11 +2651,13 @@ Veracruz is relatively better-off than the rest of the states.
 ## Section 4: Conclusion
 
 Through our exploration and analysis, we found sex, age, years of
-education, duration of last US immigration and region born to be
-significant predictors of household income of Mexican immigrant living
-in California. Among these, there are significant interactions between
-region born and years of education, as well as between region born and
-duration of last US stay.
+education, occupation type, duration of last US immigration and region
+born to be significant predictors of household income of Mexican
+immigrant living in California. Among these, there are significant
+interactions between: - age and years of education, - age and
+documentation type, - documentation type and duration of last US
+migration, - region born and years of education, - and region born and
+duration of last US migration.
 
 From our predictions, we observe a large gender wage gap: the average
 male has predicted wage of 893.32 USD, whereas the average female has

@@ -26,8 +26,7 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 ```
 
 
-## Section 1: Introduction (includes introduction and exploratory data analysis)
-## 1. Introduction
+## Section 1: Introduction 
 
 ### 1.1 Objective
 
@@ -295,7 +294,7 @@ We first filter out migrants with occupations indicating lack of paid employment
 
 
 
-## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
+## Section 2: Regression Analysis 
 
 ## 2. Multiple Linear Regression Model
 
@@ -371,22 +370,15 @@ No observations have a Cook’s Distance greater than 1, thus none of the high l
 
 #### 2.4.5 VIF
 
-There are 10 coefficients with high VIFs (>10):
+There are 3 coefficients with high VIFs (>10):
 
-usdoc1Legal resident:	10.424955
-usdurl:usdoc1Undocumented:	18.919794
-statebrnCentral Mexico:	19.324207
-statebrnCentral Mexico:edyrs:	19.878084
-usdoc1Undocumented:	20.608986
-statebrnSouth East Mexico:usdurl:	24.55331
-age:usdoc1Undocumented:	25.065321
-usdurl:	28.95936
-statebrnSouth East Mexico:	33.951032
-age:	34.366655
+statebrnCentral Mexico : 19.1
+statebrnSouth East Mexico : 33.6
+statebrnCentral Mexico:edyrs : 19.6
+statebrnSouth East Mexico:usdurl : 24.3
 
-It is likely the state born coefficients are collinear with education, as education is highly related to region in Mexico -- Central Mexico and Northern Mexico have the best schools, while the South East has the worst. Length of time in the US obviously will be correlated to age, as well. Additionally, the coefficients of the regions may have high collinearity because when we divided the birth state into regions, there are very few and very geographically sparse observations in the South East Mexico, and a lot more observations in Central Mexico. Hence, in order to make each region more representative, we included some of the ambiguous states that could possibly be included in both regions into South East Mexico. Since the geographical regional divide is subjective and continuous, we expect there to be collinearity.
+The latter 2 VIFs could be related to the first 2. The first 2 coefficients have high collinearity because when we divided the birth state into regions, there are very few and very geographically sparse observations in the South East Mexico, and a lot more observations in Central Mexico. Hence, in order to make each region more representative, we included some of the ambiguous states that could possibly be included in both regions into South East Mexico. Since the geographical regional divide is subjective and continuous, we expect there to be collinearity.
 
-The duration of time in the US is likely collinear with documentation status, as the longer a person lives in the US, the harder it is to be undocumented. 
 
 #### 2.4.6 Adjusted R-squre
 
@@ -487,7 +479,12 @@ It may also be because this region was artifiically created from 4 distinct cult
 
 ## Section 4: Conclusion
 
-Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay. 
+Through our exploration and analysis, we found sex, age, years of education, occupation type, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between:
+- age and years of education,
+- age and documentation type, 
+- documentation type and duration of last US migration, 
+- region born and years of education,
+- and region born and duration of last US migration.
 
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
 
