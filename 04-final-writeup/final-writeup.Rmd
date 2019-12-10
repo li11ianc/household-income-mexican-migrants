@@ -26,8 +26,7 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 ```
 
 
-## Section 1: Introduction (includes introduction and exploratory data analysis)
-## 1. Introduction
+## Section 1: Introduction 
 
 ### 1.1 Objective
 
@@ -295,7 +294,7 @@ We first filter out migrants with occupations indicating lack of paid employment
 
 
 
-## Section 2: Regression Analysis (includes the final model and discussion of assumptions)
+## Section 2: Regression Analysis 
 
 ## 2. Multiple Linear Regression Model
 
@@ -539,7 +538,12 @@ For a male who is 39 years old (average age), has 9.972 years of education (aver
 
 ## Section 4: Conclusion
 
-Through our exploration and analysis, we found sex, age, years of education, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between region born and years of education, as well as between region born and duration of last US stay. 
+Through our exploration and analysis, we found sex, age, years of education, occupation type, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between:
+- age and years of education,
+- age and documentation type, 
+- documentation type and duration of last US migration, 
+- region born and years of education,
+- and region born and duration of last US migration.
 
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample.
 
