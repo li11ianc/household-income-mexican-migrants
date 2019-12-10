@@ -662,22 +662,21 @@ anova(reduced, int_model_21, test = "Chisq") %>%
 ```
 Then, we tested the interaction between `usdoc1` and `usdurl`. The p-value for this test was 0.012 < 0.05, therefore we will include it in the model.
 
-Through nested F-test, we observed significant interactions between age & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl, with respective p-values of 0, 0.0002466, 0.0012 and 0.034 and will be including them in our model.
-
+Through nested F-test, we observed significant interactions between sex & usdurl, age & usdurl, age * edyrs, statebrn & edyrs, statebrn & usdurl, occtype & statebrn, usdoc1 & age, usdoc1 & statebrn, and usdoc1 & usdurl, and we will be including them in our model selection.
 
 ### 2.4 Model with Interaction
 
 ```{r final-model}
-reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + age*edyrs + sex*usdurl + statebrn*edyrs+statebrn*usdurl, data=caldata)
+reduced_int <- lm(hhincome ~ sex + age + edyrs + usdurl + usdoc1 + occtype + sex*usdurl + age*usdurl + age*edyrs + statebrn*edyrs+statebrn*usdurl +occtype*statebrn + usdoc1*age + usdoc1*statebrn + usdoc1*usdurl, data=caldata)
 kable(tidy(reduced_int),format="html" ,digits=3)
 ```
 
 ### 2.5 Backward Selection with Interaction
 
-Since we observed 4 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
+Since we observed 9 pairs of significant interactions, we will do the backward selection again with the new interaction terms.
 
 ```{r}
-full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*edyrs +statebrn*edyrs+statebrn*usdurl , data=caldata)
+full_int <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*usdurl + age*edyrs + statebrn*edyrs+statebrn*usdurl +occtype*statebrn + usdoc1*age + usdoc1*statebrn + usdoc1*usdurl, data=caldata)
 kable(tidy(full_int),format="html" ,digits=3)
 ```
 
