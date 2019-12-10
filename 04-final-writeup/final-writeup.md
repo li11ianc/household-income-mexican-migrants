@@ -2648,6 +2648,88 @@ Veracruz is relatively better-off than the rest of the states.
 
 ### 3.2.3 Effect of “Occupation Type” on Wage
 
+We used male as a model input because the majority of the immigrants in
+our data set are male. Undocumented is the most common immigration
+status and many of the immigrants in the data set were born in the
+region of Bajío. The rest of the inputs are 0 since those predictors are
+mean-centered.
+
+    ##      edyrs       
+    ##  Min.   : 0.000  
+    ##  1st Qu.: 4.000  
+    ##  Median : 6.000  
+    ##  Mean   : 6.281  
+    ##  3rd Qu.: 9.000  
+    ##  Max.   :17.000
+
+    ##        fit      lwr      upr
+    ## 1 917.4427 826.3196 1008.566
+
+For a male who is 39 years old (average age), has 6.281 years of
+education (average edyrs for Manufacturing workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío”, his predicted wage is $917.44 We are 95% confident that the
+actual salary falls in the interval of \[826.3196, 1008.566\].
+
+    ##      edyrs     
+    ##  Min.   : 0.0  
+    ##  1st Qu.: 2.0  
+    ##  Median : 4.0  
+    ##  Mean   : 4.6  
+    ##  3rd Qu.: 6.0  
+    ##  Max.   :13.0
+
+    ##       fit     lwr     upr
+    ## 1 745.832 633.247 858.417
+
+For a male who is 39 years old (average age), has 4.6 years of education
+(average edyrs for Agriculture workers), first immigrated to the US for
+5 years (average duration), last immigrated to the US for 3 years and 7
+months (average duration), has undocumented status (most common
+documentation in the dataset), and was born in the region of “Bajío”,
+his predicted wage is $745.83. We are 95% confident that the actual
+salary falls in the interval of \[633.247, 858.417\].
+
+    ##      edyrs      
+    ##  Min.   : 0.00  
+    ##  1st Qu.: 4.00  
+    ##  Median : 6.00  
+    ##  Mean   : 7.25  
+    ##  3rd Qu.: 9.00  
+    ##  Max.   :17.00
+
+    ##        fit      lwr      upr
+    ## 1 958.6091 862.9652 1054.253
+
+For a male who is 39 years old (average age), has 7.25 years of
+education (average edyrs for Service industry workers), first immigrated
+to the US for 5 years (average duration), last immigrated to the US for
+3 years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío”, his predicted wage is $958.61 We are 95% confident that the
+actual salary falls in the interval of \[862.9652, 1054.253\].
+
+    ##      edyrs       
+    ##  Min.   : 1.000  
+    ##  1st Qu.: 7.000  
+    ##  Median : 9.000  
+    ##  Mean   : 9.972  
+    ##  3rd Qu.:13.000  
+    ##  Max.   :16.000
+
+    ##        fit      lwr     upr
+    ## 1 1182.058 991.1752 1372.94
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
+the US for 5 years (average duration), last immigrated to the US for 3
+years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío”, his predicted wage is $1182.06 We are 95% confident that the
+actual salary falls in the interval of \[991.1752, 1372.94\].
+
 ## Section 4: Conclusion
 
 Through our exploration and analysis, we found sex, age, years of
@@ -7576,4 +7658,4 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
