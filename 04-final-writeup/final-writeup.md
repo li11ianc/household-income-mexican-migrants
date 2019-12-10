@@ -2764,151 +2764,206 @@ uscitysocal
 | usdoc1Temporary: Tourist/visitor |  \-90.471 |   150.968 |   \-0.599 |   0.549 | \-387.106 |   206.163 |
 | usdoc1Undocumented               |  \-38.190 |   120.305 |   \-0.317 |   0.751 | \-274.576 |   198.197 |
 
-Using backward selection based on AIC, we narrowed down to 6 variables:
-sex, edyrs, usdurl, statebrn, occtype and age.
+Using backward selection based on AIC, we narrowed down to 7 variables:
+sex, edyrs, usdurl, statebrn, occtype, usdoc1 and age.
 
 ### 2.3 Interactions
 
-To find potential interactions between the 6 variables, we used nested-F
+To find potential interactions between the 7 variables, we used nested-F
 test for each of the possible interactions:
 
 After inital backwards selection, we will explore the possible
 interactions between remaining variables: `edyrs`, `usdurl`, `sex`,
-`statebrn`, `occtype`, and `age`, to determine if any are significant.
-
-| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | --------: | --------: |
-|    483 | 125435544 |  NA |        NA |        NA |
-|    485 | 127065556 | \-2 | \-1630012 |     0.043 |
-
-First, we tested the interaction between `edyrs` and `usdurl`. The
-p-value for this test was 0.7366925 \> 0.05, therefore we will not
-include it in the model.
-
-| Res.Df |       RSS |  Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | ---------: | --------: |
-|    483 | 125435544 |  NA |         NA |        NA |
-|    485 | 125828875 | \-2 | \-393330.9 |     0.469 |
-
-Then, we tested the interaction between `sex` and `usdurl`. The p-value
-for this test was 0.0303039 \< 0.05, therefore we will include it in the
-model.
-
-| Res.Df |       RSS |  Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | ---------: | --------: |
-|    483 | 125435544 |  NA |         NA |        NA |
-|    485 | 125805345 | \-2 | \-369801.2 |     0.491 |
-
-Then, we tested the interaction between `age` and `usdurl`. The p-value
-for this test was 0.1936359 \> 0.05, therefore we will not include it in
-the model.
-
-| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | --------: | --------: |
-|    483 | 125435544 |  NA |        NA |        NA |
-|    485 | 126972268 | \-2 | \-1536724 |     0.052 |
-
-Then, we tested the interaction between `sex` and `edyrs`. The p-value
-for this test was 0.5024992 \> 0.05, therefore we will not include it in
-the model.
-
-| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | --------: | --------: |
-|    483 | 125435544 |  NA |        NA |        NA |
-|    485 | 121885202 | \-2 |   3550342 |        NA |
-
-Then, we tested the interaction between `age` and `edyrs`. The p-value
-for this test was 0 \< 0.05, therefore we will include it in the model.
-
-| Res.Df |       RSS |  Df | Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | --: | --------: | --------: |
-|    483 | 125435544 |  NA |        NA |        NA |
-|    485 | 126693476 | \-2 | \-1257932 |     0.089 |
-
-Then, we tested the interaction between `age` and `sex`. The p-value for
-this test was 0.2073624 \> 0.05, therefore we will not include it in the
-model.
-
-| Res.Df |       RSS | Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | ---------: | --------: |
-|    483 | 125435544 | NA |         NA |        NA |
-|    483 | 126294203 |  0 | \-858659.4 |        NA |
-
-Then, we tested the interaction between `statebrn` and `sex`. The
-p-value for this test was 0.3796077\> 0.05, therefore we will not
-include it in the model.
+`statebrn`, `occtype`, `usdoc1` and `age`, to determine if any are
+significant.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    483 | 125435544 | NA |        NA |        NA |
-|    482 | 125276638 |  1 |    158906 |     0.434 |
+|    482 | 125424763 |  1 |   10780.7 |     0.839 |
 
-Then, we tested the interaction between `statebrn` and `age`. The
-p-value for this test was 0.213341\> 0.05, therefore we will not include
+First, we tested the interaction between `edyrs` and `usdurl`. The
+p-value for this test was 0.839 \> 0.05, therefore we will not include
 it in the model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    483 | 125435544 | NA |        NA |        NA |
-|    482 | 121749659 |  1 |   3685885 |         0 |
+|    482 | 124081486 |  1 |   1354058 |     0.022 |
+
+Then, we tested the interaction between `sex` and `usdurl`. The p-value
+for this test was 0.022 \< 0.05, therefore we will include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    482 | 124099986 |  1 |   1335557 |     0.023 |
+
+Then, we tested the interaction between `age` and `usdurl`. The p-value
+for this test was 0.023 \< 0.05, therefore we will include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    482 | 125320504 |  1 |  115039.9 |     0.506 |
+
+Then, we tested the interaction between `sex` and `edyrs`. The p-value
+for this test was 0.506 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    482 | 119981867 |  1 |   5453677 |         0 |
+
+Then, we tested the interaction between `age` and `edyrs`. The p-value
+for this test was 0 \< 0.05, therefore we will include it in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    482 | 125120075 |  1 |  315468.6 |      0.27 |
+
+Then, we tested the interaction between `age` and `sex`. The p-value for
+this test was 0.27 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 124722391 |  3 |    713153 |     0.433 |
+
+Then, we tested the interaction between `statebrn` and `sex`. The
+p-value for this test was 0.433\> 0.05, therefore we will not include it
+in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    479 | 123417127 |  4 |   2018417 |     0.098 |
+
+Then, we tested the interaction between `statebrn` and `age`. The
+p-value for this test was 0.098\> 0.05, therefore we will not include it
+in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    479 | 120606332 |  4 |   4829212 |     0.001 |
 
 Then, we tested the interaction between `statebrn` and `edyrs`. The
-p-value for this test was 0.0002466\< 0.05, therefore we will include it
-in the model.
+p-value for this test was 0.001\< 0.05, therefore we will include it in
+the model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    483 | 125435544 | NA |        NA |        NA |
-|    482 | 122754658 |  1 |   2680886 |     0.001 |
+|    479 | 121672866 |  4 |   3762678 |     0.005 |
 
 Then, we tested the interaction between `statebrn` and `usdurl`. The
-p-value for this test was 0.0012 \< 0.05, therefore we will include it
-in the model.
+p-value for this test was 0.005 \< 0.05, therefore we will include it in
+the model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    483 | 125435544 | NA |        NA |        NA |
-|    483 | 126664001 |  0 | \-1228457 |        NA |
+|    480 | 125072371 |  3 |  363172.5 |     0.707 |
 
 Then, we tested the interaction between `occtype` and `sex`. The p-value
-for this test was 0.0012 \< 0.05, therefore we will include it in the
-model.
-
-| Res.Df |       RSS | Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | ---------: | --------: |
-|    483 | 125435544 | NA |         NA |        NA |
-|    483 | 125659815 |  0 | \-224271.7 |        NA |
-
-Then, we tested the interaction between `occtype` and `age`. The p-value
-for this test was 0.0012 \< 0.05, therefore we will include it in the
+for this test was 0.707 \> 0.05, therefore we will not include it in the
 model.
 
 | Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
 | -----: | --------: | -: | --------: | --------: |
 |    483 | 125435544 | NA |        NA |        NA |
-|    477 | 121508441 |  6 |   3927102 |     0.017 |
+|    480 | 124082703 |  3 |   1352841 |     0.155 |
+
+Then, we tested the interaction between `occtype` and `age`. The p-value
+for this test was 0.155 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    474 | 120267831 |  9 |   5167712 |     0.016 |
 
 Then, we tested the interaction between `occtype` and `statebrn`. The
-p-value for this test was 0.0012 \< 0.05, therefore we will include it
-in the model.
+p-value for this test was 0.016 \< 0.05, therefore we will include it in
+the model.
 
-| Res.Df |       RSS | Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | ---------: | --------: |
-|    483 | 125435544 | NA |         NA |        NA |
-|    483 | 126386369 |  0 | \-950825.3 |        NA |
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 124859480 |  3 |  576063.6 |     0.529 |
 
 Then, we tested the interaction between `occtype` and `edyrs`. The
-p-value for this test was 0.0012 \< 0.05, therefore we will include it
-in the model.
+p-value for this test was 0.529 \> 0.05, therefore we will not include
+it in the model.
 
-| Res.Df |       RSS | Df |  Sum of Sq | Pr(\>Chi) |
-| -----: | --------: | -: | ---------: | --------: |
-|    483 | 125435544 | NA |         NA |        NA |
-|    483 | 125770836 |  0 | \-335292.2 |        NA |
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 123994932 |  3 |   1440612 |     0.134 |
 
 Then, we tested the interaction between `occtype` and `usdurl`. The
-p-value for this test was 0.0012 \< 0.05, therefore we will include it
+p-value for this test was 0.134 \> 0.05, therefore we will not include
+it in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    481 | 125108642 |  2 |  326901.9 |     0.533 |
+
+Then, we tested the interaction between `usdoc1` and `sex`. The p-value
+for this test was 0.533 \> 0.05, therefore we will not include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 122360867 |  3 |   3074676 |     0.007 |
+
+Then, we tested the interaction between `usdoc1` and `age`. The p-value
+for this test was 0.007 \< 0.05, therefore we will include it in the
+model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    476 | 121325821 |  7 |   4109723 |     0.024 |
+
+Then, we tested the interaction between `usdoc1` and `statebrn`. The
+p-value for this test was 0.024 \< 0.05, therefore we will include it in
+the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 123759147 |  3 |   1676397 |      0.09 |
+
+Then, we tested the interaction between `usdoc1` and `edyrs`. The
+p-value for this test was 0.09 \> 0.05, therefore we will not include it
 in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    481 | 125108642 |  2 |  326901.9 |     0.533 |
+
+Then, we tested the interaction between `usdoc1` and `occtype`. The
+p-value for this test was 0.53 \> 0.05, therefore we will not include it
+in the model.
+
+| Res.Df |       RSS | Df | Sum of Sq | Pr(\>Chi) |
+| -----: | --------: | -: | --------: | --------: |
+|    483 | 125435544 | NA |        NA |        NA |
+|    480 | 122649587 |  3 |   2785957 |     0.012 |
+
+Then, we tested the interaction between `usdoc1` and `usdurl`. The
+p-value for this test was 0.012 \< 0.05, therefore we will include it in
+the model.
 
 Through nested F-test, we observed significant interactions between age
 & edyrs, statebrn & edyrs, statebrn & usdurl, and between sex & usdurl,
