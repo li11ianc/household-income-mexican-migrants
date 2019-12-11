@@ -1,11 +1,8 @@
 ---
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
-
 date: "12/05/2019"
 output: pdf_document
-
-
 ---
 
 ```{r setup, include=FALSE}
@@ -84,7 +81,7 @@ caldata <- caldata%>%
 
 Originally, the distribution of household income was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions.
 
-```{r nonfilt-income-plot, fig.width = 10}
+```{r nonfilt-income-plot, fig.width = 10, results="hide"}
 incomeplot <- ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram()+
   labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
@@ -98,7 +95,7 @@ We determined that 412,647 dollars is an absurdly high median income for a surve
 
 Therefore, we decided to filter out the incomes above 60,000 to remove income that might be in pesos. We will also remove incomes of zero from consideration, because it will interfere with our model's explanatory scope, in that it can only explain income of employed persons.
 
-```{r filter-hhincome}
+```{r filter-hhincome,results="hide"}
 caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome == .1 ~ 0,
@@ -109,7 +106,7 @@ caldata <- caldata %>%
 ```
 
 
-```{r hhincome-distribution}
+```{r hhincome-distribution, results="hide"}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram(binwidth = 100) +
   labs(title = "Distribution of Household Income", x= "Household Income (USD)", y = "Count")
@@ -119,7 +116,7 @@ Now the distribution of response variable (hhincome) looks like a right skewed n
 
 #### 1.5.3 Group Cities by Region
 
-```{r cities, fig.align="center"}
+```{r cities, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 
@@ -147,7 +144,7 @@ Given the comparatively small number of cases in which no city was reported, we 
 
 It turned out that all values from `relhead` (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables, since we are only using California data. We will also remove place data since we are using `uscity`, and `occ` since we are using `occtype`.
 
-```{r remove-relhead}
+```{r remove-relhead, results="hide"}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
@@ -155,7 +152,7 @@ caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usp
 
 We must mean-center `age` and `usdurl` in order to have a meaningful intercept interpretation.
 
-```{r mean-age-usdurl, echo=FALSE}
+```{r mean-age-usdurl, echo=FALSE, results="hide"}
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
 mean(caldata$usdur1) #mean usdur1
@@ -164,7 +161,7 @@ mean(caldata$edyrs) #mean edyrs
 
 The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
 
-```{r age-usdurl-cent}
+```{r age-usdurl-cent, results="hide"}
 caldata <- caldata %>%
   mutate(age=age-mean(age))
 caldata <- caldata %>%
@@ -175,7 +172,7 @@ caldata <- caldata %>%
 
 ### 1.5.6 Remove El Salvador Data and Regionalize State Born Variable
 
-```{r states, fig.align="center"}
+```{r states, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(statebrn %in% c("Guanajuato","Jalisco","Mexico City","San Luis Potosí","Zacatecas","Coahuila","Morelos","Baja California del Norte","Querétaro","Michoacán","Guerrero","Durango","Chihuahua","Nayarit","Sonora","Aguascalientes","Veracruz","Campeche","Colima","Tabasco","México","Puebla","Nuevo Leon","Oaxaca","Tamaulipas"))
 
@@ -208,7 +205,7 @@ Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit
 
 #### 1.5.7 Remove Obvious Collinear Variable
 
-```{r yrborn-age, fig.align = "center"}
+```{r yrborn-age, fig.align = "center", results="hide"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
   geom_point()+
   labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
@@ -220,7 +217,7 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 
 Our model only considers immigrants with paid jobs, so we filtered for paying occupations only.
 
-```{r}
+```{r, results="hide"}
 caldata <- caldata %>%
   filter(!(occtype %in% c("Retired", "Unemployed (seeking work)", "Other, unspecified (disabled, incarcerated, tourist and other)", "Homemaker", "Student"))) 
 caldata %>%
@@ -246,6 +243,10 @@ ggplot(occtypedist, aes(x = occtype))+
   labs(title = "Distribution of Type of Occupation", x = "Occupation Type", y = "Count")
 ```
 
+<<<<<<< HEAD
+=======
+We first filter out migrants with occupations indicating lack of paid employment, because our anaylsis focuses only on those migrants 
+>>>>>>> a81d1dd5c91b86aa2cea77c87f370fa7930650b9
 
 ## Section 2: Regression Analysis 
 
@@ -285,15 +286,25 @@ full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype
 kable(tidy(full_int_new_2),format="html" ,digits=3)
 ```
 
+Model hidden due to length.
 
+<<<<<<< HEAD
 ### 2.3 Final Model
 
 ```{r final}
+=======
+### 2.3 Final model
+```{r final, results="hide"}
+>>>>>>> a81d1dd5c91b86aa2cea77c87f370fa7930650b9
 reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+
+```
+```{r}
 sel_summary <- summary(reduced_int_new_2)
 tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
+
 
 
 ### 2.4 Description of Method in Model Diagnostics
@@ -365,7 +376,7 @@ If we could continue to work on the project, we would operate under the assumpti
 
 ### 3.2.1 Effect of "Gender" on Wage 
 
-```{r}
+```{r, results="hide"}
 x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
@@ -384,20 +395,20 @@ We can see from the prediction that there is a large gender wage gap, since a ma
 
 We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. Manufacturing is the most common occupation type in the data, undocumented the most common immigration status. The rest of the inputs are 0 since those predictors are mean-centered.
 
-```{r}
+```{r, results="hide"}
 x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $905.50 We are 95% confident that the actual salary falls in the interval of [814.77, 996.24].
 
-```{r}
+```{r, results="hide"}
 x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Central Mexico", his predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.50].
 
 
-```{r}
+```{r, results="hide"}
 x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
@@ -410,7 +421,7 @@ predict.lm(reduced_int_new_2, x5, interval = "confidence")
 
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "South East Mexico", his predicted salary is $786.43 We are 95% confident that the actual salary falls in the interval of [-317.25, 1890.11].
 
-```{r}
+```{r, results="hide"}
 x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x5, interval = "confidence")
 ```
@@ -422,7 +433,7 @@ The prediction suggest a hierarchy in wage discrimination based on the regions i
 
 However, it is worth noting that the confidence interval of South East Mexico is very large, including as low as 0 and as high as $1901.58. This could be due to the small sample size, as shown in the histogram below:
 
-```{r}
+```{r, results="hide"}
 SouthEast <- caldata %>%
   filter(statebrn == "South East Mexico")
 ggplot(SouthEast, mapping = aes(x=hhincome)) +
@@ -437,59 +448,96 @@ It may also be because this region was artifiically created from 4 distinct cult
 
 ### 3.2.3 Effect of "Occupation Type" on Wage
 
-We used male as a model input because the majority of the immigrants in our data set are male. Undocumented is the most common immigration status and many of the immigrants in the data set were born in the region of Bajío. The rest of the inputs are 0 since those predictors are mean-centered.
+We used male as a model input because the majority of the immigrants in our data set are male.  We used edyrs = 6 as the input because it is the average number of years of education for the data set. Undocumented is the most common immigration status and many of the immigrants in the data set were born in the region of Bajío. The rest of the inputs are 0 since those predictors are mean-centered.
 
-```{r}
+<<<<<<< HEAD
+```{r, results="hide"}
 caldata %>%
   filter(occtype == "Manufacturing") %>%
   select(edyrs) %>%
   summary()
 ```
 
-```{r}
+```{r, results="hide"}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x6, interval = "confidence")
+=======
+```{r}
+x6 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $917.44 We are 95% confident that the actual salary falls in the interval of [826.32, 1008.57].
+For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $905.50 We are 95% confident that the actual salary falls in the interval of [814.7695, 996.2402].
 
 ```{r}
+x7 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x7, interval = "confidence")
+>>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
+```
+
+For a male who is 39 years old (average age), has 4.6 years of education (average edyrs for Agriculture workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $805.31. We are 95% confident that the actual salary falls in the interval of [695.6034, 915.0141].
+
+<<<<<<< HEAD
+```{r,results="hide"}
 caldata %>%
   filter(occtype == "Agriculture") %>%
   select(edyrs) %>%
   summary()
 ```
 
-```{r}
+```{r,results="hide"}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 4.6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
+=======
+```{r}
+x8 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x8, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 4.6 years of education (average edyrs for Agriculture workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $745.83. We are 95% confident that the actual salary falls in the interval of [633.25, 858.42].
-
+For a male who is 39 years old (average age), has 7.25 years of education (average edyrs for Service industry workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $905.50. We are 95% confident that the actual salary falls in the interval of [814.7695, 996.2402].
 
 ```{r}
+x9 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
+predict.lm(reduced_int_new_2, x9, interval = "confidence")
+>>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
+```
+
+For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1013.31 We are 95% confident that the actual salary falls in the interval of [826.5249, 1200.102].
+
+```{r, results="hide"}
+caldata %>%
+  filter(occtype == "Agriculture") %>%
+  select(edyrs) %>%
+  summary()
+caldata %>%
+  filter(occtype == "Manufacturing") %>%
+  select(edyrs) %>%
+  summary()
 caldata %>%
   filter(occtype == "Service") %>%
   select(edyrs) %>%
   summary()
+<<<<<<< HEAD
 ```
 
-```{r}
+```{r, results="hide"}
 x8 <- data.frame(sex = "M" , age = 0, edyrs = 7.25, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x8, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 7.25 years of education (average edyrs for Service industry workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $958.61 We are 95% confident that the actual salary falls in the interval of [862.97, 1054.25].
 
-```{r}
+```{r, results="hide"}
+=======
+>>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
 caldata %>%
   filter(occtype == "Professional") %>%
   select(edyrs) %>%
   summary()
 ```
 
-```{r}
+<<<<<<< HEAD
+```{r, results="hide"}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
 ```
@@ -497,31 +545,34 @@ predict.lm(reduced_int_new_2, x9, interval = "confidence")
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1182.06 We are 95% confident that the actual salary falls in the interval of [991.18, 1372.94].
 
 
+=======
+We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
+>>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
 
 ### 3.2.4 Effect of "Documentation Type" on Wage
 
-```{r}
+```{r, results="hide"}
 x10 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x10, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío" (Baseline region), his predicted wage is $917.44 We are 95% confident that the actual salary falls in the interval of [826.32, 1008.57].
 
-```{r}
+```{r, results="hide"}
 x11 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Temporary: Tourist/visitor")
 predict.lm(reduced_int_new_2, x11, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Temporary: Tourist/visitor" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $892.81 We are 95% confident that the actual salary falls in the interval of [661.57, 1124.06].
 
-```{r}
+```{r, results="hide"}
 x12 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Contract - Bracero")
 predict.lm(reduced_int_new_2, x12, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Contract - Bracero" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1323.98 We are 95% confident that the actual salary falls in the interval of [818.78, 1829.18].
 
-```{r}
+```{r, results="hide"}
 x13 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Legal resident")
 predict.lm(reduced_int_new_2, x13, interval = "confidence")
 ```
@@ -897,9 +948,9 @@ ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
 
 
-documentation <- data.frame("Documentation" = c( "Manufacturing", "Agriculture","Service", "Professional" ), "pred_hhincome" = c( 917.4427, 958.6091,1182.058 ,1182.06 ))
-ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
+documentation <- data.frame("Documentation" = c( "Undocumented", "“Temporary: Tourist/visitor”","Contract - Bracero", "Legal resident" ), "pred_hhincome" = c( 917.4427, 892.8114,1323.98 ,897.65 ))
+ggplot(documentation, mapping = aes(x= Documentation, y =pred_hhincome ))+
   geom_col()+
-  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
+  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Documentation Wage Gap")
 ```
 
