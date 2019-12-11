@@ -2,7 +2,7 @@
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
 date: "12/05/2019"
-output: github_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 ```
 
-```{r load-packages}
+```{r load-packages, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(broom)
 library(leaps)
@@ -34,63 +34,25 @@ We are aiming to build a model to determine which characteristics of Mexican imm
 
 ### 1.2 Description of Dataset
 
-The dataset is from The Mexican Migration Project (MMP, *see References below for confidentiality terms). It was created in 1982 by an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (US).
+The dataset is from The Mexican Migration Project (MMP, *see References below for confidentiality terms), which was created in 1982 an interdisciplinary team of researchers to further our understanding of the complex process of Mexican migration to the United States. The project is a binational research effort co-directed by Jorge Durand, professor of Social Anthropology at the University of Guadalajara (Mexico), and Douglas S. Massey, professor of Sociology and Public Affairs, with a joint appointment in the Woodrow Wilson School, at Princeton University (U.S.).
 
-Since its inception, the MMP's main focus has been to gather social as well as economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its web-site. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their first and last trip to the US, as well as economic and demographic information. They then conduct the same survey in destination areas in the US, sampling migrants from the same communities they surveyed in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the US.
+Since its inception, the MMP's main focus has been to gather social and economic information on Mexican-US migration. The data collected has been compiled in a comprehensive database that is available to the public free of charge for research and educational purposes through its website. The MMP uses the ethnosurvey approach to gather data: in winter months, they randomly sample households in communities throughout Mexico, surveying household heads and members about their trips to the U.S., as well as economic and demographic information. They then conducted the same survey in areas in the U.S., sampling migrants from the same communities they surveyed in Mexico but who have not returned to Mexico. Thus, the sample of migrants includes residents in both Mexico and the U.S.
 
-The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 has 132 variables and 176701 observations,and hence it is very large. Therefore, we selected 17 meaningful variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
+The MMP170 Database contains an initial file with general demographic, economic, and migratory information for each member of a surveyed household (PERS). Pers170 is a large data which has 132 variables and 176,701 observations. Therefore, we selected 17 relatively meaningful variables and filtered out rows that contain N/A's to create a new dataset labeled `data`.
 
 ### 1.3 Method
 
-We will build a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`. 
+We will build a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`. The data dictionary for these variables can be found in project->data->Data Dictionary.
 
-"X1": Number of observation
-
-"sex": Sex of immigrant
-  
-"relhead": Relationship to household head
-
-"yrborn": Year of birth
-
-"age": Age
-
-"statebrn": State of birth
-
-"marstat": Marital status
-
-"edyrs": School years completed
-
-"occ": Principal occupation
-
-"hhincome" : Household income
-
-"usstate1": First US migration: State of residence
-
-"usstatel": Latest US migration: State of residence
-
-"usplace1": First US migration: City of residence (in place codes)
-
-"usplacel": Latest US migration: City of residence (in place codes)
-
-"usdur1": First US migration: Duration (in months)
-
-"usdurl": Latest US migration: Duration (in months)
-
-"usdoc1": Type of documentation during first US migration
-
-"occtype": Category of occupation
-
-"uscity": City of residence during first US migration
-
-Our response variable is household income: the total income for a single household. We chose to use the multiple linear regression because our response variable is numeric, and there are multiple predictor variables.
+Our response variable is household income. We chose to use the multiple linear regression because our response variable is numerical, and there are multiple predictor variables.
 
 ## 2. Exploratory Data Analysis
 
 ### 2.1 Data Cleaning
 
-Due to the complexity of our original data, we did not include data cleaning in the analysis. For more information, please see our proposal, where all the data cleaning happens.
+Our original data was extremely complex and necessitated us to clean our data extensively. All of our data cleaning can be found in the proposal. 
 
-However, we did make some adjustment according to the feedback that there is large imbalance of the amount of data between regions, and that the distribution of the response variable is not normal. Below is the update on our data cleaning:
+However, we did make some adjustments according to the feedback Dr. Tackett, which can be found below.
 
 ### 1.4 Updated Data Exploration
 
@@ -98,7 +60,7 @@ However, we did make some adjustment according to the feedback that there is lar
 
 According to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
-```{r state-distribution-plot}
+```{r state-distribution-plot, results="hide"}
 statedist <- within(data, 
                    usstatel <- factor(usstatel, 
                                       levels=names(sort(table(usstatel), 
@@ -111,7 +73,7 @@ ggplot(statedist, aes(x = usstatel)) +
 
 Hence, we decided to concentrate on California alone. Since the originial dataset is large, we have enough data left in California alone to produce meaningful analysis.
 
-```{r caldata}
+```{r caldata, results="hide"}
 caldata <- data %>%
   filter(usstatel == "California")
 
@@ -123,7 +85,7 @@ caldata <- caldata%>%
 
 Originally, the distribution of Household Income- our response variable- was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions:
 
-```{r nonfilt-income-plot, fig.width = 10}
+```{r nonfilt-income-plot, fig.width = 10, results="hide"}
 incomeplot <- ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram()+
   labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
@@ -137,7 +99,7 @@ We determined that 412,647 dollars is an absurdly high median income for a surve
 
 Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predictive and explanatory range: our model will only be able to predict or explain the household income of those who already have jobs with income.
 
-```{r filter-hhincome}
+```{r filter-hhincome,results="hide"}
 caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome == .1 ~ 0,
@@ -148,7 +110,7 @@ caldata <- caldata %>%
 ```
 
 
-```{r hhincome-distribution}
+```{r hhincome-distribution, results="hide"}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram(binwidth = 100) +
   labs(title = "Distribution of Household Income", x= "Household Income (USD)", y = "Count")
@@ -158,7 +120,7 @@ Now the distribution of response variable (hhincome) looks like a right skewed n
 
 #### 1.4.3 Group cities by region
 
-```{r cities, fig.align="center"}
+```{r cities, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 
@@ -188,7 +150,7 @@ Given the comparatively small number of cases in which no city was reported, we 
 
 It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
-```{r remove-relhead}
+```{r remove-relhead, results="hide"}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
@@ -196,7 +158,7 @@ caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usp
 
 We must center age and usdurl in order to have a useful model intercept interpretation.
 
-```{r mean-age-usdurl}
+```{r mean-age-usdurl, echo=FALSE, results="hide"}
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
 mean(caldata$usdur1) #mean usdur1
@@ -205,7 +167,7 @@ mean(caldata$edyrs) #mean edyrs
 
 The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
 
-```{r age-usdurl-cent}
+```{r age-usdurl-cent, results="hide"}
 caldata <- caldata %>%
   mutate(age=age-mean(age))
 caldata <- caldata %>%
@@ -216,7 +178,7 @@ caldata <- caldata %>%
 
 ### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
-```{r states, fig.align="center"}
+```{r states, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(statebrn %in% c("Guanajuato","Jalisco","Mexico City","San Luis Potosí","Zacatecas","Coahuila","Morelos","Baja California del Norte","Querétaro","Michoacán","Guerrero","Durango","Chihuahua","Nayarit","Sonora","Aguascalientes","Veracruz","Campeche","Colima","Tabasco","México","Puebla","Nuevo Leon","Oaxaca","Tamaulipas"))
 
@@ -249,7 +211,7 @@ Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit
 
 #### 1.4.7 Remove Obvious Collinear Variable
 
-```{r yrborn-age, fig.align = "center"}
+```{r yrborn-age, fig.align = "center", results="hide"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
   geom_point()+
   labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
@@ -259,7 +221,7 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 
 #### 1.4.8 Simplify Occupation Type
 
-```{r}
+```{r, results="hide"}
 caldata <- caldata %>%
   filter(!(occtype %in% c("Retired", "Unemployed (seeking work)", "Other, unspecified (disabled, incarcerated, tourist and other)", "Homemaker", "Student"))) 
 caldata %>%
@@ -330,11 +292,12 @@ We included these interactions in our original full model, and did backward sele
 
 ### 2.2 Full Model after Evaluating Interactions
 
-```{r full}
+```{r full, results="hide"}
 full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype + usdur1 + usdurl + usdoc1 + uscity + sex*usdurl + age*usdurl + age*edyrs + statebrn*edyrs+statebrn*usdurl +occtype*statebrn + usdoc1*age + usdoc1*statebrn + usdoc1*usdurl, data=caldata)
 kable(tidy(full_int_new_2),format="html" ,digits=3)
 ```
 
+Model hidden due to length.
 
 ### 2.3 Final model
 ```{r final}
@@ -540,32 +503,32 @@ We used the same level of education for each prediction in order to focus on the
 ### 3.2.4 Effect of "Documentation Type" on Wage
 
 ```{r}
-x10 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
+x10 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x10, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío" (Baseline region), his predicted wage is $1074.25 We are 95% confident that the actual salary falls in the interval of [945.77, 1202.73].
+For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío" (Baseline region), his predicted wage is $917.44 We are 95% confident that the actual salary falls in the interval of [826.32, 1008.57].
 
 ```{r}
-x11 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Temporary: Tourist/visitor")
+x11 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Temporary: Tourist/visitor")
 predict.lm(reduced_int_new_2, x11, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Temporary: Tourist/visitor" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1049.62 We are 95% confident that the actual salary falls in the interval of [808.68, 1290.55].
+For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Temporary: Tourist/visitor" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $892.81 We are 95% confident that the actual salary falls in the interval of [661.57, 1124.06].
 
 ```{r}
-x12 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Contract - Bracero")
+x12 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Contract - Bracero")
 predict.lm(reduced_int_new_2, x12, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Contract - Bracero" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1480.79 We are 95% confident that the actual salary falls in the interval of [970.01, 1991.56].
+For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Contract - Bracero" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1323.98 We are 95% confident that the actual salary falls in the interval of [818.78, 1829.18].
 
 ```{r}
-x13 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Legal resident")
+x13 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Legal resident")
 predict.lm(reduced_int_new_2, x13, interval = "confidence")
 ```
 
-For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Legal resident" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1236.30 We are 95% confident that the actual salary falls in the interval of [1047.36, 1425.23].
+For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Legal resident" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1079.49 We are 95% confident that the actual salary falls in the interval of [897.65, 1261.33].
 
 The prediction suggest a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers. This is counter intuitive because one would imagine legal residents to earn more. However, this could be due to the relative imbalance in the observations in the two groups: the number of observations in "Legal resident" is significantly fewer than that in "Contract - Barcero".
 
@@ -583,9 +546,8 @@ Through our exploration and analysis, we found sex, age, years of education, occ
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample. However, we also had significantly more male data points in this dataset, with 21 female datapoints and 477 male datapoints.
 
 We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico, and over 50% of our data points are from the Pacific Coast.
-```{r}
-summary(factor(caldata$occtype))
-```
+
+
 In terms of occupation type, as expected the highest incomes are found among professionals, with service and manufacturing workers close behind. As anticipated, agricultural workers had the lowest income. In this case, our data is robust, as each category has over 30 datapoints. 
 
 In terms of documentation type, we observed a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers.
@@ -922,12 +884,24 @@ ggplot(gender, mapping = aes(x= Gender, y =pred_hhincome ))+
   labs(y = "Predicted Household Income of Average Immigrant", title = "Gender Wage Gap")
 
 
-region <- data.frame("Region" = c( "Central Mexico", "Northern Mexico","Bajío", "Pacific Coast", "South East Mexico" ), "pred_hhincome" = c( 1611.19, 1056.73,893.32,814.86,788.32 ))
+region <- data.frame("Region" = c( "Manufacturing", "Agriculture","Bajío", "Pacific Coast", "South East Mexico" ), "pred_hhincome" = c( 917.4427, 958.6091,893.32,814.86,788.32 ))
 region <- within(region, 
                    pred_hhincome <- factor(pred_hhincome, 
                                       levels=names(sort(table(pred_hhincome), increasing=TRUE))))
 ggplot(region, mapping = aes(x= Region, y =pred_hhincome ))+
   geom_col()+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Region Wage Gap")
+
+
+occupation <- data.frame("Occupation" = c( "Manufacturing", "Agriculture","Service", "Professional" ), "pred_hhincome" = c( 917.4427, 958.6091,1182.058 ,1182.06 ))
+ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
+  geom_col()+
+  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
+
+
+documentation <- data.frame("Documentation" = c( "Undocumented", "“Temporary: Tourist/visitor”","Contract - Bracero", "Legal resident" ), "pred_hhincome" = c( 917.4427, 892.8114,1323.98 ,897.65 ))
+ggplot(documentation, mapping = aes(x= Documentation, y =pred_hhincome ))+
+  geom_col()+
+  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Documentation Wage Gap")
 ```
 

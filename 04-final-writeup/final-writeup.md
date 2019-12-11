@@ -2,7 +2,7 @@ Characteristics of Recent Mexican Immigrants to California, USA, that
 Influence Household Income
 ================
 Ben 10
-12/05/2019
+12/10/2019
 
 ## Section 1: Introduction
 
@@ -15,97 +15,56 @@ well-explain variation in household income.
 ### 1.2 Description of Dataset
 
 The dataset is from The Mexican Migration Project (MMP, \*see References
-below for confidentiality terms). It was created in 1982 by an
+below for confidentiality terms), which was created in 1982 an
 interdisciplinary team of researchers to further our understanding of
 the complex process of Mexican migration to the United States. The
 project is a binational research effort co-directed by Jorge Durand,
 professor of Social Anthropology at the University of Guadalajara
 (Mexico), and Douglas S. Massey, professor of Sociology and Public
 Affairs, with a joint appointment in the Woodrow Wilson School, at
-Princeton University (US).
+Princeton University (U.S.).
 
-Since its inception, the MMP’s main focus has been to gather social as
-well as economic information on Mexican-US migration. The data collected
-has been compiled in a comprehensive database that is available to the
+Since its inception, the MMP’s main focus has been to gather social and
+economic information on Mexican-US migration. The data collected has
+been compiled in a comprehensive database that is available to the
 public free of charge for research and educational purposes through its
-web-site. The MMP uses the ethnosurvey approach to gather data: in
-winter months, they randomly sample households in communities throughout
-Mexico, surveying household heads and members about their first and last
-trip to the US, as well as economic and demographic information. They
-then conduct the same survey in destination areas in the US, sampling
-migrants from the same communities they surveyed in Mexico but who have
-not returned to Mexico. Thus, the sample of migrants includes residents
-in both Mexico and the US.
+website. The MMP uses the ethnosurvey approach to gather data: in winter
+months, they randomly sample households in communities throughout
+Mexico, surveying household heads and members about their trips to the
+U.S., as well as economic and demographic information. They then
+conducted the same survey in areas in the U.S., sampling migrants from
+the same communities they surveyed in Mexico but who have not returned
+to Mexico. Thus, the sample of migrants includes residents in both
+Mexico and the U.S.
 
 The MMP170 Database contains an initial file with general demographic,
 economic, and migratory information for each member of a surveyed
-household (PERS). Pers170 has 132 variables and 176701 observations,and
-hence it is very large. Therefore, we selected 17 meaningful variables
-and filtered out rows that contain N/A’s to create a new dataset labeled
-`data`.
+household (PERS). Pers170 is a large data which has 132 variables and
+176,701 observations. Therefore, we selected 17 relatively meaningful
+variables and filtered out rows that contain N/A’s to create a new
+dataset labeled `data`.
 
 ### 1.3 Method
 
 We will build a multiple linear regression model to predict household
 income considering the following variables: `sex`, `relhead`, `age`,
 `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`,
-`uscity`, `yrborn`.
+`uscity`, `yrborn`. The data dictionary for these variables can be found
+in project-\>data-\>Data Dictionary.
 
-“X1”: Number of observation
-
-“sex”: Sex of immigrant
-
-“relhead”: Relationship to household head
-
-“yrborn”: Year of birth
-
-“age”: Age
-
-“statebrn”: State of birth
-
-“marstat”: Marital status
-
-“edyrs”: School years completed
-
-“occ”: Principal occupation
-
-“hhincome” : Household income
-
-“usstate1”: First US migration: State of residence
-
-“usstatel”: Latest US migration: State of residence
-
-“usplace1”: First US migration: City of residence (in place codes)
-
-“usplacel”: Latest US migration: City of residence (in place codes)
-
-“usdur1”: First US migration: Duration (in months)
-
-“usdurl”: Latest US migration: Duration (in months)
-
-“usdoc1”: Type of documentation during first US migration
-
-“occtype”: Category of occupation
-
-“uscity”: City of residence during first US migration
-
-Our response variable is household income: the total income for a single
-household. We chose to use the multiple linear regression because our
-response variable is numeric, and there are multiple predictor
-variables.
+Our response variable is household income. We chose to use the multiple
+linear regression because our response variable is numerical, and there
+are multiple predictor variables.
 
 ## 2\. Exploratory Data Analysis
 
 ### 2.1 Data Cleaning
 
-Due to the complexity of our original data, we did not include data
-cleaning in the analysis. For more information, please see our proposal,
-where all the data cleaning happens.
+Our original data was extremely complex and necessitated us to clean our
+data extensively. All of our data cleaning can be found in the proposal.
 
-However, we did make some adjustment according to the feedback that
-there is large imbalance of the amount of data between regions, and that
-the distribution of the response variable is not normal. Below is the
-update on our data cleaning:
+However, we did make some adjustments according to the feedback
+Dr. Tackett, which can be found below.
 
 ### 1.4 Updated Data Exploration
 
@@ -2837,9 +2796,6 @@ regions, this conclusion should be taken with caution – for example, we
 are notably missing data from two of the three states in the Yucatan
 Peninsula in the South East of Mexico, and over 50% of our data points
 are from the Pacific Coast.
-
-    ##   Agriculture Manufacturing  Professional       Service 
-    ##           115           203            36           144
 
 In terms of occupation type, as expected the highest incomes are found
 among professionals, with service and manufacturing workers close
@@ -7755,4 +7711,8 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
+<<<<<<< HEAD
 ![](final-writeup_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
+=======
+![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
+>>>>>>> f7bad2d363fbfacc1fbc4092bdb34cf3195aaa13
