@@ -2506,8 +2506,11 @@ household income in some regions, such as South East Mexico, has a wide
 range. Furthermore, through compromising between geographic integrity
 and number of observations in each region, the majority of observations
 are still in Pacific Coast and Bajío regions due to the nature of the
-data. Further work can look into weighing mechanisms for multiple linear
-models.
+data. In fact, only those 2 regions had over 30 observations. Further
+work can look into weighing mechanisms for multiple linear models.
+
+We also had very few data points for female immigrants. In the future we
+would want more equal numbers.
 
 According to our analysis of leverage and adjusted R-square, we conclude
 that there might be many outliers in our data, which makes sense since
@@ -2799,11 +2802,11 @@ resident” is significantly fewer than that in “Contract - Barcero”.
 ## Section 4: Conclusion
 
 Through our exploration and analysis, we found sex, age, years of
-education, occupation type, duration of last US immigration and region
-born to be significant predictors of household income of Mexican
-immigrant living in California. Among these, there are significant
-interactions between: - age and years of education, - age and
-documentation type, - documentation type and duration of last US
+education, occupation type, documentation type, duration of last US
+immigration and region born to be significant predictors of household
+income of Mexican immigrant living in California. Among these, there are
+significant interactions between: - age and years of education, - age
+and documentation type, - documentation type and duration of last US
 migration, - region born and years of education, - and region born and
 duration of last US migration.
 
@@ -2811,6 +2814,8 @@ From our predictions, we observe a large gender wage gap: the average
 male has predicted wage of 893.32 USD, whereas the average female has
 predicted wage of 590.11 USD. It is shocking that the average wage for
 males in this sample is almost two times that of females in this sample.
+However, we also had significantly more male data points in this
+dataset, with 21 female datapoints and 477 male datapoints.
 
 We also observed regional differences in terms of where the immigrant
 was born. Immigrants from the region of Central Mexico have the highest
@@ -2819,7 +2824,22 @@ South East Mexico has the lowest average predicted wage. However, since
 there is a prominent imbalance in number of observations from various
 regions, this conclusion should be taken with caution – for example, we
 are notably missing data from two of the three states in the Yucatan
-Peninsula in the South East of Mexico.
+Peninsula in the South East of Mexico, and over 50% of our data points
+are from the Pacific Coast.
+
+    ##   Agriculture Manufacturing  Professional       Service 
+    ##           115           203            36           144
+
+In terms of occupation type, as expected the highest incomes are found
+among professionals, with service and manufacturing workers close
+behind. As anticipated, agricultural workers had the lowest income. In
+this case, our data is robust, as each category has over 30 datapoints.
+
+In terms of documentation type, we observed a hierarchy in wage
+discrimination based on the immigrants’ documentation type. Immigrants
+who have “contract - barcero” documentation earn the highest predicted
+household income, followed by legal residents, undocumented, and lastly
+temporary workers.
 
 ## Section 5: Additional Work
 
@@ -7724,4 +7744,4 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->
