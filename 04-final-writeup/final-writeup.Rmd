@@ -372,7 +372,7 @@ If we could continue to work on the project, we would operate under the assumpti
 
 ### 3.2.1 Effect of "Gender" on Wage 
 
-```{r, results="hide"}
+```{r}
 x0 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x0, interval = "confidence")
 ```
@@ -392,14 +392,14 @@ We can see from the prediction that there is a large gender wage gap, since a ma
 We used male as a model input because the majority of the immigrants in our data set are male. We used edyrs = 6 as the input because it is the average number of years of education for the data set. Manufacturing is the most common occupation type in the data, undocumented the most common immigration status. The rest of the inputs are 0 since those predictors are mean-centered.
 
 
-```{r, results="hide"}
+```{r}
 x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Central Mexico", his predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.50].
 
 
-```{r, results="hide"}
+```{r}
 x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
@@ -412,7 +412,7 @@ predict.lm(reduced_int_new_2, x5, interval = "confidence")
 
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "South East Mexico", his predicted salary is $786.43 We are 95% confident that the actual salary falls in the interval of [-317.25, 1890.11].
 
-```{r, results="hide"}
+```{r}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Pacific Coast", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
 ```
@@ -510,28 +510,28 @@ We used the same level of education for each prediction in order to focus on the
 
 ### 3.2.4 Effect of "Documentation Type" on Wage
 
-```{r, results="hide"}
+```{r}
 x10 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x10, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío" (Baseline region), his predicted wage is $917.44 We are 95% confident that the actual salary falls in the interval of [826.32, 1008.57].
 
-```{r, results="hide"}
+```{r}
 x11 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Temporary: Tourist/visitor")
 predict.lm(reduced_int_new_2, x11, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Temporary: Tourist/visitor" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $892.81 We are 95% confident that the actual salary falls in the interval of [661.57, 1124.06].
 
-```{r, results="hide"}
+```{r}
 x12 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Contract - Bracero")
 predict.lm(reduced_int_new_2, x12, interval = "confidence")
 ```
 
 For a male who is 39 years old (average age), has 6.281 years of education (average edyrs for Manufacturing workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has "Contract - Bracero" status, and was born in the region of "Bajío" (Baseline region), his predicted wage is $1323.98 We are 95% confident that the actual salary falls in the interval of [818.78, 1829.18].
 
-```{r, results="hide"}
+```{r}
 x13 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Legal resident")
 predict.lm(reduced_int_new_2, x13, interval = "confidence")
 ```
