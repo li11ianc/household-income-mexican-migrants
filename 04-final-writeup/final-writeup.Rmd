@@ -908,9 +908,9 @@ ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
 
 
-documentation <- data.frame("Documentation" = c( "Manufacturing", "Agriculture","Service", "Professional" ), "pred_hhincome" = c( 917.4427, 958.6091,1182.058 ,1182.06 ))
-ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
+documentation <- data.frame("Documentation" = c( "Undocumented", "“Temporary: Tourist/visitor”","Contract - Bracero", "Legal resident" ), "pred_hhincome" = c( 917.4427, 892.8114,1323.98 ,897.65 ))
+ggplot(documentation, mapping = aes(x= Documentation, y =pred_hhincome ))+
   geom_col()+
-  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
+  labs(y = "Predicted Household Income of Average Male Immigrant", title = "Documentation Wage Gap")
 ```
 
