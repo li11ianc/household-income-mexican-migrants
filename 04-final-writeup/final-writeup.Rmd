@@ -300,6 +300,7 @@ full_int_new_2 <- lm(hhincome ~ sex + age + statebrn + marstat + edyrs + occtype
 kable(tidy(full_int_new_2),format="html" ,digits=3)
 ```
 
+Model hidden due to length.
 
 ### 2.3 Final model
 ```{r final}
