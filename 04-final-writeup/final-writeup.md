@@ -292,6 +292,27 @@ length.
 | usdurl:usdoc1Temporary: Tourist/visitor |     1.920 |     1.498 |     1.282 |   0.201 |    \-1.024 |     4.864 |
 | usdurl:usdoc1Undocumented               |     3.345 |     1.302 |     2.570 |   0.010 |      0.787 |     5.902 |
 
+The coefficient of `State born: Central Mexico` is 2482.855. Holding all
+else constant, as compared to immigrants from Bajío region, the average
+predicted household income of an immigrant born in Central Mexico
+increases by $2482.86. It is significant because the 95% confidence
+interval does not include 0.
+
+The coefficient of `SexM` is 327.669. Holding all else constant, as
+compared to female immigrants, the average predicted household income of
+a male immigrant increases by $327.67. It is significant because the 95%
+confidence interval does not include 0.
+
+The coefficient of `edyrs` is 42.483. Holding all else constant, as
+years of education increases by 1 year, the average predicted household
+income of an immigrant increases by $42.48. It is significant because
+the 95% confidence interval does not include 0.
+
+The coefficient of `age` is -22.666 Holding all else constant, as age
+increases by 1 year, the average predicted household income of an
+immigrant decreases by $22.67 It is significant because the 95%
+confidence interval does not include 0.
+
 ### 2.4 Description of Method in Model Diagnostics
 
 We checked leverage, standardized residuals, estimate of standard
