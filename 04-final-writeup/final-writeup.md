@@ -484,18 +484,6 @@ interval of \[814.77, 996.24\].
 For our default person born in “Central Mexico”, the predicted salary is
 $1560.12 We are 95% confident that the actual salary falls in the
 interval of \[1054.74, 2065.50\].
-<<<<<<< HEAD
-=======
-
-For a male who is 39 years old (average age), has 6 years of education
-(average edyrs), first immigrated to the US for 5 years (average
-duration), last immigrated to the US for 3 years and 7 months (average
-duration), works in manufacturing (most common occupation in the
-dataset), has undocumented status (most common documentation in the
-dataset), and was born in the region of of “Central Mexico”, his
-predicted salary is $1560.12 We are 95% confident that the actual salary
-falls in the interval of \[1054.74, 2065.50\].
->>>>>>> 8737fd38a3eda5b9bcecf0171a5c1e6d53186d12
 
     ##        fit      lwr      upr
     ## 1 976.4381 502.3831 1450.493
@@ -558,14 +546,8 @@ the inputs are 0 since those predictors are mean-centered.
 For Manufacturing, the predicted wage is $905.50. We are 95% confident
 that the actual salary falls in the interval of \[814.7695, 996.2402\].
 
-    ##        fit      lwr      upr
-    ## 1 805.3087 695.6034 915.0141
-
 For Agriculture, the predicted wage is $805.31 We are 95% confident that
 the actual salary falls in the interval of \[695.60, 915.01\].
-
-    ##        fit      lwr      upr
-    ## 1 944.1907 844.1482 1044.233
 
 For Service industry, the predicted wage is $944.19 We are 95% confident
 that the actual salary falls in the interval of \[844.15, 1044.23\].
@@ -573,6 +555,12 @@ that the actual salary falls in the interval of \[844.15, 1044.23\].
 For Professional workers, the predicted wage is $1013.31 We are 95%
 confident that the actual salary falls in the interval of \[826.52,
 1200.10\].
+
+![](final-writeup_files/figure-gfm/confidence-intervals-occ-1-1.png)<!-- -->
+
+ANOVA also reveals that there is a difference in mean household income
+between agricultural and professional workers, confirming the results of
+our model.
 
 We used the same level of education for each prediction in order to
 focus on the effect of occupation type. However, different occupations
@@ -583,38 +571,6 @@ the same education level for each of these predictions may not be
 representative of what is likely to occur in the real world; however, it
 allows us to examine the isolated effect of occupation type on household
 income.
-
-    ##      edyrs       
-    ##  Min.   : 0.000  
-    ##  1st Qu.: 4.000  
-    ##  Median : 6.000  
-    ##  Mean   : 6.281  
-    ##  3rd Qu.: 9.000  
-    ##  Max.   :17.000
-
-    ##      edyrs     
-    ##  Min.   : 0.0  
-    ##  1st Qu.: 2.0  
-    ##  Median : 4.0  
-    ##  Mean   : 4.6  
-    ##  3rd Qu.: 6.0  
-    ##  Max.   :13.0
-
-    ##      edyrs      
-    ##  Min.   : 0.00  
-    ##  1st Qu.: 4.00  
-    ##  Median : 6.00  
-    ##  Mean   : 7.25  
-    ##  3rd Qu.: 9.00  
-    ##  Max.   :17.00
-
-    ##      edyrs       
-    ##  Min.   : 1.000  
-    ##  1st Qu.: 7.000  
-    ##  Median : 9.000  
-    ##  Mean   : 9.972  
-    ##  3rd Qu.:13.000  
-    ##  Max.   :16.000
 
 #### 3.2.4 Effect of “Documentation Type” on Wage
 
