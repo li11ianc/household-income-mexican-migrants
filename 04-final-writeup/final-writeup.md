@@ -2467,7 +2467,7 @@ The duration of time in the US is likely collinear with documentation
 status, as the longer a person lives in the US, the harder it is to be
 undocumented.
 
-#### 2.4.6 Adjusted R-squre
+#### 2.4.6 Adjusted R-squared
 
 The adjusted R-squared of our final model is 0.1810094, meaning that our
 model explains around 18.1% of the variation in household income. This
@@ -2743,7 +2743,7 @@ common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $1182.06 We are 95% confident that the
 actual salary falls in the interval of \[991.18, 1372.94\].
 
-### 3.2.3 Effect of “Documentation Type” on Wage
+### 3.2.4 Effect of “Documentation Type” on Wage
 
     ##        fit      lwr      upr
     ## 1 1074.249 945.7724 1202.725

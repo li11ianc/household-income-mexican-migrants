@@ -388,7 +388,7 @@ It is likely the state born coefficients are collinear with education, as educat
 The duration of time in the US is likely collinear with documentation status, as the longer a person lives in the US, the harder it is to be undocumented. 
 
 
-#### 2.4.6 Adjusted R-squre
+#### 2.4.6 Adjusted R-squared
 
 The adjusted R-squared of our final model is 0.1810094, meaning that our model explains around 18.1% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-squared seems reasonable.
 
@@ -547,7 +547,7 @@ For a male who is 39 years old (average age), has 9.972 years of education (aver
 
 
 
-### 3.2.3 Effect of "Documentation Type" on Wage
+### 3.2.4 Effect of "Documentation Type" on Wage
 
 ```{r}
 x10 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
