@@ -2,7 +2,7 @@ Characteristics of Recent Mexican Immigrants to California, USA, that
 Influence Household Income
 ================
 Ben 10
-12/05/2019
+12/10/2019
 
 ## Section 1: Introduction and Exploratory Data Analysis
 
@@ -148,7 +148,7 @@ US migration is 60.27 months (about 5 years); and the mean duration of
 first US migration is 43.99 months (less than 3.5
 years).
 
-### 1.5.6 Remove El Salvador Data and Regionalize State Born Variable
+#### 1.5.6 Remove El Salvador Data and Regionalize State Born Variable
 
 <img src="final-writeup_files/figure-gfm/states-1.png" style="display: block; margin: auto;" />
 
@@ -431,7 +431,7 @@ information.
 
 ### 3.2 Prediction
 
-### 3.2.1 Effect of “Gender” on Wage
+#### 3.2.1 Effect of “Gender” on Wage
 
 For this analysis we used a base of a person who is 39 years old
 (average age), has 6 years of education (average edyrs), first
@@ -457,7 +457,7 @@ We can see from the prediction that there is a large gender wage gap,
 since a male’s predicted wage is much higher than a female of the same
 average demographics.
 
-### 3.2.2 Effect of “State born” on Wage
+#### 3.2.2 Effect of “State born” on Wage
 
 We used male as a model input because the majority of the immigrants in
 our data set are male. We used edyrs = 6 as the input because it is the
@@ -492,8 +492,7 @@ duration), works in manufacturing (most common occupation in the
 dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Central Mexico”, his
 predicted salary is $1560.12 We are 95% confident that the actual salary
-falls in the interval of \[1054.74, 2065.50\]. \>\>\>\>\>\>\>
-805b69b4651af4298bceb42eb4004c45a4c41437
+falls in the interval of \[1054.74, 2065.50\].
 
     ##        fit      lwr      upr
     ## 1 976.4381 502.3831 1450.493
@@ -545,7 +544,7 @@ combined in order to be useful for analysis, but with more data we would
 have prefered to keep them as seperate regions, especially since
 Veracruz is relatively better-off than the rest of the states.
 
-### 3.2.3 Effect of “Occupation Type” on Wage
+#### 3.2.3 Effect of “Occupation Type” on Wage
 
 We used male as a model input because the majority of the immigrants in
 our data set are male. We used average edyrs for the occtype.
@@ -620,7 +619,7 @@ income.
     ##  3rd Qu.:13.000  
     ##  Max.   :16.000
 
-### 3.2.4 Effect of “Documentation Type” on Wage
+#### 3.2.4 Effect of “Documentation Type” on Wage
 
 Our default person for this section is a male who is 39 years old
 (average age), has 6.281 years of education, first immigrated to the US
