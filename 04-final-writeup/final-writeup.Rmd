@@ -412,12 +412,14 @@ For our default person born in "Central Mexico", the predicted salary is $1560.1
 
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Central Mexico", his predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.50].
 
+For our default person born in "Central Mexico", the predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.50].
 
 ```{r}
 x4 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Northern Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x4, interval = "confidence")
 ```
-FFor our default person born in "Northern Mexico", the predicted salary is $976.44 We are 95% confident that the actual salary falls in the interval of [502.38, 1450.50].
+
+For our default person born in "Northern Mexico", the predicted salary is $976.44 We are 95% confident that the actual salary falls in the interval of [502.38, 1450.50].
 
 ```{r}
 x5 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="South East Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
@@ -455,16 +457,12 @@ It may also be because this region was artifiically created from 4 distinct cult
 
 We used male as a model input because the majority of the immigrants in our data set are male.  We used average edyrs for the occtype.  Undocumented is the most common immigration status and many of the immigrants in the data set were born in the region of Bajío. The rest of the inputs are 0 since those predictors are mean-centered.
 
-
-```{r}
+```{r, results="hide"}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
 ```
 
-
 For Manufacturing, the predicted wage is $905.50. We are 95% confident that the actual salary falls in the interval of [814.7695, 996.2402].
-
-
 
 ```{r}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
@@ -473,7 +471,6 @@ predict.lm(reduced_int_new_2, x7, interval = "confidence")
 
 For Agriculture, the predicted wage is $805.31 We are 95% confident that the actual salary falls in the interval of [695.60, 915.01].
 
-
 ```{r}
 x8 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Service", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x8, interval = "confidence")
@@ -481,15 +478,12 @@ predict.lm(reduced_int_new_2, x8, interval = "confidence")
 
 For Service industry, the predicted wage is $944.19 We are 95% confident that the actual salary falls in the interval of [844.15, 1044.23].
 
-
-
-```{r}
-x9 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
+```{r, results="hide"}
+x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
 ```
 
 For Professional workers, the predicted wage is $1013.31 We are 95% confident that the actual salary falls in the interval of [826.52, 1200.10].
-
 
 We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
 
@@ -918,3 +912,31 @@ ggplot(documentation, mapping = aes(x= Documentation, y =pred_hhincome ))+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Documentation Wage Gap")
 ```
 
+### 5.8 ANOVA Tables
+
+```{r ANOVA-table-occ}
+occ_anova <- aov(hhincome~occtype, data = caldata)
+tidy(occ_anova) %>% kable(format = "markdown", digits = 3)
+```
+
+```{r meansqure-occ}
+(3395674 + 137029505)/(3 + 494) # mean square total
+```
+
+```{r confidence-intervals-occ}
+n.groups <- caldata %>% distinct(occtype) %>% count()
+crit.val <- qt(0.975, (nrow(caldata)-n.groups$n))
+sigma <- sqrt(282545.6)
+
+conf.intervals <- caldata %>%
+  group_by(occtype) %>% 
+  summarise(mean_income = mean(hhincome), n = n(), 
+            lower = mean_income - crit.val * sigma/sqrt(n),
+            upper = mean_income + crit.val * sigma/sqrt(n))
+ggplot(data=conf.intervals,aes(x=occtype,y=mean_income)) +
+  geom_point() + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1) + 
+  labs(title="99% confidence interval for the mean value of household income",
+       subtitle="by occupation type", x = "Occupation Type", y = "Mean Household Income") +
+  coord_flip()
+```

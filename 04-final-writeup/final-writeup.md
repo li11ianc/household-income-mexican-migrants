@@ -515,10 +515,14 @@ dataset), and was born in the region of of “Central Mexico”, his
 predicted salary is $1560.12 We are 95% confident that the actual salary
 falls in the interval of \[1054.74, 2065.50\].
 
+For our default person born in “Central Mexico”, the predicted salary is
+$1560.12 We are 95% confident that the actual salary falls in the
+interval of \[1054.74, 2065.50\].
+
     ##        fit      lwr      upr
     ## 1 976.4381 502.3831 1450.493
 
-FFor our default person born in “Northern Mexico”, the predicted salary
+For our default person born in “Northern Mexico”, the predicted salary
 is $976.44 We are 95% confident that the actual salary falls in the
 interval of \[502.38, 1450.50\].
 
@@ -573,9 +577,6 @@ Undocumented is the most common immigration status and many of the
 immigrants in the data set were born in the region of Bajío. The rest of
 the inputs are 0 since those predictors are mean-centered.
 
-    ##        fit      lwr      upr
-    ## 1 905.5048 814.7695 996.2402
-
 For Manufacturing, the predicted wage is $905.50. We are 95% confident
 that the actual salary falls in the interval of \[814.7695, 996.2402\].
 
@@ -590,9 +591,6 @@ the actual salary falls in the interval of \[695.60, 915.01\].
 
 For Service industry, the predicted wage is $944.19 We are 95% confident
 that the actual salary falls in the interval of \[844.15, 1044.23\].
-
-    ##        fit      lwr      upr
-    ## 1 1013.314 826.5249 1200.102
 
 For Professional workers, the predicted wage is $1013.31 We are 95%
 confident that the actual salary falls in the interval of \[826.52,
@@ -5628,3 +5626,14 @@ for by our model.
     ## 2 Female        590.11
 
 ![](final-writeup_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-22-3.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-22-4.png)<!-- -->
+
+### 5.8 ANOVA Tables
+
+| term      |  df |     sumsq |    meansq | statistic | p.value |
+| :-------- | --: | --------: | --------: | --------: | ------: |
+| occtype   |   3 |   3395674 | 1131891.3 |     4.081 |   0.007 |
+| Residuals | 494 | 137029505 |  277387.7 |        NA |      NA |
+
+    ## [1] 282545.6
+
+![](final-writeup_files/figure-gfm/confidence-intervals-occ-1.png)<!-- -->
