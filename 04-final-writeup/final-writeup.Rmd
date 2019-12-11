@@ -300,12 +300,16 @@ kable(tidy(full_int_new_2),format="html" ,digits=3)
 Model hidden due to length.
 
 ### 2.3 Final model
-```{r final}
+```{r final, results="hide"}
 reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
+
+```
+```{r}
 sel_summary <- summary(reduced_int_new_2)
 tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
 kable(digits = 3, format = "markdown")
 ```
+
 
 
 ### 2.4 Description of Method in Model Diagnostics
