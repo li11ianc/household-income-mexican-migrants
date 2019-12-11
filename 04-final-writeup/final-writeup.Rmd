@@ -388,7 +388,7 @@ It is likely the state born coefficients are collinear with education, as educat
 The duration of time in the US is likely collinear with documentation status, as the longer a person lives in the US, the harder it is to be undocumented. 
 
 
-#### 2.4.6 Adjusted R-squre
+#### 2.4.6 Adjusted R-squared
 
 The adjusted R-squared of our final model is 0.1810094, meaning that our model explains around 18.1% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-squared seems reasonable.
 
@@ -547,7 +547,7 @@ For a male who is 39 years old (average age), has 9.972 years of education (aver
 
 
 
-### 3.2.3 Effect of "Documentation Type" on Wage
+### 3.2.4 Effect of "Documentation Type" on Wage
 
 ```{r}
 x10 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
@@ -593,9 +593,8 @@ Through our exploration and analysis, we found sex, age, years of education, occ
 From our predictions, we observe a large gender wage gap: the average male has predicted wage of 893.32 USD, whereas the average female has predicted wage of 590.11 USD. It is shocking that the average wage for males in this sample is almost two times that of females in this sample. However, we also had significantly more male data points in this dataset, with 21 female datapoints and 477 male datapoints.
 
 We also observed regional differences in terms of where the immigrant was born. Immigrants from the region of Central Mexico have the highest predicted wage, followed by Northern Mexico, Bajío, Pacific Coast, and South East Mexico has the lowest average predicted wage. However, since there is a prominent imbalance in number of observations from various regions, this conclusion should be taken with caution -- for example, we are notably missing data from two of the three states in the Yucatan Peninsula in the South East of Mexico, and over 50% of our data points are from the Pacific Coast.
-```{r}
-summary(factor(caldata$occtype))
-```
+
+
 In terms of occupation type, as expected the highest incomes are found among professionals, with service and manufacturing workers close behind. As anticipated, agricultural workers had the lowest income. In this case, our data is robust, as each category has over 30 datapoints. 
 
 In terms of documentation type, we observed a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers.
@@ -939,5 +938,8 @@ region <- within(region,
 ggplot(region, mapping = aes(x= Region, y =pred_hhincome ))+
   geom_col()+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Region Wage Gap")
+
+
+
 ```
 
