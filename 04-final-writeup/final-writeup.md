@@ -187,9 +187,7 @@ paying occupations only.
 We first filter out migrants with occupations indicating lack of paid
 employment, because our anaylsis focuses only on those migrants
 
-## Section 2: Regression Analysis
-
-## 2\. Multiple Linear Regression Model
+## Section 2: Regression Analysis - Multiple Linear Regression Model
 
 We will use a multiple linear regression model in an effort to explain
 which characteristics of migrants influence their household income.
@@ -435,6 +433,9 @@ information.
 
 ### 3.2.1 Effect of “Gender” on Wage
 
+    ##        fit      lwr      upr
+    ## 1 905.5048 814.7695 996.2402
+
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), last immigrated to the US for 3 years and 7 months (average
@@ -469,6 +470,9 @@ the most common occupation type in the data, undocumented the most
 common immigration status. The rest of the inputs are 0 since those
 predictors are mean-centered.
 
+    ##        fit     lwr      upr
+    ## 1 1560.119 1054.74 2065.498
+
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
 duration), last immigrated to the US for 3 years and 7 months (average
@@ -477,6 +481,9 @@ dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Central Mexico”, his
 predicted salary is $1560.12 We are 95% confident that the actual salary
 falls in the interval of \[1054.74, 2065.50\].
+
+    ##        fit      lwr      upr
+    ## 1 976.4381 502.3831 1450.493
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -498,6 +505,9 @@ dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “South East Mexico”, his
 predicted salary is $786.43 We are 95% confident that the actual salary
 falls in the interval of \[-317.25, 1890.11\].
+
+    ##        fit     lwr      upr
+    ## 1 830.7653 743.669 917.8617
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -546,6 +556,9 @@ the most common immigration status and many of the immigrants in the
 data set were born in the region of Bajío. The rest of the inputs are 0
 since those predictors are mean-centered.
 
+    ##        fit      lwr      upr
+    ## 1 917.4427 826.3196 1008.566
+
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing), first immigrated to the US
 for 5 years (average duration), last immigrated to the US for 3 years
@@ -553,6 +566,9 @@ and 7 months (average duration), has undocumented status (most common
 documentation in the dataset), and was born in the region of “Bajío”,
 his predicted wage is $905.50 We are 95% confident that the actual
 salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##       fit     lwr     upr
+    ## 1 745.832 633.247 858.417
 
 For a male who is 39 years old (average age), has 4.6 years of education
 (average edyrs for Agriculture workers), first immigrated to the US for
@@ -572,6 +588,9 @@ to the US for 5 years (average duration), last immigrated to the US for
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $905.50. We are 95% confident that the
 actual salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##        fit      lwr     upr
+    ## 1 1182.058 991.1752 1372.94
 
 For a male who is 39 years old (average age), has 9.972 years of
 education (average edyrs for Professional workers), first immigrated to
@@ -593,6 +612,9 @@ income.
 
 ### 3.2.4 Effect of “Documentation Type” on Wage
 
+    ##        fit      lwr      upr
+    ## 1 917.4427 826.3196 1008.566
+
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing workers), first immigrated to
 the US for 5 years (average duration), last immigrated to the US for 3
@@ -602,6 +624,9 @@ common documentation in the dataset), and was born in the region of
 confident that the actual salary falls in the interval of \[826.32,
 1008.57\].
 
+    ##        fit     lwr      upr
+    ## 1 892.8114 661.567 1124.056
+
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing workers), first immigrated to
 the US for 5 years (average duration), last immigrated to the US for 3
@@ -610,6 +635,9 @@ status, and was born in the region of “Bajío” (Baseline region), his
 predicted wage is $892.81 We are 95% confident that the actual salary
 falls in the interval of \[661.57, 1124.06\].
 
+    ##       fit      lwr      upr
+    ## 1 1323.98 818.7793 1829.182
+
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing workers), first immigrated to
 the US for 5 years (average duration), last immigrated to the US for 3
@@ -617,6 +645,9 @@ years and 7 months (average duration), has “Contract - Bracero” status,
 and was born in the region of “Bajío” (Baseline region), his predicted
 wage is $1323.98 We are 95% confident that the actual salary falls in
 the interval of \[818.78, 1829.18\].
+
+    ##       fit    lwr     upr
+    ## 1 1079.49 897.65 1261.33
 
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing workers), first immigrated to
