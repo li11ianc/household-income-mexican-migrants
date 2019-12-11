@@ -1,16 +1,8 @@
 ---
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
-<<<<<<< HEAD
-date: "12/10/2019"
-output: pdf_document
-=======
-
 date: "12/05/2019"
 output: pdf_document
-
-
->>>>>>> 63577111d27cb90b62a465538a55db390c5f874d
 ---
 
 ```{r setup, include=FALSE}
