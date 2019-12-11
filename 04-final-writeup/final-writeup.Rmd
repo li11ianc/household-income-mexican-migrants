@@ -60,7 +60,7 @@ However, we did make some adjustment according to the feedback that there is lar
 
 According to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
 
-```{r state-distribution-plot}
+```{r state-distribution-plot, results="hide"}
 statedist <- within(data, 
                    usstatel <- factor(usstatel, 
                                       levels=names(sort(table(usstatel), 
@@ -73,7 +73,7 @@ ggplot(statedist, aes(x = usstatel)) +
 
 Hence, we decided to concentrate on California alone. Since the originial dataset is large, we have enough data left in California alone to produce meaningful analysis.
 
-```{r caldata}
+```{r caldata, results="hide"}
 caldata <- data %>%
   filter(usstatel == "California")
 
