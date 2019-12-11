@@ -1,13 +1,8 @@
 ---
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
-<<<<<<< HEAD
-date: "12/05/2019"
-output: pdf_document
-=======
 date: "12/10/2019"
-output: github_document
->>>>>>> 18edcf22caf48834d4642980917a92d162d475fc
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -90,7 +85,7 @@ caldata <- caldata%>%
 
 Originally, the distribution of Household Income- our response variable- was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions:
 
-```{r nonfilt-income-plot, fig.width = 10}
+```{r nonfilt-income-plot, fig.width = 10, results="hide"}
 incomeplot <- ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram()+
   labs(title = "Distribution of Household Income", x= "Household Income", y = "Count")
@@ -104,7 +99,7 @@ We determined that 412,647 dollars is an absurdly high median income for a surve
 
 Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predictive and explanatory range: our model will only be able to predict or explain the household income of those who already have jobs with income.
 
-```{r filter-hhincome}
+```{r filter-hhincome,results="hide"}
 caldata <- caldata %>%
   mutate(hhincome = case_when(
     hhincome == .1 ~ 0,
@@ -115,7 +110,7 @@ caldata <- caldata %>%
 ```
 
 
-```{r hhincome-distribution}
+```{r hhincome-distribution, results="hide"}
 ggplot(data = caldata, aes(x = hhincome)) +
   geom_histogram(binwidth = 100) +
   labs(title = "Distribution of Household Income", x= "Household Income (USD)", y = "Count")
@@ -125,7 +120,7 @@ Now the distribution of response variable (hhincome) looks like a right skewed n
 
 #### 1.4.3 Group cities by region
 
-```{r cities, fig.align="center"}
+```{r cities, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(uscity %in% c("Bakersfield, CA", "Fresno, CA", "Los Angeles-Long Beach, CA", "Merced, CA","Orange County, CA","Riverside-San Bernardino, CA", "Sacramento, CA", "San Diego, CA", "San Francisco, CA", "San Jose, CA","Santa Barbara-Santa Maria-Lompoc, CA","Santa Cruz-Watsonville, CA","Vallejo-Fairfield-Napa, CA","Ventura, CA"))
 
@@ -155,7 +150,7 @@ Given the comparatively small number of cases in which no city was reported, we 
 
 It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
 
-```{r remove-relhead}
+```{r remove-relhead, results="hide"}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
@@ -163,7 +158,7 @@ caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usp
 
 We must center age and usdurl in order to have a useful model intercept interpretation.
 
-```{r mean-age-usdurl, echo=FALSE}
+```{r mean-age-usdurl, echo=FALSE, results="hide"}
 mean(caldata$age) #mean age
 mean(caldata$usdurl) #mean usdurl
 mean(caldata$usdur1) #mean usdur1
@@ -172,7 +167,7 @@ mean(caldata$edyrs) #mean edyrs
 
 The mean age in the dataset is 39.43 years ; the mean duration of last US migration is 60.27 months (about 5 years); and the mean duration of first US migration is 43.99 months (less than 3.5 years).
 
-```{r age-usdurl-cent}
+```{r age-usdurl-cent, results="hide"}
 caldata <- caldata %>%
   mutate(age=age-mean(age))
 caldata <- caldata %>%
@@ -183,7 +178,7 @@ caldata <- caldata %>%
 
 ### 1.4.6 Remove El Salvador Data and regionalize state born variable
 
-```{r states, fig.align="center"}
+```{r states, fig.align="center", results="hide"}
 caldata <- caldata %>%
   filter(statebrn %in% c("Guanajuato","Jalisco","Mexico City","San Luis Potosí","Zacatecas","Coahuila","Morelos","Baja California del Norte","Querétaro","Michoacán","Guerrero","Durango","Chihuahua","Nayarit","Sonora","Aguascalientes","Veracruz","Campeche","Colima","Tabasco","México","Puebla","Nuevo Leon","Oaxaca","Tamaulipas"))
 
@@ -216,7 +211,7 @@ Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit
 
 #### 1.4.7 Remove Obvious Collinear Variable
 
-```{r yrborn-age, fig.align = "center"}
+```{r yrborn-age, fig.align = "center", results="hide"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
   geom_point()+
   labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
@@ -226,7 +221,7 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
 
 #### 1.4.8 Simplify Occupation Type
 
-```{r}
+```{r, results="hide"}
 caldata <- caldata %>%
   filter(!(occtype %in% c("Retired", "Unemployed (seeking work)", "Other, unspecified (disabled, incarcerated, tourist and other)", "Homemaker", "Student"))) 
 caldata %>%
