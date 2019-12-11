@@ -2621,29 +2621,55 @@ Veracruz is relatively better-off than the rest of the states.
 ### 3.2.3 Effect of “Occupation Type” on Wage
 
 We used male as a model input because the majority of the immigrants in
-our data set are male. Undocumented is the most common immigration
-status and many of the immigrants in the data set were born in the
-region of Bajío. The rest of the inputs are 0 since those predictors are
-mean-centered.
-
-    ##      edyrs       
-    ##  Min.   : 0.000  
-    ##  1st Qu.: 4.000  
-    ##  Median : 6.000  
-    ##  Mean   : 6.281  
-    ##  3rd Qu.: 9.000  
-    ##  Max.   :17.000
+our data set are male. We used edyrs = 6 as the input because it is the
+average number of years of education for the data set. Undocumented is
+the most common immigration status and many of the immigrants in the
+data set were born in the region of Bajío. The rest of the inputs are 0
+since those predictors are mean-centered.
 
     ##        fit      lwr      upr
-    ## 1 917.4427 826.3196 1008.566
+    ## 1 905.5048 814.7695 996.2402
 
-For a male who is 39 years old (average age), has 6.281 years of
-education (average edyrs for Manufacturing workers), first immigrated to
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), has undocumented status (most common documentation in the
+dataset), and was born in the region of “Bajío”, his predicted wage is
+$905.50 We are 95% confident that the actual salary falls in the
+interval of \[814.7695, 996.2402\].
+
+    ##        fit      lwr      upr
+    ## 1 805.3087 695.6034 915.0141
+
+For a male who is 39 years old (average age), has 4.6 years of education
+(average edyrs for Agriculture workers), first immigrated to the US for
+5 years (average duration), last immigrated to the US for 3 years and 7
+months (average duration), has undocumented status (most common
+documentation in the dataset), and was born in the region of “Bajío”,
+his predicted wage is $805.31. We are 95% confident that the actual
+salary falls in the interval of \[695.6034, 915.0141\].
+
+    ##        fit      lwr      upr
+    ## 1 905.5048 814.7695 996.2402
+
+For a male who is 39 years old (average age), has 7.25 years of
+education (average edyrs for Service industry workers), first immigrated
+to the US for 5 years (average duration), last immigrated to the US for
+3 years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío”, his predicted wage is $905.50. We are 95% confident that the
+actual salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##        fit      lwr      upr
+    ## 1 1013.314 826.5249 1200.102
+
+For a male who is 39 years old (average age), has 9.972 years of
+education (average edyrs for Professional workers), first immigrated to
 the US for 5 years (average duration), last immigrated to the US for 3
 years and 7 months (average duration), has undocumented status (most
 common documentation in the dataset), and was born in the region of
-“Bajío”, his predicted wage is $917.44 We are 95% confident that the
-actual salary falls in the interval of \[826.32, 1008.57\].
+“Bajío”, his predicted wage is $1013.31 We are 95% confident that the
+actual salary falls in the interval of \[826.5249, 1200.102\].
 
     ##      edyrs     
     ##  Min.   : 0.0  
@@ -2653,16 +2679,13 @@ actual salary falls in the interval of \[826.32, 1008.57\].
     ##  3rd Qu.: 6.0  
     ##  Max.   :13.0
 
-    ##       fit     lwr     upr
-    ## 1 745.832 633.247 858.417
-
-For a male who is 39 years old (average age), has 4.6 years of education
-(average edyrs for Agriculture workers), first immigrated to the US for
-5 years (average duration), last immigrated to the US for 3 years and 7
-months (average duration), has undocumented status (most common
-documentation in the dataset), and was born in the region of “Bajío”,
-his predicted wage is $745.83. We are 95% confident that the actual
-salary falls in the interval of \[633.25, 858.42\].
+    ##      edyrs       
+    ##  Min.   : 0.000  
+    ##  1st Qu.: 4.000  
+    ##  Median : 6.000  
+    ##  Mean   : 6.281  
+    ##  3rd Qu.: 9.000  
+    ##  Max.   :17.000
 
     ##      edyrs      
     ##  Min.   : 0.00  
@@ -2672,17 +2695,6 @@ salary falls in the interval of \[633.25, 858.42\].
     ##  3rd Qu.: 9.00  
     ##  Max.   :17.00
 
-    ##        fit      lwr      upr
-    ## 1 958.6091 862.9652 1054.253
-
-For a male who is 39 years old (average age), has 7.25 years of
-education (average edyrs for Service industry workers), first immigrated
-to the US for 5 years (average duration), last immigrated to the US for
-3 years and 7 months (average duration), has undocumented status (most
-common documentation in the dataset), and was born in the region of
-“Bajío”, his predicted wage is $958.61 We are 95% confident that the
-actual salary falls in the interval of \[862.97, 1054.25\].
-
     ##      edyrs       
     ##  Min.   : 1.000  
     ##  1st Qu.: 7.000  
@@ -2691,16 +2703,15 @@ actual salary falls in the interval of \[862.97, 1054.25\].
     ##  3rd Qu.:13.000  
     ##  Max.   :16.000
 
-    ##        fit      lwr     upr
-    ## 1 1182.058 991.1752 1372.94
-
-For a male who is 39 years old (average age), has 9.972 years of
-education (average edyrs for Professional workers), first immigrated to
-the US for 5 years (average duration), last immigrated to the US for 3
-years and 7 months (average duration), has undocumented status (most
-common documentation in the dataset), and was born in the region of
-“Bajío”, his predicted wage is $1182.06 We are 95% confident that the
-actual salary falls in the interval of \[991.18, 1372.94\].
+We used the same level of education for each prediction in order to
+focus on the effect of occupation type. However, different occupations
+tend to require different levels of education- for agriculture,
+manufacturing, service, and professional occupations the mean years
+spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using
+the same education level for each of these predictions may not be
+representative of what is likely to occur in the real world; however, it
+allows us to examine the isolated effect of occupation type on household
+income.
 
 ### 3.2.4 Effect of “Documentation Type” on Wage
 
@@ -7700,4 +7711,8 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
+<<<<<<< HEAD
+![](final-writeup_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
+=======
 ![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
+>>>>>>> f7bad2d363fbfacc1fbc4092bdb34cf3195aaa13
