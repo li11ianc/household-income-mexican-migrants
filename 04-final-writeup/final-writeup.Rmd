@@ -446,9 +446,7 @@ It may also be because this region was artifiically created from 4 distinct cult
 We used male as a model input because the majority of the immigrants in our data set are male.  We used edyrs = 6 as the input because it is the average number of years of education for the data set. Undocumented is the most common immigration status and many of the immigrants in the data set were born in the region of Bajío. The rest of the inputs are 0 since those predictors are mean-centered.
 
 ```{r, results="hide"}
-<<<<<<< HEAD
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
-=======
 caldata %>%
   filter(occtype == "Manufacturing") %>%
   select(edyrs) %>%
@@ -457,7 +455,6 @@ caldata %>%
 
 ```{r}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
->>>>>>> 56cf569d7afed6a0e69f325005d320f8727a0072
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
 ```
 
@@ -474,7 +471,6 @@ For a male who is 39 years old (average age), has 6.281 years of education (aver
 
 
 ```{r,results="hide"}
-<<<<<<< HEAD
 x8 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x8, interval = "confidence")
 ```
@@ -484,7 +480,6 @@ For a male who is 39 years old (average age), has 7.25 years of education (avera
 ```{r}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
-=======
 caldata %>%
   filter(occtype == "Agriculture") %>%
   select(edyrs) %>%
@@ -494,7 +489,6 @@ caldata %>%
 ```{r}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 4.6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
->>>>>>> 56cf569d7afed6a0e69f325005d320f8727a0072
 ```
 
 For a male who is 39 years old (average age), has 4.6 years of education (average edyrs for Agriculture workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $805.31. We are 95% confident that the actual salary falls in the interval of [695.6034, 915.0141].
@@ -523,10 +517,6 @@ caldata %>%
 
 <<<<<<< HEAD
 ```{r, results="hide"}
-=======
-
-```{r}
->>>>>>> 56cf569d7afed6a0e69f325005d320f8727a0072
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
 ```

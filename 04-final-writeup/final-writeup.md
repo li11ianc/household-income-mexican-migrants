@@ -571,13 +571,39 @@ since those predictors are mean-centered.
     ##        fit      lwr      upr
     ## 1 917.4427 826.3196 1008.566
 
-For a male who is 39 years old (average age), has 6.281 years of
-education (average edyrs for Manufacturing), first immigrated to the US
-for 5 years (average duration), last immigrated to the US for 3 years
+\<\<\<\<\<\<\< HEAD
+
+    ##        fit      lwr      upr
+    ## 1 805.3087 695.6034 915.0141
+
+\======= For a male who is 39 years old (average age), has 6.281 years
+of education (average edyrs for Manufacturing), first immigrated to the
+US for 5 years (average duration), last immigrated to the US for 3 years
 and 7 months (average duration), has undocumented status (most common
 documentation in the dataset), and was born in the region of “Bajío”,
 his predicted wage is $905.50 We are 95% confident that the actual
 salary falls in the interval of \[814.7695, 996.2402\].
+
+> > > > > > > 56cf569d7afed6a0e69f325005d320f8727a0072
+
+For a male who is 39 years old (average age), has 7.25 years of
+education (average edyrs for Service industry workers), first immigrated
+to the US for 5 years (average duration), last immigrated to the US for
+3 years and 7 months (average duration), has undocumented status (most
+common documentation in the dataset), and was born in the region of
+“Bajío”, his predicted wage is $905.50. We are 95% confident that the
+actual salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##        fit      lwr      upr
+    ## 1 1013.314 826.5249 1200.102
+
+    ##      edyrs     
+    ##  Min.   : 0.0  
+    ##  1st Qu.: 2.0  
+    ##  Median : 4.0  
+    ##  Mean   : 4.6  
+    ##  3rd Qu.: 6.0  
+    ##  Max.   :13.0
 
     ##       fit     lwr     upr
     ## 1 745.832 633.247 858.417
@@ -601,8 +627,7 @@ common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $905.50. We are 95% confident that the
 actual salary falls in the interval of \[814.7695, 996.2402\].
 
-    ##        fit      lwr     upr
-    ## 1 1182.058 991.1752 1372.94
+\<\<\<\<\<\<\< HEAD
 
 For a male who is 39 years old (average age), has 9.972 years of
 education (average edyrs for Professional workers), first immigrated to
@@ -611,6 +636,16 @@ years and 7 months (average duration), has undocumented status (most
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $1182.06 We are 95% confident that the
 actual salary falls in the interval of \[991.18, 1372.94\].
+
+\<\<\<\<\<\<\< HEAD We used the same level of education for each
+prediction in order to focus on the effect of occupation type. However,
+different occupations tend to require different levels of education- for
+agriculture, manufacturing, service, and professional occupations the
+mean years spent in education are 4.6, 6.281, 7.25, and 9.972
+respectively. Using the same education level for each of these
+predictions may not be representative of what is likely to occur in the
+real world; however, it allows us to examine the isolated effect of
+occupation type on household income. =======
 
 We used the same level of education for each prediction in order to
 focus on the effect of occupation type. However, different occupations
@@ -621,6 +656,8 @@ the same education level for each of these predictions may not be
 representative of what is likely to occur in the real world; however, it
 allows us to examine the isolated effect of occupation type on household
 income.
+
+> > > > > > > 56cf569d7afed6a0e69f325005d320f8727a0072
 
 ### 3.2.4 Effect of “Documentation Type” on Wage
 
@@ -5620,4 +5657,15 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-3.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-4.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-27-3.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-27-4.png)<!-- -->
+
+### 5.8 ANOVA Tables
+
+| term      |  df |     sumsq |    meansq | statistic | p.value |
+| :-------- | --: | --------: | --------: | --------: | ------: |
+| occtype   |   3 |   3395674 | 1131891.3 |     4.081 |   0.007 |
+| Residuals | 494 | 137029505 |  277387.7 |        NA |      NA |
+
+    ## [1] 282545.6
+
+![](final-writeup_files/figure-gfm/confidence-intervals-occ-1.png)<!-- -->
