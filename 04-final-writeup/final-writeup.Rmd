@@ -900,7 +900,7 @@ ggplot(region, mapping = aes(x= Region, y =pred_hhincome ))+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Region Wage Gap")
 
 
-occupation <- data.frame("Occupation" = c( "Manufacturing", "Agriculture","Service", "Professional" ), "pred_hhincome" = c( 917.4427, 958.6091,1182.058 ,1182.06 ))
+occupation <- data.frame("Occupation" = c( "Manufacturing", "Agriculture","Service", "Professional" ), "pred_hhincome" = c( 905.50, 805.3087,944.1907 ,1013.31 ))
 ggplot(occupation, mapping = aes(x= Occupation, y =pred_hhincome ))+
   geom_col()+
   labs(y = "Predicted Household Income of Average Male Immigrant", title = "Occupation Wage Gap")
