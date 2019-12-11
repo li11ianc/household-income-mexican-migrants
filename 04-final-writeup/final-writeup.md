@@ -466,6 +466,18 @@ the most common occupation type in the data, undocumented the most
 common immigration status. The rest of the inputs are 0 since those
 predictors are mean-centered.
 
+    ##        fit      lwr      upr
+    ## 1 905.5048 814.7695 996.2402
+
+For a male who is 39 years old (average age), has 6 years of education
+(average edyrs), first immigrated to the US for 5 years (average
+duration), last immigrated to the US for 3 years and 7 months (average
+duration), works in manufacturing (most common occupation in the
+dataset), has undocumented status (most common documentation in the
+dataset), and was born in the region of of “Bajío”, his predicted salary
+is $905.50 We are 95% confident that the actual salary falls in the
+interval of \[814.77, 996.24\].
+
     ##        fit     lwr      upr
     ## 1 1560.119 1054.74 2065.498
 
@@ -512,7 +524,7 @@ Mexico is very large, including as low as 0 and as high as $1901.58.
 This could be due to the small sample size, as shown in the histogram
 below:
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 There are only actually 19 observations in the data from this region.
 
@@ -5554,4 +5566,4 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-3.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-4.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-3.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-4.png)<!-- -->
