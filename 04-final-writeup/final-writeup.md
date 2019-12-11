@@ -2,7 +2,7 @@ Characteristics of Recent Mexican Immigrants to California, USA, that
 Influence Household Income
 ================
 Ben 10
-12/05/2019
+12/10/2019
 
 ## Section 1: Introduction
 
@@ -49,45 +49,8 @@ and filtered out rows that contain N/A’s to create a new dataset labeled
 We will build a multiple linear regression model to predict household
 income considering the following variables: `sex`, `relhead`, `age`,
 `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`,
-`uscity`, `yrborn`.
-
-“X1”: Number of observation
-
-“sex”: Sex of immigrant
-
-“relhead”: Relationship to household head
-
-“yrborn”: Year of birth
-
-“age”: Age
-
-“statebrn”: State of birth
-
-“marstat”: Marital status
-
-“edyrs”: School years completed
-
-“occ”: Principal occupation
-
-“hhincome” : Household income
-
-“usstate1”: First US migration: State of residence
-
-“usstatel”: Latest US migration: State of residence
-
-“usplace1”: First US migration: City of residence (in place codes)
-
-“usplacel”: Latest US migration: City of residence (in place codes)
-
-“usdur1”: First US migration: Duration (in months)
-
-“usdurl”: Latest US migration: Duration (in months)
-
-“usdoc1”: Type of documentation during first US migration
-
-“occtype”: Category of occupation
-
-“uscity”: City of residence during first US migration
+`uscity`, `yrborn`. The data dictionary for these variables can be found
+in project-\>data-\>Data Dictionary
 
 Our response variable is household income: the total income for a single
 household. We chose to use the multiple linear regression because our
@@ -2826,9 +2789,6 @@ regions, this conclusion should be taken with caution – for example, we
 are notably missing data from two of the three states in the Yucatan
 Peninsula in the South East of Mexico, and over 50% of our data points
 are from the Pacific Coast.
-
-    ##   Agriculture Manufacturing  Professional       Service 
-    ##           115           203            36           144
 
 In terms of occupation type, as expected the highest incomes are found
 among professionals, with service and manufacturing workers close
@@ -7744,4 +7704,4 @@ for by our model.
     ## 1   Male        893.32
     ## 2 Female        590.11
 
-![](final-writeup_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-25-2.png)<!-- -->
+![](final-writeup_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->![](final-writeup_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
