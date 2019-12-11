@@ -1,8 +1,13 @@
 ---
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
+<<<<<<< HEAD
 date: "12/05/2019"
 output: pdf_document
+=======
+date: "12/10/2019"
+output: github_document
+>>>>>>> 18edcf22caf48834d4642980917a92d162d475fc
 ---
 
 ```{r setup, include=FALSE}
@@ -42,45 +47,7 @@ The MMP170 Database contains an initial file with general demographic, economic,
 
 ### 1.3 Method
 
-We will build a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`. 
-
-"X1": Number of observation
-
-"sex": Sex of immigrant
-  
-"relhead": Relationship to household head
-
-"yrborn": Year of birth
-
-"age": Age
-
-"statebrn": State of birth
-
-"marstat": Marital status
-
-"edyrs": School years completed
-
-"occ": Principal occupation
-
-"hhincome" : Household income
-
-"usstate1": First US migration: State of residence
-
-"usstatel": Latest US migration: State of residence
-
-"usplace1": First US migration: City of residence (in place codes)
-
-"usplacel": Latest US migration: City of residence (in place codes)
-
-"usdur1": First US migration: Duration (in months)
-
-"usdurl": Latest US migration: Duration (in months)
-
-"usdoc1": Type of documentation during first US migration
-
-"occtype": Category of occupation
-
-"uscity": City of residence during first US migration
+We will build a multiple linear regression model to predict household income considering the following variables: `sex`, `relhead`, `age`, `statebrn`, `marstat`, `edyrs`, `occtype`, `usdur1`, `usdurl`, `usdoc1`, `uscity`, `yrborn`. The data dictionary for these variables can be found in project->data->Data Dictionary
 
 Our response variable is household income: the total income for a single household. We chose to use the multiple linear regression because our response variable is numeric, and there are multiple predictor variables.
 
