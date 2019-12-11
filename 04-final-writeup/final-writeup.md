@@ -484,8 +484,6 @@ interval of \[814.77, 996.24\].
 For our default person born in “Central Mexico”, the predicted salary is
 $1560.12 We are 95% confident that the actual salary falls in the
 interval of \[1054.74, 2065.50\].
-<<<<<<< HEAD
-=======
 
 For a male who is 39 years old (average age), has 6 years of education
 (average edyrs), first immigrated to the US for 5 years (average
@@ -495,7 +493,10 @@ dataset), has undocumented status (most common documentation in the
 dataset), and was born in the region of of “Central Mexico”, his
 predicted salary is $1560.12 We are 95% confident that the actual salary
 falls in the interval of \[1054.74, 2065.50\].
->>>>>>> 8737fd38a3eda5b9bcecf0171a5c1e6d53186d12
+
+For our default person born in “Central Mexico”, the predicted salary is
+$1560.12 We are 95% confident that the actual salary falls in the
+interval of \[1054.74, 2065.50\].
 
     ##        fit      lwr      upr
     ## 1 976.4381 502.3831 1450.493
