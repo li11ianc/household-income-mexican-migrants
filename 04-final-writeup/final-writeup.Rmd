@@ -248,9 +248,7 @@ ggplot(occtypedist, aes(x = occtype))+
 We first filter out migrants with occupations indicating lack of paid employment, because our anaylsis focuses only on those migrants 
 
 
-## Section 2: Regression Analysis 
-
-## 2. Multiple Linear Regression Model
+## Section 2: Regression Analysis - Multiple Linear Regression Model
 
 We will use a multiple linear regression model in an effort to explain which characteristics of migrants influence their household income. 
 
