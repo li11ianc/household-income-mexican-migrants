@@ -2,7 +2,7 @@
 title: "Characteristics of Recent Mexican Immigrants to California, USA, that Influence Household Income"
 author: "Ben 10"
 date: "12/05/2019"
-output: pdf_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
