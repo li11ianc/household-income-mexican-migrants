@@ -399,6 +399,7 @@ For a male who is 39 years old (average age), has 6 years of education (average 
 x3 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Central Mexico", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x3, interval = "confidence")
 ```
+
 For a male who is 39 years old (average age), has 6 years of education (average edyrs), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), works in manufacturing (most common occupation in the dataset), has undocumented status (most common documentation in the dataset), and was born in the region of of "Central Mexico", his predicted salary is $1560.12 We are 95% confident that the actual salary falls in the interval of [1054.74, 2065.50].
 
 
