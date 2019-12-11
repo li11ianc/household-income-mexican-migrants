@@ -243,6 +243,13 @@ ggplot(occtypedist, aes(x = occtype))+
   labs(title = "Distribution of Type of Occupation", x = "Occupation Type", y = "Count")
 ```
 
+<<<<<<< HEAD
+=======
+
+We first filter out migrants with occupations indicating lack of paid employment, because our anaylsis focuses only on those migrants 
+
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ## Section 2: Regression Analysis 
 
 ## 2. Multiple Linear Regression Model
@@ -283,14 +290,26 @@ kable(tidy(full_int_new_2),format="html" ,digits=3)
 
 Model hidden due to length.
 
+<<<<<<< HEAD
 ### 2.3 Final Model
 
+=======
+
+### 2.3 Final Model
+
+```{r final}
+```
+### 2.3 Final model
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r final, results="hide"}
 reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
 
 ```
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r}
 sel_summary <- summary(reduced_int_new_2)
 tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
@@ -478,7 +497,10 @@ caldata %>%
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 4.6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r}
 x8 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x8, interval = "confidence")
@@ -489,6 +511,10 @@ For a male who is 39 years old (average age), has 7.25 years of education (avera
 ```{r}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```
 
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1013.31 We are 95% confident that the actual salary falls in the interval of [826.5249, 1200.102].
@@ -516,12 +542,20 @@ predict.lm(reduced_int_new_2, x8, interval = "confidence")
 For a male who is 39 years old (average age), has 7.25 years of education (average edyrs for Service industry workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $958.61 We are 95% confident that the actual salary falls in the interval of [862.97, 1054.25].
 
 ```{r, results="hide"}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 caldata %>%
   filter(occtype == "Professional") %>%
   select(edyrs) %>%
   summary()
 ```
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r, results="hide"}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
@@ -529,7 +563,13 @@ predict.lm(reduced_int_new_2, x9, interval = "confidence")
 
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1182.06 We are 95% confident that the actual salary falls in the interval of [991.18, 1372.94].
 
+<<<<<<< HEAD
 We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
+=======
+
+We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 
 ### 3.2.4 Effect of "Documentation Type" on Wage
 
