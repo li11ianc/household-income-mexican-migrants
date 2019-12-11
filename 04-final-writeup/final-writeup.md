@@ -546,6 +546,9 @@ the most common immigration status and many of the immigrants in the
 data set were born in the region of Bajío. The rest of the inputs are 0
 since those predictors are mean-centered.
 
+    ##        fit      lwr      upr
+    ## 1 917.4427 826.3196 1008.566
+
 For a male who is 39 years old (average age), has 6.281 years of
 education (average edyrs for Manufacturing), first immigrated to the US
 for 5 years (average duration), last immigrated to the US for 3 years
@@ -553,6 +556,9 @@ and 7 months (average duration), has undocumented status (most common
 documentation in the dataset), and was born in the region of “Bajío”,
 his predicted wage is $905.50 We are 95% confident that the actual
 salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##       fit     lwr     upr
+    ## 1 745.832 633.247 858.417
 
 For a male who is 39 years old (average age), has 4.6 years of education
 (average edyrs for Agriculture workers), first immigrated to the US for
@@ -572,6 +578,9 @@ to the US for 5 years (average duration), last immigrated to the US for
 common documentation in the dataset), and was born in the region of
 “Bajío”, his predicted wage is $905.50. We are 95% confident that the
 actual salary falls in the interval of \[814.7695, 996.2402\].
+
+    ##        fit      lwr     upr
+    ## 1 1182.058 991.1752 1372.94
 
 For a male who is 39 years old (average age), has 9.972 years of
 education (average edyrs for Professional workers), first immigrated to

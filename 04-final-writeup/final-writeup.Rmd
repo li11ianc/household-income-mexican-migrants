@@ -448,7 +448,7 @@ caldata %>%
   summary()
 ```
 
-```{r, results="hide"}
+```{r}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
 ```
@@ -465,7 +465,7 @@ caldata %>%
   summary()
 ```
 
-```{r,results="hide"}
+```{r}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 4.6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
 ```
@@ -495,7 +495,7 @@ caldata %>%
 ```
 
 
-```{r, results="hide"}
+```{r}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
 ```
