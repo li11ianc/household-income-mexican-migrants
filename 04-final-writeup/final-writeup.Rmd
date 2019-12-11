@@ -26,7 +26,7 @@ data <- read_csv("/cloud/project/03-regression-analysis/data.csv")
 ```
 
 
-## Section 1: Introduction 
+## Section 1: Introduction and Exploratory Data Analysis
 
 ### 1.1 Objective
 
@@ -46,19 +46,15 @@ We will build a multiple linear regression model to predict household income con
 
 Our response variable is household income. We chose to use the multiple linear regression because our response variable is numerical, and there are multiple predictor variables.
 
-## 2. Exploratory Data Analysis
-
-### 2.1 Data Cleaning
+### 1.4 Data Cleaning
 
 Our original data was extremely complex and necessitated us to clean our data extensively. All of our data cleaning can be found in the proposal. 
 
 However, we did make some adjustments according to the feedback Dr. Tackett, which can be found below.
 
-### 1.4 Updated Data Exploration
+### 1.5 Updated Data Exploration
 
-#### 1.4.1 Filter Only Immigrants in California
-
-According to our previous data exploration, we found that the overwhelming majority of immigrants settled in California, as shown in the graph below:
+#### 1.5.1 Filter Only Immigrants in California
 
 ```{r state-distribution-plot, results="hide"}
 statedist <- within(data, 
@@ -71,7 +67,7 @@ ggplot(statedist, aes(x = usstatel)) +
   labs(title = "Distribution of State of Residence", x= "State of Residence", y = "Count")
 ```
 
-Hence, we decided to concentrate on California alone. Since the originial dataset is large, we have enough data left in California alone to produce meaningful analysis.
+Given that a majority of the immigrants in the dataset settled in California, we have decided to concentrate on California immigrants, only.
 
 ```{r caldata, results="hide"}
 caldata <- data %>%
@@ -81,9 +77,9 @@ caldata <- caldata%>%
   na.omit()
 ```
 
-#### 1.4.2 Cut Household Income Groups
+#### 1.5.2 Cut Household Income Groups
 
-Originally, the distribution of Household Income- our response variable- was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions:
+Originally, the distribution of household income was bimodal and had a median of 412,647 dollars. A plot of household income in natural units reveals very little information, due to a scattering of very high incomes which blow up the range of the plot. However, a logged plot reveals that household income almost looks like 3 separate distributions.
 
 ```{r nonfilt-income-plot, fig.width = 10, results="hide"}
 incomeplot <- ggplot(data = caldata, aes(x = hhincome)) +
@@ -95,9 +91,9 @@ logincomeplot <- ggplot(data = caldata, aes(x = log(hhincome))) +
 cowplot::plot_grid(incomeplot, logincomeplot)
 ```
 
-We determined that 412,647 dollars is an absurdly high median income for a survey of largely undocumented immigrants in the US and believe that a significant chunk of the high incomes were actually recorded in pesos. The documentation for the data from the Mexican Migration Project does not specify unit of hhincome; however, the project site details that researchers surveyed communities in Mexico, then traveled to the US to survey communities there. It seems likely that the communities surveyed in Mexico would report income in pesos and those surveyed in the US would report income in USD. However, the data was collected over a period of 10 years, during which the exchange rate between pesos and USD changed significantly. Hence, we cannot simply convert all the incomes that appear to be recorded in pesos into USD. 
+We determined that 412,647 dollars is an absurdly high median income for a survey of largely undocumented immigrants in the U.S., and believe that a significant chunk of the incomes were recorded in pesos. The documentation for the data from the Mexican Migration Project does not specify the units of `hhincome`; however, the project site details that researchers surveyed communities in Mexico, then traveled to the US to survey communities there. It seems likely that the communities surveyed in Mexico would report income in pesos and those surveyed in the U.S. would report income in $USD. However, the data was collected over a period of 10 years, during which the exchange rate changed significantly. Therefore, we cannot convert all the incomes that appear to be recorded in pesos into USD. 
 
-Therefore, we decided to filter out the incomes above 60,000 to remove what appears to be a second distribution of incomes in pesos. We will also remove incomes of zero from our dataset, because it will interfere with our model accuracy. However, this compromises our model's predictive and explanatory range: our model will only be able to predict or explain the household income of those who already have jobs with income.
+Therefore, we decided to filter out the incomes above 60,000 to remove income that might be in pesos. We will also remove incomes of zero from consideration, because it will interfere with our model's explanatory scope, in that it can only explain income of employed persons.
 
 ```{r filter-hhincome,results="hide"}
 caldata <- caldata %>%
@@ -118,7 +114,7 @@ ggplot(data = caldata, aes(x = hhincome)) +
 
 Now the distribution of response variable (hhincome) looks like a right skewed normal distribution.
 
-#### 1.4.3 Group cities by region
+#### 1.5.3 Group Cities by Region
 
 ```{r cities, fig.align="center", results="hide"}
 caldata <- caldata %>%
@@ -134,29 +130,27 @@ ggplot(data = caldata, aes(x = uscity))+
   labs(title = "Distribution of Cities in California", x = "City", y = "Count")
 ```
 
-These immigrants to California arrived to the following cities: 
-
+We decided to group the cities to which immigrants to California arrived into the three categories, as follows. 
+ 
 Bay Area: Vallejo-Fairfield-Napa, San Francisco, San Jose, Santa Cruz-Watsonville
 
 Central California: Sacramento, Merced, Fresno, Bakersfield
 
 Southern California: Santa Barbara-Santa Maria-Lompoc, Ventura, Los Angeles-Long Beach, Orange County, Riverside-San Bernardino, and San Diego.
 
-We decided to simplify these cities into 3 regional categories: Bay Area, Southern California and Central California. 
-
 Given the comparatively small number of cases in which no city was reported, we deleted these instances. The majority of immigrants went to LA-Long Beach area in Southern California.
 
-#### 1.4.4 Remove Variable "relhead"
+#### 1.5.4 Remove Variable "relhead"
 
-It turned out that all values from relhead (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables since we are only using California data. We will also remove place data since we are using uscity, and occ since we are using occtype.
+It turned out that all values from `relhead` (relationship to head of household) in our cleaned data were "1" or head. So we will remove this variable, as well as state variables, since we are only using California data. We will also remove place data since we are using `uscity`, and `occ` since we are using `occtype`.
 
 ```{r remove-relhead, results="hide"}
 caldata <- subset(caldata, select = -c(relhead, usstatel, usstate1,usplace1, usplacel,occ) )
 ```
 
-#### 1.4.5 Mean-center "age" , "usdur1" and "usdurl"
+#### 1.5.5 Mean-center "age" , "usdur1" and "usdurl"
 
-We must center age and usdurl in order to have a useful model intercept interpretation.
+We must mean-center `age` and `usdurl` in order to have a meaningful intercept interpretation.
 
 ```{r mean-age-usdurl, echo=FALSE, results="hide"}
 mean(caldata$age) #mean age
@@ -176,7 +170,7 @@ caldata <- caldata %>%
   mutate(usdur1=usdur1-mean(usdur1))
 ```
 
-### 1.4.6 Remove El Salvador Data and regionalize state born variable
+### 1.5.6 Remove El Salvador Data and Regionalize State Born Variable
 
 ```{r states, fig.align="center", results="hide"}
 caldata <- caldata %>%
@@ -195,9 +189,9 @@ ggplot(statebrndist, aes(x = statebrn))+
   labs(title = "Distribution of Birth Region in Mexico", x = "Region", y = "Count")
 ```
 
-We do not have any data from seven states: Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán. We had a small amount of non-Mexican data, which we omitted.
+We do not have any data from seven states, Baja California Sur, Chiapas, Hidalgo, Quintana Roo, Sinaloa, Tlaxcala, and Yucatán and there was a small amount of non-Mexican data, which we omitted.
 
-We divided the remaining states into the following regions: 
+We divided the remaining states into the following regions. 
 
 South East Mexico: Tabasco, Oaxaca, Campeche, Veracruz
 
@@ -209,7 +203,7 @@ Central Mexico: Mexico City, México, Morelos, Puebla
 
 Pacific Coast: Colima, Guerrero, Jalisco, Michoacán, Nayarit 
 
-#### 1.4.7 Remove Obvious Collinear Variable
+#### 1.5.7 Remove Obvious Collinear Variable
 
 ```{r yrborn-age, fig.align = "center", results="hide"}
 ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
@@ -217,9 +211,11 @@ ggplot(data = caldata, mapping = aes(x = yrborn, y = age)) +
   labs(title = "Correlation Between Age and Year Born", x = "Year Born", y = "Age")
 ```
 
-`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration in the model.
+`yrborn` and `age` provide the same information and are perfectly linear, therefore we decided to remove `yrborn` from consideration.
 
-#### 1.4.8 Simplify Occupation Type
+#### 1.5.8 Simplify Occupation Type
+
+Our model only considers immigrants with paid jobs, so we filtered for paying occupations only.
 
 ```{r, results="hide"}
 caldata <- caldata %>%
@@ -247,41 +243,43 @@ ggplot(occtypedist, aes(x = occtype))+
   labs(title = "Distribution of Type of Occupation", x = "Occupation Type", y = "Count")
 ```
 
+<<<<<<< HEAD
+=======
+
 We first filter out migrants with occupations indicating lack of paid employment, because our anaylsis focuses only on those migrants 
 
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ## Section 2: Regression Analysis 
 
 ## 2. Multiple Linear Regression Model
 
-In an effort to explain which characteristics of migrants influence their household income, we will use a multiple linear regression model. Since our response variable is numerical with mulitple potential predictors, this is the best model at our disposal.
+We will use a multiple linear regression model in an effort to explain which characteristics of migrants influence their household income. 
 
-We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant. However, if the variables occtype, edyrs, or usdoc1 don't make it through the process of inital model selection, we will not include these interactions in the model as that would not be prudent. If other interactions appear significant, we will include these as well.
+We will consider the potential interaction between principal occupation and number of years of school completed, since those are generally interconnected. We may also consider the interaction between documentation type and occupation type, although the effect may be insignificant. However, if the variables `occtype`, `edyrs`, or `usdoc1` do not make it through the process of inital model selection, we will not include these interactions in the model as that would not be prudent. If other interactions appear significant, we will include these as well.
 
-We will select our model using AIC criteria, because since we're dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
-
+We will select our model using AIC criteria, since we are dealing with people, we want to build a model that accounts for volatile human nature and the ever-changing socioeconomic and political climate that could influence someone's household income. AIC is used when we would rather say a variable is a relevant predictor, when in reality it might not be and so in this case, we would rather err on the side of a false positive because we are dealing with a constantly fluctuating issue.
 
 ### 2.1 Description of Methods
 
-In our first multiple linear regression model, we included all 19 variables. Then, we used backwards model selection to reduce the model to 7 significant variables: edyrs, usdurl, sex, statebrn, usdoc1, occtype and age. We used AIC as the criterion because immigration is a complex social issue, hence we would prefer a model with many predictors and err on the side of false-positive, rather than having a leaner model.
+In our first multiple linear regression model, we included all 19 variables. Then, we used backwards model selection to reduce the model to 7 significant variables: `edyrs`, `usdurl`, `sex`, `statebrn`, `usdoc1`, `occtype` and `age`.
 
-After inital backwards selection, we will explore the possible interactions between remaining variables: edyrs, usdurl, sex, statebrn, usdoc1, occtype and age, to determine if any are significant.
+After backwards selection, we will explore the possible interactions between remaining variables: `edyrs`, `usdurl`, `sex`, `statebrn`, `usdoc1`, `occtype` and `age`, to determine if any are significant.
 The significant interactions that survived to our final model are: 
 
-age*edyrs: p = 0 < 0.05      
-(This interaction makes sense, because we expect older immigrants to be more educated)
-statebrn*edyrs: p = 0.001 < 0.05
-(This interaction makes sense, because we expect different region of Mexico have different level of development and hence access to education.)
-statebrn*usdurl: p = 0.005 < 0.05
-(This interaction makes sense, because immigrants from certain regions in Mexico may have a easier time staying longer in California because there is already a large community of immigrants from that region there.)
-age*usdoc1: p = .007 < 0.05
-(This interaction could make some sense, because the physical stamina required to immigrate illegally could be very related to age, and age is likely considered by the US government in applications for legal immigration status.)
-usdurl*usdoc1: p = .012 < 0.05
-(This interaction makes sense, because type of documentation and duration of migration would logically be highly related. Legal immigrants and contract workers can travel back and forth between Mexico and the US with greater ease than undocumented migrants, leading to potentially shorter stays, but they also don't face the same threat of deportation, which could possibly lead them to be able to stay in the US longer)
+age*edyrs: p-value = 0 < 0.05. This interaction makes sense, because we expect older immigrants to be more educated.
+
+statebrn*edyrs: p-value = 0.001 < 0.05. This interaction makes sense, because we expect different region of Mexico have different level of development and hence access to education.
+
+statebrn*usdurl: p-value = 0.005 < 0.05. This interaction makes sense, because immigrants from certain regions in Mexico may have a easier time staying longer in California because there is already a large community of immigrants from that region there.
+
+age*usdoc1: p-value = .007 < 0.05. This interaction could make some sense, because the physical stamina required to immigrate illegally could be very related to age, and age is likely considered by the US government in applications for legal immigration status.
+
+usdurl*usdoc1: p-value = .012 < 0.05. This interaction makes sense, because type of documentation and duration of migration would logically be highly related. Legal immigrants and contract workers can travel back and forth between Mexico and the US with greater ease than undocumented migrants, leading to potentially shorter stays, but they also don't face the same threat of deportation, which could possibly lead them to be able to stay in the US longer.
 
 We included these interactions in our original full model, and did backward selection again to get our final model.
 
 (Please see "Section 5 : Additional Work" for detailed coding process.)
-
 
 ### 2.2 Full Model after Evaluating Interactions
 
@@ -292,11 +290,26 @@ kable(tidy(full_int_new_2),format="html" ,digits=3)
 
 Model hidden due to length.
 
+<<<<<<< HEAD
+### 2.3 Final Model
+
+=======
+
+### 2.3 Final Model
+
+```{r final}
+```
 ### 2.3 Final model
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r final, results="hide"}
 reduced_int_new_2 <- step(full_int_new_2, direction = "backward")
 
 ```
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r}
 sel_summary <- summary(reduced_int_new_2)
 tidy(reduced_int_new_2, exponentiate = FALSE, conf.int = TRUE) %>%
@@ -312,13 +325,13 @@ We checked leverage, standardized residuals, estimate of standard deviation, Coo
 
 #### 2.4.1 Leverage
 
-Just under half of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Because human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.
+Just under half of our observations are high leverage points, meaning that their combinations of values for the predictor variables are very far from the typical combinations in the data. Since human circumstances and economic conditions are often so extremely variable, we would not expect most migrants to share common values for the predictor variables.
 
 Of the individuals in the data with high leverage, two are highly educated professionals, and three have 5 years of education and work in manufacturing jobs. All are male. Age, documentation, and duration of migration vary. These points are potentially, but not certainly, influential points, so we use other methods to sort out influential points.
 
 #### 2.4.2 Standardized Residuals
 
-The 6% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely- these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors. Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption.
+The 6% of our observations with standardized residuals of magnitude greater than 2 should be examined more closely as these are outliers, but they may not have an impact on the regression line. We can look plots of the standardized residuals versus all of our predictors. Plots of the standardized residuals for each predictor variable reveal that, for the most part, our data satisfies the constant variance assumption.
 
 #### 2.4.3 Estimate of Standard Deviation
 
@@ -326,7 +339,7 @@ The estimate of our regression standard deviation using all observations is 481.
 
 #### 2.4.4 Cook's Distance
 
-No observations have a Cook’s Distance greater than 1, thus none of the high leverage points exert significantly greater influence on the final coefficients of our model than the other points and could distort our explanations.
+No observations have a Cook’s Distance greater than 1. Thus, none of the high leverage points exert significantly greater influence on the final coefficients of our model than the other points do and could distort our explanations.
 
 #### 2.4.5 VIF
 
@@ -343,14 +356,13 @@ usdurl:	28.95936
 statebrnSouth East Mexico:	33.951032
 age:	34.366655
 
-It is likely the state born coefficients are collinear with education, as education is highly related to region in Mexico -- Central Mexico and Northern Mexico have the best schools, while the South East has the worst. Length of time in the US obviously will be correlated to age, as well. Additionally, the coefficients of the regions may have high collinearity because when we divided the birth state into regions, there are very few and very geographically sparse observations in the South East Mexico, and a lot more observations in Central Mexico. Hence, in order to make each region more representative, we included some of the ambiguous states that could possibly be included in both regions into South East Mexico. Since the geographical regional divide is subjective and continuous, we expect there to be collinearity.
+It is likely the state born coefficients are collinear with education, as education is highly related to region in Mexico: Central Mexico and Northern Mexico have the best schools, while the South East has the worst. Length of time in the U.S. obviously will be correlated to age, as well. Additionally, the coefficients of the regions may have high collinearity because when we divided the birth state into regions, there are very few and very geographically sparse observations in the South East Mexico, and a lot more observations in Central Mexico. Hence, in order to make each region more representative, we included some of the ambiguous states that could possibly be included in both regions into South East Mexico. Since the geographical regional divide is subjective and continuous, we expect there to be collinearity.
 
-The duration of time in the US is likely collinear with documentation status, as the longer a person lives in the US, the harder it is to be undocumented. 
-
+The duration of time in the U.S. is likely collinear with documentation status, as the longer a person lives in the U.S., the more likely they are to progress in the visa application process. 
 
 #### 2.4.6 Adjusted R-squared
 
-The adjusted R-squared of our final model is 0.1810094, meaning that our model explains around 18.1% of the variation in household income. This is a small percentage. However, given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-squared seems reasonable.
+The adjusted R-squared of our final model is 0.1810094, meaning that our model explains around 18.1% of the variation in household income. Given that there are numerous social determinants of income, and we only included Californian data and those who have income between 1 and 60,000, the R-squared seems reasonable.
 
 
 ## Section 3: Discussion and Limitations 
@@ -448,7 +460,6 @@ It may also be because this region was artifiically created from 4 distinct cult
 
 We used male as a model input because the majority of the immigrants in our data set are male.  We used edyrs = 6 as the input because it is the average number of years of education for the data set. Undocumented is the most common immigration status and many of the immigrants in the data set were born in the region of Bajío. The rest of the inputs are 0 since those predictors are mean-centered.
 
-<<<<<<< HEAD
 ```{r, results="hide"}
 caldata %>%
   filter(occtype == "Manufacturing") %>%
@@ -459,7 +470,8 @@ caldata %>%
 ```{r, results="hide"}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6.281, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
-=======
+```
+
 ```{r}
 x6 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x6, interval = "confidence")
@@ -470,12 +482,10 @@ For a male who is 39 years old (average age), has 6 years of education (average 
 ```{r}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
->>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
 ```
 
 For a male who is 39 years old (average age), has 4.6 years of education (average edyrs for Agriculture workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $805.31. We are 95% confident that the actual salary falls in the interval of [695.6034, 915.0141].
 
-<<<<<<< HEAD
 ```{r,results="hide"}
 caldata %>%
   filter(occtype == "Agriculture") %>%
@@ -486,7 +496,11 @@ caldata %>%
 ```{r,results="hide"}
 x7 <- data.frame(sex = "M" , age = 0, edyrs = 4.6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Agriculture", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x7, interval = "confidence")
+```
+<<<<<<< HEAD
+
 =======
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r}
 x8 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Manufacturing", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x8, interval = "confidence")
@@ -497,7 +511,10 @@ For a male who is 39 years old (average age), has 7.25 years of education (avera
 ```{r}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 6, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
->>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```
 
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1013.31 We are 95% confident that the actual salary falls in the interval of [826.5249, 1200.102].
@@ -515,7 +532,6 @@ caldata %>%
   filter(occtype == "Service") %>%
   select(edyrs) %>%
   summary()
-<<<<<<< HEAD
 ```
 
 ```{r, results="hide"}
@@ -526,8 +542,10 @@ predict.lm(reduced_int_new_2, x8, interval = "confidence")
 For a male who is 39 years old (average age), has 7.25 years of education (average edyrs for Service industry workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $958.61 We are 95% confident that the actual salary falls in the interval of [862.97, 1054.25].
 
 ```{r, results="hide"}
+<<<<<<< HEAD
 =======
->>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 caldata %>%
   filter(occtype == "Professional") %>%
   select(edyrs) %>%
@@ -535,6 +553,9 @@ caldata %>%
 ```
 
 <<<<<<< HEAD
+=======
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 ```{r, results="hide"}
 x9 <- data.frame(sex = "M" , age = 0, edyrs = 9.972, usdur1 = 0, usdurl = 0, statebrn="Bajío", occtype = "Professional", usdoc1 = "Undocumented")
 predict.lm(reduced_int_new_2, x9, interval = "confidence")
@@ -542,10 +563,13 @@ predict.lm(reduced_int_new_2, x9, interval = "confidence")
 
 For a male who is 39 years old (average age), has 9.972 years of education (average edyrs for Professional workers), first immigrated to the US for 5 years (average duration), last immigrated to the US for 3 years and 7 months (average duration), has undocumented status (most common documentation in the dataset), and was born in the region of "Bajío", his predicted wage is $1182.06 We are 95% confident that the actual salary falls in the interval of [991.18, 1372.94].
 
-
-=======
+<<<<<<< HEAD
 We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
->>>>>>> 3ed1d243e6748e1e172716272cb8b6e80961f99d
+=======
+
+We used the same level of education for each prediction in order to focus on the effect of occupation type. However, different occupations tend to require different levels of education- for agriculture, manufacturing, service, and professional occupations the mean years spent in education are 4.6, 6.281, 7.25, and 9.972 respectively. Using the same education level for each of these predictions may not be representative of what is likely to occur in the real world; however, it allows us to examine the isolated effect of occupation type on household income.
+
+>>>>>>> 77800e331456c33e70ae60ec9db5f1a64f9cd53f
 
 ### 3.2.4 Effect of "Documentation Type" on Wage
 
@@ -579,8 +603,6 @@ For a male who is 39 years old (average age), has 6.281 years of education (aver
 
 The prediction suggest a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers. This is counter intuitive because one would imagine legal residents to earn more. However, this could be due to the relative imbalance in the observations in the two groups: the number of observations in "Legal resident" is significantly fewer than that in "Contract - Barcero".
 
-
-
 ## Section 4: Conclusion
 
 Through our exploration and analysis, we found sex, age, years of education, occupation type, documentation type, duration of last US immigration and region born to be significant predictors of household income of Mexican immigrant living in California. Among these, there are significant interactions between:
@@ -598,8 +620,6 @@ We also observed regional differences in terms of where the immigrant was born. 
 In terms of occupation type, as expected the highest incomes are found among professionals, with service and manufacturing workers close behind. As anticipated, agricultural workers had the lowest income. In this case, our data is robust, as each category has over 30 datapoints. 
 
 In terms of documentation type, we observed a hierarchy in wage discrimination based on the immigrants' documentation type. Immigrants who have "contract - barcero" documentation earn the highest predicted household income, followed by legal residents, undocumented, and lastly temporary workers.
-
-
 
 ## Section 5: Additional Work
 
